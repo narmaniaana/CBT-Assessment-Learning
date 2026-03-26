@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 15 — Homework Design and Troubleshooting</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.7;
+    padding: 32px 16px 80px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  .lesson-header {
+    text-align: center;
+    padding: 48px 32px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 24px rgba(79,70,229,0.25);
+  }
+  .lesson-header .lesson-number {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 8px;
+  }
+  .lesson-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .lesson-header .subtitle {
+    font-size: 16px;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+  .card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .card h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #4f46e5;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .card h2 .num {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #312e81;
+    margin: 20px 0 10px;
+  }
+  .card p, .card li { font-size: 15px; color: #334155; }
+  .card ul, .card ol { padding-left: 24px; margin: 10px 0; }
+  .card li { margin-bottom: 8px; }
+  .highlight-box {
+    background: #eef2ff;
+    border-left: 4px solid #6366f1;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .highlight-box.warning {
+    background: #fef3c7;
+    border-left-color: #f59e0b;
+  }
+  .highlight-box.green {
+    background: #ecfdf5;
+    border-left-color: #10b981;
+  }
+  .highlight-box strong { color: #1e293b; }
+  .script-box {
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 14px 0;
+    font-size: 14px;
+    border: 1px solid #e2e8f0;
+  }
+  .script-box .label {
+    font-weight: 600;
+    color: #6366f1;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .script-box p {
+    font-style: italic;
+    color: #475569;
+    line-height: 1.6;
+  }
+  details {
+    background: #faf5ff;
+    border: 1px solid #e9d5ff;
+    border-radius: 12px;
+    margin: 14px 0;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 14px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #7c3aed;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  details summary::before {
+    content: "\25B6";
+    font-size: 11px;
+    transition: transform 0.2s;
+  }
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details .answer {
+    padding: 0 20px 16px;
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.6;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th {
+    background: #6366f1;
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+  }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .exam-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 32px;
+    margin-top: 40px;
+    border-top: 4px solid #6366f1;
+  }
+  .exam-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #4f46e5;
+    margin-bottom: 8px;
+  }
+  .exam-section .exam-subtitle {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  .question-block {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .question-block p.q-text {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1e293b;
+    margin-bottom: 12px;
+  }
+  .question-block label {
+    display: block;
+    padding: 10px 16px;
+    margin: 4px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #334155;
+    transition: background 0.15s;
+  }
+  .question-block label:hover { background: #eef2ff; }
+  .question-block input[type="radio"] { margin-right: 10px; accent-color: #6366f1; }
+  .question-block .feedback {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    display: none;
+  }
+  .question-block .feedback.correct {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+  }
+  .question-block .feedback.incorrect {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+  .btn-submit {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(79,70,229,0.35);
+  }
+  .btn-copy {
+    background: #e0e7ff;
+    color: #4338ca;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    display: none;
+  }
+  .btn-copy:hover { background: #c7d2fe; }
+  .result-box {
+    margin-top: 20px;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+    display: none;
+  }
+  .result-box h3 { font-size: 20px; margin-bottom: 6px; }
+  .result-box p { font-size: 15px; }
+  .result-green { background: #ecfdf5; color: #065f46; border: 2px solid #34d399; }
+  .result-yellow { background: #fffbeb; color: #92400e; border: 2px solid #fbbf24; }
+  .result-red { background: #fef2f2; color: #991b1b; border: 2px solid #f87171; }
+  .toc {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 24px 32px;
+    margin-bottom: 24px;
+  }
+  .toc h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { margin: 6px 0; }
+  .toc a {
+    color: #6366f1;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .toc a:hover { text-decoration: underline; }
+  @media (max-width: 640px) {
+    .lesson-header h1 { font-size: 24px; }
+    .card { padding: 20px; }
+    .exam-section { padding: 20px; }
+  }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+
+<style>
+.lesson-nav-top {
+  position: sticky; top: 0; z-index: 999;
+  background: rgba(248,250,252,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 100%;
+}
+.lesson-nav-top a {
+  text-decoration: none; color: #2ABFBF; font-size: 0.85rem; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.lesson-nav-top a:hover { color: #1A8A8A; }
+.lesson-nav-top .nav-title { font-size: 0.8rem; color: #64748b; font-weight: 500; }
+.lesson-nav-bottom {
+  max-width: 900px; margin: 40px auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.lesson-nav-bottom a {
+  text-decoration: none; padding: 12px 24px; border-radius: 12px;
+  font-size: 0.9rem; font-weight: 600; font-family: 'Inter', sans-serif;
+  transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.lesson-nav-bottom .nav-prev { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+.lesson-nav-bottom .nav-prev:hover { background: #e2e8f0; }
+.lesson-nav-bottom .nav-home { background: #e6fafa; color: #2ABFBF; border: 1px solid #99ebeb; }
+.lesson-nav-bottom .nav-home:hover { background: #ccf5f5; }
+.lesson-nav-bottom .nav-next { background: linear-gradient(135deg, #2ABFBF, #1A8A8A); color: white; border: none; }
+.lesson-nav-bottom .nav-next:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(42,191,191,0.3); }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+</head>
+<body>
+<div class="lesson-nav-top">
+  <a href="index.html">← Back to Assessment</a>
+  <span class="nav-title">Lesson 15 of 18</span>
+</div>
+
+
+<div class="container">
+
+  <div class="lesson-header">
+    <div class="lesson-number">Lesson 15</div>
+    <h1>Homework Design & Troubleshooting</h1>
+    <div class="subtitle">How to design effective between-session assignments and overcome non-compliance</div>
+  </div>
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul>
+      <li><a href="#s1">1. Why Homework Matters in CBT</a></li>
+      <li><a href="#s2">2. Principles of Good CBT Homework</a></li>
+      <li><a href="#s3">3. Types of CBT Homework</a></li>
+      <li><a href="#s4">4. Troubleshooting Non-Compliance</a></li>
+      <li><a href="#s5">5. Common Mistakes Therapists Make</a></li>
+      <li><a href="#exam">Final Scored Exam</a></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="card" id="s1">
+    <h2><span class="num">1</span>Why Homework Matters in CBT</h2>
+    <p>If you remember only one thing from this lesson, let it be this: <strong>CBT happens between sessions, not just in them.</strong> The therapy hour is where skills are taught and practiced, but real change occurs when clients apply those skills in their daily lives.</p>
+
+    <div class="highlight-box">
+      <strong>Research Finding:</strong> A meta-analysis by Kazantzis et al. (2016) found that clients who regularly complete CBT homework show significantly better treatment outcomes than those who do not — with effect sizes ranging from moderate to large.
+    </div>
+
+    <h3>What Homework Actually Does</h3>
+    <ul>
+      <li><strong>Practice:</strong> Just like learning a musical instrument, cognitive and behavioral skills require repetition to become automatic. A single in-session thought record is not enough.</li>
+      <li><strong>Consolidation:</strong> Between-session work helps clients internalize session insights before they fade. Memory for therapeutic material decays rapidly without reinforcement.</li>
+      <li><strong>Generalization:</strong> Clients need to apply skills across different situations, not just the example discussed in session. Homework bridges the gap between the therapy room and real life.</li>
+      <li><strong>Empowerment:</strong> Completing assignments helps clients see that THEY are the agent of change, not the therapist. This builds self-efficacy.</li>
+    </ul>
+
+    <div class="highlight-box green">
+      <strong>Terminology Note:</strong> Some clients react negatively to the word "homework" (associations with school). Alternatives include: "between-session assignments," "action plans," "practice tasks," "experiments," or "self-help activities." Use whatever term your client responds to best.
+    </div>
+
+    <details>
+      <summary>Reflection: Why do you think some CBT therapists skip homework entirely?</summary>
+      <div class="answer">
+        Common reasons include: feeling it's "too directive," fear of seeming authoritarian, not knowing how to handle non-compliance, running out of session time, or simply forgetting. Some therapists also worry that assigning homework will damage the therapeutic relationship. However, research shows that collaborative homework assignment actually strengthens the alliance when done well.
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="card" id="s2">
+    <h2><span class="num">2</span>Principles of Good CBT Homework</h2>
+
+    <p>Not all homework is created equal. Poorly designed assignments can be worse than no homework at all — they frustrate clients, damage the alliance, and reinforce a sense of failure. Here are the key principles:</p>
+
+    <h3>The 7 Rules of Effective Homework</h3>
+
+    <table>
+      <tr>
+        <th>Principle</th>
+        <th>Why It Matters</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><strong>1. Flows from session</strong></td>
+        <td>Ensures relevance and logical connection</td>
+        <td>After discussing avoidance patterns, assign a behavioral experiment testing one avoided situation</td>
+      </tr>
+      <tr>
+        <td><strong>2. Client understands rationale</strong></td>
+        <td>Increases motivation and compliance</td>
+        <td>"We're doing this to test whether your prediction actually comes true"</td>
+      </tr>
+      <tr>
+        <td><strong>3. Collaboratively designed</strong></td>
+        <td>Client ownership increases follow-through</td>
+        <td>"What situation would be good to try this with?" rather than "Do X on Tuesday"</td>
+      </tr>
+      <tr>
+        <td><strong>4. Specific &amp; concrete</strong></td>
+        <td>Vague = not done</td>
+        <td>"Complete one thought record each evening before bed" NOT "try to notice your thoughts"</td>
+      </tr>
+      <tr>
+        <td><strong>5. Difficulty-appropriate</strong></td>
+        <td>Too hard = failure; too easy = no learning</td>
+        <td>Start with an item rated 3/10 difficulty, not 8/10</td>
+      </tr>
+      <tr>
+        <td><strong>6. Written down</strong></td>
+        <td>Reduces forgetting, signals importance</td>
+        <td>Both therapist and client have a copy — use a homework sheet</td>
+      </tr>
+      <tr>
+        <td><strong>7. Always reviewed</strong></td>
+        <td>Sends message: "This matters"</td>
+        <td>First agenda item in next session: "Let's look at what you tried this week"</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box warning">
+      <strong>Critical Point:</strong> If you assign homework but don't review it at the start of the next session, you are communicating to your client that the homework doesn't actually matter. This is one of the fastest ways to kill homework compliance.
+    </div>
+
+    <details>
+      <summary>Example dialogue: Collaboratively designing homework</summary>
+      <div class="answer">
+        <strong>Therapist:</strong> "So we've been looking at how your thought 'everyone will judge me' stops you from speaking up in meetings. Based on what we worked on today, what might be useful to try this week?"<br><br>
+        <strong>Client:</strong> "Maybe I could try saying something in a meeting?"<br><br>
+        <strong>Therapist:</strong> "That's a great idea. Let's make it really specific. Which meeting would work best?"<br><br>
+        <strong>Client:</strong> "The Wednesday team meeting is smaller — maybe 6 people."<br><br>
+        <strong>Therapist:</strong> "Perfect. And what would you aim to do?"<br><br>
+        <strong>Client:</strong> "Ask one question or make one comment."<br><br>
+        <strong>Therapist:</strong> "Great. And before the meeting, I'd like you to write down your prediction — what you think will happen. Then after, write down what actually happened. Sound doable?"<br><br>
+        <strong>Client:</strong> "Yes, I think I can do that."<br><br>
+        <strong>Therapist:</strong> "Let's write this down so we both have it."
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="card" id="s3">
+    <h2><span class="num">3</span>Types of CBT Homework</h2>
+
+    <p>CBT offers a rich variety of homework types. The best therapists match the assignment to the client's current needs, skills, and stage of therapy.</p>
+
+    <h3>Self-Monitoring Tasks</h3>
+    <ul>
+      <li><strong>Thought Records:</strong> The classic CBT homework — identify a situation, emotions, automatic thoughts, evidence for/against, and a balanced alternative.</li>
+      <li><strong>Mood Logs:</strong> Rate mood 0-10 at set times each day. Helps identify patterns (worse in mornings? Better on weekdays?).</li>
+      <li><strong>Activity Monitoring:</strong> Hourly or block-by-block log of activities with pleasure (0-10) and mastery (0-10) ratings. Foundation for behavioral activation.</li>
+    </ul>
+
+    <h3>Behavioral Experiments</h3>
+    <p>The gold standard of CBT homework. Client identifies a prediction ("If I say no, they'll be angry"), then tests it in real life and records the actual outcome.</p>
+    <div class="script-box">
+      <div class="label">Example Assignment</div>
+      <p>"This week, say no to one request from a colleague. Before you do it, write down: (1) Your prediction of what will happen, (2) How strongly you believe it (0-100%). After, write down: (3) What actually happened, (4) How strongly you now believe your original prediction."</p>
+    </div>
+
+    <h3>Behavioral Activation Tasks</h3>
+    <ul>
+      <li>Schedule specific pleasurable or meaningful activities</li>
+      <li>Use activity monitoring data to plan — increase high-pleasure/mastery activities</li>
+      <li>Start small: "Walk for 10 minutes on Monday and Thursday" not "exercise every day"</li>
+    </ul>
+
+    <h3>Exposure Tasks</h3>
+    <ul>
+      <li>Client practices items from their fear hierarchy between sessions</li>
+      <li>Must include instructions for staying in the situation long enough for anxiety to reduce</li>
+      <li>Record SUDS (Subjective Units of Distress) before, during, and after</li>
+    </ul>
+
+    <h3>Psychoeducation / Reading</h3>
+    <ul>
+      <li>Selected chapters from self-help books (e.g., "Mind Over Mood")</li>
+      <li>Worksheets covering specific concepts</li>
+      <li>Keep it focused — one reading per week maximum</li>
+    </ul>
+
+    <h3>Skills Practice</h3>
+    <ul>
+      <li>Relaxation: progressive muscle relaxation, diaphragmatic breathing</li>
+      <li>Mindfulness: 5-minute daily practice using a guided audio</li>
+      <li>Practice should be scheduled, not "whenever you remember"</li>
+    </ul>
+
+    <h3>Surveys</h3>
+    <p>Underused but powerful. Client asks others for information to test a belief.</p>
+    <div class="script-box">
+      <div class="label">Example</div>
+      <p>Client believes: "Nobody else ever feels anxious in social situations." Homework: "Ask three people you trust whether they ever feel nervous in social situations. Record their answers."</p>
+    </div>
+
+    <details>
+      <summary>Which homework type for which stage of therapy?</summary>
+      <div class="answer">
+        <strong>Early therapy (Sessions 1-3):</strong> Self-monitoring, psychoeducation, simple mood tracking. Build the habit of homework.<br><br>
+        <strong>Middle therapy (Sessions 4-10):</strong> Thought records, behavioral experiments, exposure tasks, behavioral activation. The "heavy lifting" phase.<br><br>
+        <strong>Late therapy (Sessions 11+):</strong> Independent application of skills to new situations, relapse prevention planning, generalizing gains. Reduce therapist scaffolding.
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="card" id="s4">
+    <h2><span class="num">4</span>Troubleshooting Non-Compliance</h2>
+
+    <div class="highlight-box warning">
+      <strong>Golden Rule:</strong> NEVER guilt-trip, lecture, or express disappointment about undone homework. Non-compliance is clinical data, not a character flaw. Your job is to understand it, not punish it.
+    </div>
+
+    <p>When a client hasn't done their homework, your first move is always: <strong>"What got in the way?"</strong> Then listen carefully — the barrier tells you what to do next.</p>
+
+    <h3>Barrier Type 1: Practical Barriers</h3>
+    <p><em>"I forgot," "I was too busy," "I lost the sheet"</em></p>
+    <div class="script-box">
+      <div class="label">Therapist Script</div>
+      <p>"That makes sense — life gets busy. Let's problem-solve this. What would help you remember? Would a phone reminder work? Or keeping the sheet somewhere you'll see it, like your bedside table?"</p>
+    </div>
+    <ul>
+      <li>Set phone reminders/alarms</li>
+      <li>Simplify the task (fewer days, shorter form)</li>
+      <li>Link it to an existing routine ("do it right after brushing teeth")</li>
+      <li>Use apps instead of paper if that suits the client</li>
+    </ul>
+
+    <h3>Barrier Type 2: Emotional Barriers</h3>
+    <p><em>"I was too depressed," "I felt too anxious to try"</em></p>
+    <div class="script-box">
+      <div class="label">Therapist Script</div>
+      <p>"That's really important information. The fact that your depression stopped you from doing the activity is exactly the cycle we're trying to break. Let's look at what thoughts came up when you considered doing the homework..."</p>
+    </div>
+    <ul>
+      <li>This IS the problem — use it as therapeutic material</li>
+      <li>Explore what thoughts/feelings arose when they considered doing it</li>
+      <li>Often reveals core beliefs ("There's no point, nothing will help")</li>
+      <li>Scale down the task so it's achievable even on bad days</li>
+    </ul>
+
+    <h3>Barrier Type 3: Cognitive Barriers</h3>
+    <p><em>"It won't help anyway," "This is stupid," "I shouldn't need to do homework"</em></p>
+    <div class="script-box">
+      <div class="label">Therapist Script</div>
+      <p>"Interesting — 'It won't help anyway.' That actually sounds like an automatic thought. Can we put that on the thought record right now? What's the evidence for and against that belief?"</p>
+    </div>
+    <ul>
+      <li>These beliefs ARE automatic thoughts — challenge them using CBT tools</li>
+      <li>"I shouldn't need homework" may reflect a belief about being defective</li>
+      <li>Revisit the rationale — maybe it wasn't clear enough the first time</li>
+    </ul>
+
+    <h3>Barrier Type 4: Task Too Difficult</h3>
+    <p><em>"I tried but couldn't do it," "It was too overwhelming"</em></p>
+    <div class="script-box">
+      <div class="label">Therapist Script</div>
+      <p>"Thank you for trying — that took courage. It sounds like we aimed a bit high this week. Let's break this down into smaller steps. What would be a version of this that feels more manageable?"</p>
+    </div>
+    <ul>
+      <li>Scale down: fewer days, simpler version, shorter duration</li>
+      <li>Break into sub-steps</li>
+      <li>Do part of it in session first to build confidence</li>
+      <li>Praise the attempt, not just the completion</li>
+    </ul>
+
+    <details>
+      <summary>What if the client NEVER does homework despite all troubleshooting?</summary>
+      <div class="answer">
+        If persistent non-compliance continues, consider:<br><br>
+        1. <strong>Is CBT the right fit?</strong> Some clients may benefit more from a less structured approach at this time.<br>
+        2. <strong>Is the therapeutic relationship strong enough?</strong> Non-compliance can be a sign of alliance problems.<br>
+        3. <strong>Is there a pattern?</strong> Chronic avoidance might itself be a therapy target.<br>
+        4. <strong>Have an honest meta-conversation:</strong> "I've noticed homework has been difficult. I want to understand what's happening so we can make therapy work better for you."<br>
+        5. <strong>Consider in-session work:</strong> If between-session homework truly isn't possible, maximize in-session practice and be realistic about the pace of progress.
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="card" id="s5">
+    <h2><span class="num">5</span>Common Mistakes Therapists Make</h2>
+
+    <table>
+      <tr>
+        <th>Mistake</th>
+        <th>Why It's a Problem</th>
+        <th>What to Do Instead</th>
+      </tr>
+      <tr>
+        <td>Assigning without rationale</td>
+        <td>Client doesn't know WHY and won't be motivated</td>
+        <td>Always explain the purpose in client-friendly language</td>
+      </tr>
+      <tr>
+        <td>Making it too complex</td>
+        <td>Overwhelms the client, sets them up for failure</td>
+        <td>Start simple, increase complexity gradually</td>
+      </tr>
+      <tr>
+        <td>Making it too easy</td>
+        <td>No therapeutic value, client doesn't learn</td>
+        <td>Match difficulty to the client's current functioning level</td>
+      </tr>
+      <tr>
+        <td>Not reviewing at next session</td>
+        <td>Signals homework doesn't matter</td>
+        <td>Make homework review the FIRST agenda item</td>
+      </tr>
+      <tr>
+        <td>Not writing it down</td>
+        <td>Client forgets the specifics</td>
+        <td>Always write it; both parties keep a copy</td>
+      </tr>
+      <tr>
+        <td>Same assignment every week</td>
+        <td>Boring, client disengages, no progression</td>
+        <td>Vary tasks and increase difficulty as skills build</td>
+      </tr>
+      <tr>
+        <td>Taking non-compliance personally</td>
+        <td>Damages the alliance, creates power struggle</td>
+        <td>Stay curious, not frustrated; it's clinical data</td>
+      </tr>
+      <tr>
+        <td>Assigning at the last minute</td>
+        <td>Feels rushed, no time to collaborate or clarify</td>
+        <td>Plan for homework discussion in the session structure (leave 5-10 min at the end)</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box green">
+      <strong>Pro Tip:</strong> Keep a homework log for each client. Track what was assigned, whether it was completed, and what barriers arose. Over time, patterns emerge that inform your approach.
+    </div>
+
+    <details>
+      <summary>Self-Assessment: How many of these mistakes have you made?</summary>
+      <div class="answer">
+        Don't worry — every therapist has made most of these at some point. The goal isn't perfection; it's awareness. Now that you know these pitfalls, you can systematically avoid them. Consider picking the ONE mistake you make most often and focusing on correcting it this week.
+      </div>
+    </details>
+  </div>
+
+  <!-- EXAM -->
+  <div class="exam-section" id="exam">
+    <h2>Final Scored Exam</h2>
+    <p class="exam-subtitle">8 questions — select the best answer for each, then click "Submit Exam" to see your score.</p>
+
+    <form id="examForm">
+
+      <div class="question-block" id="q1block">
+        <p class="q-text">1. According to research, what is the relationship between homework completion and CBT outcomes?</p>
+        <label><input type="radio" name="q1" value="a"> There is no significant relationship</label>
+        <label><input type="radio" name="q1" value="b"> Clients who complete homework show significantly better outcomes</label>
+        <label><input type="radio" name="q1" value="c"> Homework only helps for anxiety disorders, not depression</label>
+        <label><input type="radio" name="q1" value="d"> Homework helps, but only when therapist-assigned (not collaborative)</label>
+        <div class="feedback" id="fb1"></div>
+      </div>
+
+      <div class="question-block" id="q2block">
+        <p class="q-text">2. A client says they didn't do their homework because "it won't help anyway." How should you respond?</p>
+        <label><input type="radio" name="q2" value="a"> Explain that homework is mandatory and they must do it</label>
+        <label><input type="radio" name="q2" value="b"> Assign a different, easier homework task instead</label>
+        <label><input type="radio" name="q2" value="c"> Recognize this as an automatic thought and use CBT techniques to examine it</label>
+        <label><input type="radio" name="q2" value="d"> Accept their decision and don't assign homework anymore</label>
+        <div class="feedback" id="fb2"></div>
+      </div>
+
+      <div class="question-block" id="q3block">
+        <p class="q-text">3. Which of the following is the BEST example of a well-designed homework assignment?</p>
+        <label><input type="radio" name="q3" value="a"> "Try to think more positively this week"</label>
+        <label><input type="radio" name="q3" value="b"> "Complete one thought record each evening before bed, focusing on the situation that caused the strongest emotion that day"</label>
+        <label><input type="radio" name="q3" value="c"> "Read chapters 3 through 12 of this CBT workbook"</label>
+        <label><input type="radio" name="q3" value="d"> "Do some relaxation exercises when you feel stressed"</label>
+        <div class="feedback" id="fb3"></div>
+      </div>
+
+      <div class="question-block" id="q4block">
+        <p class="q-text">4. When should homework be reviewed in the session?</p>
+        <label><input type="radio" name="q4" value="a"> At the end of the session if time permits</label>
+        <label><input type="radio" name="q4" value="b"> Only when the client brings it up</label>
+        <label><input type="radio" name="q4" value="c"> As the first agenda item at the start of the next session</label>
+        <label><input type="radio" name="q4" value="d"> It doesn't matter when, as long as it's reviewed eventually</label>
+        <div class="feedback" id="fb4"></div>
+      </div>
+
+      <div class="question-block" id="q5block">
+        <p class="q-text">5. A client reports they "felt too depressed to do the homework." The most therapeutic response is:</p>
+        <label><input type="radio" name="q5" value="a"> Reassure them that missing one week is fine</label>
+        <label><input type="radio" name="q5" value="b"> Express disappointment and emphasize the importance of homework</label>
+        <label><input type="radio" name="q5" value="c"> Explore what this tells us about the depression cycle and use it as therapeutic material</label>
+        <label><input type="radio" name="q5" value="d"> Discontinue homework assignments since they clearly aren't working</label>
+        <div class="feedback" id="fb5"></div>
+      </div>
+
+      <div class="question-block" id="q6block">
+        <p class="q-text">6. In a behavioral experiment homework assignment, the client must record:</p>
+        <label><input type="radio" name="q6" value="a"> Only what happened during the experiment</label>
+        <label><input type="radio" name="q6" value="b"> Their prediction beforehand AND the actual outcome</label>
+        <label><input type="radio" name="q6" value="c"> Only their emotional reaction</label>
+        <label><input type="radio" name="q6" value="d"> A list of cognitive distortions they used</label>
+        <div class="feedback" id="fb6"></div>
+      </div>
+
+      <div class="question-block" id="q7block">
+        <p class="q-text">7. Which of the following is NOT a recommended principle for designing CBT homework?</p>
+        <label><input type="radio" name="q7" value="a"> Homework should be collaboratively designed with the client</label>
+        <label><input type="radio" name="q7" value="b"> Both therapist and client should have a written copy</label>
+        <label><input type="radio" name="q7" value="c"> The same assignment should be given each week for consistency</label>
+        <label><input type="radio" name="q7" value="d"> The client should understand the rationale for the assignment</label>
+        <div class="feedback" id="fb7"></div>
+      </div>
+
+      <div class="question-block" id="q8block">
+        <p class="q-text">8. A survey homework (asking others about their experiences) is most useful for addressing which type of cognitive distortion?</p>
+        <label><input type="radio" name="q8" value="a"> Catastrophizing</label>
+        <label><input type="radio" name="q8" value="b"> Emotional reasoning</label>
+        <label><input type="radio" name="q8" value="c"> Mind reading and beliefs about being the "only one" who experiences something</label>
+        <label><input type="radio" name="q8" value="d"> All-or-nothing thinking</label>
+        <div class="feedback" id="fb8"></div>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="gradeExam()">Submit Exam</button>
+      <button type="button" class="btn-copy" id="copyBtn" onclick="copyResults()">Copy Results</button>
+    </form>
+
+    <div class="result-box" id="resultBox">
+      <h3 id="resultTitle"></h3>
+      <p id="resultText"></p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const answers = {
+  q1: 'b', q2: 'c', q3: 'b', q4: 'c',
+  q5: 'c', q6: 'b', q7: 'c', q8: 'c'
+};
+
+const explanations = {
+  q1: { correct: "Correct! Research consistently shows homework completion is one of the strongest predictors of positive CBT outcomes.", incorrect: "Incorrect. Research by Kazantzis et al. shows clients who complete homework have significantly better outcomes." },
+  q2: { correct: "Correct! 'It won't help anyway' is an automatic thought — a perfect opportunity to apply CBT techniques in real time.", incorrect: "Incorrect. This belief is itself an automatic thought. The best response is to recognize it as such and examine the evidence for and against it." },
+  q3: { correct: "Correct! This assignment is specific (one thought record), time-bound (each evening), and clear about focus (strongest emotion).", incorrect: "Incorrect. Good homework is specific about what, when, and how. 'Complete one thought record each evening before bed' meets all criteria." },
+  q4: { correct: "Correct! Reviewing homework first signals that between-session work matters and sets the agenda for the session.", incorrect: "Incorrect. Homework should be the first agenda item. Reviewing it later (or not at all) communicates that it doesn't matter." },
+  q5: { correct: "Correct! The depression preventing homework IS the therapeutic issue. Exploring this cycle provides rich clinical material.", incorrect: "Incorrect. When depression prevents homework, this is the cycle to explore. It provides therapeutic material about how depression maintains itself." },
+  q6: { correct: "Correct! The power of a behavioral experiment comes from comparing predictions to actual outcomes.", incorrect: "Incorrect. Behavioral experiments require recording the prediction beforehand AND the actual outcome — the comparison is where learning happens." },
+  q7: { correct: "Correct! Repeating the same assignment every week is actually listed as a common mistake — it leads to boredom and disengagement.", incorrect: "Incorrect. Giving the same assignment each week is a common mistake. Homework should vary and increase in complexity as the client's skills develop." },
+  q8: { correct: "Correct! Surveys are especially powerful for beliefs like 'I'm the only one who feels this way' — hearing others' experiences provides powerful disconfirmatory evidence.", incorrect: "Incorrect. Surveys are most useful for mind reading and 'uniqueness' beliefs. Asking others about their experiences tests the assumption that 'nobody else feels this way.'" }
+};
+
+let lastScore = 0;
+let lastTotal = 8;
+
+function gradeExam() {
+  let score = 0;
+  for (let i = 1; i <= 8; i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    const fb = document.getElementById(`fb${i}`);
+    const key = `q${i}`;
+    if (sel && sel.value === answers[key]) {
+      score++;
+      fb.className = 'feedback correct';
+      fb.innerHTML = explanations[key].correct;
+    } else {
+      fb.className = 'feedback incorrect';
+      fb.innerHTML = explanations[key].incorrect;
+    }
+    fb.style.display = 'block';
+  }
+  lastScore = score;
+  const box = document.getElementById('resultBox');
+  const title = document.getElementById('resultTitle');
+  const text = document.getElementById('resultText');
+  box.style.display = 'block';
+  document.getElementById('copyBtn').style.display = 'inline-block';
+
+  if (score >= 7) {
+    box.className = 'result-box result-green';
+    title.textContent = `Excellent! ${score}/8`;
+    text.textContent = 'You have a strong grasp of homework design and troubleshooting in CBT.';
+  } else if (score >= 5) {
+    box.className = 'result-box result-yellow';
+    title.textContent = `Good Effort: ${score}/8`;
+    text.textContent = 'You understand the basics but should review the areas you missed.';
+  } else {
+    box.className = 'result-box result-red';
+    title.textContent = `Needs Review: ${score}/8`;
+    text.textContent = 'Please re-read this lesson carefully and try the exam again.';
+  }
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // === ADDED: Disable radios after submission ===
+  for (let di = 1; di <= 8; di++) {
+    const rName = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'][di - 1];
+    document.querySelectorAll('input[name="' + rName + '"]').forEach(function(r) { r.disabled = true; });
+  }
+
+  // === ADDED: Save to localStorage ===
+  var lessonKey = 'lesson_15';
+  localStorage.setItem(lessonKey + '_score', score + '/8');
+  localStorage.setItem(lessonKey + '_passed', score >= 7 ? 'true' : 'false');
+  if (window.self !== window.top) { window.parent.postMessage({type: 'lessonProgress'}, '*'); }
+  // === ADDED: Retake Exam button ===
+  var existingRetake = document.getElementById('retakeExamBtn_15');
+  if (!existingRetake) {
+    var retakeBtn = document.createElement('button');
+    retakeBtn.id = 'retakeExamBtn_15';
+    retakeBtn.innerHTML = '&#128260; Retake Exam';
+    retakeBtn.style.cssText = 'display:block; margin:20px auto; padding:14px 32px; font-size:1rem; font-weight:700; color:#fff; background:linear-gradient(135deg,#2ABFBF,#1A8A8A); border:none; border-radius:12px; cursor:pointer; font-family:Inter,sans-serif; transition:all 0.2s;';
+    retakeBtn.onmouseover = function() { this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(42,191,191,0.3)'; };
+    retakeBtn.onmouseout = function() { this.style.transform=''; this.style.boxShadow=''; };
+    retakeBtn.onclick = function() { retakeExam_15(); };
+    var resultEl = document.getElementById('resultBox');
+    if (resultEl) resultEl.parentNode.insertBefore(retakeBtn, resultEl.nextSibling);
+  }
+
+}
+function retakeExam_15() {
+  // Re-enable and clear all radios
+  var radioNames = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'];
+  for (var ri = 0; ri < radioNames.length; ri++) {
+    var radios = document.querySelectorAll('input[name="' + radioNames[ri] + '"]');
+    for (var rj = 0; rj < radios.length; rj++) {
+      radios[rj].disabled = false;
+      radios[rj].checked = false;
+    }
+  }
+
+  // Clear visual selection classes
+  var selectedOpts = document.querySelectorAll('.q-option.selected');
+  for (var si = 0; si < selectedOpts.length; si++) {
+    selectedOpts[si].classList.remove('selected');
+  }
+
+  // Hide result container
+  var resultEl = document.getElementById('resultBox');
+  if (resultEl) {
+    resultEl.className = resultEl.className.replace(/\bshow\b/g, '').replace(/\bresult-pass\b/g, '').replace(/\bresult-almost\b/g, '').replace(/\bresult-fail\b/g, '').replace(/\bresults-green\b/g, '').replace(/\bresults-yellow\b/g, '').replace(/\bresults-red\b/g, '').replace(/\bgreen\b/g, '').replace(/\byellow\b/g, '').replace(/\bred\b/g, '').replace(/\bresult-green\b/g, '').replace(/\bresult-yellow\b/g, '').replace(/\bresult-red\b/g, '');
+    resultEl.style.display = 'none';
+    resultEl.innerHTML = resultEl.innerHTML || '';
+  }
+
+  // Hide retake button
+  var retakeBtn = document.getElementById('retakeExamBtn_15');
+  if (retakeBtn) retakeBtn.remove();
+
+  // Clear feedback elements
+  var feedbacks = document.querySelectorAll('.q-feedback, .exam-correction, .correct-note, .wrong-note, .feedback');
+  for (var fi = 0; fi < feedbacks.length; fi++) {
+    var fb = feedbacks[fi];
+    if (fb.classList.contains('correct-note') || fb.classList.contains('wrong-note')) {
+      fb.remove();
+    } else {
+      fb.className = fb.className.replace(/\bshow\b/g, '').replace(/\bcorrect-fb\b/g, '').replace(/\bincorrect-fb\b/g, '').replace(/\bcorrect\b/g, '').replace(/\bincorrect\b/g, '');
+      fb.style.display = 'none';
+      fb.innerHTML = '';
+    }
+  }
+
+  // Clear question block correct/incorrect/wrong classes
+  var qBlocks = document.querySelectorAll('.exam-question, .exam-q, .question-card, .question-block, [id^="q"], [id^="eq"]');
+  for (var qi = 0; qi < qBlocks.length; qi++) {
+    qBlocks[qi].classList.remove('correct', 'incorrect', 'wrong');
+  }
+
+  // Clear option label highlights
+  var optLabels = document.querySelectorAll('.option-label');
+  for (var oi = 0; oi < optLabels.length; oi++) {
+    optLabels[oi].classList.remove('correct', 'incorrect');
+  }
+
+  // Hide copy button if exists
+  var copyBtns = document.querySelectorAll('#copyBtn, .copy-btn, [id$="copyBtn"]');
+  for (var ci = 0; ci < copyBtns.length; ci++) {
+    copyBtns[ci].style.display = 'none';
+  }
+
+  // Re-enable submit button if it was disabled
+  var submitBtns = document.querySelectorAll('#submitBtn, .submit-exam-btn, .btn-submit, .exam-btn');
+  for (var sbi = 0; sbi < submitBtns.length; sbi++) {
+    submitBtns[sbi].disabled = false;
+  }
+
+  // Scroll to first question
+  var firstQ = document.querySelector('[id^="q1"], [id^="eq"], .exam-question, .exam-q, .question-block, .question-card');
+  if (firstQ) firstQ.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+function copyResults() {
+  let text = `Lesson 15 — Homework Design & Troubleshooting\nScore: ${lastScore}/${lastTotal}\n\n`;
+  for (let i = 1; i <= 8; i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    const correct = sel && sel.value === answers[`q${i}`];
+    text += `Q${i}: ${correct ? 'Correct' : 'Incorrect'}\n`;
+  }
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy Results', 2000);
+  });
+}
+</script>
+
+<div class="lesson-nav-bottom">
+  <a class="nav-prev" href="Lesson 14 — Bridging Head and Heart.html">← Bridging Head & Heart</a>
+  <a class="nav-home" href="index.html">🏠 Assessment Home</a>
+  <a class="nav-next" href="Lesson 16 — Measuring Outcomes.html">Measuring Outcomes →</a>
+</div>
+
+<script>
+if (window.self !== window.top) {
+  document.body.classList.add("iframe-mode");
+  document.addEventListener("click", function(e) {
+    var link = e.target.closest("a");
+    if (link) {
+      var href = link.getAttribute("href");
+      if (href === "index.html") {
+        e.preventDefault();
+        window.parent.closeLessonViewer();
+      } else if (href && href.indexOf("Lesson") === 0 && href.indexOf(".html") !== -1) {
+        e.preventDefault();
+        window.parent.openLessonByFile(href);
+      } else if (href === "Printable CBT Toolkit.html") {
+        e.preventDefault();
+        window.parent.openToolkit();
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 8 — Behavioral Activation for Depression</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.7;
+    font-size: 16px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .lesson-header {
+    text-align: center;
+    padding: 60px 32px;
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #ede9fe 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(99,102,241,0.15);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .lesson-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(129,140,248,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .lesson-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #818cf8, #6366f1);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 18px;
+    border-radius: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .lesson-header h1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1e293b, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .lesson-header .subtitle {
+    font-size: 1.15em;
+    color: #64748b;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .meta-bar {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #64748b;
+  }
+  .meta-bar span { display: flex; align-items: center; gap: 6px; }
+
+  /* Cards */
+  .card {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+  .card h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #1e293b;
+  }
+  .card h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: #6366f1;
+  }
+  .card h4 {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 16px 0 8px;
+    color: #7c3aed;
+  }
+  .card p, .card li {
+    color: #334155;
+    margin-bottom: 8px;
+  }
+  .card ul, .card ol {
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+
+  /* Highlights */
+  .highlight-box {
+    background: linear-gradient(135deg, #eef2ff, #ede9fe);
+    border-left: 4px solid #6366f1;
+    padding: 20px 24px;
+    border-radius: 0 12px 12px 0;
+    margin: 16px 0;
+  }
+  .highlight-box.warning {
+    background: linear-gradient(135deg, #fef3c7, #fef9c3);
+    border-left-color: #f59e0b;
+  }
+  .highlight-box.success {
+    background: linear-gradient(135deg, #dcfce7, #d1fae5);
+    border-left-color: #22c55e;
+  }
+  .highlight-box.rose {
+    background: linear-gradient(135deg, #ffe4e6, #fce7f3);
+    border-left-color: #f43f5e;
+  }
+
+  /* Key concept */
+  .key-concept {
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    border: 2px solid rgba(99,102,241,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #4338ca;
+  }
+
+  /* Reveal sections */
+  details {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin: 12px 0;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 14px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #6366f1;
+    font-size: 0.95rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+  details summary:hover { background: #e2e8f0; }
+  details summary::before { content: '+ '; font-weight: 700; }
+  details[open] summary::before { content: '- '; }
+  details summary::-webkit-details-marker { display: none; }
+  .answer {
+    padding: 16px 20px;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    color: #334155;
+    line-height: 1.7;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.92em;
+  }
+  th {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+  }
+  tr:nth-child(even) { background: #f8fafc; }
+  tr:hover { background: #eef2ff; }
+
+  /* Cycle diagram */
+  .cycle-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 24px 0;
+    position: relative;
+  }
+  .cycle-node {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95em;
+    text-align: center;
+    min-width: 260px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(99,102,241,0.25);
+  }
+  .cycle-arrow {
+    font-size: 1.8em;
+    color: #a5b4fc;
+    line-height: 1;
+    margin: 4px 0;
+  }
+  .cycle-loop-label {
+    text-align: center;
+    font-size: 0.85em;
+    color: #f43f5e;
+    font-weight: 700;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* Activity log */
+  .activity-log {
+    background: #fafafa;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .activity-log-header {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 0.95em;
+  }
+  .activity-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 60px 60px 60px;
+    gap: 8px;
+    padding: 8px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.88em;
+    align-items: center;
+  }
+  .activity-row.header-row {
+    background: #f1f5f9;
+    font-weight: 700;
+    color: #475569;
+  }
+  .mood-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85em;
+    text-align: center;
+  }
+  .mood-low { background: #fee2e2; color: #dc2626; }
+  .mood-mid { background: #fef3c7; color: #d97706; }
+  .mood-ok { background: #dcfce7; color: #16a34a; }
+
+  /* Progress chart */
+  .progress-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin: 16px 0;
+    min-height: 180px;
+  }
+  .chart-bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  .chart-bar {
+    width: 48px;
+    border-radius: 8px 8px 0 0;
+    transition: height 0.5s;
+  }
+  .chart-label {
+    font-size: 0.78em;
+    margin-top: 8px;
+    color: #64748b;
+    font-weight: 600;
+  }
+  .chart-value {
+    font-size: 0.82em;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  /* Question numbering */
+  .q-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.85em;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 8px 0 8px 32px;
+    position: relative;
+    color: #334155;
+  }
+  .checklist li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #6366f1;
+    border-radius: 4px;
+  }
+
+  /* Comparison box */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .compare-box {
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid;
+  }
+  .compare-box.do {
+    background: #dcfce7;
+    border-color: #86efac;
+  }
+  .compare-box.dont {
+    background: #fee2e2;
+    border-color: #fca5a5;
+  }
+  .compare-box h4 {
+    margin: 0 0 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .lesson-header h1 { font-size: 1.6em; }
+    .card { padding: 20px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .activity-row { grid-template-columns: 60px 1fr 50px 50px 50px; font-size: 0.8em; }
+  }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+
+<style>
+.lesson-nav-top {
+  position: sticky; top: 0; z-index: 999;
+  background: rgba(248,250,252,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 100%;
+}
+.lesson-nav-top a {
+  text-decoration: none; color: #2ABFBF; font-size: 0.85rem; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.lesson-nav-top a:hover { color: #1A8A8A; }
+.lesson-nav-top .nav-title { font-size: 0.8rem; color: #64748b; font-weight: 500; }
+.lesson-nav-bottom {
+  max-width: 900px; margin: 40px auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.lesson-nav-bottom a {
+  text-decoration: none; padding: 12px 24px; border-radius: 12px;
+  font-size: 0.9rem; font-weight: 600; font-family: 'Inter', sans-serif;
+  transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.lesson-nav-bottom .nav-prev { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+.lesson-nav-bottom .nav-prev:hover { background: #e2e8f0; }
+.lesson-nav-bottom .nav-home { background: #e6fafa; color: #2ABFBF; border: 1px solid #99ebeb; }
+.lesson-nav-bottom .nav-home:hover { background: #ccf5f5; }
+.lesson-nav-bottom .nav-next { background: linear-gradient(135deg, #2ABFBF, #1A8A8A); color: white; border: none; }
+.lesson-nav-bottom .nav-next:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(42,191,191,0.3); }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+</head>
+<body>
+<div class="lesson-nav-top">
+  <a href="index.html">← Back to Assessment</a>
+  <span class="nav-title">Lesson 8 of 18</span>
+</div>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="lesson-header">
+    <div class="lesson-number">Lesson 8</div>
+    <h1>Behavioral Activation for Depression</h1>
+    <p class="subtitle">Action before motivation — the evidence-based approach to breaking the withdrawal cycle</p>
+    <div class="meta-bar">
+      <span>30 minutes</span>
+      <span>|</span>
+      <span>Intermediate</span>
+      <span>|</span>
+      <span>Includes Final Exam</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: What is BA? -->
+  <div class="card">
+    <h2>1. What is Behavioral Activation (BA)?</h2>
+
+    <div class="highlight-box rose">
+      <strong>Common misconception:</strong> BA is NOT "just do things" or "push yourself harder." That's toxic positivity, not therapy.
+    </div>
+
+    <p>Behavioral Activation is a structured, evidence-based treatment for depression rooted in <strong>Lewinsohn's behavioral model</strong> (1974). The core idea:</p>
+
+    <div class="key-concept">
+      Depression = Reduced positive reinforcement from the environment
+    </div>
+
+    <p>When someone becomes depressed, they withdraw from activities. This withdrawal reduces contact with positive reinforcement (enjoyable experiences, social connection, accomplishment), which deepens the depression, causing more withdrawal. This creates a self-perpetuating cycle:</p>
+
+    <h3>The Depression-Withdrawal Cycle</h3>
+
+    <div class="cycle-diagram">
+      <div class="cycle-node">Low Mood</div>
+      <div class="cycle-arrow">&#8595;</div>
+      <div class="cycle-node" style="background: linear-gradient(135deg, #7c3aed, #a855f7);">Withdrawal from Activities</div>
+      <div class="cycle-arrow">&#8595;</div>
+      <div class="cycle-node" style="background: linear-gradient(135deg, #9333ea, #c084fc);">Fewer Rewarding Experiences</div>
+      <div class="cycle-arrow">&#8595;</div>
+      <div class="cycle-node" style="background: linear-gradient(135deg, #a855f7, #d946ef);">Less Positive Reinforcement</div>
+      <div class="cycle-arrow">&#8595;</div>
+      <div class="cycle-node" style="background: linear-gradient(135deg, #c026d3, #f43f5e);">Even Lower Mood</div>
+      <div class="cycle-arrow">&#8595;</div>
+      <div class="cycle-node" style="background: linear-gradient(135deg, #e11d48, #be123c);">Even More Withdrawal</div>
+      <div class="cycle-loop-label">&#8593; CYCLE REPEATS &#8593;</div>
+    </div>
+
+    <p>BA breaks this cycle by systematically <strong>re-engaging</strong> the client with activities that provide positive reinforcement — even before they feel motivated to do so.</p>
+
+    <details>
+      <summary>Why is this different from "just push yourself"?</summary>
+      <div class="answer">
+        "Just push yourself" is vague, overwhelming, and ignores the mechanism. BA is <strong>structured, gradual, tracked, and values-based</strong>. It involves:<br><br>
+        <strong>1.</strong> Monitoring current activity to establish a baseline<br>
+        <strong>2.</strong> Identifying specific, small, achievable activities<br>
+        <strong>3.</strong> Rating mastery and pleasure for feedback<br>
+        <strong>4.</strong> Gradually increasing activity level<br>
+        <strong>5.</strong> Connecting activities to the client's personal values<br><br>
+        It's the difference between "just exercise more" and a physiotherapy program after a knee injury — both involve movement, but one is structured, progressive, and monitored.
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 2: The Mechanism -->
+  <div class="card">
+    <h2>2. The Mechanism: Action Before Motivation</h2>
+
+    <div class="key-concept">
+      The key BA insight: Action comes FIRST. Motivation follows.
+    </div>
+
+    <h3>The "Outside-In" Approach</h3>
+    <p>Most people (and many novice therapists) assume the sequence is:</p>
+    <div class="highlight-box warning">
+      <strong>Wrong sequence:</strong> Feel motivated &#8594; Take action &#8594; Feel better<br>
+      <em>"I'll go for a walk when I feel like it."</em>
+    </div>
+    <p>But in depression, that motivation <strong>never comes</strong>. Depression specifically attacks motivation. BA reverses the sequence:</p>
+    <div class="highlight-box success">
+      <strong>BA sequence:</strong> Take action (despite low motivation) &#8594; Experience small reward &#8594; Mood lifts slightly &#8594; Motivation begins to return
+    </div>
+
+    <h3>Don't Wait to "Feel Like It"</h3>
+    <p>When a depressed client says <em>"I'll do it when I feel better,"</em> that IS the depression talking. The depression is telling them to wait for a feeling that the depression itself prevents. BA interrupts this by <strong>scheduling activities regardless of mood state</strong>.</p>
+
+    <h3>The Dopamine Connection (Simplified)</h3>
+    <p>Depression is associated with reduced dopamine activity in reward circuits. When a person withdraws from activities, the reward system gets even less stimulation, further reducing dopamine activity. BA works partly by:</p>
+    <ul>
+      <li><strong>Providing environmental stimulation</strong> that activates the reward system</li>
+      <li><strong>Creating small "wins"</strong> that generate accomplishment signals</li>
+      <li><strong>Re-training</strong> the brain's anticipation system — over time, the brain re-learns that activities CAN be rewarding</li>
+    </ul>
+
+    <details>
+      <summary>How do you explain this to clients?</summary>
+      <div class="answer">
+        A useful metaphor: <em>"Imagine you haven't used your legs in months. If I ask you to run a marathon, you'd fail and feel worse. But if you start with standing, then walking to the mailbox, then around the block — your legs slowly come back. Your motivation system works the same way. It's atrophied from disuse. We need to exercise it gently, starting small."</em>
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 3: Core BA Techniques -->
+  <div class="card">
+    <h2>3. Core BA Techniques</h2>
+
+    <h3>A. Activity Monitoring</h3>
+    <p>Before scheduling anything, we need a <strong>baseline</strong>. The client tracks what they do each hour and rates their mood (0-10) alongside each activity. This reveals:</p>
+    <ul>
+      <li>How much time is spent in bed, on screens, or isolating</li>
+      <li>Which (if any) activities are associated with higher mood ratings</li>
+      <li>Patterns the client isn't aware of (e.g., mood always dips after 2pm)</li>
+    </ul>
+
+    <h3>B. Activity Scheduling</h3>
+    <p>Based on monitoring data, collaboratively plan <strong>specific activities at specific times</strong>. Key principles:</p>
+    <ul>
+      <li>Be concrete: Not "exercise more" but "Walk around the block at 9:30am Tuesday"</li>
+      <li>Start small: Activities should feel achievable even on a bad day</li>
+      <li>Mix mastery and pleasure activities</li>
+      <li>Write it down — treat it like an appointment</li>
+    </ul>
+
+    <h3>C. Mastery & Pleasure Ratings</h3>
+    <p>After each activity, the client rates two dimensions:</p>
+    <table>
+      <tr>
+        <th>Dimension</th>
+        <th>Measures</th>
+        <th>Scale</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><strong>Mastery (M)</strong></td>
+        <td>Sense of accomplishment, competence</td>
+        <td>0-10</td>
+        <td>Doing laundry = M:7 (hard when depressed)</td>
+      </tr>
+      <tr>
+        <td><strong>Pleasure (P)</strong></td>
+        <td>Enjoyment, positive feeling</td>
+        <td>0-10</td>
+        <td>Watching sunset = P:6</td>
+      </tr>
+    </table>
+    <p><strong>Important:</strong> Mastery ratings should account for depression. Doing laundry when severely depressed might be M:8 — it's a major accomplishment given the circumstances.</p>
+
+    <h3>D. Gradual Task Assignment</h3>
+    <p>Break overwhelming tasks into small, manageable steps:</p>
+    <div class="highlight-box">
+      <strong>Instead of:</strong> "Clean the apartment"<br>
+      <strong>Break down:</strong><br>
+      Step 1: Put 5 items away in the living room (5 min)<br>
+      Step 2: Wipe kitchen counter (3 min)<br>
+      Step 3: Take out one bag of trash (2 min)<br>
+      <em>Each step gets its own mastery rating.</em>
+    </div>
+
+    <h3>E. Values-Based Activation</h3>
+    <p>The most powerful BA involves connecting activities to the client's <strong>personal values</strong>:</p>
+    <ul>
+      <li>If they value <strong>family</strong>: Call a sibling for 10 minutes</li>
+      <li>If they value <strong>creativity</strong>: Sketch for 15 minutes (no quality standard)</li>
+      <li>If they value <strong>health</strong>: Prepare one healthy meal</li>
+      <li>If they value <strong>learning</strong>: Read 5 pages of a book</li>
+    </ul>
+    <p>Values-aligned activities produce <strong>stronger and more sustainable positive reinforcement</strong> than random activities.</p>
+
+    <details>
+      <summary>What if the client says "I don't have any values anymore"?</summary>
+      <div class="answer">
+        This is depression talking — it flattens everything including identity. Try:<br><br>
+        <strong>1.</strong> "Before the depression, what mattered to you?"<br>
+        <strong>2.</strong> "If a magic wand removed the depression overnight, what would you do first?"<br>
+        <strong>3.</strong> Use a values card sort — have them rank pre-made values cards<br>
+        <strong>4.</strong> Look at what they feel guilty about NOT doing — guilt often points to values
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 4: Full Worked Example -->
+  <div class="card">
+    <h2>4. Full Worked Example: Mariam</h2>
+
+    <div class="highlight-box">
+      <strong>Client:</strong> Mariam, 35, moderate depression (PHQ-9: 17)<br>
+      <strong>Presenting pattern:</strong> Quit the gym 3 months ago, stopped cooking, stays in bed until noon, watches TV most of the day, cancelled plans with friends repeatedly, calls in sick to work 1-2x/week<br>
+      <strong>Values:</strong> Health, friendship, career growth
+    </div>
+
+    <h3>Week 1: Activity Monitoring</h3>
+    <p>Mariam tracks her daily activities and mood ratings for one week. Sample from Wednesday:</p>
+
+    <div class="activity-log">
+      <div class="activity-log-header">Mariam's Activity Log — Wednesday</div>
+      <div class="activity-row header-row">
+        <div>Time</div>
+        <div>Activity</div>
+        <div>Mood</div>
+        <div>M</div>
+        <div>P</div>
+      </div>
+      <div class="activity-row">
+        <div>8:00</div>
+        <div>Lying in bed, scrolling phone</div>
+        <div><span class="mood-badge mood-low">2</span></div>
+        <div>0</div>
+        <div>1</div>
+      </div>
+      <div class="activity-row">
+        <div>9:00</div>
+        <div>Still in bed, thinking about getting up</div>
+        <div><span class="mood-badge mood-low">2</span></div>
+        <div>0</div>
+        <div>0</div>
+      </div>
+      <div class="activity-row">
+        <div>10:00</div>
+        <div>Got up, made instant coffee</div>
+        <div><span class="mood-badge mood-low">3</span></div>
+        <div>3</div>
+        <div>2</div>
+      </div>
+      <div class="activity-row">
+        <div>11:00</div>
+        <div>Watched TV (reality show)</div>
+        <div><span class="mood-badge mood-low">2</span></div>
+        <div>0</div>
+        <div>2</div>
+      </div>
+      <div class="activity-row">
+        <div>12:00</div>
+        <div>Ate cereal, more TV</div>
+        <div><span class="mood-badge mood-low">2</span></div>
+        <div>0</div>
+        <div>1</div>
+      </div>
+      <div class="activity-row">
+        <div>13:00</div>
+        <div>Napped</div>
+        <div><span class="mood-badge mood-low">1</span></div>
+        <div>0</div>
+        <div>0</div>
+      </div>
+      <div class="activity-row">
+        <div>14:00</div>
+        <div>Went to work (late)</div>
+        <div><span class="mood-badge mood-low">3</span></div>
+        <div>4</div>
+        <div>1</div>
+      </div>
+      <div class="activity-row">
+        <div>17:00</div>
+        <div>Home — couch, TV, ordered delivery</div>
+        <div><span class="mood-badge mood-low">2</span></div>
+        <div>0</div>
+        <div>1</div>
+      </div>
+      <div class="activity-row">
+        <div>21:00</div>
+        <div>Scrolling phone in bed</div>
+        <div><span class="mood-badge mood-low">1</span></div>
+        <div>0</div>
+        <div>0</div>
+      </div>
+    </div>
+
+    <p><strong>Therapist observations:</strong> Average mood 2.0/10. Zero mastery activities. Zero social contact. Nearly all time spent in passive, low-reinforcement activities. The data itself becomes a powerful motivator — Mariam can see the pattern clearly.</p>
+
+    <h3>Week 2: Adding 3 Small Activities</h3>
+    <p>Collaboratively, Mariam and her therapist select 3 small, achievable activities to schedule:</p>
+    <table>
+      <tr>
+        <th>Activity</th>
+        <th>When</th>
+        <th>Value Link</th>
+        <th>Predicted M/P</th>
+      </tr>
+      <tr>
+        <td>Walk outside for 15 minutes</td>
+        <td>Mon/Wed/Fri, 9:00am</td>
+        <td>Health</td>
+        <td>M:3, P:2</td>
+      </tr>
+      <tr>
+        <td>Call one friend for 10 minutes</td>
+        <td>Tuesday evening</td>
+        <td>Friendship</td>
+        <td>M:4, P:3</td>
+      </tr>
+      <tr>
+        <td>Cook one simple meal</td>
+        <td>Sunday afternoon</td>
+        <td>Health</td>
+        <td>M:5, P:3</td>
+      </tr>
+    </table>
+
+    <h4>Mariam's Actual Ratings After Week 2:</h4>
+    <table>
+      <tr>
+        <th>Activity</th>
+        <th>Predicted M/P</th>
+        <th>Actual M/P</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>15-min walk</td>
+        <td>M:3, P:2</td>
+        <td>M:5, P:4</td>
+        <td>"Didn't want to go but felt surprisingly okay after"</td>
+      </tr>
+      <tr>
+        <td>Called friend</td>
+        <td>M:4, P:3</td>
+        <td>M:6, P:6</td>
+        <td>"She was so happy to hear from me. We laughed."</td>
+      </tr>
+      <tr>
+        <td>Cooked pasta</td>
+        <td>M:5, P:3</td>
+        <td>M:7, P:5</td>
+        <td>"Felt proud. First real meal in weeks."</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box success">
+      <strong>Key finding:</strong> Depressed clients almost always <strong>underpredict</strong> how much mastery and pleasure they'll experience. This prediction-vs-reality gap is itself therapeutic — it provides direct evidence against the belief "nothing will help."
+    </div>
+
+    <h3>Weeks 3-4: Gradual Increase</h3>
+    <p>Building on success, add more value-aligned activities:</p>
+    <ul>
+      <li>Walk extended to 30 minutes, 4x/week</li>
+      <li>Signed up for one trial gym class (health value)</li>
+      <li>Coffee date with a colleague (friendship + career)</li>
+      <li>Cooked 3 meals/week</li>
+      <li>Set alarm for 8:30am instead of noon</li>
+    </ul>
+
+    <h3>Mariam's Mood Over 4 Weeks</h3>
+    <div class="progress-chart">
+      <div class="chart-bar-group">
+        <div class="chart-value" style="color: #dc2626;">2.0</div>
+        <div class="chart-bar" style="height: 25px; background: linear-gradient(to top, #fca5a5, #f87171);"></div>
+        <div class="chart-label">Week 1</div>
+      </div>
+      <div class="chart-bar-group">
+        <div class="chart-value" style="color: #d97706;">3.5</div>
+        <div class="chart-bar" style="height: 44px; background: linear-gradient(to top, #fde68a, #fbbf24);"></div>
+        <div class="chart-label">Week 2</div>
+      </div>
+      <div class="chart-bar-group">
+        <div class="chart-value" style="color: #ca8a04;">4.8</div>
+        <div class="chart-bar" style="height: 60px; background: linear-gradient(to top, #fde68a, #a3e635);"></div>
+        <div class="chart-label">Week 3</div>
+      </div>
+      <div class="chart-bar-group">
+        <div class="chart-value" style="color: #16a34a;">5.9</div>
+        <div class="chart-bar" style="height: 74px; background: linear-gradient(to top, #86efac, #4ade80);"></div>
+        <div class="chart-label">Week 4</div>
+      </div>
+    </div>
+    <p style="text-align: center; color: #64748b; font-size: 0.9em;">Average daily mood rating over 4 weeks of BA</p>
+  </div>
+
+  <!-- SECTION 5: Common Mistakes -->
+  <div class="card">
+    <h2>5. Common Mistakes in BA</h2>
+
+    <div class="compare-grid">
+      <div class="compare-box dont">
+        <h4 style="color: #dc2626;">Mistakes to Avoid</h4>
+        <ul>
+          <li><strong>Scheduling too many activities too fast</strong> — overwhelms the client, leads to failure and confirmation of "I can't do anything"</li>
+          <li><strong>Not rating mastery/pleasure</strong> — without data, you can't track what works and what doesn't</li>
+          <li><strong>Vague scheduling</strong> — "exercise sometime this week" will not happen</li>
+          <li><strong>Ignoring values</strong> — random activities produce weaker reinforcement</li>
+          <li><strong>Treating BA like punishment</strong> — it should feel collaborative, not like homework from an authority figure</li>
+        </ul>
+      </div>
+      <div class="compare-box do">
+        <h4 style="color: #16a34a;">Best Practices</h4>
+        <ul>
+          <li><strong>Start with 2-3 activities max</strong> — success builds confidence</li>
+          <li><strong>Always rate M and P</strong> — this is your outcome data</li>
+          <li><strong>Be specific:</strong> day, time, duration, what exactly</li>
+          <li><strong>Connect to values</strong> — ask "why does this matter to you?"</li>
+          <li><strong>Celebrate small wins</strong> — getting out of bed IS an achievement when depressed</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>The BA vs. Exposure Confusion</h3>
+    <div class="highlight-box warning">
+      <strong>Critical distinction:</strong> BA and exposure therapy both involve doing things, but they serve different purposes and treat different problems.
+    </div>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>Behavioral Activation</th>
+        <th>Exposure Therapy</th>
+      </tr>
+      <tr>
+        <td><strong>Target problem</strong></td>
+        <td>Depression, withdrawal, anhedonia</td>
+        <td>Anxiety, avoidance of feared stimuli</td>
+      </tr>
+      <tr>
+        <td><strong>Mechanism</strong></td>
+        <td>Increase positive reinforcement</td>
+        <td>Habituation / inhibitory learning</td>
+      </tr>
+      <tr>
+        <td><strong>Client avoids because...</strong></td>
+        <td>"I don't feel like it" / "What's the point?"</td>
+        <td>"I'm scared of what might happen"</td>
+      </tr>
+      <tr>
+        <td><strong>Goal during activity</strong></td>
+        <td>Experience mastery or pleasure</td>
+        <td>Stay with the fear until it subsides</td>
+      </tr>
+    </table>
+
+    <h3>"I Tried But I Didn't Enjoy It"</h3>
+    <p>This is one of the most common client responses. How to handle it:</p>
+    <ol>
+      <li><strong>Normalize:</strong> "That's completely expected. Enjoyment builds gradually, like a muscle that's been inactive."</li>
+      <li><strong>Check the data:</strong> "Was there ANY difference in mood before vs. after? Even 0.5 points?"</li>
+      <li><strong>Emphasize mastery:</strong> "You didn't enjoy it, but did you feel a sense of accomplishment? That counts."</li>
+      <li><strong>Adjust expectations:</strong> "We're not aiming for joy right now. We're aiming for 'slightly less terrible.' That's progress."</li>
+      <li><strong>Compare to baseline:</strong> "How does your mood today compare to last week when you stayed in bed all day?"</li>
+    </ol>
+  </div>
+
+  <!-- SECTION 6: When to Use BA -->
+  <div class="card">
+    <h2>6. When to Use BA vs. Other Techniques</h2>
+
+    <h3>BA is the Right Choice When:</h3>
+    <ul>
+      <li><strong>Anhedonia:</strong> "I don't enjoy anything anymore"</li>
+      <li><strong>Withdrawal:</strong> Client has stopped doing things they used to do</li>
+      <li><strong>Low energy / motivation:</strong> "I don't feel like doing anything"</li>
+      <li><strong>Behavioral shutdown:</strong> Staying in bed, not leaving the house</li>
+      <li><strong>Early-stage depression treatment:</strong> BA is often the FIRST intervention before cognitive work</li>
+    </ul>
+
+    <h3>BA is NOT the Right Choice When:</h3>
+    <table>
+      <tr>
+        <th>Presentation</th>
+        <th>Better Technique</th>
+        <th>Why Not BA?</th>
+      </tr>
+      <tr>
+        <td>Specific fears (spiders, heights)</td>
+        <td>Exposure therapy</td>
+        <td>The avoidance is fear-driven, not depression-driven</td>
+      </tr>
+      <tr>
+        <td>OCD rituals</td>
+        <td>ERP (Exposure & Response Prevention)</td>
+        <td>Rituals serve an anxiety-reduction function</td>
+      </tr>
+      <tr>
+        <td>Trauma avoidance</td>
+        <td>PE, CPT, or EMDR</td>
+        <td>Requires trauma-specific processing</td>
+      </tr>
+      <tr>
+        <td>Cognitive distortions (active negative thinking)</td>
+        <td>Cognitive restructuring</td>
+        <td>BA targets behavior; CR targets thoughts</td>
+      </tr>
+      <tr>
+        <td>Core beliefs ("I'm worthless")</td>
+        <td>Behavioral experiments, imagery rescripting</td>
+        <td>BA alone won't shift deep schema-level beliefs</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box success">
+      <strong>Pro tip:</strong> In practice, BA is often combined with cognitive techniques. You might start with BA to get the client moving, then add thought records once they have enough energy and engagement to do cognitive work. BA first, CR second — this is well-supported by research.
+    </div>
+
+    <details>
+      <summary>What about comorbid anxiety and depression?</summary>
+      <div class="answer">
+        When a client has both depression and anxiety, you often need <strong>both BA and exposure</strong>. The rule of thumb:<br><br>
+        <strong>1.</strong> If the depression is primary and the anxiety is secondary (they became anxious because they're so withdrawn), start with BA<br>
+        <strong>2.</strong> If the anxiety is primary and the depression is secondary (they became depressed because anxiety is limiting their life), start with exposure<br>
+        <strong>3.</strong> If both are severe, consider BA first to build baseline energy/motivation, then add exposure<br><br>
+        In all cases, the client's values and priorities guide the order: "What is bothering you most right now?"
+      </div>
+    </details>
+  </div>
+
+  <!-- PRACTICE QUESTIONS -->
+  <div class="card">
+    <h2>Practice Questions</h2>
+
+    <p><span class="q-number">1</span><strong>A client says: "I know I should exercise, but I just don't feel like it. Maybe when I feel better I'll start." What's wrong with this logic, and how do you respond using BA principles?</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        This is the classic "motivation-first" trap. The client is waiting for motivation to come before acting — but in depression, motivation doesn't come first. The depression specifically suppresses motivation.<br><br>
+        <strong>BA response:</strong> "I hear you — and waiting to feel motivated makes perfect sense. But here's what we know about depression: it blocks motivation. So if we wait for motivation, we could wait forever. In BA, we flip the order: we schedule a small action, do it regardless of motivation, and THEN see what happens to our mood. We don't need to feel like it — we just need to do a small version of it. Could we try a 10-minute walk on Thursday at 9am and see what your mood is before and after?"
+      </div>
+    </details>
+
+    <p><span class="q-number">2</span><strong>Your client completed activity monitoring and their log shows: TV 6 hours/day, scrolling phone 3 hours, sleeping 10 hours, leaving the house 0 times. Design a Week 2 BA plan.</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        <strong>Principles:</strong> Start tiny. Don't try to eliminate all TV/phone. Add 2-3 activities, not 10.<br><br>
+        <strong>Sample Week 2 Plan:</strong><br>
+        <strong>1.</strong> Set alarm for 9:00am (not 7:00am — gradual). Get out of bed within 15 minutes. (Mastery activity)<br>
+        <strong>2.</strong> Walk to the end of the street and back — 10 minutes, 3x this week (Mon/Wed/Fri at 9:30am). (Health value)<br>
+        <strong>3.</strong> One 15-minute phone call to a friend or family member (pick the day). (Social value)<br><br>
+        <strong>Track:</strong> Mood before and after each activity. Mastery and pleasure ratings.<br>
+        <strong>Key:</strong> These are the ONLY scheduled changes. Everything else stays the same. We're adding, not subtracting.
+      </div>
+    </details>
+
+    <p><span class="q-number">3</span><strong>After completing a scheduled walk, your client says: "I did it, but I didn't feel any better. This isn't working." How do you handle this?</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        <strong>Step 1 — Validate:</strong> "I appreciate you being honest about that. And I appreciate that you did it even though it was hard."<br><br>
+        <strong>Step 2 — Check the data precisely:</strong> "What was your mood before the walk? And after?" Often there IS a small improvement (2 to 3) that the client discounts because they expected a big shift.<br><br>
+        <strong>Step 3 — Reframe mastery:</strong> "Did you feel any sense of accomplishment for going? Even a little?" If yes, that IS positive reinforcement, even without pleasure.<br><br>
+        <strong>Step 4 — Adjust expectations:</strong> "BA isn't about feeling great immediately. It's about going from 2/10 to 2.5/10 this week, then 3/10 next week. Small, gradual shifts."<br><br>
+        <strong>Step 5 — Compare to alternative:</strong> "What would your mood have been if you'd stayed in bed instead? Probably the same 2/10 or lower. The walk didn't make you feel great, but it didn't make you feel worse — and it broke the withdrawal pattern."
+      </div>
+    </details>
+  </div>
+
+  <!-- LESSON COMPLETE -->
+  <div class="card" style="border: 2px solid #22c55e; background: linear-gradient(135deg, #f0fdf4, #dcfce7);">
+    <div class="complete-section">
+      <h2>Lesson Complete</h2>
+      <p style="color: #64748b; margin-top: 8px;">Self-check: Can you confidently say yes to each of these?</p>
+      <ul class="checklist">
+        <li>I can explain Lewinsohn's behavioral model and the withdrawal cycle</li>
+        <li>I can articulate why action comes before motivation in BA</li>
+        <li>I can implement all 5 core BA techniques (monitoring, scheduling, M&P ratings, gradual tasks, values)</li>
+        <li>I can distinguish BA from exposure therapy</li>
+        <li>I can design a graduated BA plan for a depressed client</li>
+        <li>I can handle "I tried but it didn't work" responses</li>
+      </ul>
+      <p style="color: #64748b; margin-top: 20px; font-size: 14px;">If any box feels uncertain, review that section before taking the exam.</p>
+    </div>
+  </div>
+
+  <!-- FINAL SCORED EXAM -->
+  <style>
+    .exam-section { background: linear-gradient(135deg, #eef2ff, #e0e7ff); border-radius: 16px; border: 2px solid rgba(99,102,241,0.2); padding: 32px; margin-top: 40px; }
+    .exam-q { padding: 16px; margin: 12px 0; background: #ffffff; border-radius: 10px; border-left: 3px solid #6366f1; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .exam-q.correct { border-left-color: #22c55e; background: #f0fdf4; }
+    .exam-q.wrong { border-left-color: #ef4444; background: #fef2f2; }
+    .exam-q label { display: block; padding: 8px 12px; margin: 4px 0; border-radius: 6px; cursor: pointer; font-size: 0.92rem; color: #334155; }
+    .exam-q label:hover { background: #eef2ff; }
+    .exam-q .q-title { font-weight: 600; color: #1e293b; margin-bottom: 10px; }
+    .exam-result { padding: 24px; border-radius: 12px; margin-top: 20px; text-align: center; }
+    .result-pass { background: #dcfce7; border: 2px solid #22c55e; color: #15803d; }
+    .result-almost { background: #fef3c7; border: 2px solid #f59e0b; color: #b45309; }
+    .result-fail { background: #fee2e2; border: 2px solid #ef4444; color: #dc2626; }
+    .submit-exam-btn { display: block; margin: 20px auto; padding: 14px 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .submit-exam-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
+    .copy-btn { display: block; margin: 12px auto; padding: 10px 30px; background: #ffffff; color: #6366f1; border: 1px solid #6366f1; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+    .copy-btn:hover { background: #eef2ff; }
+    .exam-correction { font-size: 0.85rem; color: #64748b; margin-top: 8px; padding: 8px; background: #f8fafc; border-radius: 6px; display: none; }
+    /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+
+  <div class="exam-section" id="examSection8">
+    <h2 style="text-align:center; color:#1e293b; margin-bottom: 8px;">FINAL EXAM — Behavioral Activation</h2>
+    <p style="text-align:center; color:#64748b; margin-bottom: 24px;">Score 7-8 to pass. All questions based on Lesson 8 content.</p>
+
+    <div class="exam-q" id="eq8_1">
+      <div class="q-title">Q1: Behavioral Activation is based on the principle that depression is maintained by:</div>
+      <label><input type="radio" name="eq8q1" value="a"> a) Cognitive distortions and negative automatic thoughts</label>
+      <label><input type="radio" name="eq8q1" value="b"> b) Reduced positive reinforcement from the environment due to withdrawal</label>
+      <label><input type="radio" name="eq8q1" value="c"> c) Unresolved childhood trauma</label>
+      <label><input type="radio" name="eq8q1" value="d"> d) Chemical imbalances that can only be treated with medication</label>
+      <div class="exam-correction" id="corr8_1"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_2">
+      <div class="q-title">Q2: In BA, the correct sequence is:</div>
+      <label><input type="radio" name="eq8q2" value="a"> a) Feel motivated → take action → feel better</label>
+      <label><input type="radio" name="eq8q2" value="b"> b) Think positive thoughts → feel motivated → take action</label>
+      <label><input type="radio" name="eq8q2" value="c"> c) Take action (despite low motivation) → experience reward → mood improves → motivation returns</label>
+      <label><input type="radio" name="eq8q2" value="d"> d) Analyze the root cause → resolve it → motivation returns naturally</label>
+      <div class="exam-correction" id="corr8_2"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_3">
+      <div class="q-title">Q3: A client's Mastery rating should:</div>
+      <label><input type="radio" name="eq8q3" value="a"> a) Only reflect objectively difficult tasks</label>
+      <label><input type="radio" name="eq8q3" value="b"> b) Account for the depression — doing laundry when severely depressed might be M:8</label>
+      <label><input type="radio" name="eq8q3" value="c"> c) Always be rated after the Pleasure rating</label>
+      <label><input type="radio" name="eq8q3" value="d"> d) Only be used for physical activities</label>
+      <div class="exam-correction" id="corr8_3"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_4">
+      <div class="q-title">Q4: In the first week of BA, the therapist should:</div>
+      <label><input type="radio" name="eq8q4" value="a"> a) Schedule 10+ activities to maximize positive reinforcement</label>
+      <label><input type="radio" name="eq8q4" value="b"> b) Have the client monitor current activities and mood ratings to establish a baseline</label>
+      <label><input type="radio" name="eq8q4" value="c"> c) Eliminate all passive activities like TV watching</label>
+      <label><input type="radio" name="eq8q4" value="d"> d) Focus on cognitive restructuring of negative thoughts</label>
+      <div class="exam-correction" id="corr8_4"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_5">
+      <div class="q-title">Q5: What is the key difference between BA and exposure therapy?</div>
+      <label><input type="radio" name="eq8q5" value="a"> a) BA uses a hierarchy; exposure does not</label>
+      <label><input type="radio" name="eq8q5" value="b"> b) BA targets depression/withdrawal by increasing positive reinforcement; exposure targets anxiety/avoidance through habituation</label>
+      <label><input type="radio" name="eq8q5" value="c"> c) They are the same technique with different names</label>
+      <label><input type="radio" name="eq8q5" value="d"> d) Exposure is for depression; BA is for anxiety</label>
+      <div class="exam-correction" id="corr8_5"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_6">
+      <div class="q-title">Q6: A client completes a scheduled walk and says "I did it but I didn't enjoy it at all." The BEST response is:</div>
+      <label><input type="radio" name="eq8q6" value="a"> a) "Then let's try a different activity — walking isn't right for you"</label>
+      <label><input type="radio" name="eq8q6" value="b"> b) "You should have tried harder to enjoy it"</label>
+      <label><input type="radio" name="eq8q6" value="c"> c) Acknowledge the effort, check for any mastery rating, compare mood before vs. after, and explain that enjoyment builds gradually</label>
+      <label><input type="radio" name="eq8q6" value="d"> d) "BA doesn't seem to be working for you — let's switch to medication"</label>
+      <div class="exam-correction" id="corr8_6"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_7">
+      <div class="q-title">Q7: Values-based activation is important because:</div>
+      <label><input type="radio" name="eq8q7" value="a"> a) It makes the therapist's job easier</label>
+      <label><input type="radio" name="eq8q7" value="b"> b) Values-aligned activities produce stronger and more sustainable positive reinforcement than random activities</label>
+      <label><input type="radio" name="eq8q7" value="c"> c) Clients always know their values clearly</label>
+      <label><input type="radio" name="eq8q7" value="d"> d) It replaces the need for activity monitoring</label>
+      <div class="exam-correction" id="corr8_7"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_8">
+      <div class="q-title">Q8: Which client presentation is MOST appropriate for BA as the primary intervention?</div>
+      <label><input type="radio" name="eq8q8" value="a"> a) A client with OCD who performs checking rituals 3 hours/day</label>
+      <label><input type="radio" name="eq8q8" value="b"> b) A client with specific phobia of dogs who avoids all parks</label>
+      <label><input type="radio" name="eq8q8" value="c"> c) A client with depression who has stopped socializing, quit hobbies, and stays in bed most of the day</label>
+      <label><input type="radio" name="eq8q8" value="d"> d) A client with PTSD who avoids driving past the accident site</label>
+      <div class="exam-correction" id="corr8_8"></div>
+    </div>
+
+    <button class="submit-exam-btn" onclick="gradeExam8()">Submit Exam</button>
+    <div id="examResult8"></div>
+  </div>
+
+  <script>
+  function gradeExam8() {
+    const answers = {eq8q1:'b', eq8q2:'c', eq8q3:'b', eq8q4:'b', eq8q5:'b', eq8q6:'c', eq8q7:'b', eq8q8:'c'};
+    const explanations = {
+      eq8q1: 'Correct answer: B — Lewinsohn\'s model: depression is maintained by reduced positive reinforcement from the environment due to behavioral withdrawal.',
+      eq8q2: 'Correct answer: C — BA reverses the usual sequence. Action comes first, motivation follows.',
+      eq8q3: 'Correct answer: B — Mastery ratings should account for context. Doing laundry while severely depressed is a genuine accomplishment.',
+      eq8q4: 'Correct answer: B — Week 1 is for activity monitoring — establishing a baseline before making changes.',
+      eq8q5: 'Correct answer: B — BA targets depression/withdrawal through positive reinforcement; exposure targets anxiety/avoidance through habituation/inhibitory learning.',
+      eq8q6: 'Correct answer: C — Validate the effort, check mastery and actual mood data, normalize that enjoyment builds gradually like a muscle.',
+      eq8q7: 'Correct answer: B — Activities connected to personal values produce stronger, more meaningful positive reinforcement.',
+      eq8q8: 'Correct answer: C — BA is designed for depression with withdrawal, anhedonia, and behavioral shutdown. OCD, phobias, and PTSD require different approaches.'
+    };
+    let score = 0;
+    let total = 8;
+    for (let i = 1; i <= total; i++) {
+      const key = 'eq8q' + i;
+      const selected = document.querySelector('input[name="'+key+'"]:checked');
+      const qDiv = document.getElementById('eq8_' + i);
+      const corrDiv = document.getElementById('corr8_' + i);
+      qDiv.classList.remove('correct','wrong');
+      if (selected && selected.value === answers[key]) {
+        score++;
+        qDiv.classList.add('correct');
+        corrDiv.style.display = 'block';
+        corrDiv.innerHTML = 'Correct!';
+        corrDiv.style.color = '#15803d';
+      } else {
+        qDiv.classList.add('wrong');
+        corrDiv.style.display = 'block';
+        corrDiv.innerHTML = explanations[key];
+        corrDiv.style.color = '#dc2626';
+      }
+    }
+    const pct = Math.round((score/total)*100);
+    const resultDiv = document.getElementById('examResult8');
+    let cls, msg, status;
+    if (score >= 7) { cls='result-pass'; msg='MASTERY ACHIEVED — Proceed to Lesson 9!'; status='PASSED'; }
+    else if (score >= 5) { cls='result-almost'; msg='ALMOST THERE — Review missed topics, then retake.'; status='NEEDS REVIEW'; }
+    else { cls='result-fail'; msg='NOT YET — Re-study this lesson before moving on.'; status='NEEDS REVIEW'; }
+    resultDiv.innerHTML = '<div class="exam-result '+cls+'"><h3 style="margin:0 0 8px;">'+score+'/'+total+' ('+pct+'%)</h3><p style="margin:0;">'+msg+'</p></div>' +
+      '<button class="copy-btn" onclick="copyResult8('+score+','+pct+',\''+status+'\')">Copy Results</button>';
+  
+  // === ADDED: Disable radios after submission ===
+  for (let di = 1; di <= 8; di++) {
+    const rName = ['eq8q1', 'eq8q2', 'eq8q3', 'eq8q4', 'eq8q5', 'eq8q6', 'eq8q7', 'eq8q8'][di - 1];
+    document.querySelectorAll('input[name="' + rName + '"]').forEach(function(r) { r.disabled = true; });
+  }
+
+  // === ADDED: Save to localStorage ===
+  var lessonKey = 'lesson_8';
+  localStorage.setItem(lessonKey + '_score', score + '/8');
+  localStorage.setItem(lessonKey + '_passed', score >= 7 ? 'true' : 'false');
+  if (window.self !== window.top) { window.parent.postMessage({type: 'lessonProgress'}, '*'); }
+  // === ADDED: Retake Exam button ===
+  var existingRetake = document.getElementById('retakeExamBtn_8');
+  if (!existingRetake) {
+    var retakeBtn = document.createElement('button');
+    retakeBtn.id = 'retakeExamBtn_8';
+    retakeBtn.innerHTML = '&#128260; Retake Exam';
+    retakeBtn.style.cssText = 'display:block; margin:20px auto; padding:14px 32px; font-size:1rem; font-weight:700; color:#fff; background:linear-gradient(135deg,#2ABFBF,#1A8A8A); border:none; border-radius:12px; cursor:pointer; font-family:Inter,sans-serif; transition:all 0.2s;';
+    retakeBtn.onmouseover = function() { this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(42,191,191,0.3)'; };
+    retakeBtn.onmouseout = function() { this.style.transform=''; this.style.boxShadow=''; };
+    retakeBtn.onclick = function() { retakeExam_8(); };
+    var resultEl = document.getElementById('examResult8');
+    if (resultEl) resultEl.parentNode.insertBefore(retakeBtn, resultEl.nextSibling);
+  }
+
+}
+function retakeExam_8() {
+  // Re-enable and clear all radios
+  var radioNames = ['eq8q1', 'eq8q2', 'eq8q3', 'eq8q4', 'eq8q5', 'eq8q6', 'eq8q7', 'eq8q8'];
+  for (var ri = 0; ri < radioNames.length; ri++) {
+    var radios = document.querySelectorAll('input[name="' + radioNames[ri] + '"]');
+    for (var rj = 0; rj < radios.length; rj++) {
+      radios[rj].disabled = false;
+      radios[rj].checked = false;
+    }
+  }
+
+  // Clear visual selection classes
+  var selectedOpts = document.querySelectorAll('.q-option.selected');
+  for (var si = 0; si < selectedOpts.length; si++) {
+    selectedOpts[si].classList.remove('selected');
+  }
+
+  // Hide result container
+  var resultEl = document.getElementById('examResult8');
+  if (resultEl) {
+    resultEl.className = resultEl.className.replace(/\bshow\b/g, '').replace(/\bresult-pass\b/g, '').replace(/\bresult-almost\b/g, '').replace(/\bresult-fail\b/g, '').replace(/\bresults-green\b/g, '').replace(/\bresults-yellow\b/g, '').replace(/\bresults-red\b/g, '').replace(/\bgreen\b/g, '').replace(/\byellow\b/g, '').replace(/\bred\b/g, '').replace(/\bresult-green\b/g, '').replace(/\bresult-yellow\b/g, '').replace(/\bresult-red\b/g, '');
+    resultEl.style.display = 'none';
+    resultEl.innerHTML = resultEl.innerHTML || '';
+  }
+
+  // Hide retake button
+  var retakeBtn = document.getElementById('retakeExamBtn_8');
+  if (retakeBtn) retakeBtn.remove();
+
+  // Clear feedback elements
+  var feedbacks = document.querySelectorAll('.q-feedback, .exam-correction, .correct-note, .wrong-note, .feedback');
+  for (var fi = 0; fi < feedbacks.length; fi++) {
+    var fb = feedbacks[fi];
+    if (fb.classList.contains('correct-note') || fb.classList.contains('wrong-note')) {
+      fb.remove();
+    } else {
+      fb.className = fb.className.replace(/\bshow\b/g, '').replace(/\bcorrect-fb\b/g, '').replace(/\bincorrect-fb\b/g, '').replace(/\bcorrect\b/g, '').replace(/\bincorrect\b/g, '');
+      fb.style.display = 'none';
+      fb.innerHTML = '';
+    }
+  }
+
+  // Clear question block correct/incorrect/wrong classes
+  var qBlocks = document.querySelectorAll('.exam-question, .exam-q, .question-card, .question-block, [id^="q"], [id^="eq"]');
+  for (var qi = 0; qi < qBlocks.length; qi++) {
+    qBlocks[qi].classList.remove('correct', 'incorrect', 'wrong');
+  }
+
+  // Clear option label highlights
+  var optLabels = document.querySelectorAll('.option-label');
+  for (var oi = 0; oi < optLabels.length; oi++) {
+    optLabels[oi].classList.remove('correct', 'incorrect');
+  }
+
+  // Hide copy button if exists
+  var copyBtns = document.querySelectorAll('#copyBtn, .copy-btn, [id$="copyBtn"]');
+  for (var ci = 0; ci < copyBtns.length; ci++) {
+    copyBtns[ci].style.display = 'none';
+  }
+
+  // Re-enable submit button if it was disabled
+  var submitBtns = document.querySelectorAll('#submitBtn, .submit-exam-btn, .btn-submit, .exam-btn');
+  for (var sbi = 0; sbi < submitBtns.length; sbi++) {
+    submitBtns[sbi].disabled = false;
+  }
+
+  // Scroll to first question
+  var firstQ = document.querySelector('[id^="q1"], [id^="eq"], .exam-question, .exam-q, .question-block, .question-card');
+  if (firstQ) firstQ.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+  function copyResult8(score, pct, status) {
+    const text = 'Lesson 8: '+score+'/8 ('+pct+'%) — '+status;
+    navigator.clipboard.writeText(text).then(()=>{
+      const btn = document.querySelector('#examResult8 .copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(()=>{ btn.textContent = 'Copy Results'; }, 2000);
+    });
+  }
+  </script>
+
+</div>
+<div class="lesson-nav-bottom">
+  <a class="nav-prev" href="Lesson 07 — Socratic Questioning in Practice.html">← Socratic Questioning</a>
+  <a class="nav-home" href="index.html">🏠 Assessment Home</a>
+  <a class="nav-next" href="Lesson 09 — Behavioral Experiments.html">Behavioral Experiments →</a>
+</div>
+
+<script>
+if (window.self !== window.top) {
+  document.body.classList.add("iframe-mode");
+  document.addEventListener("click", function(e) {
+    var link = e.target.closest("a");
+    if (link) {
+      var href = link.getAttribute("href");
+      if (href === "index.html") {
+        e.preventDefault();
+        window.parent.closeLessonViewer();
+      } else if (href && href.indexOf("Lesson") === 0 && href.indexOf(".html") !== -1) {
+        e.preventDefault();
+        window.parent.openLessonByFile(href);
+      } else if (href === "Printable CBT Toolkit.html") {
+        e.preventDefault();
+        window.parent.openToolkit();
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>

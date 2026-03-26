@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 7 — Bridging Head and Heart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.7;
+    font-size: 16px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .lesson-header {
+    text-align: center;
+    padding: 60px 32px;
+    background: linear-gradient(135deg, #f0fdfd 0%, #e6fafa 50%, #f0fdfd 100%);
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .lesson-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(42,191,191,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .lesson-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #2ABFBF, #1A8A8A);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 18px;
+    border-radius: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .lesson-header h1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1e293b, #2ABFBF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .lesson-header .subtitle {
+    font-size: 1.15em;
+    color: #64748b;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .meta-bar {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #64748b;
+  }
+  .meta-bar span { display: flex; align-items: center; gap: 6px; }
+
+  /* Cards */
+  .card {
+    background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+  .card h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .card h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: #2ABFBF;
+  }
+  .card h4 {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 16px 0 8px;
+    color: #1A8A8A;
+  }
+  .card p, .card li {
+    color: #334155;
+    margin-bottom: 8px;
+  }
+  .card ul, .card ol {
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+
+  /* Section color accents */
+  .section-objectives { border-left: 4px solid #2ABFBF; }
+  .section-problem { border-left: 4px solid #f87171; }
+  .section-wall { border-left: 4px solid #fbbf24; }
+  .section-solutions { border-left: 4px solid #34d399; }
+  .section-decision { border-left: 4px solid #38bdf8; }
+  .section-case { border-left: 4px solid #f472b6; }
+  .section-schema { border-left: 4px solid #a78bfa; }
+  .section-test { border-left: 4px solid #fb923c; }
+  .section-complete { border-left: 4px solid #4ade80; }
+
+  /* Highlight boxes */
+  .highlight-box {
+    background: rgba(42,191,191,0.08);
+    border: 1px solid rgba(42,191,191,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .highlight-box.warning {
+    background: rgba(251,191,36,0.08);
+    border-color: rgba(251,191,36,0.2);
+  }
+  .highlight-box.insight {
+    background: rgba(52,211,153,0.08);
+    border-color: rgba(52,211,153,0.2);
+  }
+  .highlight-box.danger {
+    background: rgba(248,113,113,0.08);
+    border-color: rgba(248,113,113,0.2);
+  }
+
+  /* Big quote */
+  .big-quote {
+    font-size: 1.35em;
+    font-weight: 600;
+    color: #f87171;
+    text-align: center;
+    padding: 28px 32px;
+    background: rgba(248,113,113,0.06);
+    border-radius: 16px;
+    border: 1px solid rgba(248,113,113,0.15);
+    margin: 24px 0;
+    line-height: 1.5;
+  }
+
+  /* Technique cards */
+  .technique-card {
+    background: rgba(52,211,153,0.04);
+    border: 1px solid rgba(52,211,153,0.12);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .technique-card .technique-label {
+    display: inline-block;
+    background: linear-gradient(135deg, #34d399, #059669);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .technique-card h3 {
+    color: #34d399;
+    margin-top: 0;
+  }
+
+  /* Decision tree */
+  .decision-tree {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .decision-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(56,189,248,0.06);
+    border: 1px solid rgba(56,189,248,0.12);
+    border-radius: 12px;
+    padding: 14px 20px;
+  }
+  .decision-if {
+    font-weight: 600;
+    color: #38bdf8;
+    min-width: 280px;
+    font-size: 14px;
+  }
+  .decision-arrow { color: #64748b; font-size: 20px; }
+  .decision-then {
+    font-weight: 600;
+    color: #34d399;
+    font-size: 14px;
+  }
+
+  /* Step list */
+  .step-list {
+    counter-reset: step-counter;
+    list-style: none;
+    padding-left: 0;
+  }
+  .step-list li {
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: 48px;
+    margin-bottom: 16px;
+  }
+  .step-list li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #2ABFBF, #1A8A8A);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  /* Dialogue */
+  .dialogue {
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .dialogue-line {
+    padding: 10px 16px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .dialogue-therapist {
+    background: rgba(42,191,191,0.1);
+    border-left: 3px solid #2ABFBF;
+  }
+  .dialogue-client {
+    background: rgba(248,113,113,0.08);
+    border-left: 3px solid #f87171;
+  }
+  .dialogue-label {
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .dialogue-therapist .dialogue-label { color: #2ABFBF; }
+  .dialogue-client .dialogue-label { color: #f87171; }
+
+  /* Details/Summary */
+  details {
+    margin: 12px 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  summary {
+    cursor: pointer;
+    padding: 12px;
+    background: rgba(0,0,0,0.02);
+    border-radius: 8px;
+    color: #2ABFBF;
+    font-weight: 600;
+    font-size: 15px;
+    list-style: none;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  summary:hover { background: rgba(0,0,0,0.04); }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: '▸ ';
+    transition: transform 0.2s;
+  }
+  details[open] > summary::before { content: '▾ '; }
+  details .answer {
+    padding: 16px;
+    background: rgba(42,191,191,0.05);
+    border-radius: 0 0 8px 8px;
+    color: #334155;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0;
+    font-size: 14px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  th {
+    background: rgba(42,191,191,0.15);
+    color: #2ABFBF;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+  }
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    color: #334155;
+  }
+  tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+  tr:last-child td { border-bottom: none; }
+
+  /* Question numbers */
+  .q-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #fb923c, #f97316);
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 13px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Complete section */
+  .complete-section {
+    text-align: center;
+    padding: 40px 32px;
+    background: linear-gradient(135deg, rgba(74,222,128,0.06), rgba(52,211,153,0.04));
+    border-radius: 20px;
+    border: 1px solid rgba(74,222,128,0.15);
+  }
+  .complete-section h2 { justify-content: center; color: #4ade80; }
+  .checklist {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 500px;
+    margin: 20px auto;
+  }
+  .checklist li {
+    padding: 8px 0;
+    font-size: 15px;
+    color: #64748b;
+  }
+  .checklist li::before {
+    content: '☐ ';
+    color: #4ade80;
+    font-size: 18px;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .lesson-header h1 { font-size: 1.7em; }
+    .card { padding: 24px 20px; }
+    .decision-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .decision-if { min-width: auto; }
+    .decision-arrow { transform: rotate(90deg); }
+  }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+
+<style>
+.lesson-nav-top {
+  position: sticky; top: 0; z-index: 999;
+  background: rgba(248,250,252,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 100%;
+}
+.lesson-nav-top a {
+  text-decoration: none; color: #2ABFBF; font-size: 0.85rem; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.lesson-nav-top a:hover { color: #1A8A8A; }
+.lesson-nav-top .nav-title { font-size: 0.8rem; color: #64748b; font-weight: 500; }
+.lesson-nav-bottom {
+  max-width: 900px; margin: 40px auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.lesson-nav-bottom a {
+  text-decoration: none; padding: 12px 24px; border-radius: 12px;
+  font-size: 0.9rem; font-weight: 600; font-family: 'Inter', sans-serif;
+  transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.lesson-nav-bottom .nav-prev { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+.lesson-nav-bottom .nav-prev:hover { background: #e2e8f0; }
+.lesson-nav-bottom .nav-home { background: #e6fafa; color: #1A8A8A; border: 1px solid #99e6e6; }
+.lesson-nav-bottom .nav-home:hover { background: #ccf5f5; }
+.lesson-nav-bottom .nav-next { background: linear-gradient(135deg, #2ABFBF, #1A8A8A); color: white; border: none; }
+.lesson-nav-bottom .nav-next:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(42,191,191,0.3); }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+</head>
+<body>
+<div class="lesson-nav-top">
+  <a href="index.html">← Back to Assessment</a>
+  <span class="nav-title">Lesson 14 of 18</span>
+</div>
+
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="lesson-header">
+    <div class="lesson-number">Lesson 7</div>
+    <h1>Bridging Head and Heart</h1>
+    <p class="subtitle">When intellectual insight isn't enough: experiential techniques for changing what clients <em>feel</em>, not just what they <em>know</em></p>
+    <div class="meta-bar">
+      <span>🕐 ~30 min study</span>
+      <span>📚 Core CBT Skill</span>
+      <span>🎯 Intermediate–Advanced</span>
+    </div>
+  </div>
+
+  <!-- LEARNING OBJECTIVES -->
+  <div class="card section-objectives">
+    <h2>🎯 Learning Objectives</h2>
+    <p>By the end of this lesson, you will be able to:</p>
+    <ol>
+      <li><strong>Explain</strong> the difference between intellectual insight and emotional belief change, and why this distinction matters clinically</li>
+      <li><strong>Identify</strong> when standard cognitive restructuring has hit its ceiling and experiential techniques are needed</li>
+      <li><strong>Describe and apply</strong> five experiential techniques: behavioral experiments, imagery rescripting, chair work, the continuum technique, and head-heart flashcards</li>
+      <li><strong>Use a decision tree</strong> to select the right experiential technique for a given client presentation</li>
+      <li><strong>Understand</strong> how Schema Therapy extends these ideas for deeper, more entrenched patterns</li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1: THE PROBLEM -->
+  <div class="card section-problem">
+    <h2>🔥 The Problem Every CBT Therapist Faces</h2>
+
+    <div class="big-quote">
+      "I <em>KNOW</em> my thought is irrational, but I still <em>FEEL</em> terrible."
+    </div>
+
+    <p>If you've practiced CBT for more than a few weeks, you've heard some version of this statement. It is the <strong>#1 frustration</strong> for both clients and therapists. And misunderstanding it is one of the most common reasons therapists lose confidence in CBT.</p>
+
+    <h3>What's Actually Happening</h3>
+    <p>When a client says this, it means:</p>
+    <ul>
+      <li><strong>Intellectual insight has been achieved</strong> — the client can rationally see that the thought is distorted</li>
+      <li><strong>Emotional belief has NOT changed</strong> — the gut-level, felt sense of the belief remains intact</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>🧠 "Head knows"</strong> — The verbal, rational, logical processing system has updated. The client can articulate why the thought is distorted.<br><br>
+      <strong>❤️ "Gut believes"</strong> — The emotional, experiential, implicit processing system still holds the old belief. It hasn't received the memo.
+    </div>
+
+    <h3>Two Different Processing Systems</h3>
+    <p>This isn't a metaphor. Modern cognitive science confirms that we process information through at least two distinct systems:</p>
+
+    <table>
+      <tr>
+        <th>Rational/Verbal System</th>
+        <th>Emotional/Experiential System</th>
+      </tr>
+      <tr>
+        <td>Logical, language-based</td>
+        <td>Image-based, body-based, affect-driven</td>
+      </tr>
+      <tr>
+        <td>Learns through argument & evidence</td>
+        <td>Learns through <strong>experience</strong> & repetition</td>
+      </tr>
+      <tr>
+        <td>Updates relatively quickly</td>
+        <td>Updates slowly, needs repeated disconfirmation</td>
+      </tr>
+      <tr>
+        <td>Thought records work here</td>
+        <td>Behavioral experiments & imagery work here</td>
+      </tr>
+      <tr>
+        <td>"I know that's not true"</td>
+        <td>"But it still <em>feels</em> true"</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box insight">
+      <strong>💡 Key Insight:</strong> Verbal/rational processing ≠ emotional/experiential processing. You can change one without changing the other. This is not a failure of CBT — it's a signal that you need to shift your technique from the verbal to the experiential.
+    </div>
+  </div>
+
+  <!-- SECTION 2: WHY RESTRUCTURING HITS A WALL -->
+  <div class="card section-wall">
+    <h2>🧱 Why Standard Cognitive Restructuring Hits a Wall</h2>
+
+    <p>Thought records and verbal disputation are powerful tools. But they work primarily on the <strong>rational system</strong>. Here's why they have limits:</p>
+
+    <h3>Core Beliefs Are Stored Differently</h3>
+    <ul>
+      <li>Core beliefs (especially those formed in childhood) are stored in <strong>emotional/implicit memory</strong></li>
+      <li>They were encoded through experience, not through logic — a child who was repeatedly criticized didn't <em>reason</em> their way to "I'm worthless," they <em>felt</em> it into existence</li>
+      <li>Because they were formed experientially, they need to be <strong>changed experientially</strong></li>
+    </ul>
+
+    <div class="highlight-box danger">
+      <strong>⚠️ Critical Understanding:</strong> You cannot "argue" someone out of a feeling that was formed at age 5. The emotional system doesn't speak the language of logic — it speaks the language of <strong>experience, imagery, and felt sense</strong>.
+    </div>
+
+    <h3>Signs That You've Hit the Restructuring Ceiling</h3>
+    <ol>
+      <li>Client can fill out thought records perfectly but reports <strong>no emotional shift</strong></li>
+      <li>Client says "I know you're right, but..." repeatedly</li>
+      <li>Belief ratings: intellectual belief in new thought is 70–90%, but <strong>emotional belief</strong> is stuck at 10–20%</li>
+      <li>The same core belief keeps showing up across different situations</li>
+      <li>Client becomes frustrated with the "logical" approach: "I've heard all the arguments"</li>
+    </ol>
+
+    <div class="highlight-box warning">
+      <strong>🔑 Remember:</strong> This is NOT a failure of CBT. This is a signal to switch from verbal techniques to experiential techniques — which are <em>also</em> CBT. Beck himself recognized the need for experiential methods alongside purely verbal ones.
+    </div>
+  </div>
+
+  <!-- SECTION 3: THE SOLUTIONS -->
+  <div class="card section-solutions">
+    <h2>🛠️ The Solutions — Experiential Techniques</h2>
+    <p>These five techniques target the emotional/experiential processing system directly. They are listed roughly in order of how often you'll use them.</p>
+  </div>
+
+  <!-- Technique A: Behavioral Experiments -->
+  <div class="technique-card">
+    <div class="technique-label">Technique A</div>
+    <h3>🔬 Behavioral Experiments — The Most Powerful Bridge</h3>
+
+    <p>Behavioral experiments are the single most effective way to bridge the head-heart gap because they provide <strong>direct experiential evidence</strong> that the old belief is wrong.</p>
+
+    <div class="highlight-box insight">
+      <strong>Core Principle:</strong> Experiencing disconfirming evidence is more powerful than talking about it. The emotional system updates through <strong>EXPERIENCE</strong>, not logic.
+    </div>
+
+    <h4>How It Works</h4>
+    <ol class="step-list">
+      <li><strong>Identify the belief to test:</strong> "If I cry in front of others, they'll think I'm weak"</li>
+      <li><strong>Design the experiment:</strong> Share something vulnerable with one trusted person</li>
+      <li><strong>Make a specific prediction:</strong> "They will look disgusted and change the subject"</li>
+      <li><strong>Run the experiment:</strong> Client actually does it in real life</li>
+      <li><strong>Evaluate the outcome:</strong> What actually happened vs. what was predicted?</li>
+      <li><strong>Process the emotional impact:</strong> "How does it FEEL to know they responded with compassion?"</li>
+    </ol>
+
+    <p>The emotional system receives <strong>new data</strong> — not as a verbal argument, but as a lived experience. This is what updates the gut-level belief.</p>
+
+    <div class="highlight-box">
+      <strong>📋 Example:</strong> Client believes "If I say no, people will abandon me." Experiment: Say no to one low-stakes request this week. Prediction: "They'll be angry and stop talking to me." Outcome: Friend says "No worries!" and texts later about something else. The gut receives evidence that contradicts the old belief — through direct experience.
+    </div>
+  </div>
+
+  <!-- Technique B: Imagery Rescripting -->
+  <div class="technique-card">
+    <div class="technique-label">Technique B</div>
+    <h3>🖼️ Imagery Rescripting</h3>
+
+    <p>Core beliefs often have an <strong>associated childhood memory or image</strong> that serves as their emotional anchor. Imagery rescripting targets this anchor directly.</p>
+
+    <h4>The Basic Protocol (Arntz & Weertman, 1999)</h4>
+    <ol class="step-list">
+      <li><strong>Identify the "hot" image:</strong> Ask "When you feel [core belief], is there an image or memory that comes to mind?" Often a specific childhood scene emerges.</li>
+      <li><strong>Relive it briefly:</strong> Client describes the scene in present tense, connecting with the emotions of the child in the memory. ("I'm sitting at the dinner table. Mom is yelling.")</li>
+      <li><strong>Introduce the adult self:</strong> "Now imagine your adult self walking into that scene. What do you see?" The adult self observes the child's distress.</li>
+      <li><strong>The adult self intervenes:</strong> The adult self does what the child needed — protects, comforts, speaks truth, confronts the harmful person, or removes the child from the situation.</li>
+      <li><strong>Process:</strong> "How does the child feel now? How do you feel as the adult?"</li>
+    </ol>
+
+    <div class="highlight-box insight">
+      <strong>🎯 Full Worked Example:</strong><br><br>
+      <strong>Client:</strong> Nino, 29, core belief: "I am unlovable."<br>
+      <strong>Hot memory:</strong> Age 7, excitedly showing her mother a drawing she made. Mother sighs heavily and says, <em>"You're too much. Can't you see I'm busy? You always need something."</em><br><br>
+      <strong>Imagery Rescripting:</strong><br>
+      The therapist guides Nino to re-enter the scene. She sees herself as a 7-year-old holding the drawing, face falling. Then: <em>"Now your adult self walks into that kitchen. What do you want to say?"</em><br><br>
+      <strong>Adult Nino to the child:</strong> "You are NOT too much. You drew something beautiful and you wanted to share it. That's wonderful. Your needs are valid. Mom is overwhelmed with her own problems — this is not about you."<br><br>
+      <strong>Adult Nino to the mother:</strong> "She's a child. She needs your attention. If you're struggling, get help — but don't make her feel like a burden."<br><br>
+      <strong>Result:</strong> The memory loses its emotional charge. The child in the image is comforted. The old belief "I'm too much / unlovable" is disrupted at its emotional source — not through argument, but through a new <em>experience</em> of the memory.
+    </div>
+  </div>
+
+  <!-- Technique C: Chair Work -->
+  <div class="technique-card">
+    <div class="technique-label">Technique C</div>
+    <h3>🪑 Chair Work / Two-Chair Technique</h3>
+
+    <p>Adapted from Gestalt therapy into CBT and Schema Therapy, chair work makes the internal dialogue <strong>external, physical, and tangible</strong>.</p>
+
+    <h4>Setup</h4>
+    <ul>
+      <li><strong>Chair 1</strong> = The Critical Voice (the core belief / inner critic)</li>
+      <li><strong>Chair 2</strong> = The Healthy/Rational Voice (the compassionate, reality-based perspective)</li>
+      <li>Client <strong>physically moves</strong> between chairs, speaking as each voice</li>
+    </ul>
+
+    <h4>Why It Works</h4>
+    <ul>
+      <li>Engages the <strong>body</strong> — moving between chairs makes abstract thoughts concrete</li>
+      <li>Makes the internal dialogue <strong>external and visible</strong> — you can literally see the two sides</li>
+      <li>Activates <strong>emotional processing</strong> — clients often feel anger, sadness, or compassion they couldn't access through verbal restructuring alone</li>
+      <li>Builds the healthy voice's "muscle" through practice</li>
+    </ul>
+
+    <h4>Full Worked Example</h4>
+    <div class="dialogue">
+      <div class="dialogue-line dialogue-therapist">
+        <span class="dialogue-label">Therapist:</span> Sit in this chair. This is the voice that says "You're a fraud." Speak as that voice — say it directly to the other chair, as if speaking to yourself sitting there.
+      </div>
+      <div class="dialogue-line dialogue-client">
+        <span class="dialogue-label">Client (Critical Chair):</span> You don't belong here. Everyone else actually earned their position. You just got lucky, and one day they'll all figure it out.
+      </div>
+      <div class="dialogue-line dialogue-therapist">
+        <span class="dialogue-label">Therapist:</span> Now switch chairs. You're now the healthy voice. What do you want to say back?
+      </div>
+      <div class="dialogue-line dialogue-client">
+        <span class="dialogue-label">Client (Healthy Chair):</span> <em>(hesitant at first)</em> That's... that's not fair. I worked hard. I have a degree. My boss chose me for this project specifically.
+      </div>
+      <div class="dialogue-line dialogue-therapist">
+        <span class="dialogue-label">Therapist:</span> Say it more strongly. Look at that chair and defend yourself.
+      </div>
+      <div class="dialogue-line dialogue-client">
+        <span class="dialogue-label">Client (Healthy Chair):</span> <em>(with emotion)</em> No. I am NOT a fraud. I earned this. You're the voice of my father who never thought anything was good enough. But he was wrong. I AM good enough.
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>💡 Note:</strong> The breakthrough happens when emotion enters the healthy voice. That's the moment the experiential system is engaged. If the healthy voice remains flat and "logical," keep encouraging the client to speak with feeling.
+    </div>
+  </div>
+
+  <!-- Technique D: Continuum Technique -->
+  <div class="technique-card">
+    <div class="technique-label">Technique D</div>
+    <h3>📏 The Continuum Technique</h3>
+
+    <p>Core beliefs are characteristically <strong>all-or-nothing</strong>: "I'm a complete failure," "I'm totally unlovable," "Everyone will reject me." The continuum technique disrupts black-and-white thinking at the emotional level.</p>
+
+    <h4>How to Use It</h4>
+    <ol class="step-list">
+      <li><strong>Identify the all-or-nothing belief:</strong> "I'm a complete failure"</li>
+      <li><strong>Create a visual continuum:</strong> Draw a line from 0% (complete failure at everything) to 100% (failure at absolutely everything, every single moment)</li>
+      <li><strong>Anchor the extremes:</strong> "Who would be at 100%? Someone who has literally failed at every single thing they've ever attempted." "Who would be at 0%? Someone who has never failed at anything."</li>
+      <li><strong>Place other people:</strong> "Where would your colleague fall? Your friend? A stranger on the street?"</li>
+      <li><strong>Place the client:</strong> "Now — honestly — where do YOU actually fall on this line?"</li>
+    </ol>
+
+    <div class="highlight-box insight">
+      <strong>Why it works emotionally:</strong> By seeing themselves placed on a spectrum rather than at an extreme, the felt sense shifts from "I AM a failure" (identity-level, absolute) to "I sometimes fail at some things" (behavior-level, specific). The visual nature of the exercise engages more than just verbal processing.
+    </div>
+  </div>
+
+  <!-- Technique E: Head-Heart Flashcard -->
+  <div class="technique-card">
+    <div class="technique-label">Technique E</div>
+    <h3>💳 The "Head-Heart" Flashcard</h3>
+
+    <p>A deceptively simple tool for daily reinforcement of the new belief, designed for gradual erosion of the old emotional belief.</p>
+
+    <h4>How to Create One</h4>
+    <table>
+      <tr>
+        <th style="width:50%;">Side 1: "What My Head Knows" ✅</th>
+        <th style="width:50%;">Side 2: "What My Heart Feels" 🔴</th>
+      </tr>
+      <tr>
+        <td>I am competent. I have evidence: my degree, my work evaluations, the projects I've completed. The feeling of being a fraud comes from my childhood, not from reality.</td>
+        <td>I'm a fraud and everyone will find out. I don't deserve to be here.</td>
+      </tr>
+    </table>
+
+    <h4>The Protocol</h4>
+    <ul>
+      <li>Client reads the <strong>"head" side</strong> multiple times daily — morning, midday, evening</li>
+      <li>Think of it like <strong>physical therapy for the brain</strong> — repetition strengthens the neural pathway of the new belief</li>
+      <li>Over time (weeks to months), the gut belief weakens and the rational belief gains emotional weight</li>
+      <li>Rate intellectual and emotional belief weekly to track progress</li>
+    </ul>
+
+    <div class="highlight-box warning">
+      <strong>⏳ Timeframe:</strong> This is not a quick fix. It's a slow-burn technique. Pair it with behavioral experiments for faster results. The flashcard reinforces what the experiments demonstrate.
+    </div>
+  </div>
+
+  <!-- SECTION 4: DECISION TREE -->
+  <div class="card section-decision">
+    <h2>🌳 Decision Tree: When to Use What</h2>
+    <p>When standard restructuring isn't producing emotional change, use this guide:</p>
+
+    <div class="decision-tree">
+      <div class="decision-row">
+        <span class="decision-if">Standard restructuring not working</span>
+        <span class="decision-arrow">→</span>
+        <span class="decision-then">🔬 Try Behavioral Experiments first</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-if">Belief linked to specific childhood memory</span>
+        <span class="decision-arrow">→</span>
+        <span class="decision-then">🖼️ Imagery Rescripting</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-if">Strong inner critic / self-attack pattern</span>
+        <span class="decision-arrow">→</span>
+        <span class="decision-then">🪑 Chair Work</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-if">All-or-nothing core belief</span>
+        <span class="decision-arrow">→</span>
+        <span class="decision-then">📏 Continuum Technique</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-if">Need daily reinforcement between sessions</span>
+        <span class="decision-arrow">→</span>
+        <span class="decision-then">💳 Head-Heart Flashcards</span>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>💡 In practice:</strong> These techniques are often <strong>combined</strong>. For example, you might use imagery rescripting in session, assign a behavioral experiment for the week, and give the client a head-heart flashcard to read daily. They reinforce each other.
+    </div>
+  </div>
+
+  <!-- SECTION 5: FULL CLINICAL CASE -->
+  <div class="card section-case">
+    <h2>📋 Full Clinical Case: Maia</h2>
+
+    <div class="highlight-box">
+      <strong>Client:</strong> Maia, 33, presenting with moderate depression (PHQ-9: 16)<br>
+      <strong>Core belief:</strong> "If someone is quiet around me, it means they're angry at me and I've done something wrong"<br>
+      <strong>Trigger:</strong> Husband's silence — he's naturally introverted and often quiet, but Maia interprets every silence as anger
+    </div>
+
+    <h3>Phase 1: Standard Restructuring (Sessions 1–4)</h3>
+    <p>Thought records show Maia can consistently identify the cognitive distortion:</p>
+    <ul>
+      <li><strong>Automatic thought:</strong> "He's quiet = he's angry at me"</li>
+      <li><strong>Distortion:</strong> Mind reading, personalization</li>
+      <li><strong>Alternative thought:</strong> "My husband's silence doesn't mean he's angry at me. He's often quiet when he's tired or thinking."</li>
+      <li><strong>Intellectual belief in alternative:</strong> 85%</li>
+      <li><strong style="color: #f87171;">Emotional belief in alternative:</strong> 15% — still feels anxious every time</li>
+    </ul>
+
+    <div class="highlight-box danger">
+      <strong>The wall:</strong> Maia says, "I know logically he's just tired. But every time he goes quiet, my stomach drops and I feel like I need to fix whatever I did wrong." Classic head-heart gap.
+    </div>
+
+    <h3>Phase 2: Behavioral Experiments (Sessions 5–7)</h3>
+    <p>Therapist shifts strategy:</p>
+
+    <h4>Experiment 1: Check the prediction</h4>
+    <ul>
+      <li><strong>Design:</strong> Next time husband is quiet, Maia asks (gently): "Hey, are you doing okay?"</li>
+      <li><strong>Prediction:</strong> "He'll say he's angry at me" (50% believed)</li>
+      <li><strong>Outcome:</strong> He says "Yeah, just thinking about a work project"</li>
+      <li><strong>Emotional impact:</strong> Relief. But the belief recovers by the next silence.</li>
+    </ul>
+
+    <h4>Experiment 2: Survey method</h4>
+    <ul>
+      <li><strong>Design:</strong> Maia asks three friends: "When you're quiet around people, what's usually the reason?"</li>
+      <li><strong>Prediction:</strong> They'll say "Because something is bothering me about the other person"</li>
+      <li><strong>Outcome:</strong> All three say it's usually tiredness, thinking, or just not feeling chatty</li>
+      <li><strong>Emotional impact:</strong> More shift — now emotional belief at 40%</li>
+    </ul>
+
+    <h3>Phase 3: The Breakthrough — Imagery Rescripting (Session 8)</h3>
+    <p>Despite improvement, the gut reaction persists. Therapist explores:</p>
+
+    <div class="dialogue">
+      <div class="dialogue-line dialogue-therapist">
+        <span class="dialogue-label">Therapist:</span> Maia, when you feel that stomach-drop moment during your husband's silence — is there an image or memory that comes with it?
+      </div>
+      <div class="dialogue-line dialogue-client">
+        <span class="dialogue-label">Maia:</span> <em>(long pause)</em> ...My father. When he was angry, he wouldn't yell. He'd just go completely silent. Sometimes for days. And I'd have no idea what I did wrong. I'd follow him around trying to make him talk to me.
+      </div>
+      <div class="dialogue-line dialogue-therapist">
+        <span class="dialogue-label">Therapist:</span> How old are you in that memory?
+      </div>
+      <div class="dialogue-line dialogue-client">
+        <span class="dialogue-label">Maia:</span> Maybe 6 or 7.
+      </div>
+    </div>
+
+    <div class="highlight-box insight">
+      <strong>🔑 Discovery:</strong> Maia's core belief isn't really about her husband — it's about her father's silent treatment, which was used as punishment throughout her childhood. The belief "silence = anger = my fault" was formed at age 6 through repeated experience. No amount of thought records about her husband will fully update a belief anchored to a childhood experience with her father.
+    </div>
+
+    <h4>The Imagery Rescripting Session</h4>
+    <div class="dialogue">
+      <div class="dialogue-line dialogue-therapist">
+        <span class="dialogue-label">Therapist:</span> Close your eyes. You're back in that house. You're 6 years old. Your father has gone silent. Tell me what you see.
+      </div>
+      <div class="dialogue-line dialogue-client">
+        <span class="dialogue-label">Maia (as child):</span> I'm standing in the doorway of the living room. Dad is sitting in his chair, reading. He won't look at me. I don't know what I did.
+      </div>
+      <div class="dialogue-line dialogue-therapist">
+        <span class="dialogue-label">Therapist:</span> How does little Maia feel?
+      </div>
+      <div class="dialogue-line dialogue-client">
+        <span class="dialogue-label">Maia:</span> <em>(tears)</em> Scared. Like I need to fix it but I don't know how.
+      </div>
+      <div class="dialogue-line dialogue-therapist">
+        <span class="dialogue-label">Therapist:</span> Now — adult Maia walks into that room. You're 33 years old, and you can see little Maia standing there. What do you want to do?
+      </div>
+      <div class="dialogue-line dialogue-client">
+        <span class="dialogue-label">Maia (adult):</span> I want to pick her up. <em>(crying)</em> I want to tell her this isn't her fault.
+      </div>
+      <div class="dialogue-line dialogue-therapist">
+        <span class="dialogue-label">Therapist:</span> Do it. Tell her.
+      </div>
+      <div class="dialogue-line dialogue-client">
+        <span class="dialogue-label">Maia (adult, to child):</span> This is not your fault. Dad uses silence because he doesn't know how to deal with his own feelings. It has nothing to do with you. You are a good kid. You don't need to fix this.
+      </div>
+    </div>
+
+    <h4>Result</h4>
+    <ul>
+      <li>Maia's emotional belief in the alternative thought jumped from 40% to <strong>70%</strong> after this session</li>
+      <li>Over the next 3 sessions (with continued behavioral experiments), it reached <strong>85%</strong></li>
+      <li>The gut-level reaction to her husband's silence decreased significantly — not eliminated, but manageable</li>
+      <li>She was given a head-heart flashcard for daily use to maintain gains</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 6: SCHEMA THERAPY CONNECTION -->
+  <div class="card section-schema">
+    <h2>🔗 The Schema Therapy Connection</h2>
+
+    <p><strong>Schema Therapy</strong> (developed by Jeffrey Young) was created specifically for situations where standard CBT restructuring isn't enough — particularly for clients with deeply entrenched core beliefs, often those with personality disorders or chronic depression.</p>
+
+    <h3>Key Points</h3>
+    <ul>
+      <li>Schema Therapy is a <strong>CBT extension</strong>, not a different modality — it builds directly on Beck's cognitive model</li>
+      <li>It organizes core beliefs into 18 "Early Maladaptive Schemas" (e.g., Abandonment, Defectiveness, Emotional Deprivation)</li>
+      <li>It uses the same experiential techniques we've covered: <strong>imagery rescripting, chair work, behavioral pattern-breaking, and limited reparenting</strong></li>
+      <li>The concept of "schema modes" (e.g., Vulnerable Child, Punitive Parent, Healthy Adult) maps directly onto the chair work technique</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>📚 For Further Study:</strong> If you find yourself frequently needing experiential techniques, consider training in Schema Therapy. Key text: <em>Schema Therapy: A Practitioner's Guide</em> by Jeffrey Young, Janet Klosko, and Marjorie Weishaar (2003).
+    </div>
+  </div>
+
+  <!-- PRACTICE EXERCISES -->
+  <div class="card section-solutions">
+    <h2>✏️ Practice Exercises</h2>
+
+    <h3>Exercise 1: Design a Behavioral Experiment</h3>
+    <p>Client belief: "If I make a mistake at work, my boss will fire me." The client has been avoiding taking on new tasks to prevent any chance of error.</p>
+
+    <details>
+      <summary>Click to see a model answer</summary>
+      <div class="answer">
+        <strong>Behavioral Experiment:</strong> Identify one small, low-risk task the client has been avoiding. Have them complete it this week, accepting that minor imperfections are possible.<br><br>
+        <strong>Specific prediction:</strong> "If I make even a small mistake, my boss will call me in and fire me or give me a formal warning."<br>
+        <strong>Rating:</strong> How much do you believe this will happen? (0-100%)<br>
+        <strong>After the experiment:</strong> What actually happened? How does the outcome compare to the prediction? How does this FEEL?<br><br>
+        <strong>Bonus:</strong> If the client made a small mistake and was NOT fired, process the emotional impact. "Your gut predicted catastrophe. What actually happened? Let that sink in."
+      </div>
+    </details>
+
+    <h3>Exercise 2: Identify the Right Technique</h3>
+    <p>For each scenario, which experiential technique would you choose first?</p>
+
+    <p><strong>A.</strong> Client with social anxiety who believes "Everyone is judging me" — can verbalize that this is unlikely but feels it intensely in social settings.</p>
+    <details>
+      <summary>Click to see the answer</summary>
+      <div class="answer">
+        <strong>Behavioral Experiment.</strong> Design a social exposure with specific predictions ("3 out of 5 people will look at me with disgust"). Have the client observe actual reactions. The experiential disconfirmation is more powerful than any amount of verbal reasoning.
+      </div>
+    </details>
+
+    <p><strong>B.</strong> Client who repeatedly says "I'm fundamentally broken" and traces this to memories of a parent who said "Something is wrong with you" after every mistake.</p>
+    <details>
+      <summary>Click to see the answer</summary>
+      <div class="answer">
+        <strong>Imagery Rescripting.</strong> The belief is anchored to a specific childhood experience with the parent. Access the memory, relive briefly, then have the adult self enter the scene to protect and reassure the child, and to confront the parent's harmful words.
+      </div>
+    </details>
+
+    <p><strong>C.</strong> Client with extremely harsh self-talk: "You're an idiot, you can't do anything right, who do you think you are?"</p>
+    <details>
+      <summary>Click to see the answer</summary>
+      <div class="answer">
+        <strong>Chair Work.</strong> The strong inner critic/self-attack pattern is ideal for the two-chair technique. One chair speaks as the critic, the other as the healthy voice. The goal is for the healthy voice to fight back with genuine emotion, not just logic.
+      </div>
+    </details>
+
+    <h3>Exercise 3: Write a Head-Heart Flashcard</h3>
+    <p>Client belief: "I'm undeserving of love. Anyone who gets close to me will eventually leave." Write both sides of a head-heart flashcard for this client.</p>
+    <details>
+      <summary>Click to see a model answer</summary>
+      <div class="answer">
+        <strong>Side 1 — What My Head Knows:</strong><br>
+        "I have people in my life who have stayed: [specific names]. My belief that everyone leaves comes from my parents' divorce when I was 8, not from a universal truth. I deserve love just as much as anyone. The fact that some relationships have ended doesn't mean ALL will — it means some weren't right, and that's normal."<br><br>
+        <strong>Side 2 — What My Heart Feels:</strong><br>
+        "Anyone who really gets to know me will leave. I'm not enough to keep someone."<br><br>
+        <strong>Instructions:</strong> Read Side 1 three times daily. Rate intellectual and emotional belief each week.
+      </div>
+    </details>
+  </div>
+
+  <!-- MINI-TEST -->
+  <div class="card section-test">
+    <h2>📝 Mini-Test</h2>
+    <p>Test your understanding. Try to answer each question before clicking to reveal the answer.</p>
+
+    <p><span class="q-number">1</span><strong>Client says: "I know I'm not worthless, but I feel worthless." What technique do you try first, and why?</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        <strong>Behavioral experiments</strong> should be your first line when standard restructuring hits the wall. They provide direct experiential evidence that challenges the emotional belief. Design an experiment that tests the specific prediction embedded in "I'm worthless" — for example, if it manifests as "Nothing I do matters," have the client do something and specifically track the impact it has. The experience of seeing real-world evidence — lived, not just discussed — is what updates the emotional system.<br><br>
+        If behavioral experiments alone don't resolve it, explore whether there's a childhood memory anchoring the belief (which would suggest imagery rescripting as the next step).
+      </div>
+    </details>
+
+    <p><span class="q-number">2</span><strong>Match each technique to the best scenario:</strong></p>
+    <ul>
+      <li><strong>A.</strong> Client with "I'm a total failure" — achieved a promotion but still believes it</li>
+      <li><strong>B.</strong> Client whose belief traces to a memory of being humiliated by a teacher at age 8</li>
+      <li><strong>C.</strong> Client with a vicious inner critic that sounds exactly like their mother</li>
+      <li><strong>D.</strong> Client with social anxiety who "knows" people won't laugh at them but avoids presentations</li>
+    </ul>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        <strong>A → Continuum Technique</strong> — "Total failure" is all-or-nothing. Place on a spectrum: Where does someone who got promoted actually fall on a failure continuum?<br><br>
+        <strong>B → Imagery Rescripting</strong> — Specific childhood memory anchoring the belief. Enter the memory, have the adult self protect the child.<br><br>
+        <strong>C → Chair Work</strong> — Strong inner critic that resembles a specific person. Two chairs: critic voice vs. healthy voice. Let the client fight back.<br><br>
+        <strong>D → Behavioral Experiment</strong> — Test the prediction directly. Give a short presentation, make specific predictions beforehand, compare predictions to reality.
+      </div>
+    </details>
+
+    <p><span class="q-number">3</span><strong>What is imagery rescripting? Describe the basic steps.</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        Imagery rescripting is an experiential technique that targets core beliefs by modifying the childhood memories/images that anchor them. Basic steps:<br><br>
+        <strong>1.</strong> Identify the "hot" image — the childhood memory associated with the core belief<br>
+        <strong>2.</strong> Relive it briefly — client describes the scene in present tense, connecting with the child's emotions<br>
+        <strong>3.</strong> Introduce the adult self — the client's current adult self enters the memory scene<br>
+        <strong>4.</strong> The adult self intervenes — protects the child, comforts them, confronts the harmful person, or speaks the truth the child needed to hear<br>
+        <strong>5.</strong> Process — explore how the child feels now, how the adult self feels, and what this means for the core belief<br><br>
+        The technique works because it provides a corrective emotional experience at the source of the belief, updating the implicit/emotional memory system.
+      </div>
+    </details>
+
+    <p><span class="q-number">4</span><strong>Why does verbal restructuring alone fail to change core beliefs?</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        Verbal restructuring (thought records, Socratic questioning, logical disputation) primarily engages the <strong>rational/verbal processing system</strong>. However, core beliefs — especially those formed in childhood — are stored in the <strong>emotional/experiential processing system</strong> (implicit memory). These are two different systems.<br><br>
+        Core beliefs were formed through <em>experience</em>, not through logic. A child didn't reason their way to "I'm worthless" — they felt it through repeated experiences of criticism, neglect, or invalidation. Because the beliefs were encoded experientially, they need to be <strong>changed experientially</strong>.<br><br>
+        This is why a client can say "I know it's irrational" (rational system updated) but "I still feel it" (emotional system unchanged). The solution is to use techniques that target the emotional system directly: behavioral experiments, imagery rescripting, chair work, etc.
+      </div>
+    </details>
+
+    <p><span class="q-number">5</span><strong>Design an intervention for: "I know people don't actually hate me, but I feel hated whenever someone doesn't text back."</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        <strong>Step 1 — Behavioral Experiment (Survey Method):</strong><br>
+        Have the client ask 3–5 trusted friends: "When you don't text someone back right away, what's usually the reason?" Prediction: "They'll say it's because they don't care." Likely outcome: Most will cite being busy, forgetting, or phone being on silent.<br><br>
+        <strong>Step 2 — Behavioral Experiment (Self-Monitoring):</strong><br>
+        Track the client's own texting behavior: "How often do YOU not text back right away? Does that mean you hate the person?" This provides experiential evidence of their own non-response behavior.<br><br>
+        <strong>Step 3 — If the gut feeling persists, explore the origin:</strong><br>
+        "When you feel 'hated' because of no reply — is there a memory or image that comes with that feeling?" If a childhood memory of being ignored, excluded, or made to feel invisible emerges → <strong>Imagery Rescripting</strong> targeting that memory.<br><br>
+        <strong>Step 4 — Daily reinforcement:</strong><br>
+        Head-Heart Flashcard: "Head: People not texting back is about their schedule, not about me. Heart: If they don't reply, they don't care about me."
+      </div>
+    </details>
+
+    <p><span class="q-number">6</span><strong>A colleague says: "Imagery rescripting and chair work aren't really CBT — they're from other modalities." How do you respond?</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        While these techniques have roots in other traditions (imagery rescripting draws from Gestalt and information processing theory; chair work from Gestalt therapy), they have been <strong>fully integrated into modern CBT</strong>. Aaron Beck himself recognized the importance of experiential methods alongside verbal techniques.<br><br>
+        Schema Therapy (Jeffrey Young), which is explicitly a CBT extension, formally incorporated these techniques into the CBT framework. They are used to achieve CBT goals (modifying core beliefs, reducing emotional distress) using CBT case conceptualization — they just target the emotional processing system rather than the verbal/rational system.<br><br>
+        Modern CBT is not limited to thought records and Socratic questioning. A comprehensive CBT therapist uses both verbal/rational techniques AND experiential techniques, selecting based on what the clinical situation requires.
+      </div>
+    </details>
+  </div>
+
+  <!-- LESSON COMPLETE -->
+  <div class="card section-complete">
+    <div class="complete-section">
+      <h2>✅ Lesson Complete</h2>
+      <p style="color: #64748b; margin-top: 8px;">Self-check: Can you confidently say yes to each of these?</p>
+      <ul class="checklist">
+        <li>I can explain why "I know it's irrational but I still feel it" happens</li>
+        <li>I can identify when to switch from verbal restructuring to experiential techniques</li>
+        <li>I can describe and apply all five experiential techniques covered</li>
+        <li>I can use the decision tree to select the right technique for a given presentation</li>
+        <li>I know how Schema Therapy extends these ideas and when to consider it</li>
+        <li>I can design a behavioral experiment and an imagery rescripting intervention</li>
+      </ul>
+      <p style="color: #64748b; margin-top: 20px; font-size: 14px;">If any box feels uncertain, review that section before moving on.</p>
+    </div>
+  </div>
+
+  <!-- FINAL SCORED EXAM -->
+  <style>
+    .exam-section { background: linear-gradient(135deg, #f0fdfd, #e6fafa); box-shadow: 0 1px 3px rgba(0,0,0,0.08); border-radius: 16px; border: 1px solid rgba(42,191,191,0.3); padding: 32px; margin-top: 40px; }
+    .exam-q { padding: 16px; margin: 12px 0; background: rgba(0,0,0,0.02); border-radius: 10px; border-left: 3px solid #2ABFBF; }
+    .exam-q.correct { border-left-color: #4ade80; background: rgba(34,197,94,0.05); }
+    .exam-q.wrong { border-left-color: #f87171; background: rgba(239,68,68,0.05); }
+    .exam-q label { display: block; padding: 8px 12px; margin: 4px 0; border-radius: 6px; cursor: pointer; font-size: 0.92rem; color: #334155; }
+    .exam-q label:hover { background: rgba(42,191,191,0.1); }
+    .exam-q .q-title { font-weight: 600; color: #1e293b; margin-bottom: 10px; }
+    .exam-result { padding: 24px; border-radius: 12px; margin-top: 20px; text-align: center; }
+    .result-pass { background: rgba(34,197,94,0.15); border: 2px solid #4ade80; color: #4ade80; }
+    .result-almost { background: rgba(251,191,36,0.15); border: 2px solid #fbbf24; color: #fbbf24; }
+    .result-fail { background: rgba(239,68,68,0.15); border: 2px solid #f87171; color: #f87171; }
+    .submit-exam-btn { display: block; margin: 20px auto; padding: 14px 40px; background: linear-gradient(135deg, #2ABFBF, #1A8A8A); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .submit-exam-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(42,191,191,0.4); }
+    .copy-btn { display: block; margin: 12px auto; padding: 10px 30px; background: rgba(0,0,0,0.05); color: #2ABFBF; border: 1px solid #2ABFBF; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .exam-correction { font-size: 0.85rem; color: #64748b; margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.02); border-radius: 6px; display: none; }
+    /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+
+  <div class="exam-section" id="examSection7">
+    <h2 style="text-align:center; color:#1e293b; margin-bottom: 8px;">🎓 FINAL EXAM — Are You Ready to Proceed?</h2>
+    <p style="text-align:center; color:#64748b; margin-bottom: 24px;">Score ≥85% to pass. All questions based on Lesson 7 content.</p>
+
+    <div class="exam-q" id="eq7_1">
+      <div class="q-title">Q1: A client says "I KNOW logically that I'm not worthless, but I still FEEL worthless." This means:</div>
+      <label><input type="radio" name="examq1" value="a"> a) CBT has failed — try a different modality</label>
+      <label><input type="radio" name="examq1" value="b"> b) Intellectual insight has been achieved but emotional belief hasn't changed yet</label>
+      <label><input type="radio" name="examq1" value="c"> c) The client is being resistant</label>
+      <label><input type="radio" name="examq1" value="d"> d) The thought record was done incorrectly</label>
+      <div class="exam-correction" id="corr7_1"></div>
+    </div>
+
+    <div class="exam-q" id="eq7_2">
+      <div class="q-title">Q2: Why does verbal cognitive restructuring sometimes fail to change core beliefs?</div>
+      <label><input type="radio" name="examq2" value="a"> a) Because the therapist isn't skilled enough</label>
+      <label><input type="radio" name="examq2" value="b"> b) Because core beliefs formed in childhood are stored in emotional/implicit memory, which doesn't respond to rational argument alone</label>
+      <label><input type="radio" name="examq2" value="c"> c) Because CBT doesn't work for core beliefs</label>
+      <label><input type="radio" name="examq2" value="d"> d) Because the client isn't trying hard enough</label>
+      <div class="exam-correction" id="corr7_2"></div>
+    </div>
+
+    <div class="exam-q" id="eq7_3">
+      <div class="q-title">Q3: Which technique is MOST powerful for bridging intellectual and emotional insight?</div>
+      <label><input type="radio" name="examq3" value="a"> a) More thought records</label>
+      <label><input type="radio" name="examq3" value="b"> b) Psychoeducation about cognitive distortions</label>
+      <label><input type="radio" name="examq3" value="c"> c) Behavioral experiments — experiencing disconfirming evidence firsthand</label>
+      <label><input type="radio" name="examq3" value="d"> d) Positive affirmations</label>
+      <div class="exam-correction" id="corr7_3"></div>
+    </div>
+
+    <div class="exam-q" id="eq7_4">
+      <div class="q-title">Q4: In imagery rescripting, what happens AFTER the client briefly relives the distressing memory?</div>
+      <label><input type="radio" name="examq4" value="a"> a) The therapist analyzes the memory's meaning</label>
+      <label><input type="radio" name="examq4" value="b"> b) The adult self is introduced into the image to intervene, protect, or comfort the child self</label>
+      <label><input type="radio" name="examq4" value="c"> c) The memory is replaced with a happy one</label>
+      <label><input type="radio" name="examq4" value="d"> d) The client is taught to suppress the image</label>
+      <div class="exam-correction" id="corr7_4"></div>
+    </div>
+
+    <div class="exam-q" id="eq7_5">
+      <div class="q-title">Q5: Chair work (two-chair technique) is best suited for clients who:</div>
+      <label><input type="radio" name="examq5" value="a"> a) Have a specific phobia</label>
+      <label><input type="radio" name="examq5" value="b"> b) Have a strong inner critic / self-attack pattern</label>
+      <label><input type="radio" name="examq5" value="c"> c) Need behavioral activation</label>
+      <label><input type="radio" name="examq5" value="d"> d) Are in the early stages of CBT</label>
+      <div class="exam-correction" id="corr7_5"></div>
+    </div>
+
+    <div class="exam-q" id="eq7_6">
+      <div class="q-title">Q6: The continuum technique is designed to address:</div>
+      <label><input type="radio" name="examq6" value="a"> a) Emotional dysregulation</label>
+      <label><input type="radio" name="examq6" value="b"> b) All-or-nothing core beliefs by placing them on a spectrum</label>
+      <label><input type="radio" name="examq6" value="c"> c) Avoidance behaviors</label>
+      <label><input type="radio" name="examq6" value="d"> d) Panic symptoms</label>
+      <div class="exam-correction" id="corr7_6"></div>
+    </div>
+
+    <div class="exam-q" id="eq7_7">
+      <div class="q-title">Q7: A "Head-Heart flashcard" works by:</div>
+      <label><input type="radio" name="examq7" value="a"> a) Teaching new cognitive distortions</label>
+      <label><input type="radio" name="examq7" value="b"> b) Having the client read the rational truth repeatedly, like physical therapy for the brain — gradually shifting emotional belief through repetition</label>
+      <label><input type="radio" name="examq7" value="c"> c) Replacing negative thoughts with positive ones</label>
+      <label><input type="radio" name="examq7" value="d"> d) Analyzing dreams and imagery</label>
+      <div class="exam-correction" id="corr7_7"></div>
+    </div>
+
+    <div class="exam-q" id="eq7_8">
+      <div class="q-title">Q8: A client's thought record shows good rational alternative thoughts but emotions haven't shifted. The BEST next step is:</div>
+      <label><input type="radio" name="examq8" value="a"> a) Do more thought records — eventually it will work</label>
+      <label><input type="radio" name="examq8" value="b"> b) Move to experiential techniques: behavioral experiments, imagery rescripting, or chair work</label>
+      <label><input type="radio" name="examq8" value="c"> c) Terminate therapy — the client is treatment-resistant</label>
+      <label><input type="radio" name="examq8" value="d"> d) Switch to medication only</label>
+      <div class="exam-correction" id="corr7_8"></div>
+    </div>
+
+    <button class="submit-exam-btn" onclick="gradeExam7()">Submit Exam</button>
+    <div id="examResult7"></div>
+  </div>
+
+  <script>
+  function gradeExam7() {
+    const answers = {examq1:'b', examq2:'b', examq3:'c', examq4:'b', examq5:'b', examq6:'b', examq7:'b', examq8:'b'};
+    const explanations = {
+      examq1: 'Correct answer: B — Intellectual insight has been achieved but emotional belief hasn\'t changed yet.',
+      examq2: 'Correct answer: B — Core beliefs formed in childhood are stored in emotional/implicit memory, which doesn\'t respond to rational argument alone.',
+      examq3: 'Correct answer: C — Behavioral experiments provide firsthand disconfirming evidence that bridges the head-heart gap.',
+      examq4: 'Correct answer: B — The adult self is introduced into the image to intervene, protect, or comfort the child self.',
+      examq5: 'Correct answer: B — Chair work is ideal for clients with a strong inner critic / self-attack pattern.',
+      examq6: 'Correct answer: B — The continuum technique addresses all-or-nothing core beliefs by placing them on a spectrum.',
+      examq7: 'Correct answer: B — Repeated reading of the rational truth gradually shifts emotional belief, like physical therapy for the brain.',
+      examq8: 'Correct answer: B — Move to experiential techniques when thought records achieve intellectual but not emotional change.'
+    };
+    let score = 0;
+    let total = 8;
+    for (let i = 1; i <= total; i++) {
+      const key = 'examq' + i;
+      const selected = document.querySelector('input[name="'+key+'"]:checked');
+      const qDiv = document.getElementById('eq7_' + i);
+      const corrDiv = document.getElementById('corr7_' + i);
+      qDiv.classList.remove('correct','wrong');
+      if (selected && selected.value === answers[key]) {
+        score++;
+        qDiv.classList.add('correct');
+        corrDiv.style.display = 'block';
+        corrDiv.innerHTML = '✅ Correct!';
+      } else {
+        qDiv.classList.add('wrong');
+        corrDiv.style.display = 'block';
+        corrDiv.innerHTML = '❌ ' + explanations[key];
+      }
+    }
+    const pct = Math.round((score/total)*100);
+    const resultDiv = document.getElementById('examResult7');
+    let cls, msg, status;
+    if (score >= 7) { cls='result-pass'; msg='✅ MASTERY ACHIEVED — Proceed to next lesson!'; status='PASSED'; }
+    else if (score >= 5) { cls='result-almost'; msg='⚠️ ALMOST THERE — Review missed topics, then retake.'; status='FAILED'; }
+    else { cls='result-fail'; msg='🔄 NOT YET — Re-study this lesson before moving on.'; status='FAILED'; }
+    resultDiv.innerHTML = '<div class="exam-result '+cls+'"><h3 style="margin:0 0 8px;">'+score+'/'+total+' ('+pct+'%)</h3><p style="margin:0;">'+msg+'</p></div>' +
+      '<button class="copy-btn" onclick="copyResult7('+score+','+pct+',\''+status+'\')">Copy Results</button>';
+  
+  // === ADDED: Disable radios after submission ===
+  for (let di = 1; di <= 8; di++) {
+    const rName = ['examq1', 'examq2', 'examq3', 'examq4', 'examq5', 'examq6', 'examq7', 'examq8'][di - 1];
+    document.querySelectorAll('input[name="' + rName + '"]').forEach(function(r) { r.disabled = true; });
+  }
+
+  // === ADDED: Save to localStorage ===
+  var lessonKey = 'lesson_14';
+  localStorage.setItem(lessonKey + '_score', score + '/8');
+  localStorage.setItem(lessonKey + '_passed', score >= 7 ? 'true' : 'false');
+  if (window.self !== window.top) { window.parent.postMessage({type: 'lessonProgress'}, '*'); }
+  // === ADDED: Retake Exam button ===
+  var existingRetake = document.getElementById('retakeExamBtn_14');
+  if (!existingRetake) {
+    var retakeBtn = document.createElement('button');
+    retakeBtn.id = 'retakeExamBtn_14';
+    retakeBtn.innerHTML = '&#128260; Retake Exam';
+    retakeBtn.style.cssText = 'display:block; margin:20px auto; padding:14px 32px; font-size:1rem; font-weight:700; color:#fff; background:linear-gradient(135deg,#2ABFBF,#1A8A8A); border:none; border-radius:12px; cursor:pointer; font-family:Inter,sans-serif; transition:all 0.2s;';
+    retakeBtn.onmouseover = function() { this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(42,191,191,0.3)'; };
+    retakeBtn.onmouseout = function() { this.style.transform=''; this.style.boxShadow=''; };
+    retakeBtn.onclick = function() { retakeExam_14(); };
+    var resultEl = document.getElementById('examResult7');
+    if (resultEl) resultEl.parentNode.insertBefore(retakeBtn, resultEl.nextSibling);
+  }
+
+}
+function retakeExam_14() {
+  // Re-enable and clear all radios
+  var radioNames = ['examq1', 'examq2', 'examq3', 'examq4', 'examq5', 'examq6', 'examq7', 'examq8'];
+  for (var ri = 0; ri < radioNames.length; ri++) {
+    var radios = document.querySelectorAll('input[name="' + radioNames[ri] + '"]');
+    for (var rj = 0; rj < radios.length; rj++) {
+      radios[rj].disabled = false;
+      radios[rj].checked = false;
+    }
+  }
+
+  // Clear visual selection classes
+  var selectedOpts = document.querySelectorAll('.q-option.selected');
+  for (var si = 0; si < selectedOpts.length; si++) {
+    selectedOpts[si].classList.remove('selected');
+  }
+
+  // Hide result container
+  var resultEl = document.getElementById('examResult7');
+  if (resultEl) {
+    resultEl.className = resultEl.className.replace(/\bshow\b/g, '').replace(/\bresult-pass\b/g, '').replace(/\bresult-almost\b/g, '').replace(/\bresult-fail\b/g, '').replace(/\bresults-green\b/g, '').replace(/\bresults-yellow\b/g, '').replace(/\bresults-red\b/g, '').replace(/\bgreen\b/g, '').replace(/\byellow\b/g, '').replace(/\bred\b/g, '').replace(/\bresult-green\b/g, '').replace(/\bresult-yellow\b/g, '').replace(/\bresult-red\b/g, '');
+    resultEl.style.display = 'none';
+    resultEl.innerHTML = resultEl.innerHTML || '';
+  }
+
+  // Hide retake button
+  var retakeBtn = document.getElementById('retakeExamBtn_14');
+  if (retakeBtn) retakeBtn.remove();
+
+  // Clear feedback elements
+  var feedbacks = document.querySelectorAll('.q-feedback, .exam-correction, .correct-note, .wrong-note, .feedback');
+  for (var fi = 0; fi < feedbacks.length; fi++) {
+    var fb = feedbacks[fi];
+    if (fb.classList.contains('correct-note') || fb.classList.contains('wrong-note')) {
+      fb.remove();
+    } else {
+      fb.className = fb.className.replace(/\bshow\b/g, '').replace(/\bcorrect-fb\b/g, '').replace(/\bincorrect-fb\b/g, '').replace(/\bcorrect\b/g, '').replace(/\bincorrect\b/g, '');
+      fb.style.display = 'none';
+      fb.innerHTML = '';
+    }
+  }
+
+  // Clear question block correct/incorrect/wrong classes
+  var qBlocks = document.querySelectorAll('.exam-question, .exam-q, .question-card, .question-block, [id^="q"], [id^="eq"]');
+  for (var qi = 0; qi < qBlocks.length; qi++) {
+    qBlocks[qi].classList.remove('correct', 'incorrect', 'wrong');
+  }
+
+  // Clear option label highlights
+  var optLabels = document.querySelectorAll('.option-label');
+  for (var oi = 0; oi < optLabels.length; oi++) {
+    optLabels[oi].classList.remove('correct', 'incorrect');
+  }
+
+  // Hide copy button if exists
+  var copyBtns = document.querySelectorAll('#copyBtn, .copy-btn, [id$="copyBtn"]');
+  for (var ci = 0; ci < copyBtns.length; ci++) {
+    copyBtns[ci].style.display = 'none';
+  }
+
+  // Re-enable submit button if it was disabled
+  var submitBtns = document.querySelectorAll('#submitBtn, .submit-exam-btn, .btn-submit, .exam-btn');
+  for (var sbi = 0; sbi < submitBtns.length; sbi++) {
+    submitBtns[sbi].disabled = false;
+  }
+
+  // Scroll to first question
+  var firstQ = document.querySelector('[id^="q1"], [id^="eq"], .exam-question, .exam-q, .question-block, .question-card');
+  if (firstQ) firstQ.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+  function copyResult7(score, pct, status) {
+    const text = 'Lesson 7: '+score+'/8 ('+pct+'%) — '+status;
+    navigator.clipboard.writeText(text).then(()=>{
+      const btn = document.querySelector('#examResult7 .copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(()=>{ btn.textContent = 'Copy Results'; }, 2000);
+    });
+  }
+  </script>
+
+</div>
+<div class="lesson-nav-bottom">
+  <a class="nav-prev" href="Lesson 13 — CBT for Anxiety Full Protocol.html">← CBT for Anxiety</a>
+  <a class="nav-home" href="index.html">🏠 Assessment Home</a>
+  <a class="nav-next" href="Lesson 15 — Homework Design and Troubleshooting.html">Homework Design →</a>
+</div>
+
+<script>
+if (window.self !== window.top) {
+  document.body.classList.add("iframe-mode");
+  document.addEventListener("click", function(e) {
+    var link = e.target.closest("a");
+    if (link) {
+      var href = link.getAttribute("href");
+      if (href === "index.html") {
+        e.preventDefault();
+        window.parent.closeLessonViewer();
+      } else if (href && href.indexOf("Lesson") === 0 && href.indexOf(".html") !== -1) {
+        e.preventDefault();
+        window.parent.openLessonByFile(href);
+      } else if (href === "Printable CBT Toolkit.html") {
+        e.preventDefault();
+        window.parent.openToolkit();
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 2 — Cognitive Distortions: The Complete Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --indigo: #6366f1;
+    --indigo-light: #e0e7ff;
+    --indigo-dark: #4338ca;
+    --purple: #8b5cf6;
+    --purple-light: #ede9fe;
+    --border: #e2e8f0;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .lesson-header {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
+    border-radius: var(--radius);
+    padding: 48px 40px;
+    color: white;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .lesson-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .lesson-header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .lesson-header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .lesson-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .lesson-header p {
+    font-size: 1.05rem;
+    opacity: 0.9;
+    max-width: 600px;
+  }
+  .lesson-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.85;
+  }
+  .lesson-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* Table of Contents */
+  .toc {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .toc h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc;
+  }
+  .toc ol li {
+    counter-increment: toc;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-weight: 500;
+  }
+  .toc ol li:last-child { border-bottom: none; }
+  .toc ol li::before {
+    content: counter(toc, decimal-leading-zero);
+    color: var(--indigo);
+    font-weight: 700;
+    margin-right: 12px;
+    font-size: 14px;
+  }
+  .toc ol li a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .toc ol li a:hover { color: var(--indigo); }
+
+  /* Section cards */
+  .section {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 36px 36px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--indigo-light);
+    color: var(--indigo);
+    font-weight: 700;
+    border-radius: 10px;
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  .section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  .section h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: var(--indigo-dark);
+  }
+  .section p { margin-bottom: 14px; }
+  .section ul, .section ol { margin: 12px 0 16px 20px; }
+  .section li { margin-bottom: 8px; }
+
+  /* Key point callout */
+  .callout {
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    border-left: 4px solid var(--indigo);
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+  .callout-warning {
+    background: linear-gradient(135deg, #fef3c7, #fde68a40);
+    border-left-color: #f59e0b;
+  }
+  .callout-red {
+    background: linear-gradient(135deg, #fee2e2, #fecaca40);
+    border-left-color: #ef4444;
+  }
+  .callout strong { display: block; margin-bottom: 4px; }
+
+  /* Distortion cards */
+  .distortion-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 24px;
+  }
+  .distortion-card {
+    border-radius: 14px;
+    padding: 24px 28px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .distortion-card:hover { box-shadow: var(--shadow-md); }
+  .distortion-card .card-num {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 48px;
+    font-weight: 800;
+    opacity: 0.06;
+    line-height: 1;
+  }
+  .distortion-card h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .distortion-card h4 .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .distortion-card .definition {
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    padding-left: 20px;
+    border-left: 3px solid #e2e8f0;
+  }
+  .distortion-card .examples-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-secondary);
+    margin: 10px 0 6px;
+  }
+  .distortion-card ul { margin-left: 18px; font-size: 15px; }
+  .distortion-card li { margin-bottom: 5px; }
+  .distortion-card .real-life {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 14px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .distortion-card .real-life .rl-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Color categories for distortion cards */
+  .dc-blue { border-left: 4px solid #3b82f6; }
+  .dc-indigo { border-left: 4px solid #6366f1; }
+  .dc-purple { border-left: 4px solid #8b5cf6; }
+  .dc-pink { border-left: 4px solid #ec4899; }
+  .dc-rose { border-left: 4px solid #f43f5e; }
+  .dc-orange { border-left: 4px solid #f97316; }
+  .dc-amber { border-left: 4px solid #f59e0b; }
+  .dc-teal { border-left: 4px solid #14b8a6; }
+  .dc-green { border-left: 4px solid #22c55e; }
+  .dc-cyan { border-left: 4px solid #06b6d4; }
+  .dc-slate { border-left: 4px solid #64748b; }
+  .dc-red { border-left: 4px solid #ef4444; }
+  .dc-emerald { border-left: 4px solid #10b981; }
+  .dc-violet { border-left: 4px solid #7c3aed; }
+  .dc-fuchsia { border-left: 4px solid #d946ef; }
+
+  .dot-blue { background: #3b82f6; }
+  .dot-indigo { background: #6366f1; }
+  .dot-purple { background: #8b5cf6; }
+  .dot-pink { background: #ec4899; }
+  .dot-rose { background: #f43f5e; }
+  .dot-orange { background: #f97316; }
+  .dot-amber { background: #f59e0b; }
+  .dot-teal { background: #14b8a6; }
+  .dot-green { background: #22c55e; }
+  .dot-cyan { background: #06b6d4; }
+  .dot-slate { background: #64748b; }
+  .dot-red { background: #ef4444; }
+  .dot-emerald { background: #10b981; }
+  .dot-violet { background: #7c3aed; }
+  .dot-fuchsia { background: #d946ef; }
+
+  /* Details / Summary for hidden answers */
+  details {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 12px 0;
+    overflow: hidden;
+  }
+  summary {
+    padding: 14px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--indigo);
+    user-select: none;
+    transition: background 0.15s;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: '>';
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 700;
+    transition: transform 0.2s;
+    display: inline-block;
+    color: var(--indigo);
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  summary:hover { background: #eef2ff; }
+  details .answer-content {
+    padding: 4px 20px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Practice exercise items */
+  .practice-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .practice-item .client-statement {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text);
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .practice-item .client-statement::before {
+    content: '"';
+    font-size: 32px;
+    color: var(--indigo);
+    opacity: 0.4;
+    position: absolute;
+    top: -4px;
+    left: 8px;
+    font-family: Georgia, serif;
+  }
+  .practice-item .client-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+
+  /* Exam section */
+  .exam-section {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 36px;
+    margin-top: 40px;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--indigo-light);
+  }
+  .exam-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .exam-intro {
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    font-size: 15px;
+  }
+  .exam-question {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+  }
+  .exam-question.correct { border-color: #22c55e; background: #f0fdf4; }
+  .exam-question.incorrect { border-color: #ef4444; background: #fef2f2; }
+  .exam-question .q-number {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--indigo);
+    margin-bottom: 8px;
+  }
+  .exam-question .q-text {
+    font-weight: 600;
+    margin-bottom: 14px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .exam-question label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .exam-question label:hover { background: #eef2ff; }
+  .exam-question input[type="radio"] {
+    margin-top: 3px;
+    accent-color: var(--indigo);
+    flex-shrink: 0;
+  }
+  .q-feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.correct-fb { background: #dcfce7; color: #166534; }
+  .q-feedback.incorrect-fb { background: #fee2e2; color: #991b1b; }
+
+  /* Exam buttons & results */
+  .exam-btn {
+    background: linear-gradient(135deg, var(--indigo), var(--purple));
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+  }
+  .exam-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+  .exam-btn:active { transform: translateY(0); }
+  .exam-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .copy-btn {
+    background: white;
+    color: var(--indigo);
+    border: 2px solid var(--indigo-light);
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    margin-left: 12px;
+    transition: all 0.15s;
+  }
+  .copy-btn:hover { background: var(--indigo-light); }
+
+  .results-box {
+    margin-top: 28px;
+    padding: 28px;
+    border-radius: 14px;
+    text-align: center;
+    display: none;
+  }
+  .results-box.show { display: block; }
+  .results-box .score-number {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .results-box .score-label {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .results-box .score-message {
+    font-size: 14px;
+    opacity: 0.85;
+  }
+  .results-green { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; }
+  .results-yellow { background: linear-gradient(135deg, #fef9c3, #fde68a); color: #854d0e; }
+  .results-red { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #991b1b; }
+
+  /* Overlap example cards */
+  .overlap-card {
+    background: linear-gradient(135deg, #faf5ff, #eef2ff);
+    border: 1px solid #ddd6fe;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+  .overlap-card .thought {
+    font-style: italic;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .overlap-card .distortions-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .overlap-card .distortion-tag {
+    background: white;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--purple);
+    border: 1px solid #ddd6fe;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .container { padding: 20px 16px 60px; }
+    .lesson-header { padding: 32px 24px; }
+    .lesson-header h1 { font-size: 1.6rem; }
+    .section { padding: 24px 20px; }
+    .exam-section { padding: 24px 20px; }
+    .lesson-meta { flex-direction: column; gap: 8px; }
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .container { max-width: 100%; padding: 0; }
+    .section, .exam-section { box-shadow: none; break-inside: avoid; }
+    .lesson-header { color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    details { break-inside: avoid; }
+  }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+
+<style>
+.lesson-nav-top {
+  position: sticky; top: 0; z-index: 999;
+  background: rgba(248,250,252,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 100%;
+}
+.lesson-nav-top a {
+  text-decoration: none; color: #2ABFBF; font-size: 0.85rem; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.lesson-nav-top a:hover { color: #1A8A8A; }
+.lesson-nav-top .nav-title { font-size: 0.8rem; color: #64748b; font-weight: 500; }
+.lesson-nav-bottom {
+  max-width: 900px; margin: 40px auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.lesson-nav-bottom a {
+  text-decoration: none; padding: 12px 24px; border-radius: 12px;
+  font-size: 0.9rem; font-weight: 600; font-family: 'Inter', sans-serif;
+  transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.lesson-nav-bottom .nav-prev { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+.lesson-nav-bottom .nav-prev:hover { background: #e2e8f0; }
+.lesson-nav-bottom .nav-home { background: #e6fafa; color: #2ABFBF; border: 1px solid #99ebeb; }
+.lesson-nav-bottom .nav-home:hover { background: #ccf5f5; }
+.lesson-nav-bottom .nav-next { background: linear-gradient(135deg, #2ABFBF, #1A8A8A); color: white; border: none; }
+.lesson-nav-bottom .nav-next:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(42,191,191,0.3); }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+</head>
+<body>
+<div class="lesson-nav-top">
+  <a href="index.html">← Back to Assessment</a>
+  <span class="nav-title">Lesson 2 of 18</span>
+</div>
+
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="lesson-header">
+    <div class="badge">Lesson 2 of the CBT Therapist Program</div>
+    <h1>Cognitive Distortions<br>The Complete Guide</h1>
+    <p>Learn to recognize all 15 cognitive distortions, identify them in clinical sessions, and understand how to use this knowledge therapeutically.</p>
+    <div class="lesson-meta">
+      <span>~30 min study time</span>
+      <span>15 distortions covered</span>
+      <span>Practice exercises + scored exam</span>
+    </div>
+  </header>
+
+  <!-- TABLE OF CONTENTS -->
+  <nav class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#s1">What Are Cognitive Distortions?</a></li>
+      <li><a href="#s2">The Complete List &mdash; All 15 Distortions</a></li>
+      <li><a href="#s3">How to Identify Distortions in Session</a></li>
+      <li><a href="#s4">Common Overlaps &mdash; Multi-Distortion Thoughts</a></li>
+      <li><a href="#s5">Practice Exercise</a></li>
+      <li><a href="#s6">Important Caveat for Clinical Practice</a></li>
+      <li><a href="#exam">Final Scored Exam</a></li>
+    </ol>
+  </nav>
+
+  <!-- SECTION 1: What Are Cognitive Distortions? -->
+  <section class="section" id="s1">
+    <div class="section-number">01</div>
+    <h2>What Are Cognitive Distortions?</h2>
+
+    <p>Cognitive distortions are <strong>systematic errors in thinking</strong> that distort our interpretation of events, usually in ways that reinforce negative beliefs about ourselves, others, or the world. They operate like a faulty lens &mdash; everything you see through it looks slightly (or dramatically) warped.</p>
+
+    <div class="callout">
+      <strong>Key Insight</strong>
+      Everyone experiences cognitive distortions. They are a normal part of human cognition, not a sign of pathology. The difference in clinical populations is that these distortions are <em>more frequent</em>, <em>more rigid</em>, and <em>believed more strongly</em>.
+    </div>
+
+    <h3>A Brief History</h3>
+    <p>Aaron T. Beck first identified patterns of distorted thinking in depressed patients during the 1960s and 1970s as part of his development of cognitive therapy. David Burns then popularized these concepts in his 1980 bestseller <em>Feeling Good: The New Mood Therapy</em>, making them accessible to both clinicians and the general public.</p>
+
+    <p>Burns organized Beck's observations into a clear taxonomy of thinking errors. Since then, researchers and clinicians have expanded the original list. The 15 distortions covered in this lesson represent the most widely recognized and clinically useful set.</p>
+
+    <h3>Why This Matters for You as a Therapist</h3>
+    <ul>
+      <li><strong>Case conceptualization:</strong> Identifying which distortions dominate a client's thinking helps you build an accurate cognitive model.</li>
+      <li><strong>Intervention planning:</strong> Different distortions respond to different techniques (e.g., behavioral experiments for fortune telling, evidence gathering for mind reading).</li>
+      <li><strong>Tracking progress:</strong> As therapy progresses, you should see the frequency and intensity of distortions decrease.</li>
+      <li><strong>Psychoeducation:</strong> When appropriate, teaching clients about distortions helps them develop metacognitive awareness.</li>
+    </ul>
+  </section>
+
+  <!-- SECTION 2: All 15 Distortions -->
+  <section class="section" id="s2">
+    <div class="section-number">02</div>
+    <h2>The Complete List &mdash; All 15 Distortions</h2>
+    <p>Below is a comprehensive breakdown of each distortion with its definition, clinical examples, and a real-life relatable example.</p>
+
+    <div class="distortion-grid">
+
+      <!-- 1. All-or-Nothing Thinking -->
+      <div class="distortion-card dc-blue">
+        <span class="card-num">01</span>
+        <h4><span class="dot dot-blue"></span> All-or-Nothing Thinking (Black &amp; White)</h4>
+        <div class="definition">Seeing things in absolute, binary categories with no middle ground. If performance falls short of perfect, it is seen as total failure.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"I ate one cookie &mdash; my entire diet is ruined. I might as well eat the whole box."</li>
+          <li>"I got a B+ instead of an A. I'm a terrible student."</li>
+          <li>"My partner forgot our anniversary. They clearly don't love me at all."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> A colleague gives a presentation that goes mostly well, but stumbles over one slide. They leave thinking, "That was a complete disaster."</span>
+        </div>
+      </div>
+
+      <!-- 2. Overgeneralization -->
+      <div class="distortion-card dc-indigo">
+        <span class="card-num">02</span>
+        <h4><span class="dot dot-indigo"></span> Overgeneralization</h4>
+        <div class="definition">Drawing broad, sweeping conclusions from a single event or limited evidence. A single negative event is seen as a never-ending pattern of defeat.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"I failed this exam. I fail at everything I try."</li>
+          <li>"She turned me down. No one will ever want to date me."</li>
+          <li>"I got rejected from one job. I'll never find employment."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> After burning dinner once, someone declares, "I'm the worst cook in the world. I can't do anything right in the kitchen."</span>
+        </div>
+      </div>
+
+      <!-- 3. Mental Filter -->
+      <div class="distortion-card dc-purple">
+        <span class="card-num">03</span>
+        <h4><span class="dot dot-purple"></span> Mental Filter</h4>
+        <div class="definition">Picking out a single negative detail and dwelling on it exclusively, so that the whole picture becomes darkened &mdash; like a drop of ink discoloring an entire glass of water.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>A therapist receives 19 positive evaluations and 1 negative one &mdash; they fixate on the negative one all week.</li>
+          <li>"The whole vacation was terrible" because of one flight delay, despite five wonderful days.</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> After a performance review with 9 positives and 1 area for improvement, you can only think about that single criticism.</span>
+        </div>
+      </div>
+
+      <!-- 4. Disqualifying the Positive -->
+      <div class="distortion-card dc-pink">
+        <span class="card-num">04</span>
+        <h4><span class="dot dot-pink"></span> Disqualifying the Positive</h4>
+        <div class="definition">Rejecting positive experiences by insisting they "don't count" for some reason. This allows a negative belief to persist even in the face of contradictory evidence.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"They only said I did well because they felt sorry for me."</li>
+          <li>"That compliment doesn't count &mdash; they were just being nice."</li>
+          <li>"I only got the promotion because no one else applied."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> A friend sincerely praises your cooking, and you think, "They're just saying that so they don't hurt my feelings."</span>
+        </div>
+      </div>
+
+      <!-- 5. Jumping to Conclusions: Mind Reading -->
+      <div class="distortion-card dc-rose">
+        <span class="card-num">05</span>
+        <h4><span class="dot dot-rose"></span> Jumping to Conclusions &mdash; Mind Reading</h4>
+        <div class="definition">Assuming you know what someone else is thinking without sufficient evidence, and usually assuming the worst.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"She thinks I'm stupid &mdash; I could tell by the way she looked at me."</li>
+          <li>"My therapist probably thinks I'm a lost cause."</li>
+          <li>"Everyone at the party noticed I was awkward and judged me."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> Your boss doesn't say hello in the hallway, and you immediately think, "They're upset with my work."</span>
+        </div>
+      </div>
+
+      <!-- 6. Jumping to Conclusions: Fortune Telling -->
+      <div class="distortion-card dc-orange">
+        <span class="card-num">06</span>
+        <h4><span class="dot dot-orange"></span> Jumping to Conclusions &mdash; Fortune Telling</h4>
+        <div class="definition">Predicting the future negatively and treating the prediction as an established fact, without any real basis.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"I know I'll fail the interview, so there's no point in preparing."</li>
+          <li>"This relationship will end badly, just like all the others."</li>
+          <li>"I'll never get over this depression."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> Before even applying, you tell yourself, "I won't get that position. Someone more qualified will definitely get it."</span>
+        </div>
+      </div>
+
+      <!-- 7. Magnification / Minimization -->
+      <div class="distortion-card dc-amber">
+        <span class="card-num">07</span>
+        <h4><span class="dot dot-amber"></span> Magnification (Catastrophizing) / Minimization</h4>
+        <div class="definition">Exaggerating the importance of negative events or shortcomings (making mountains out of molehills) while shrinking the significance of positive qualities or events.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"I made a small mistake at work &mdash; I'll definitely get fired." (magnification)</li>
+          <li>"Sure, I finished the marathon, but lots of people do that. It's not impressive." (minimization)</li>
+          <li>"This headache is probably a brain tumor." (catastrophizing)</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> You spill coffee on your shirt before a meeting and think, "This will ruin everything. No one will take me seriously."</span>
+        </div>
+      </div>
+
+      <!-- 8. Emotional Reasoning -->
+      <div class="distortion-card dc-teal">
+        <span class="card-num">08</span>
+        <h4><span class="dot dot-teal"></span> Emotional Reasoning</h4>
+        <div class="definition">Taking your emotions as evidence of truth. "I feel it, therefore it must be true." Emotions are treated as facts.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"I feel anxious, so something must be dangerous."</li>
+          <li>"I feel guilty, so I must have done something wrong."</li>
+          <li>"I feel hopeless, so my situation truly is hopeless."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> "I feel overwhelmed by this project, so it must actually be impossible to complete on time" &mdash; even though, objectively, you have plenty of time.</span>
+        </div>
+      </div>
+
+      <!-- 9. Should Statements -->
+      <div class="distortion-card dc-green">
+        <span class="card-num">09</span>
+        <h4><span class="dot dot-green"></span> Should Statements</h4>
+        <div class="definition">Imposing rigid rules on yourself or others using "should," "must," or "ought to." When directed at yourself, they produce guilt; when directed at others, they produce anger and frustration.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"I should be able to handle this without getting upset."</li>
+          <li>"He should know how I feel without me having to say it."</li>
+          <li>"I must always be productive. Resting is lazy."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> After a long, exhausting day, you think, "I should still go to the gym. A disciplined person wouldn't skip," &mdash; and then feel guilty about resting.</span>
+        </div>
+      </div>
+
+      <!-- 10. Labeling -->
+      <div class="distortion-card dc-cyan">
+        <span class="card-num">10</span>
+        <h4><span class="dot dot-cyan"></span> Labeling</h4>
+        <div class="definition">An extreme form of overgeneralization. Instead of describing the behavior ("I made a mistake"), you attach a global, fixed label to yourself or others ("I'm a loser").</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"I'm a complete failure" (after one setback).</li>
+          <li>"He's a jerk" (after one inconsiderate remark).</li>
+          <li>"I'm pathetic for feeling this way."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> You forget to reply to a friend's message and think, "I'm such a terrible friend," rather than, "I forgot to reply &mdash; I've been busy."</span>
+        </div>
+      </div>
+
+      <!-- 11. Personalization -->
+      <div class="distortion-card dc-slate">
+        <span class="card-num">11</span>
+        <h4><span class="dot dot-slate"></span> Personalization</h4>
+        <div class="definition">Taking excessive personal responsibility for events that are not entirely (or at all) within your control. Seeing yourself as the cause of external negative events.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"The team project failed because of me" (ignoring that multiple factors contributed).</li>
+          <li>"My child is struggling in school &mdash; I'm a bad parent."</li>
+          <li>"If I'd been a better partner, they wouldn't have left."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> A friend cancels plans and you immediately think, "It's because they don't want to spend time with me," when actually they have a family obligation.</span>
+        </div>
+      </div>
+
+      <!-- 12. Blame -->
+      <div class="distortion-card dc-red">
+        <span class="card-num">12</span>
+        <h4><span class="dot dot-red"></span> Blame</h4>
+        <div class="definition">The opposite of personalization. Holding other people or circumstances entirely responsible for your emotional pain, rather than recognizing your own role or capacity for coping.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"It's all their fault I feel this way."</li>
+          <li>"If my parents had raised me differently, I wouldn't have these problems."</li>
+          <li>"My boss makes me miserable. I can't do anything about it."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> "I'm in a bad mood entirely because of the traffic today" &mdash; externalizing your emotional state completely.</span>
+        </div>
+      </div>
+
+      <!-- 13. Always Being Right -->
+      <div class="distortion-card dc-emerald">
+        <span class="card-num">13</span>
+        <h4><span class="dot dot-emerald"></span> Always Being Right</h4>
+        <div class="definition">Prioritizing the need to be correct over the feelings of others or the relationship itself. Being wrong is unthinkable, so the person goes to great lengths to prove their point.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>A client who escalates every disagreement with their partner into a heated argument because they cannot let any point go unchallenged.</li>
+          <li>"I don't care how it makes you feel &mdash; I'm right and that's what matters."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> Spending 30 minutes googling to prove you were right about a trivial fact during a dinner conversation, while everyone else has moved on.</span>
+        </div>
+      </div>
+
+      <!-- 14. Fallacy of Change -->
+      <div class="distortion-card dc-violet">
+        <span class="card-num">14</span>
+        <h4><span class="dot dot-violet"></span> Fallacy of Change</h4>
+        <div class="definition">Expecting that other people will change to suit your needs if you just pressure, coax, or wait long enough. Your happiness is contingent on other people changing their behavior.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"If only my partner would be more affectionate, I'd finally be happy."</li>
+          <li>"If my family understood me better, I wouldn't be depressed."</li>
+          <li>"Once my coworkers start pulling their weight, I'll stop being so stressed."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> Believing that your dissatisfaction at work will only resolve once your manager changes their management style, rather than exploring what you can do differently.</span>
+        </div>
+      </div>
+
+      <!-- 15. Heaven's Reward Fallacy -->
+      <div class="distortion-card dc-fuchsia">
+        <span class="card-num">15</span>
+        <h4><span class="dot dot-fuchsia"></span> Heaven's Reward Fallacy</h4>
+        <div class="definition">Expecting that your sacrifice, self-denial, or suffering will eventually pay off &mdash; as if someone is keeping score. When the reward doesn't come, bitterness and resentment follow.</div>
+        <div class="examples-label">Clinical Examples</div>
+        <ul>
+          <li>"I've sacrificed so much for this family &mdash; I deserve to be appreciated."</li>
+          <li>"I've been through enough pain in my life. Good things should start happening to me."</li>
+          <li>"I always go above and beyond at work. It's unfair that I'm not being promoted."</li>
+        </ul>
+        <div class="real-life">
+          <span class="rl-icon">&#128161;</span>
+          <span><strong>Real life:</strong> Feeling bitterly resentful after years of always being the one to organize family gatherings, expecting that "someday they'll do the same for me" &mdash; without ever communicating that need.</span>
+        </div>
+      </div>
+
+    </div><!-- end distortion-grid -->
+  </section>
+
+  <!-- SECTION 3: How to Identify in Session -->
+  <section class="section" id="s3">
+    <div class="section-number">03</div>
+    <h2>How to Identify Distortions in Session</h2>
+
+    <p>Cognitive distortions are embedded in the way clients speak. Once you know what to listen for, you'll start hearing them everywhere. Here are the key signals:</p>
+
+    <h3>Listen for Absolute Language</h3>
+    <p>Words like <strong>always, never, everyone, nobody, nothing, everything, completely, totally</strong> are red flags. When clients use these words, it's worth gently exploring whether the claim is literally true.</p>
+
+    <h3>Listen for Emotional Reasoning Markers</h3>
+    <p>Phrases like <strong>"I feel like..."</strong>, <strong>"I just know..."</strong>, and <strong>"It seems like..."</strong> often signal emotional reasoning &mdash; where feelings are being treated as evidence. Note: "I feel like" followed by a belief (not an emotion) is almost always emotional reasoning.</p>
+
+    <h3>Listen for Should/Must/Ought</h3>
+    <p>These words signal rigid rules. Pay attention to whether the "should" is directed at the self (producing guilt), at others (producing anger), or at the world (producing frustration).</p>
+
+    <div class="callout">
+      <strong>The "Courtroom Test"</strong>
+      A useful heuristic: Would this thought hold up as evidence in a court of law? If a client says, "Everyone hates me," would a judge accept that as proven fact? If not, there's likely a distortion at work. This can also be a helpful Socratic tool when working with clients.
+    </div>
+
+    <h3>Quick Reference Table</h3>
+    <div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:12px;">
+      <thead>
+        <tr style="background:#eef2ff; text-align:left;">
+          <th style="padding:12px 16px; border-bottom:2px solid var(--indigo-light); font-weight:600;">Signal</th>
+          <th style="padding:12px 16px; border-bottom:2px solid var(--indigo-light); font-weight:600;">Likely Distortion(s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #f1f5f9;">
+          <td style="padding:10px 16px;">"Always" / "Never"</td>
+          <td style="padding:10px 16px;">Overgeneralization, All-or-Nothing</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1f5f9;">
+          <td style="padding:10px 16px;">"I feel like [belief]..."</td>
+          <td style="padding:10px 16px;">Emotional Reasoning</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1f5f9;">
+          <td style="padding:10px 16px;">"I should..." / "They should..."</td>
+          <td style="padding:10px 16px;">Should Statements</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1f5f9;">
+          <td style="padding:10px 16px;">"They think I'm..."</td>
+          <td style="padding:10px 16px;">Mind Reading</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1f5f9;">
+          <td style="padding:10px 16px;">"It'll definitely go wrong..."</td>
+          <td style="padding:10px 16px;">Fortune Telling</td>
+        </tr>
+        <tr style="border-bottom:1px solid #f1f5f9;">
+          <td style="padding:10px 16px;">"It's all because of me"</td>
+          <td style="padding:10px 16px;">Personalization</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 16px;">"I'm a [negative label]"</td>
+          <td style="padding:10px 16px;">Labeling</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Common Overlaps -->
+  <section class="section" id="s4">
+    <div class="section-number">04</div>
+    <h2>Common Overlaps &mdash; Multi-Distortion Thoughts</h2>
+
+    <p>One of the most important things to understand is that <strong>a single thought can contain multiple distortions</strong>. In fact, this is more common than a thought containing just one. When you're doing cognitive restructuring with a client, it helps to identify all the distortions present &mdash; each one represents a different angle you can use to challenge the thought.</p>
+
+    <div class="overlap-card">
+      <div class="thought">"Nobody at work likes me &mdash; I can just tell."</div>
+      <div class="distortions-list">
+        <span class="distortion-tag">Overgeneralization</span>
+        <span class="distortion-tag">Mind Reading</span>
+      </div>
+      <p style="font-size:14px; color:#64748b; margin-top:8px;"><strong>Why:</strong> "Nobody" is an absolute claim from limited evidence (overgeneralization), and "I can just tell" assumes knowledge of others' thoughts (mind reading).</p>
+    </div>
+
+    <div class="overlap-card">
+      <div class="thought">"I completely ruined the dinner party. Everyone noticed I burned the appetizer and they all think I'm incompetent."</div>
+      <div class="distortions-list">
+        <span class="distortion-tag">All-or-Nothing</span>
+        <span class="distortion-tag">Catastrophizing</span>
+        <span class="distortion-tag">Mind Reading</span>
+        <span class="distortion-tag">Labeling</span>
+      </div>
+      <p style="font-size:14px; color:#64748b; margin-top:8px;"><strong>Why:</strong> "Completely ruined" is black-and-white (all-or-nothing). One burned dish is magnified into a full disaster (catastrophizing). "They all think" assumes others' thoughts (mind reading). "Incompetent" is a fixed label rather than a description of behavior (labeling).</p>
+    </div>
+
+    <div class="overlap-card">
+      <div class="thought">"I should be over this by now. I feel like I'll never get better. Something is fundamentally wrong with me."</div>
+      <div class="distortions-list">
+        <span class="distortion-tag">Should Statements</span>
+        <span class="distortion-tag">Fortune Telling</span>
+        <span class="distortion-tag">Labeling</span>
+        <span class="distortion-tag">Emotional Reasoning</span>
+      </div>
+      <p style="font-size:14px; color:#64748b; margin-top:8px;"><strong>Why:</strong> "Should be over this" is a rigid demand (should statement). "Never get better" predicts a negative future (fortune telling). "Fundamentally wrong with me" attaches a global label (labeling). "I feel like I'll never get better" treats a feeling as a fact (emotional reasoning).</p>
+    </div>
+
+    <div class="callout">
+      <strong>Clinical Tip</strong>
+      Don't worry about identifying the "right" distortion &mdash; there often isn't just one correct answer. The categories overlap by design. What matters is that the identification gives you an angle for challenging the thought.
+    </div>
+  </section>
+
+  <!-- SECTION 5: Practice Exercise -->
+  <section class="section" id="s5">
+    <div class="section-number">05</div>
+    <h2>Practice Exercise</h2>
+    <p>For each client statement below, try to identify the cognitive distortion(s) at work. Then reveal the model answer to check your thinking.</p>
+
+    <!-- Practice 1 -->
+    <div class="practice-item">
+      <div class="client-label">Client Statement 1</div>
+      <div class="client-statement">"I gave a presentation at work and one person looked bored. The whole thing was clearly a waste of everyone's time."</div>
+      <details>
+        <summary>Reveal Model Answer</summary>
+        <div class="answer-content">
+          <p><strong>Mental Filter</strong> &mdash; Focusing on the one bored-looking person while ignoring everyone else's reactions.</p>
+          <p><strong>All-or-Nothing Thinking</strong> &mdash; "The whole thing was a waste" turns one person's apparent disengagement into a total failure.</p>
+          <p><strong>Mind Reading</strong> &mdash; Assuming the person was bored (they might have been tired, thinking about something else, or concentrating).</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Practice 2 -->
+    <div class="practice-item">
+      <div class="client-label">Client Statement 2</div>
+      <div class="client-statement">"I feel like a fraud. Eventually everyone will find out I don't deserve to be here."</div>
+      <details>
+        <summary>Reveal Model Answer</summary>
+        <div class="answer-content">
+          <p><strong>Emotional Reasoning</strong> &mdash; "I feel like a fraud" treats the feeling as evidence.</p>
+          <p><strong>Fortune Telling</strong> &mdash; "Eventually everyone will find out" predicts a negative future event.</p>
+          <p><strong>Labeling</strong> &mdash; "Fraud" is a fixed global label, not a description of specific behavior.</p>
+          <p><strong>Disqualifying the Positive</strong> &mdash; Implied: whatever achievements got them there "don't count."</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Practice 3 -->
+    <div class="practice-item">
+      <div class="client-label">Client Statement 3</div>
+      <div class="client-statement">"My mother should have been more supportive. If she'd been different, I wouldn't have these problems."</div>
+      <details>
+        <summary>Reveal Model Answer</summary>
+        <div class="answer-content">
+          <p><strong>Should Statements</strong> &mdash; Imposing a rigid rule on someone else's past behavior.</p>
+          <p><strong>Blame</strong> &mdash; Attributing current problems entirely to another person.</p>
+          <p><strong>Fallacy of Change</strong> &mdash; Implying that if the other person had changed, happiness would have followed.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Practice 4 -->
+    <div class="practice-item">
+      <div class="client-label">Client Statement 4</div>
+      <div class="client-statement">"I've been putting in extra hours for months. I deserve that promotion, and the fact that I didn't get it proves the world is unfair."</div>
+      <details>
+        <summary>Reveal Model Answer</summary>
+        <div class="answer-content">
+          <p><strong>Heaven's Reward Fallacy</strong> &mdash; Expecting that hard work will automatically be rewarded.</p>
+          <p><strong>Overgeneralization</strong> &mdash; One situation proves "the world" is unfair.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Practice 5 -->
+    <div class="practice-item">
+      <div class="client-label">Client Statement 5</div>
+      <div class="client-statement">"There's no point in trying to make friends. I'll just get rejected like always."</div>
+      <details>
+        <summary>Reveal Model Answer</summary>
+        <div class="answer-content">
+          <p><strong>Fortune Telling</strong> &mdash; Predicting rejection as a certainty.</p>
+          <p><strong>Overgeneralization</strong> &mdash; "Like always" turns past experiences into a universal rule.</p>
+          <p><strong>All-or-Nothing Thinking</strong> &mdash; "No point" sees only two options: guaranteed success or don't bother.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Practice 6 -->
+    <div class="practice-item">
+      <div class="client-label">Client Statement 6</div>
+      <div class="client-statement">"Yes, I got the contract, but it was just luck. Any competent person could have done it."</div>
+      <details>
+        <summary>Reveal Model Answer</summary>
+        <div class="answer-content">
+          <p><strong>Disqualifying the Positive</strong> &mdash; Dismissing a genuine achievement as "just luck."</p>
+          <p><strong>Minimization</strong> &mdash; Shrinking the significance of a real accomplishment.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Practice 7 -->
+    <div class="practice-item">
+      <div class="client-label">Client Statement 7</div>
+      <div class="client-statement">"I'm so anxious about the flight. I just know something terrible is going to happen."</div>
+      <details>
+        <summary>Reveal Model Answer</summary>
+        <div class="answer-content">
+          <p><strong>Emotional Reasoning</strong> &mdash; Using the anxiety itself as evidence that something bad will happen.</p>
+          <p><strong>Fortune Telling / Catastrophizing</strong> &mdash; Predicting disaster without evidence and magnifying the expected outcome.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Practice 8 -->
+    <div class="practice-item">
+      <div class="client-label">Client Statement 8</div>
+      <div class="client-statement">"The argument was completely my fault. If I hadn't said what I said, none of this would have happened."</div>
+      <details>
+        <summary>Reveal Model Answer</summary>
+        <div class="answer-content">
+          <p><strong>Personalization</strong> &mdash; Taking full blame for an interpersonal event that involves two people.</p>
+          <p><strong>All-or-Nothing Thinking</strong> &mdash; "Completely my fault" leaves no room for shared responsibility.</p>
+        </div>
+      </details>
+    </div>
+
+  </section>
+
+  <!-- SECTION 6: Important Caveat -->
+  <section class="section" id="s6">
+    <div class="section-number">06</div>
+    <h2>Important Caveat for Clinical Practice</h2>
+
+    <div class="callout callout-warning">
+      <strong>This section is critical. Read it carefully.</strong>
+      Understanding when and how to use distortion labels in therapy makes the difference between helpful and harmful practice.
+    </div>
+
+    <h3>Naming Distortions Is for YOUR Understanding</h3>
+    <p>The 15 distortions you've just learned are tools for your <strong>clinical formulation</strong>. They help you organize your understanding of a client's thinking patterns, guide your intervention choices, and track changes over time.</p>
+
+    <h3>Don't "Label" Clients' Thoughts in Session</h3>
+    <p>It can be tempting to say things like, "That sounds like catastrophizing" or "That's a classic example of mind reading." Resist this urge in most cases. Here's why:</p>
+    <ul>
+      <li><strong>It can feel invalidating.</strong> When a client shares a painful thought and you immediately label it, they may feel dismissed or pathologized.</li>
+      <li><strong>It positions you as the expert on their experience.</strong> CBT works best when clients discover their own thinking patterns.</li>
+      <li><strong>It can become a shortcut that replaces real exploration.</strong> Naming the distortion is not the same as helping the client see it.</li>
+    </ul>
+
+    <h3>Instead, Use Socratic Questioning</h3>
+    <p>Let clients arrive at the insight themselves through guided discovery:</p>
+    <ul>
+      <li>"What's the evidence for that thought? What's the evidence against it?"</li>
+      <li>"If your best friend told you they were thinking this, what would you say to them?"</li>
+      <li>"Is there another way to look at this situation?"</li>
+      <li>"On a scale of 0&ndash;100, how much do you believe this thought?"</li>
+    </ul>
+
+    <div class="callout callout-red">
+      <strong>The Exception</strong>
+      In structured psychoeducation (e.g., a CBT skills group), teaching clients the names of distortions can be appropriate and useful. The key difference is context: psychoeducation vs. real-time processing of painful thoughts.
+    </div>
+  </section>
+
+  <!-- FINAL SCORED EXAM -->
+  <section class="exam-section" id="exam">
+    <div class="section-number" style="background: linear-gradient(135deg, var(--indigo-light), var(--purple-light)); color: var(--indigo-dark);">&#10003;</div>
+    <h2>Final Scored Exam</h2>
+    <p class="exam-intro">Test your understanding with 8 multiple-choice questions. You need 7/8 or higher for a strong pass. Read each question carefully &mdash; some are designed to be tricky.</p>
+
+    <form id="examForm" onsubmit="return false;">
+
+      <!-- Q1 -->
+      <div class="exam-question" id="q1">
+        <div class="q-number">Question 1 of 8</div>
+        <div class="q-text">A client says: "I feel so stupid. I must actually be stupid." Which cognitive distortion is most clearly at work?</div>
+        <label><input type="radio" name="q1" value="a"> All-or-Nothing Thinking</label>
+        <label><input type="radio" name="q1" value="b"> Emotional Reasoning</label>
+        <label><input type="radio" name="q1" value="c"> Labeling</label>
+        <label><input type="radio" name="q1" value="d"> Personalization</label>
+        <div class="q-feedback" id="fb1"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="exam-question" id="q2">
+        <div class="q-number">Question 2 of 8</div>
+        <div class="q-text">What distinguishes "Disqualifying the Positive" from "Mental Filter"?</div>
+        <label><input type="radio" name="q2" value="a"> Mental Filter ignores positives; Disqualifying the Positive actively rejects them</label>
+        <label><input type="radio" name="q2" value="b"> They are identical distortions with different names</label>
+        <label><input type="radio" name="q2" value="c"> Disqualifying the Positive only applies to compliments</label>
+        <label><input type="radio" name="q2" value="d"> Mental Filter applies to others; Disqualifying the Positive applies to the self</label>
+        <div class="q-feedback" id="fb2"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="exam-question" id="q3">
+        <div class="q-number">Question 3 of 8</div>
+        <div class="q-text">A client says: "My partner never listens to me. If they cared, they would change." Which two distortions are most prominent?</div>
+        <label><input type="radio" name="q3" value="a"> Blame and Fortune Telling</label>
+        <label><input type="radio" name="q3" value="b"> Overgeneralization and Fallacy of Change</label>
+        <label><input type="radio" name="q3" value="c"> Mind Reading and Should Statements</label>
+        <label><input type="radio" name="q3" value="d"> Emotional Reasoning and Personalization</label>
+        <div class="q-feedback" id="fb3"></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="exam-question" id="q4">
+        <div class="q-number">Question 4 of 8</div>
+        <div class="q-text">According to CBT best practice, when should a therapist directly name a cognitive distortion to a client?</div>
+        <label><input type="radio" name="q4" value="a"> Whenever they identify one, to build the client's awareness</label>
+        <label><input type="radio" name="q4" value="b"> Never, under any circumstances</label>
+        <label><input type="radio" name="q4" value="c"> Primarily in structured psychoeducation contexts, not when processing painful thoughts in the moment</label>
+        <label><input type="radio" name="q4" value="d"> Only after the client has been in therapy for at least 6 sessions</label>
+        <div class="q-feedback" id="fb4"></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="exam-question" id="q5">
+        <div class="q-number">Question 5 of 8</div>
+        <div class="q-text">A client says: "I had a panic attack at the grocery store. I can never go back there again &mdash; it's obviously a dangerous place for me." Identify the primary distortions.</div>
+        <label><input type="radio" name="q5" value="a"> Mental Filter and Personalization</label>
+        <label><input type="radio" name="q5" value="b"> All-or-Nothing Thinking and Blame</label>
+        <label><input type="radio" name="q5" value="c"> Emotional Reasoning and Overgeneralization</label>
+        <label><input type="radio" name="q5" value="d"> Should Statements and Labeling</label>
+        <div class="q-feedback" id="fb5"></div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="exam-question" id="q6">
+        <div class="q-number">Question 6 of 8</div>
+        <div class="q-text">What is the key difference between "Personalization" and "Blame"?</div>
+        <label><input type="radio" name="q6" value="a"> Personalization is about taking too much responsibility; Blame is about assigning too much responsibility to others</label>
+        <label><input type="radio" name="q6" value="b"> Personalization involves guilt; Blame involves anger</label>
+        <label><input type="radio" name="q6" value="c"> They both refer to the same thing but in different directions</label>
+        <label><input type="radio" name="q6" value="d"> Personalization is clinical; Blame is colloquial</label>
+        <div class="q-feedback" id="fb6"></div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="exam-question" id="q7">
+        <div class="q-number">Question 7 of 8</div>
+        <div class="q-text">A client says: "I've been a good person my whole life, so it's unfair that I'm going through this illness. I deserve better." Which distortion fits best?</div>
+        <label><input type="radio" name="q7" value="a"> Should Statements</label>
+        <label><input type="radio" name="q7" value="b"> Fallacy of Change</label>
+        <label><input type="radio" name="q7" value="c"> Heaven's Reward Fallacy</label>
+        <label><input type="radio" name="q7" value="d"> Emotional Reasoning</label>
+        <div class="q-feedback" id="fb7"></div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="exam-question" id="q8">
+        <div class="q-number">Question 8 of 8</div>
+        <div class="q-text">Which of the following is the BEST Socratic question to challenge the thought "Everyone at the meeting thought my idea was stupid"?</div>
+        <label><input type="radio" name="q8" value="a"> "That's mind reading &mdash; you can't know what everyone was thinking."</label>
+        <label><input type="radio" name="q8" value="b"> "What evidence do you have that everyone thought that? Did anyone say anything specific?"</label>
+        <label><input type="radio" name="q8" value="c"> "You shouldn't think that way &mdash; it's a cognitive distortion."</label>
+        <label><input type="radio" name="q8" value="d"> "Try not to worry about what other people think."</label>
+        <div class="q-feedback" id="fb8"></div>
+      </div>
+
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:28px;">
+        <button class="exam-btn" onclick="gradeExam()">Submit Exam</button>
+        <button class="copy-btn" id="copyBtn" onclick="copyResults()" style="display:none;">Copy Results</button>
+      </div>
+
+      <div class="results-box" id="resultsBox">
+        <div class="score-number" id="scoreNumber"></div>
+        <div class="score-label" id="scoreLabel"></div>
+        <div class="score-message" id="scoreMessage"></div>
+      </div>
+
+    </form>
+  </section>
+
+</div><!-- end container -->
+
+<script>
+const answers = {
+  q1: { correct: 'b', feedback: {
+    correct: 'Correct! "I feel stupid, so I must be stupid" is a textbook example of emotional reasoning — using an emotion as evidence of a fact. While labeling ("I\'m stupid") is also present, the core logic of the statement ("I feel X, therefore X is true") makes emotional reasoning the primary distortion.',
+    incorrect: 'The best answer is Emotional Reasoning. The client\'s logic is: "I feel stupid, therefore I am stupid." This is the hallmark of emotional reasoning — treating a feeling as proof of a fact. Labeling is also present ("stupid" as a global label), but the question asks for the distortion "most clearly at work," which is the feel-therefore-true logic.'
+  }},
+  q2: { correct: 'a', feedback: {
+    correct: 'Correct! Mental Filter means you simply don\'t attend to the positive — you focus on negatives as if the positives don\'t exist. Disqualifying the Positive goes further: you acknowledge the positive but actively reject or invalidate it ("That doesn\'t count because...").',
+    incorrect: 'The correct answer is A. The key distinction: Mental Filter means ignoring positives entirely (they\'re filtered out of awareness). Disqualifying the Positive means you\'re aware of the positives but actively explain them away ("That doesn\'t count because they were just being polite").'
+  }},
+  q3: { correct: 'b', feedback: {
+    correct: 'Correct! "Never listens" is an overgeneralization (absolute claim from limited evidence). "If they cared, they would change" is the Fallacy of Change — making your happiness contingent on another person changing their behavior.',
+    incorrect: 'The best answer is Overgeneralization and Fallacy of Change. "Never listens" is an absolute generalization from specific instances. "If they cared, they would change" places the client\'s happiness on the condition that the partner changes — the hallmark of the Fallacy of Change.'
+  }},
+  q4: { correct: 'c', feedback: {
+    correct: 'Correct! Naming distortions is most appropriate in structured psychoeducation settings (e.g., CBT skills groups, worksheets). When a client is processing painful thoughts in the moment, directly labeling their thinking can feel invalidating. Socratic questioning is preferred instead.',
+    incorrect: 'The correct answer is C. In structured psychoeducation (skills groups, homework review), naming distortions is appropriate and helpful. But during in-the-moment processing of painful thoughts, labeling can feel invalidating. The lesson emphasizes Socratic questioning as the preferred approach in live sessions.'
+  }},
+  q5: { correct: 'c', feedback: {
+    correct: 'Correct! "It\'s obviously a dangerous place for me" is emotional reasoning — the anxiety is treated as evidence that the store is genuinely dangerous. "I can never go back" is an overgeneralization, extending one experience into a permanent rule.',
+    incorrect: 'The best answer is Emotional Reasoning and Overgeneralization. The panic attack produced fear, and the client uses that fear as evidence the store is dangerous (emotional reasoning: "I felt scared, so it must be dangerous"). "I can never go back" extends one experience into an absolute rule (overgeneralization).'
+  }},
+  q6: { correct: 'a', feedback: {
+    correct: 'Correct! Personalization and Blame are essentially opposite ends of the same spectrum. Personalization = "It\'s all my fault" (excessive internal attribution). Blame = "It\'s all their fault" (excessive external attribution). Both avoid a balanced, nuanced view of responsibility.',
+    incorrect: 'The best answer is A. Personalization means taking too much responsibility for negative events ("The team failed because of me"). Blame means assigning too much responsibility to others ("It\'s all their fault I feel this way"). They\'re opposites on a responsibility spectrum. While B has some truth (guilt and anger are common emotions associated with each), the core distinction is about direction of responsibility.'
+  }},
+  q7: { correct: 'c', feedback: {
+    correct: 'Correct! The Heaven\'s Reward Fallacy is the belief that sacrifice, good behavior, or suffering should eventually be rewarded — as if the universe keeps score. "I\'ve been good, so I deserve good things" is the classic formulation.',
+    incorrect: 'The correct answer is Heaven\'s Reward Fallacy. This distortion involves the belief that being good, self-sacrificing, or suffering enough will eventually be rewarded. The client\'s reasoning — "I\'ve been a good person, so I deserve better" — perfectly captures this pattern of expecting cosmic justice.'
+  }},
+  q8: { correct: 'b', feedback: {
+    correct: 'Correct! This is genuine Socratic questioning — an open-ended question that invites the client to examine the evidence for their thought. Options A and C are examples of what NOT to do: directly labeling the distortion or telling the client they\'re wrong. Option D is reassurance, not guided discovery.',
+    incorrect: 'The correct answer is B. Good Socratic questioning is open-ended and invites the client to examine evidence themselves. "What evidence do you have?" lets them discover the gap between their thought and reality. Option A labels the distortion directly (what the lesson warns against). Option C is judgmental. Option D is reassurance that doesn\'t promote insight.'
+  }}
+};
+
+function gradeExam() {
+  let score = 0;
+  let results = [];
+  const total = 8;
+
+  for (let i = 1; i <= total; i++) {
+    const qName = 'q' + i;
+    const selected = document.querySelector(`input[name="${qName}"]:checked`);
+    const qEl = document.getElementById(qName);
+    const fbEl = document.getElementById('fb' + i);
+
+    if (!selected) {
+      qEl.className = 'exam-question incorrect';
+      fbEl.className = 'q-feedback show incorrect-fb';
+      fbEl.innerHTML = '<strong>No answer selected.</strong> ' + answers[qName].feedback.incorrect;
+      results.push(`Q${i}: No answer (Incorrect)`);
+      continue;
+    }
+
+    const isCorrect = selected.value === answers[qName].correct;
+    if (isCorrect) {
+      score++;
+      qEl.className = 'exam-question correct';
+      fbEl.className = 'q-feedback show correct-fb';
+      fbEl.innerHTML = answers[qName].feedback.correct;
+      results.push(`Q${i}: Correct`);
+    } else {
+      qEl.className = 'exam-question incorrect';
+      fbEl.className = 'q-feedback show incorrect-fb';
+      fbEl.innerHTML = answers[qName].feedback.incorrect;
+      results.push(`Q${i}: Incorrect`);
+    }
+  }
+
+  // Show results
+  const box = document.getElementById('resultsBox');
+  const num = document.getElementById('scoreNumber');
+  const label = document.getElementById('scoreLabel');
+  const msg = document.getElementById('scoreMessage');
+
+  num.textContent = score + '/' + total;
+  box.classList.add('show');
+
+  // Remove previous tier classes
+  box.classList.remove('results-green', 'results-yellow', 'results-red');
+
+  if (score >= 7) {
+    box.classList.add('results-green');
+    label.textContent = 'Excellent!';
+    msg.textContent = 'You have a strong understanding of cognitive distortions. You\'re ready to move on to the next lesson.';
+  } else if (score >= 5) {
+    box.classList.add('results-yellow');
+    label.textContent = 'Good, but review recommended';
+    msg.textContent = 'You understand the basics, but some distortions need more study. Review the ones you missed before continuing.';
+  } else {
+    box.classList.add('results-red');
+    label.textContent = 'Needs more study';
+    msg.textContent = 'Re-read the lesson carefully, paying special attention to the definitions and clinical examples. Try the exam again after reviewing.';
+  }
+
+  // Show copy button
+  document.getElementById('copyBtn').style.display = 'inline-block';
+
+  // Store results for copying
+  window._examResults = `Lesson 2 — Cognitive Distortions: Exam Results\nScore: ${score}/${total}\n${results.join('\n')}`;
+
+  // Scroll to results
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // === ADDED: Disable radios after submission ===
+  for (let di = 1; di <= 8; di++) {
+    const rName = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'][di - 1];
+    document.querySelectorAll('input[name="' + rName + '"]').forEach(function(r) { r.disabled = true; });
+  }
+
+  // === ADDED: Save to localStorage ===
+  var lessonKey = 'lesson_2';
+  localStorage.setItem(lessonKey + '_score', score + '/8');
+  localStorage.setItem(lessonKey + '_passed', score >= 7 ? 'true' : 'false');
+  if (window.self !== window.top) { window.parent.postMessage({type: 'lessonProgress'}, '*'); }
+  // === ADDED: Retake Exam button ===
+  var existingRetake = document.getElementById('retakeExamBtn_2');
+  if (!existingRetake) {
+    var retakeBtn = document.createElement('button');
+    retakeBtn.id = 'retakeExamBtn_2';
+    retakeBtn.innerHTML = '&#128260; Retake Exam';
+    retakeBtn.style.cssText = 'display:block; margin:20px auto; padding:14px 32px; font-size:1rem; font-weight:700; color:#fff; background:linear-gradient(135deg,#2ABFBF,#1A8A8A); border:none; border-radius:12px; cursor:pointer; font-family:Inter,sans-serif; transition:all 0.2s;';
+    retakeBtn.onmouseover = function() { this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(42,191,191,0.3)'; };
+    retakeBtn.onmouseout = function() { this.style.transform=''; this.style.boxShadow=''; };
+    retakeBtn.onclick = function() { retakeExam_2(); };
+    var resultEl = document.getElementById('resultsBox');
+    if (resultEl) resultEl.parentNode.insertBefore(retakeBtn, resultEl.nextSibling);
+  }
+
+}
+function retakeExam_2() {
+  // Re-enable and clear all radios
+  var radioNames = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'];
+  for (var ri = 0; ri < radioNames.length; ri++) {
+    var radios = document.querySelectorAll('input[name="' + radioNames[ri] + '"]');
+    for (var rj = 0; rj < radios.length; rj++) {
+      radios[rj].disabled = false;
+      radios[rj].checked = false;
+    }
+  }
+
+  // Clear visual selection classes
+  var selectedOpts = document.querySelectorAll('.q-option.selected');
+  for (var si = 0; si < selectedOpts.length; si++) {
+    selectedOpts[si].classList.remove('selected');
+  }
+
+  // Hide result container
+  var resultEl = document.getElementById('resultsBox');
+  if (resultEl) {
+    resultEl.className = resultEl.className.replace(/\bshow\b/g, '').replace(/\bresult-pass\b/g, '').replace(/\bresult-almost\b/g, '').replace(/\bresult-fail\b/g, '').replace(/\bresults-green\b/g, '').replace(/\bresults-yellow\b/g, '').replace(/\bresults-red\b/g, '').replace(/\bgreen\b/g, '').replace(/\byellow\b/g, '').replace(/\bred\b/g, '').replace(/\bresult-green\b/g, '').replace(/\bresult-yellow\b/g, '').replace(/\bresult-red\b/g, '');
+    resultEl.style.display = 'none';
+    resultEl.innerHTML = resultEl.innerHTML || '';
+  }
+
+  // Hide retake button
+  var retakeBtn = document.getElementById('retakeExamBtn_2');
+  if (retakeBtn) retakeBtn.remove();
+
+  // Clear feedback elements
+  var feedbacks = document.querySelectorAll('.q-feedback, .exam-correction, .correct-note, .wrong-note, .feedback');
+  for (var fi = 0; fi < feedbacks.length; fi++) {
+    var fb = feedbacks[fi];
+    if (fb.classList.contains('correct-note') || fb.classList.contains('wrong-note')) {
+      fb.remove();
+    } else {
+      fb.className = fb.className.replace(/\bshow\b/g, '').replace(/\bcorrect-fb\b/g, '').replace(/\bincorrect-fb\b/g, '').replace(/\bcorrect\b/g, '').replace(/\bincorrect\b/g, '');
+      fb.style.display = 'none';
+      fb.innerHTML = '';
+    }
+  }
+
+  // Clear question block correct/incorrect/wrong classes
+  var qBlocks = document.querySelectorAll('.exam-question, .exam-q, .question-card, .question-block, [id^="q"], [id^="eq"]');
+  for (var qi = 0; qi < qBlocks.length; qi++) {
+    qBlocks[qi].classList.remove('correct', 'incorrect', 'wrong');
+  }
+
+  // Clear option label highlights
+  var optLabels = document.querySelectorAll('.option-label');
+  for (var oi = 0; oi < optLabels.length; oi++) {
+    optLabels[oi].classList.remove('correct', 'incorrect');
+  }
+
+  // Hide copy button if exists
+  var copyBtns = document.querySelectorAll('#copyBtn, .copy-btn, [id$="copyBtn"]');
+  for (var ci = 0; ci < copyBtns.length; ci++) {
+    copyBtns[ci].style.display = 'none';
+  }
+
+  // Re-enable submit button if it was disabled
+  var submitBtns = document.querySelectorAll('#submitBtn, .submit-exam-btn, .btn-submit, .exam-btn');
+  for (var sbi = 0; sbi < submitBtns.length; sbi++) {
+    submitBtns[sbi].disabled = false;
+  }
+
+  // Scroll to first question
+  var firstQ = document.querySelector('[id^="q1"], [id^="eq"], .exam-question, .exam-q, .question-block, .question-card');
+  if (firstQ) firstQ.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+function copyResults() {
+  if (!window._examResults) return;
+  navigator.clipboard.writeText(window._examResults).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy Results'; }, 2000);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = window._examResults;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy Results'; }, 2000);
+  });
+}
+</script>
+
+<div class="lesson-nav-bottom">
+  <a class="nav-prev" href="Lesson 01 — The Cognitive Model.html">← The Cognitive Model</a>
+  <a class="nav-home" href="index.html">🏠 Assessment Home</a>
+  <a class="nav-next" href="Lesson 03 — The 7-Column Thought Record.html">The 7-Column Thought Record →</a>
+</div>
+
+<script>
+if (window.self !== window.top) {
+  document.body.classList.add("iframe-mode");
+  document.addEventListener("click", function(e) {
+    var link = e.target.closest("a");
+    if (link) {
+      var href = link.getAttribute("href");
+      if (href === "index.html") {
+        e.preventDefault();
+        window.parent.closeLessonViewer();
+      } else if (href && href.indexOf("Lesson") === 0 && href.indexOf(".html") !== -1) {
+        e.preventDefault();
+        window.parent.openLessonByFile(href);
+      } else if (href === "Printable CBT Toolkit.html") {
+        e.preventDefault();
+        window.parent.openToolkit();
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>

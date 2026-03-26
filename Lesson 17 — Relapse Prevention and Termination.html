@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 17 — Relapse Prevention & Termination</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.7;
+    padding: 32px 16px 80px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  .lesson-header {
+    text-align: center;
+    padding: 48px 32px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 24px rgba(79,70,229,0.25);
+  }
+  .lesson-header .lesson-number {
+    font-size: 14px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; opacity: 0.85; margin-bottom: 8px;
+  }
+  .lesson-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 12px; }
+  .lesson-header .subtitle { font-size: 16px; opacity: 0.9; font-weight: 300; }
+  .card {
+    background: white; border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 32px; margin-bottom: 24px;
+  }
+  .card h2 {
+    font-size: 22px; font-weight: 700; color: #4f46e5; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .card h2 .num {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white; width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .card h3 { font-size: 17px; font-weight: 600; color: #312e81; margin: 20px 0 10px; }
+  .card p, .card li { font-size: 15px; color: #334155; }
+  .card ul, .card ol { padding-left: 24px; margin: 10px 0; }
+  .card li { margin-bottom: 8px; }
+  .highlight-box {
+    background: #eef2ff; border-left: 4px solid #6366f1;
+    border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-size: 15px;
+  }
+  .highlight-box.warning { background: #fef3c7; border-left-color: #f59e0b; }
+  .highlight-box.green { background: #ecfdf5; border-left-color: #10b981; }
+  .highlight-box strong { color: #1e293b; }
+  .blueprint-box {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    border: 2px solid #c7d2fe;
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin: 20px 0;
+  }
+  .blueprint-box .bp-title {
+    font-size: 20px; font-weight: 700; color: #4f46e5;
+    text-align: center; margin-bottom: 4px;
+  }
+  .blueprint-box .bp-subtitle {
+    font-size: 14px; color: #64748b; text-align: center; margin-bottom: 20px;
+  }
+  .blueprint-box .bp-section {
+    background: white; border-radius: 12px; padding: 18px 22px;
+    margin-bottom: 14px; border: 1px solid #e2e8f0;
+  }
+  .blueprint-box .bp-section h4 {
+    font-size: 15px; font-weight: 700; color: #6366f1; margin-bottom: 8px;
+  }
+  .blueprint-box .bp-section p, .blueprint-box .bp-section li {
+    font-size: 14px; color: #475569;
+  }
+  .blueprint-box .bp-section ul { padding-left: 20px; margin: 6px 0; }
+  .blueprint-box .bp-section li { margin-bottom: 4px; }
+  .script-box {
+    background: #f1f5f9; border-radius: 12px; padding: 20px 24px;
+    margin: 14px 0; font-size: 14px; border: 1px solid #e2e8f0;
+  }
+  .script-box .label {
+    font-weight: 600; color: #6366f1; font-size: 13px;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .script-box p { font-style: italic; color: #475569; line-height: 1.6; }
+  .timeline {
+    position: relative; padding-left: 32px; margin: 16px 0;
+  }
+  .timeline::before {
+    content: ''; position: absolute; left: 10px; top: 4px; bottom: 4px;
+    width: 3px; background: linear-gradient(to bottom, #6366f1, #a855f7);
+    border-radius: 3px;
+  }
+  .timeline .step {
+    position: relative; margin-bottom: 20px; padding-left: 16px;
+  }
+  .timeline .step::before {
+    content: ''; position: absolute; left: -26px; top: 6px;
+    width: 14px; height: 14px; background: #6366f1; border-radius: 50%;
+    border: 3px solid #e0e7ff;
+  }
+  .timeline .step h4 {
+    font-size: 15px; font-weight: 600; color: #312e81; margin-bottom: 4px;
+  }
+  .timeline .step p { font-size: 14px; color: #475569; }
+  details {
+    background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 12px;
+    margin: 14px 0; overflow: hidden;
+  }
+  details summary {
+    padding: 14px 20px; font-weight: 600; font-size: 15px; color: #7c3aed;
+    cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px;
+  }
+  details summary::before { content: "\25B6"; font-size: 11px; transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details summary::-webkit-details-marker { display: none; }
+  details .answer { padding: 0 20px 16px; font-size: 14px; color: #475569; line-height: 1.6; }
+  table {
+    width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px;
+  }
+  th {
+    background: #6366f1; color: white; padding: 12px 16px;
+    text-align: left; font-weight: 600; font-size: 13px;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td { padding: 10px 16px; border-bottom: 1px solid #e2e8f0; color: #334155; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .vs-box {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;
+  }
+  .vs-box > div {
+    border-radius: 12px; padding: 20px; text-align: center;
+  }
+  .vs-box .lapse-side {
+    background: #fffbeb; border: 2px solid #fbbf24;
+  }
+  .vs-box .relapse-side {
+    background: #fef2f2; border: 2px solid #f87171;
+  }
+  .vs-box h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .vs-box p { font-size: 13px; }
+  .exam-section {
+    background: white; border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 32px; margin-top: 40px; border-top: 4px solid #6366f1;
+  }
+  .exam-section h2 { font-size: 24px; font-weight: 700; color: #4f46e5; margin-bottom: 8px; }
+  .exam-section .exam-subtitle { color: #64748b; font-size: 14px; margin-bottom: 28px; }
+  .question-block {
+    background: #f8fafc; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px;
+  }
+  .question-block p.q-text { font-weight: 600; font-size: 15px; color: #1e293b; margin-bottom: 12px; }
+  .question-block label {
+    display: block; padding: 10px 16px; margin: 4px 0;
+    border-radius: 8px; cursor: pointer; font-size: 14px; color: #334155;
+    transition: background 0.15s;
+  }
+  .question-block label:hover { background: #eef2ff; }
+  .question-block input[type="radio"] { margin-right: 10px; accent-color: #6366f1; }
+  .question-block .feedback {
+    margin-top: 10px; padding: 10px 14px; border-radius: 8px;
+    font-size: 13px; display: none;
+  }
+  .question-block .feedback.correct { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+  .question-block .feedback.incorrect { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+  .btn-submit {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white; border: none; padding: 14px 36px; border-radius: 10px;
+    font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 12px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(79,70,229,0.35); }
+  .btn-copy {
+    background: #e0e7ff; color: #4338ca; border: none; padding: 10px 24px;
+    border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+    margin-top: 12px; display: none;
+  }
+  .btn-copy:hover { background: #c7d2fe; }
+  .result-box {
+    margin-top: 20px; padding: 24px; border-radius: 12px;
+    text-align: center; display: none;
+  }
+  .result-box h3 { font-size: 20px; margin-bottom: 6px; }
+  .result-box p { font-size: 15px; }
+  .result-green { background: #ecfdf5; color: #065f46; border: 2px solid #34d399; }
+  .result-yellow { background: #fffbeb; color: #92400e; border: 2px solid #fbbf24; }
+  .result-red { background: #fef2f2; color: #991b1b; border: 2px solid #f87171; }
+  .toc {
+    background: white; border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 24px 32px; margin-bottom: 24px;
+  }
+  .toc h3 {
+    font-size: 15px; font-weight: 600; color: #64748b;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+  }
+  .toc ul { list-style: none; padding: 0; }
+  .toc li { margin: 6px 0; }
+  .toc a { color: #6366f1; text-decoration: none; font-size: 15px; font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+  @media (max-width: 640px) {
+    .lesson-header h1 { font-size: 24px; }
+    .card { padding: 20px; }
+    .exam-section { padding: 20px; }
+    .vs-box { grid-template-columns: 1fr; }
+    .blueprint-box { padding: 20px; }
+  }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+
+<style>
+.lesson-nav-top {
+  position: sticky; top: 0; z-index: 999;
+  background: rgba(248,250,252,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 100%;
+}
+.lesson-nav-top a {
+  text-decoration: none; color: #2ABFBF; font-size: 0.85rem; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.lesson-nav-top a:hover { color: #1A8A8A; }
+.lesson-nav-top .nav-title { font-size: 0.8rem; color: #64748b; font-weight: 500; }
+.lesson-nav-bottom {
+  max-width: 900px; margin: 40px auto; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.lesson-nav-bottom a {
+  text-decoration: none; padding: 12px 24px; border-radius: 12px;
+  font-size: 0.9rem; font-weight: 600; font-family: 'Inter', sans-serif;
+  transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.lesson-nav-bottom .nav-prev { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+.lesson-nav-bottom .nav-prev:hover { background: #e2e8f0; }
+.lesson-nav-bottom .nav-home { background: #e6fafa; color: #2ABFBF; border: 1px solid #99ebeb; }
+.lesson-nav-bottom .nav-home:hover { background: #ccf5f5; }
+.lesson-nav-bottom .nav-next { background: linear-gradient(135deg, #2ABFBF, #1A8A8A); color: white; border: none; }
+.lesson-nav-bottom .nav-next:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(42,191,191,0.3); }
+  /* Hide built-in nav when embedded in iframe */
+  .iframe-mode .lesson-nav-top, .iframe-mode .lesson-nav-bottom { display: none; }
+</style>
+</head>
+<body>
+<div class="lesson-nav-top">
+  <a href="index.html">← Back to Assessment</a>
+  <span class="nav-title">Lesson 17 of 18</span>
+</div>
+
+
+<div class="container">
+
+  <div class="lesson-header">
+    <div class="lesson-number">Lesson 17</div>
+    <h1>Relapse Prevention & Termination</h1>
+    <div class="subtitle">Ending therapy well and preparing clients to maintain their gains independently</div>
+  </div>
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ul>
+      <li><a href="#s1">1. When Is the Client Ready to End?</a></li>
+      <li><a href="#s2">2. Spacing Out Sessions</a></li>
+      <li><a href="#s3">3. The Therapy Blueprint (Relapse Prevention Plan)</a></li>
+      <li><a href="#s4">4. Predicting and Normalizing Setbacks</a></li>
+      <li><a href="#s5">5. Booster Sessions</a></li>
+      <li><a href="#s6">6. Common Termination Challenges</a></li>
+      <li><a href="#exam">Final Scored Exam</a></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="card" id="s1">
+    <h2><span class="num">1</span>When Is the Client Ready to End?</h2>
+
+    <div class="highlight-box">
+      <strong>Key Principle:</strong> In CBT, termination is discussed from Session 1. CBT is explicitly time-limited. Clients should know from the beginning that the goal is to make themselves their own therapist.
+    </div>
+
+    <p>Readiness for termination is assessed across four domains:</p>
+
+    <h3>The Four Readiness Criteria</h3>
+
+    <table>
+      <tr>
+        <th>Criterion</th>
+        <th>What to Look For</th>
+        <th>How to Assess</th>
+      </tr>
+      <tr>
+        <td><strong>1. Symptom Improvement</strong></td>
+        <td>Scores in minimal or mild range for 3+ consecutive sessions</td>
+        <td>PHQ-9 &le; 9, GAD-7 &le; 9, or equivalent on other measures for at least 3 sessions</td>
+      </tr>
+      <tr>
+        <td><strong>2. Skill Competence</strong></td>
+        <td>Client can independently use CBT tools</td>
+        <td>Can complete thought records without help, designs own behavioral experiments, catches and challenges automatic thoughts in real-time</td>
+      </tr>
+      <tr>
+        <td><strong>3. Goal Achievement</strong></td>
+        <td>Original therapy goals have been met</td>
+        <td>Review the goals set in Session 1-2. Have they been achieved? (If goals shifted, discuss this explicitly)</td>
+      </tr>
+      <tr>
+        <td><strong>4. Self-Efficacy</strong></td>
+        <td>Client feels confident managing independently</td>
+        <td>"On a scale of 0-10, how confident are you that you could handle a difficult period on your own using the skills you've learned?"</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box warning">
+      <strong>Common Trap:</strong> Waiting until ALL symptoms are gone. The goal of CBT is not to eliminate all negative emotions — it's to give clients the tools to manage them. A client who still experiences occasional sadness but can use their skills effectively is ready to end.
+    </div>
+
+    <details>
+      <summary>What if one criterion is met but not the others?</summary>
+      <div class="answer">
+        This is very common. For example:<br><br>
+        <strong>Symptoms improved but skills not strong:</strong> Continue therapy with a focus on skill consolidation. Reduce session content and increase in-session practice.<br><br>
+        <strong>Skills strong but symptoms still elevated:</strong> Consider whether there are maintaining factors you haven't addressed, or whether the formulation needs updating. Some clients may benefit from referral for complementary treatment (e.g., medication evaluation).<br><br>
+        <strong>Goals met but client doesn't feel confident:</strong> This may reflect underlying beliefs about being incapable. Address this therapeutically — it might be the most important work you do before ending.
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="card" id="s2">
+    <h2><span class="num">2</span>Spacing Out Sessions</h2>
+
+    <p>Abrupt endings are bad endings. CBT uses a <strong>graduated termination</strong> process that systematically tests the client's ability to cope independently while maintaining a safety net.</p>
+
+    <div class="timeline">
+      <div class="step">
+        <h4>Weekly Sessions (Active Treatment Phase)</h4>
+        <p>Standard CBT frequency. Therapist is actively teaching skills, client is learning and practicing.</p>
+      </div>
+      <div class="step">
+        <h4>Biweekly Sessions (2 weeks apart)</h4>
+        <p>First step in spacing. Client manages a full week independently. Session focuses on: "How did you handle things on your own? What worked? What was hard?"</p>
+      </div>
+      <div class="step">
+        <h4>Monthly Sessions</h4>
+        <p>Client is now largely independent. Sessions shift to troubleshooting, reinforcing gains, and beginning relapse prevention planning.</p>
+      </div>
+      <div class="step">
+        <h4>Final Session + Booster Plan</h4>
+        <p>Complete the therapy blueprint, celebrate progress, schedule booster sessions. The formal therapeutic relationship transitions to an "as-needed" resource.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box green">
+      <strong>Why This Works:</strong> Each gap between sessions is a mini-experiment: "Can I cope on my own for two weeks?" If yes, the client builds confidence. If a difficulty arises, it becomes therapeutic material: "Great — you had a hard week. Let's look at how you handled it and what you might do differently next time."
+    </div>
+
+    <div class="script-box">
+      <div class="label">Introducing Spacing to the Client</div>
+      <p>"We've been making great progress, and I think you're ready to start testing your wings a bit. What I'd like to suggest is that we move to meeting every two weeks instead of every week. This gives you more time to practice on your own, and when we meet, we can look at how things went. Think of it as a trial run for independence. How does that sound?"</p>
+    </div>
+
+    <details>
+      <summary>What if the client deteriorates during a gap between sessions?</summary>
+      <div class="answer">
+        This is not a failure — it's valuable data. Options:<br><br>
+        1. <strong>If mild deterioration:</strong> Use it therapeutically. "What happened? What skills did you try? What could you do differently?" This teaches real-world coping.<br><br>
+        2. <strong>If significant deterioration:</strong> Return temporarily to weekly sessions. This is not a setback — it means the client needs more support at this stage. Re-space when stable again.<br><br>
+        3. <strong>If crisis:</strong> Provide crisis support and reassess the treatment plan entirely. Termination was premature — continue active treatment.
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="card" id="s3">
+    <h2><span class="num">3</span>The Therapy Blueprint (Relapse Prevention Plan)</h2>
+
+    <p>The therapy blueprint is a concrete document the client takes home — a personalized manual for maintaining their gains and handling future difficulties. It should be <strong>written collaboratively</strong> over the final 2-3 sessions.</p>
+
+    <div class="blueprint-box">
+      <div class="bp-title">My Therapy Blueprint</div>
+      <div class="bp-subtitle">Client: Sarah M. | Diagnosis: Major Depressive Disorder | Sessions Completed: 14</div>
+
+      <div class="bp-section">
+        <h4>1. What I Learned About Myself</h4>
+        <ul>
+          <li>My core belief is "I'm not good enough" — this developed in childhood when I couldn't meet my parents' high expectations</li>
+          <li>This belief gets activated by criticism, failure, or comparison with others</li>
+          <li>When activated, I withdraw, stop doing activities I enjoy, and my thinking becomes very black-and-white</li>
+          <li>Depression was maintained by avoidance of social activities and rumination — NOT by a permanent character flaw</li>
+        </ul>
+      </div>
+
+      <div class="bp-section">
+        <h4>2. What Techniques Work for Me</h4>
+        <ul>
+          <li><strong>Thought records:</strong> Especially effective when I catch "all-or-nothing" thinking. Writing it down makes the distortion obvious.</li>
+          <li><strong>Behavioral activation:</strong> Even when I don't feel like it, walking and calling a friend reliably improve my mood within 30 minutes.</li>
+          <li><strong>Behavioral experiments:</strong> Testing my predictions (like "they'll think I'm boring") showed me my predictions are almost always wrong.</li>
+          <li><strong>Activity scheduling:</strong> Scheduling pleasurable activities in advance prevents me from canceling when I "don't feel like it."</li>
+        </ul>
+      </div>
+
+      <div class="bp-section">
+        <h4>3. My Early Warning Signs</h4>
+        <ul>
+          <li>Canceling social plans more than once a week</li>
+          <li>Sleeping more than 9 hours a night for 3+ days</li>
+          <li>Thoughts like "What's the point?" or "Nobody really cares"</li>
+          <li>Stopping my exercise routine</li>
+          <li>Increased irritability with my partner</li>
+        </ul>
+      </div>
+
+      <div class="bp-section">
+        <h4>4. My Action Plan (When I Notice Warning Signs)</h4>
+        <ol>
+          <li><strong>Day 1-3:</strong> Complete a thought record. Resume my walking routine. Call one friend.</li>
+          <li><strong>Day 4-7:</strong> If warning signs persist, schedule pleasurable activities for each day. Review this blueprint.</li>
+          <li><strong>Week 2:</strong> If not improving, contact my therapist for a booster session.</li>
+          <li><strong>Immediately:</strong> If I have thoughts of self-harm, call the crisis line or go to the emergency room.</li>
+        </ol>
+      </div>
+
+      <div class="bp-section">
+        <h4>5. My Support Network</h4>
+        <ul>
+          <li><strong>Close friend:</strong> Maria (can call anytime, knows about my depression)</li>
+          <li><strong>Family:</strong> Brother David (weekly check-in calls)</li>
+          <li><strong>Professional:</strong> Dr. Thompson (therapist — can schedule booster session)</li>
+          <li><strong>Crisis:</strong> National crisis line, local emergency services</li>
+        </ul>
+      </div>
+
+      <div class="bp-section">
+        <h4>6. When to Return to Therapy</h4>
+        <ul>
+          <li>PHQ-9 score returns to moderate range (10+) for more than 2 weeks</li>
+          <li>Warning signs persist for 2+ weeks despite using my action plan</li>
+          <li>Major life stressor that I feel unable to cope with alone</li>
+          <li>I want a "tune-up" — there is no shame in returning for a few sessions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>Process Note:</strong> The blueprint should be written IN the client's words, not the therapist's clinical language. It's THEIR document. Have the client type or write it, with you guiding and adding points they might miss.
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="card" id="s4">
+    <h2><span class="num">4</span>Predicting and Normalizing Setbacks</h2>
+
+    <p>One of the most important things you do before ending therapy: <strong>predict that setbacks will happen</strong> and normalize them in advance. This prevents a future bad week from becoming a catastrophe ("Therapy didn't work! I'm back to square one!").</p>
+
+    <div class="vs-box">
+      <div class="lapse-side">
+        <h4 style="color:#92400e;">Lapse</h4>
+        <p>A <strong>temporary dip</strong> in mood or return of some symptoms. Normal. Expected. Time-limited.</p>
+        <p style="margin-top:8px;font-size:12px;color:#a16207;"><strong>Example:</strong> A bad week after a stressful event at work. Mood drops, sleep disrupted for a few days.</p>
+      </div>
+      <div class="relapse-side">
+        <h4 style="color:#991b1b;">Relapse</h4>
+        <p>A <strong>full return</strong> to the pre-treatment level of the disorder. Prolonged. Requires professional intervention.</p>
+        <p style="margin-top:8px;font-size:12px;color:#b91c1c;"><strong>Example:</strong> Persistent depression lasting weeks, inability to function, withdrawal from all activities.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box green">
+      <strong>The Key Message:</strong> "A setback is not a comeback of the old problem — it's a chance to practice your new skills under pressure. The difference between you now and you before therapy is that you have tools."
+    </div>
+
+    <h3>The Time Machine Exercise</h3>
+    <p>A powerful relapse prevention technique done in the final session:</p>
+
+    <div class="script-box">
+      <div class="label">Role-Play Script</div>
+      <p><strong>Therapist:</strong> "Let's imagine it's three months from now. You've had a really tough week — maybe something stressful happened at work, or you had an argument with someone close to you. You notice your mood dropping. You start thinking 'Here we go again.' Walk me through what you would do."</p>
+      <p style="margin-top:10px;"><strong>Client:</strong> [Practices their plan out loud — identifying warning signs, choosing which tools to use, deciding when to seek support]</p>
+      <p style="margin-top:10px;"><strong>Therapist:</strong> "Excellent. You just demonstrated that you know exactly what to do. That knowledge doesn't disappear — it's yours now."</p>
+    </div>
+
+    <details>
+      <summary>What if the client says "But what if the skills don't work?"</summary>
+      <div class="answer">
+        This is a common and understandable fear. Address it directly:<br><br>
+        1. <strong>Validate:</strong> "That's a normal worry. It shows you take your mental health seriously."<br><br>
+        2. <strong>Reality-check:</strong> "The skills have worked for you over the past [X] weeks. What evidence do you have that they'll suddenly stop working?"<br><br>
+        3. <strong>Safety net:</strong> "And if for some reason you're struggling and the skills aren't enough, you can always call me for a booster session. That's not failure — that's smart self-care."<br><br>
+        4. <strong>Normalize:</strong> "Some situations are genuinely harder than others. No skill works 100% of the time. The goal is to have multiple tools and the wisdom to know when to ask for help."
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="card" id="s5">
+    <h2><span class="num">5</span>Booster Sessions</h2>
+
+    <p>Booster sessions are scheduled follow-up appointments after formal therapy has ended. They are one of the most effective relapse prevention strategies available.</p>
+
+    <h3>Typical Booster Schedule</h3>
+    <table>
+      <tr>
+        <th>Timing</th>
+        <th>Purpose</th>
+        <th>Focus</th>
+      </tr>
+      <tr>
+        <td><strong>1 month</strong> after final session</td>
+        <td>Check early independence</td>
+        <td>How are skills holding up? Any emerging difficulties? Review blueprint.</td>
+      </tr>
+      <tr>
+        <td><strong>3 months</strong> after final session</td>
+        <td>Reinforce gains</td>
+        <td>Troubleshoot any challenges. Practice skills that have become rusty. Adjust action plan if needed.</td>
+      </tr>
+      <tr>
+        <td><strong>6 months</strong> after final session</td>
+        <td>Long-term maintenance check</td>
+        <td>Celebrate sustained gains. Address any new life stressors. Final measures for comparison.</td>
+      </tr>
+    </table>
+
+    <div class="highlight-box">
+      <strong>What Happens in a Booster Session:</strong>
+      <ol style="margin:8px 0 0 16px;">
+        <li>Administer outcome measures (PHQ-9, GAD-7) — compare to end-of-treatment scores</li>
+        <li>Review: "What's been going well? What's been challenging?"</li>
+        <li>Check skill use: "Which tools have you been using? Any you've stopped using?"</li>
+        <li>Troubleshoot any difficulties</li>
+        <li>Update the therapy blueprint if needed</li>
+        <li>Reinforce confidence: "You've managed [X months] independently — that's evidence of your capability"</li>
+      </ol>
+    </div>
+
+    <div class="highlight-box green">
+      <strong>Research Support:</strong> Studies show that booster sessions reduce relapse rates by up to 50% compared to no follow-up. They are especially valuable for depression, where relapse rates are naturally high (up to 50% within 2 years).
+    </div>
+
+    <details>
+      <summary>What if the client needs more than a booster?</summary>
+      <div class="answer">
+        If a booster session reveals significant deterioration, transition back to regular therapy:<br><br>
+        - <strong>Mild difficulties:</strong> One or two additional sessions may be enough to get back on track.<br>
+        - <strong>Moderate difficulties:</strong> A short course of 4-6 sessions focused on the specific issue.<br>
+        - <strong>Significant relapse:</strong> Full course of treatment may be needed. This is NOT a failure — it may reflect a new stressor, life change, or an issue that wasn't fully resolved initially.<br><br>
+        Frame returning to therapy positively: "You recognized the problem early and sought help quickly. That's exactly what your blueprint told you to do."
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="card" id="s6">
+    <h2><span class="num">6</span>Common Termination Challenges</h2>
+
+    <h3>Challenge 1: Client Doesn't Want to End (Dependency)</h3>
+    <div class="script-box">
+      <div class="label">Therapist Script</div>
+      <p>"I understand the idea of ending feels uncomfortable. That's natural — we've built a strong working relationship. But I want you to notice something: the progress you've made isn't because of me. It's because YOU did the work. I taught you the tools, but you're the one who used them every day. You already have everything you need."</p>
+    </div>
+    <ul>
+      <li>Normalize the anxiety about ending</li>
+      <li>Point to specific evidence of the client's competence</li>
+      <li>Remind them about booster sessions as a safety net</li>
+      <li>Consider whether dependency reflects an underlying belief ("I can't cope alone") that needs to be addressed before ending</li>
+    </ul>
+
+    <h3>Challenge 2: Client Wants to End Prematurely</h3>
+    <div class="script-box">
+      <div class="label">Therapist Script</div>
+      <p>"I'm glad you're feeling better — that's great progress. I want to make sure we don't stop too early though. Sometimes when symptoms improve, it can feel like everything is fixed. But we haven't yet built the skills to prevent the problem from coming back. Can we discuss the pros and cons of stopping now versus having a few more sessions to solidify your gains?"</p>
+    </div>
+    <ul>
+      <li>Validate the improvement while expressing concern</li>
+      <li>Use Socratic dialogue — don't lecture or argue</li>
+      <li>If they insist, respect their autonomy but complete a blueprint and offer booster sessions</li>
+      <li>Explore whether avoidance is driving the decision (avoiding difficult work)</li>
+    </ul>
+
+    <h3>Challenge 3: Therapist's Own Feelings About Ending</h3>
+    <ul>
+      <li>It's normal to feel sad, worried, or even reluctant to end with a client you've worked closely with</li>
+      <li>Watch for over-treating: continuing therapy because YOU enjoy the work, not because the client needs it</li>
+      <li>Seek supervision if you're unsure whether to terminate</li>
+      <li>The best measure of your success is a client who no longer needs you</li>
+    </ul>
+
+    <h3>Challenge 4: Unresolved Issues at Termination</h3>
+    <ul>
+      <li>Not every problem can be solved in one course of therapy — and that's okay</li>
+      <li>Prioritize: which issues are most important to address before ending?</li>
+      <li>For remaining issues: include them in the blueprint as areas for continued self-work</li>
+      <li>Consider referral for issues outside your expertise (e.g., couples therapy, substance use treatment)</li>
+      <li>Create a specific plan: "For the self-esteem work, you might want to read [specific book] and practice the exercises we discussed"</li>
+    </ul>
+
+    <details>
+      <summary>The final session: What does it look like?</summary>
+      <div class="answer">
+        A final CBT session typically includes:<br><br>
+        1. <strong>Final measures:</strong> PHQ-9, GAD-7, and any disorder-specific measures. Compare to intake scores.<br><br>
+        2. <strong>Review of progress:</strong> Look at the full score trajectory. Celebrate the change. "When we started, your PHQ-9 was 21. Today it's 4. You did that."<br><br>
+        3. <strong>Complete the blueprint:</strong> If not already done, finalize the relapse prevention plan together.<br><br>
+        4. <strong>Time machine exercise:</strong> Role-play a future difficult scenario to practice coping skills.<br><br>
+        5. <strong>Schedule boosters:</strong> Book 1-3 follow-up sessions.<br><br>
+        6. <strong>Acknowledge the ending:</strong> "It's been a privilege working with you. I'm confident in your ability to handle what comes next."<br><br>
+        7. <strong>Leave the door open:</strong> "If you ever need a tune-up session, you're always welcome to reach out."
+      </div>
+    </details>
+  </div>
+
+  <!-- EXAM -->
+  <div class="exam-section" id="exam">
+    <h2>Final Scored Exam</h2>
+    <p class="exam-subtitle">8 questions — select the best answer for each, then click "Submit Exam" to see your score.</p>
+
+    <form id="examForm">
+
+      <div class="question-block" id="q1block">
+        <p class="q-text">1. When should termination first be discussed in CBT?</p>
+        <label><input type="radio" name="q1" value="a"> When the client's symptoms improve significantly</label>
+        <label><input type="radio" name="q1" value="b"> From Session 1 — CBT is explicitly time-limited</label>
+        <label><input type="radio" name="q1" value="c"> When the therapist feels the client is ready</label>
+        <label><input type="radio" name="q1" value="d"> In the second-to-last session</label>
+        <div class="feedback" id="fb1"></div>
+      </div>
+
+      <div class="question-block" id="q2block">
+        <p class="q-text">2. What is the recommended pattern for spacing sessions during termination?</p>
+        <label><input type="radio" name="q2" value="a"> Stop abruptly after the last active session</label>
+        <label><input type="radio" name="q2" value="b"> Weekly to biweekly to monthly</label>
+        <label><input type="radio" name="q2" value="c"> Keep weekly but reduce session length from 50 to 25 minutes</label>
+        <label><input type="radio" name="q2" value="d"> Switch to phone-only sessions</label>
+        <div class="feedback" id="fb2"></div>
+      </div>
+
+      <div class="question-block" id="q3block">
+        <p class="q-text">3. Which of the following is NOT a component of the therapy blueprint?</p>
+        <label><input type="radio" name="q3" value="a"> Early warning signs to watch for</label>
+        <label><input type="radio" name="q3" value="b"> Techniques that worked best for the client</label>
+        <label><input type="radio" name="q3" value="c"> A detailed record of every session's content</label>
+        <label><input type="radio" name="q3" value="d"> An action plan for when warning signs appear</label>
+        <div class="feedback" id="fb3"></div>
+      </div>
+
+      <div class="question-block" id="q4block">
+        <p class="q-text">4. What is the difference between a "lapse" and a "relapse"?</p>
+        <label><input type="radio" name="q4" value="a"> There is no meaningful difference — they are interchangeable terms</label>
+        <label><input type="radio" name="q4" value="b"> A lapse is a temporary dip; a relapse is a full return to pre-treatment levels</label>
+        <label><input type="radio" name="q4" value="c"> A lapse happens in the first month; a relapse happens later</label>
+        <label><input type="radio" name="q4" value="d"> A lapse requires medication; a relapse requires therapy</label>
+        <div class="feedback" id="fb4"></div>
+      </div>
+
+      <div class="question-block" id="q5block">
+        <p class="q-text">5. In the "time machine" exercise, the client is asked to:</p>
+        <label><input type="radio" name="q5" value="a"> Describe their worst memories from before therapy</label>
+        <label><input type="radio" name="q5" value="b"> Imagine a future difficult scenario and walk through how they would cope</label>
+        <label><input type="radio" name="q5" value="c"> Predict exactly when their next setback will occur</label>
+        <label><input type="radio" name="q5" value="d"> Write a letter to their future self</label>
+        <div class="feedback" id="fb5"></div>
+      </div>
+
+      <div class="question-block" id="q6block">
+        <p class="q-text">6. How many booster sessions are typically recommended, and when?</p>
+        <label><input type="radio" name="q6" value="a"> 1 session at 6 months</label>
+        <label><input type="radio" name="q6" value="b"> 1-3 sessions at approximately 1, 3, and 6 months post-termination</label>
+        <label><input type="radio" name="q6" value="c"> Weekly sessions for 3 months after termination</label>
+        <label><input type="radio" name="q6" value="d"> No booster sessions are recommended — termination should be final</label>
+        <div class="feedback" id="fb6"></div>
+      </div>
+
+      <div class="question-block" id="q7block">
+        <p class="q-text">7. A client says they don't want therapy to end because "I can't cope without you." The BEST response is to:</p>
+        <label><input type="radio" name="q7" value="a"> Agree to continue therapy indefinitely</label>
+        <label><input type="radio" name="q7" value="b"> Terminate immediately to force independence</label>
+        <label><input type="radio" name="q7" value="c"> Normalize the anxiety, point to evidence of their competence, and explore whether this belief needs therapeutic attention</label>
+        <label><input type="radio" name="q7" value="d"> Suggest they find another therapist to transition to</label>
+        <div class="feedback" id="fb7"></div>
+      </div>
+
+      <div class="question-block" id="q8block">
+        <p class="q-text">8. Which symptom criterion suggests readiness for termination?</p>
+        <label><input type="radio" name="q8" value="a"> Complete absence of all negative emotions</label>
+        <label><input type="radio" name="q8" value="b"> Scores in the minimal or mild range for 3 or more consecutive sessions</label>
+        <label><input type="radio" name="q8" value="c"> One session with a score of zero</label>
+        <label><input type="radio" name="q8" value="d"> Scores lower than any other client the therapist has treated</label>
+        <div class="feedback" id="fb8"></div>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="gradeExam()">Submit Exam</button>
+      <button type="button" class="btn-copy" id="copyBtn" onclick="copyResults()">Copy Results</button>
+    </form>
+
+    <div class="result-box" id="resultBox">
+      <h3 id="resultTitle"></h3>
+      <p id="resultText"></p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const answers = {
+  q1: 'b', q2: 'b', q3: 'c', q4: 'b',
+  q5: 'b', q6: 'b', q7: 'c', q8: 'b'
+};
+
+const explanations = {
+  q1: { correct: "Correct! CBT is time-limited by design, and termination is part of the framework from the very first session.", incorrect: "Incorrect. In CBT, termination is discussed from Session 1. The time-limited nature of CBT is part of its framework and should be communicated early." },
+  q2: { correct: "Correct! The graduated approach (weekly to biweekly to monthly) allows clients to test independence while maintaining a safety net.", incorrect: "Incorrect. CBT uses a graduated termination: weekly to biweekly to monthly. This systematic spacing tests independence while preserving support." },
+  q3: { correct: "Correct! A session-by-session record is not part of the blueprint. The blueprint focuses on forward-looking tools: what works, warning signs, and action plans.", incorrect: "Incorrect. The therapy blueprint does NOT include a record of every session. It contains: what the client learned, what techniques work, warning signs, an action plan, support network, and criteria for returning to therapy." },
+  q4: { correct: "Correct! A lapse is temporary and expected; a relapse is a full return to the disorder that requires professional intervention.", incorrect: "Incorrect. A lapse is a temporary dip (normal, expected), while a relapse is a full return to pre-treatment levels of the disorder." },
+  q5: { correct: "Correct! The time machine exercise asks clients to imagine a future difficult scenario and practice their coping plan out loud.", incorrect: "Incorrect. The time machine exercise involves imagining a future stressful scenario and walking through the coping plan — demonstrating that the client has the tools to handle setbacks." },
+  q6: { correct: "Correct! 1-3 booster sessions scheduled at approximately 1 month, 3 months, and 6 months after termination.", incorrect: "Incorrect. The standard recommendation is 1-3 booster sessions at approximately 1, 3, and 6 months post-termination." },
+  q7: { correct: "Correct! This fear may itself be a belief that needs therapeutic attention ('I'm incapable'). Address it while normalizing the anxiety and citing evidence of their independent success.", incorrect: "Incorrect. The best response normalizes the anxiety, points to concrete evidence of the client's ability to cope, and considers whether the belief 'I can't cope alone' is an automatic thought or core belief that needs therapeutic work." },
+  q8: { correct: "Correct! Sustained improvement (3+ sessions in minimal/mild range) indicates stable gains, not just a temporary good day.", incorrect: "Incorrect. Readiness requires scores in the minimal or mild range for 3 or more consecutive sessions — one good score isn't enough, and the goal is not zero symptoms." }
+};
+
+let lastScore = 0;
+
+function gradeExam() {
+  let score = 0;
+  for (let i = 1; i <= 8; i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    const fb = document.getElementById(`fb${i}`);
+    const key = `q${i}`;
+    if (sel && sel.value === answers[key]) {
+      score++;
+      fb.className = 'feedback correct';
+      fb.innerHTML = explanations[key].correct;
+    } else {
+      fb.className = 'feedback incorrect';
+      fb.innerHTML = explanations[key].incorrect;
+    }
+    fb.style.display = 'block';
+  }
+  lastScore = score;
+  const box = document.getElementById('resultBox');
+  const title = document.getElementById('resultTitle');
+  const text = document.getElementById('resultText');
+  box.style.display = 'block';
+  document.getElementById('copyBtn').style.display = 'inline-block';
+
+  if (score >= 7) {
+    box.className = 'result-box result-green';
+    title.textContent = `Excellent! ${score}/8`;
+    text.textContent = 'You have a thorough understanding of relapse prevention and termination in CBT.';
+  } else if (score >= 5) {
+    box.className = 'result-box result-yellow';
+    title.textContent = `Good Effort: ${score}/8`;
+    text.textContent = 'You understand the basics but should review the areas you missed.';
+  } else {
+    box.className = 'result-box result-red';
+    title.textContent = `Needs Review: ${score}/8`;
+    text.textContent = 'Please re-read this lesson carefully and try the exam again.';
+  }
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // === ADDED: Disable radios after submission ===
+  for (let di = 1; di <= 8; di++) {
+    const rName = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'][di - 1];
+    document.querySelectorAll('input[name="' + rName + '"]').forEach(function(r) { r.disabled = true; });
+  }
+
+  // === ADDED: Save to localStorage ===
+  var lessonKey = 'lesson_17';
+  localStorage.setItem(lessonKey + '_score', score + '/8');
+  localStorage.setItem(lessonKey + '_passed', score >= 7 ? 'true' : 'false');
+  if (window.self !== window.top) { window.parent.postMessage({type: 'lessonProgress'}, '*'); }
+  // === ADDED: Retake Exam button ===
+  var existingRetake = document.getElementById('retakeExamBtn_17');
+  if (!existingRetake) {
+    var retakeBtn = document.createElement('button');
+    retakeBtn.id = 'retakeExamBtn_17';
+    retakeBtn.innerHTML = '&#128260; Retake Exam';
+    retakeBtn.style.cssText = 'display:block; margin:20px auto; padding:14px 32px; font-size:1rem; font-weight:700; color:#fff; background:linear-gradient(135deg,#2ABFBF,#1A8A8A); border:none; border-radius:12px; cursor:pointer; font-family:Inter,sans-serif; transition:all 0.2s;';
+    retakeBtn.onmouseover = function() { this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(42,191,191,0.3)'; };
+    retakeBtn.onmouseout = function() { this.style.transform=''; this.style.boxShadow=''; };
+    retakeBtn.onclick = function() { retakeExam_17(); };
+    var resultEl = document.getElementById('resultBox');
+    if (resultEl) resultEl.parentNode.insertBefore(retakeBtn, resultEl.nextSibling);
+  }
+
+}
+function retakeExam_17() {
+  // Re-enable and clear all radios
+  var radioNames = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'];
+  for (var ri = 0; ri < radioNames.length; ri++) {
+    var radios = document.querySelectorAll('input[name="' + radioNames[ri] + '"]');
+    for (var rj = 0; rj < radios.length; rj++) {
+      radios[rj].disabled = false;
+      radios[rj].checked = false;
+    }
+  }
+
+  // Clear visual selection classes
+  var selectedOpts = document.querySelectorAll('.q-option.selected');
+  for (var si = 0; si < selectedOpts.length; si++) {
+    selectedOpts[si].classList.remove('selected');
+  }
+
+  // Hide result container
+  var resultEl = document.getElementById('resultBox');
+  if (resultEl) {
+    resultEl.className = resultEl.className.replace(/\bshow\b/g, '').replace(/\bresult-pass\b/g, '').replace(/\bresult-almost\b/g, '').replace(/\bresult-fail\b/g, '').replace(/\bresults-green\b/g, '').replace(/\bresults-yellow\b/g, '').replace(/\bresults-red\b/g, '').replace(/\bgreen\b/g, '').replace(/\byellow\b/g, '').replace(/\bred\b/g, '').replace(/\bresult-green\b/g, '').replace(/\bresult-yellow\b/g, '').replace(/\bresult-red\b/g, '');
+    resultEl.style.display = 'none';
+    resultEl.innerHTML = resultEl.innerHTML || '';
+  }
+
+  // Hide retake button
+  var retakeBtn = document.getElementById('retakeExamBtn_17');
+  if (retakeBtn) retakeBtn.remove();
+
+  // Clear feedback elements
+  var feedbacks = document.querySelectorAll('.q-feedback, .exam-correction, .correct-note, .wrong-note, .feedback');
+  for (var fi = 0; fi < feedbacks.length; fi++) {
+    var fb = feedbacks[fi];
+    if (fb.classList.contains('correct-note') || fb.classList.contains('wrong-note')) {
+      fb.remove();
+    } else {
+      fb.className = fb.className.replace(/\bshow\b/g, '').replace(/\bcorrect-fb\b/g, '').replace(/\bincorrect-fb\b/g, '').replace(/\bcorrect\b/g, '').replace(/\bincorrect\b/g, '');
+      fb.style.display = 'none';
+      fb.innerHTML = '';
+    }
+  }
+
+  // Clear question block correct/incorrect/wrong classes
+  var qBlocks = document.querySelectorAll('.exam-question, .exam-q, .question-card, .question-block, [id^="q"], [id^="eq"]');
+  for (var qi = 0; qi < qBlocks.length; qi++) {
+    qBlocks[qi].classList.remove('correct', 'incorrect', 'wrong');
+  }
+
+  // Clear option label highlights
+  var optLabels = document.querySelectorAll('.option-label');
+  for (var oi = 0; oi < optLabels.length; oi++) {
+    optLabels[oi].classList.remove('correct', 'incorrect');
+  }
+
+  // Hide copy button if exists
+  var copyBtns = document.querySelectorAll('#copyBtn, .copy-btn, [id$="copyBtn"]');
+  for (var ci = 0; ci < copyBtns.length; ci++) {
+    copyBtns[ci].style.display = 'none';
+  }
+
+  // Re-enable submit button if it was disabled
+  var submitBtns = document.querySelectorAll('#submitBtn, .submit-exam-btn, .btn-submit, .exam-btn');
+  for (var sbi = 0; sbi < submitBtns.length; sbi++) {
+    submitBtns[sbi].disabled = false;
+  }
+
+  // Scroll to first question
+  var firstQ = document.querySelector('[id^="q1"], [id^="eq"], .exam-question, .exam-q, .question-block, .question-card');
+  if (firstQ) firstQ.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+
+function copyResults() {
+  let text = `Lesson 17 — Relapse Prevention & Termination\nScore: ${lastScore}/8\n\n`;
+  for (let i = 1; i <= 8; i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    const correct = sel && sel.value === answers[`q${i}`];
+    text += `Q${i}: ${correct ? 'Correct' : 'Incorrect'}\n`;
+  }
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy Results', 2000);
+  });
+}
+</script>
+
+<div class="lesson-nav-bottom">
+  <a class="nav-prev" href="Lesson 16 — Measuring Outcomes.html">← Measuring Outcomes</a>
+  <a class="nav-home" href="index.html">🏠 Assessment Home</a>
+  <a class="nav-next" href="Lesson 18 — Speaking CBT.html">Speaking CBT →</a>
+</div>
+
+<script>
+if (window.self !== window.top) {
+  document.body.classList.add("iframe-mode");
+  document.addEventListener("click", function(e) {
+    var link = e.target.closest("a");
+    if (link) {
+      var href = link.getAttribute("href");
+      if (href === "index.html") {
+        e.preventDefault();
+        window.parent.closeLessonViewer();
+      } else if (href && href.indexOf("Lesson") === 0 && href.indexOf(".html") !== -1) {
+        e.preventDefault();
+        window.parent.openLessonByFile(href);
+      } else if (href === "Printable CBT Toolkit.html") {
+        e.preventDefault();
+        window.parent.openToolkit();
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>

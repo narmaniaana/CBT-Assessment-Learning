@@ -1,0 +1,2429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT Therapist Competency Assessment & Learning</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  body.font-small { font-size: 14px; }
+  body.font-medium { font-size: 16px; }
+  body.font-large { font-size: 18px; }
+
+  /* SCREENS */
+  .screen { display: none; min-height: 100vh; width: 100%; }
+  .screen.active { display: block; }
+
+  /* LESSON VIEWER */
+  #lessonViewerScreen {
+    display: none;
+    min-height: 100vh;
+    width: 100%;
+    flex-direction: column;
+  }
+  #lessonViewerScreen.active {
+    display: flex !important;
+  }
+  .lesson-viewer-header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .lesson-viewer-header .lv-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lesson-viewer-header .lv-left img {
+    height: 28px;
+  }
+  .lesson-viewer-header .lv-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #1e293b;
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .lesson-viewer-header .btn-back-lesson {
+    background: linear-gradient(135deg, #2ABFBF, #1A8A8A);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+  .lesson-viewer-header .btn-back-lesson:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(42,191,191,0.3);
+  }
+  .lesson-viewer-nav {
+    display: flex;
+    gap: 8px;
+  }
+  .lesson-viewer-nav .btn-lesson-nav {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+  .lesson-viewer-nav .btn-lesson-nav:hover:not(:disabled) {
+    background: #e2e8f0;
+  }
+  .lesson-viewer-nav .btn-lesson-nav:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .lesson-iframe-wrap {
+    flex: 1;
+    position: relative;
+  }
+  .lesson-iframe-wrap iframe {
+    width: 100%;
+    height: calc(100vh - 56px);
+    border: none;
+    display: block;
+  }
+
+  /* WELCOME SCREEN */
+  .welcome {
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .welcome.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .welcome::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background:
+      radial-gradient(circle at 25% 25%, rgba(42,191,191,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(26,138,138,0.05) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(42,191,191,0.03) 0%, transparent 40%);
+    z-index: 0;
+  }
+  .welcome-content {
+    position: relative; z-index: 1;
+    text-align: center;
+    max-width: 700px;
+  }
+  .welcome-logo {
+    height: 60px;
+    width: auto;
+    margin-bottom: 20px;
+  }
+  .welcome-badge {
+    display: inline-block;
+    background: rgba(42,191,191,0.08);
+    color: #2ABFBF;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    border: 1px solid rgba(42,191,191,0.15);
+  }
+  .welcome h1 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #2ABFBF, #1A8A8A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .welcome .tagline {
+    font-size: 1.2rem;
+    color: #64748b;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .feature-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .feature-card .icon { font-size: 2rem; margin-bottom: 8px; }
+  .feature-card h3 { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; color: #1e293b; }
+  .feature-card p { font-size: 0.75rem; color: #64748b; }
+
+  .btn-start {
+    background: linear-gradient(135deg, #2ABFBF, #1A8A8A);
+    color: white;
+    border: none;
+    padding: 16px 48px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 20px rgba(42,191,191,0.3);
+  }
+  .btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(42,191,191,0.4);
+  }
+  .welcome .time-info {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+
+  /* ASSESSMENT SCREEN */
+  .assessment {
+    padding: 0;
+  }
+  .assessment-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(248,250,252,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px 20px;
+  }
+  .progress-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-text {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #2ABFBF;
+    min-width: 80px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2ABFBF, #1A8A8A);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .progress-pct {
+    font-size: 0.82rem;
+    color: #64748b;
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .assessment-body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 100px;
+  }
+  .section-label {
+    display: inline-block;
+    background: rgba(42,191,191,0.08);
+    color: #2ABFBF;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  /* QUESTION CARDS */
+  .q-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    transition: border-color 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .q-card:hover { border-color: rgba(42,191,191,0.3); }
+  .q-card.answered { border-color: rgba(42,191,191,0.4); }
+  .q-card.correct { border-color: rgba(34,197,94,0.5); background: rgba(34,197,94,0.04); }
+  .q-card.incorrect { border-color: rgba(239,68,68,0.5); background: rgba(239,68,68,0.04); }
+
+  .q-num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #2ABFBF;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .q-text {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #1e293b;
+  }
+  .q-case {
+    background: #f1f5f9;
+    border-left: 3px solid #2ABFBF;
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    margin: 12px 0 16px;
+    font-size: 0.92rem;
+    color: #475569;
+    font-style: italic;
+  }
+  .q-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .q-options label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.92rem;
+  }
+  .q-options label:hover {
+    background: rgba(42,191,191,0.06);
+    border-color: rgba(42,191,191,0.3);
+  }
+  .q-options input[type="radio"] {
+    margin-top: 3px;
+    accent-color: #2ABFBF;
+    flex-shrink: 0;
+  }
+  .q-options input[type="radio"]:checked + span { color: #1A8A8A; font-weight: 500; }
+  .q-options label.selected-answer {
+    background: rgba(42,191,191,0.08);
+    border-color: #2ABFBF;
+  }
+  .q-options label.correct-answer {
+    background: rgba(34,197,94,0.08);
+    border-color: #22c55e;
+  }
+  .q-options label.wrong-answer {
+    background: rgba(239,68,68,0.06);
+    border-color: #ef4444;
+  }
+  .q-feedback {
+    display: none;
+    margin-top: 14px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.correct-fb {
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.2);
+    color: #166534;
+  }
+  .q-feedback.incorrect-fb {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.15);
+    color: #991b1b;
+  }
+
+  /* PAGE NAVIGATION */
+  .page-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .btn-nav {
+    padding: 12px 32px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-prev {
+    background: #e2e8f0;
+    color: #475569;
+  }
+  .btn-prev:hover { background: #cbd5e1; }
+  .btn-next {
+    background: linear-gradient(135deg, #2ABFBF, #1A8A8A);
+    color: white;
+    box-shadow: 0 2px 12px rgba(42,191,191,0.25);
+  }
+  .btn-next:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(42,191,191,0.35); }
+  .btn-submit {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+    padding: 14px 40px;
+    font-size: 1rem;
+    box-shadow: 0 2px 12px rgba(16,185,129,0.25);
+  }
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(16,185,129,0.35); }
+  .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .unanswered-warning {
+    display: none;
+    background: #fef3c7;
+    border: 1px solid #fbbf24;
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin-top: 16px;
+    font-size: 0.88rem;
+    color: #92400e;
+    text-align: center;
+  }
+
+  /* ===== APP HEADER (Dashboard/Settings) ===== */
+  .app-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .app-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .app-header-logo {
+    height: 32px;
+    width: auto;
+  }
+  .app-header-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1A8A8A;
+  }
+  .app-header-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .app-header-nav a, .app-header-nav button {
+    background: none;
+    border: 1px solid #e2e8f0;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+  .app-header-nav a:hover, .app-header-nav button:hover {
+    background: rgba(42,191,191,0.08);
+    border-color: #2ABFBF;
+    color: #1A8A8A;
+  }
+
+  /* ===== DASHBOARD ===== */
+  .dashboard-header {
+    display: none; /* replaced by app-header */
+  }
+
+  /* TAB NAVIGATION */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0 24px;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 14px 24px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #94a3b8;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover {
+    color: #1A8A8A;
+  }
+  .tab-btn.active {
+    color: #1A8A8A;
+    border-bottom-color: #2ABFBF;
+  }
+  .tab-content {
+    display: none;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  .dashboard-body {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* RESULTS HEADER */
+  .results-header {
+    text-align: center;
+    padding: 50px 40px;
+    background: linear-gradient(135deg, rgba(42,191,191,0.06) 0%, rgba(42,191,191,0.02) 50%, rgba(26,138,138,0.04) 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(42,191,191,0.15);
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .results-header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background:
+      radial-gradient(circle at 30% 50%, rgba(42,191,191,0.06) 0%, transparent 50%),
+      radial-gradient(circle at 70% 50%, rgba(26,138,138,0.04) 0%, transparent 50%);
+    z-index: 0;
+  }
+  .results-header > * { position: relative; z-index: 1; }
+  .results-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2ABFBF, #1A8A8A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .results-header .subtitle { color: #64748b; margin-bottom: 30px; }
+
+  .score-hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+  .score-circle-wrap {
+    position: relative;
+    width: 180px;
+    height: 180px;
+  }
+  .score-circle-wrap canvas { width: 180px !important; height: 180px !important; }
+  .score-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .score-center .number { font-size: 2.8rem; font-weight: 800; }
+  .score-center .label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 2px; }
+
+  .score-meta { text-align: left; }
+  .score-meta .level { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+  .score-meta .level-desc { font-size: 0.9rem; color: #64748b; max-width: 300px; margin-bottom: 16px; }
+  .tier-bar { display: flex; gap: 4px; margin-bottom: 8px; }
+  .tier-bar .seg { height: 8px; border-radius: 4px; flex: 1; }
+  .tier-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: #94a3b8; }
+
+  /* Cards */
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Area scores grid */
+  .area-scores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .area-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .area-card .area-icon { font-size: 1.6rem; margin-bottom: 6px; }
+  .area-card .area-name { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .area-card .area-pct { font-size: 1.8rem; font-weight: 800; }
+  .area-card .area-raw { font-size: 0.75rem; color: #64748b; }
+
+  /* Chart row */
+  .chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 768px) { .chart-row { grid-template-columns: 1fr; } .feature-grid { grid-template-columns: 1fr; } }
+  .chart-box {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .chart-box h3 { font-size: 1rem; font-weight: 600; margin-bottom: 16px; color: #1e293b; }
+
+  /* Learning Path (Results Tab) */
+  .lesson-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 20px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .lesson-card:hover { border-color: rgba(42,191,191,0.3); box-shadow: 0 2px 8px rgba(42,191,191,0.08); }
+  .lesson-card.recommended {
+    border-left: 4px solid #ef4444;
+    background: #fef2f2;
+  }
+  .lesson-card.optional {
+    border-left: 4px solid #22c55e;
+    background: #f0fdf4;
+  }
+  .lesson-card.recommended-lesson {
+    border-left: 4px solid #ef4444;
+    background: #fef2f2;
+  }
+  .lesson-card.completed {
+    border-left: 4px solid #22c55e;
+    background: #f0fdf4;
+  }
+  .lesson-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    flex-shrink: 0;
+    background: rgba(42,191,191,0.1);
+    color: #1A8A8A;
+  }
+  .lesson-card.recommended .lesson-num { background: rgba(239,68,68,0.15); color: #f87171; }
+  .lesson-card.optional .lesson-num { background: rgba(34,197,94,0.12); color: #4ade80; }
+  .lesson-card.recommended-lesson .lesson-num { background: rgba(239,68,68,0.15); color: #ef4444; }
+  .lesson-card.completed .lesson-num { background: rgba(34,197,94,0.12); color: #22c55e; }
+  .lesson-info { flex: 1; }
+  .lesson-info h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; color: #1e293b; }
+  .lesson-info p { font-size: 0.82rem; color: #64748b; }
+  .lesson-score {
+    font-size: 1.2rem;
+    font-weight: 800;
+    min-width: 50px;
+    text-align: right;
+  }
+
+  /* Strengths/Weaknesses */
+  .sw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .sw-grid { grid-template-columns: 1fr; } }
+  .sw-box { padding: 20px; border-radius: 14px; }
+  .sw-box.strengths { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .sw-box.weaknesses { background: #fef2f2; border: 1px solid #fecaca; }
+  .sw-box h3 { margin-bottom: 12px; font-size: 1rem; color: #1e293b; }
+  .sw-box ul { list-style: none; padding: 0; }
+  .sw-box li { padding: 5px 0; font-size: 0.88rem; color: #334155; }
+
+  /* Action buttons */
+  .btn-review {
+    display: inline-block;
+    background: rgba(42,191,191,0.08);
+    color: #1A8A8A;
+    border: 1px solid rgba(42,191,191,0.2);
+    padding: 12px 32px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .btn-review:hover { background: rgba(42,191,191,0.15); }
+  .btn-copy {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+    padding: 12px 32px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    margin-top: 8px;
+    margin-left: 12px;
+  }
+  .btn-copy:hover { background: #dcfce7; }
+  .btn-retake {
+    background: #fffbeb;
+    color: #d97706;
+    border: 1px solid #fde68a;
+    padding: 12px 32px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    margin-top: 8px;
+    margin-left: 12px;
+  }
+  .btn-retake:hover { background: #fef3c7; }
+
+  /* ===== LESSONS TAB ===== */
+  .lessons-overview {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .lessons-overview h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 12px;
+  }
+  .overall-progress-bar {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .overall-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2ABFBF, #1A8A8A);
+    border-radius: 6px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .lesson-meta {
+    text-align: right;
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+  .lesson-status {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+  .status-not-started {
+    background: #f1f5f9;
+    color: #94a3b8;
+  }
+  .status-completed {
+    background: #dcfce7;
+    color: #166534;
+  }
+  .status-in-progress {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .status-failed {
+    background: #fef2f2;
+    color: #991b1b;
+  }
+  .lesson-exam-score {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 2px;
+  }
+  .lesson-progress-mini {
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .lesson-progress-mini .fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2ABFBF, #1A8A8A);
+    border-radius: 2px;
+  }
+  .badge-recommended {
+    display: inline-block;
+    background: #fef2f2;
+    color: #ef4444;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== TOOLKIT TAB ===== */
+  .toolkit-content {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .toolkit-card {
+    display: block;
+    max-width: 500px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 40px 32px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .toolkit-card:hover {
+    border-color: #2ABFBF;
+    box-shadow: 0 4px 20px rgba(42,191,191,0.15);
+    transform: translateY(-2px);
+  }
+  .toolkit-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+  }
+  .toolkit-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1A8A8A;
+    margin-bottom: 8px;
+  }
+  .toolkit-card p {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* ===== SETTINGS SCREEN ===== */
+  .settings-body {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  .settings-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .settings-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 16px;
+  }
+  .settings-card label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #475569;
+  }
+  .settings-card select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #1e293b;
+    background: #f8fafc;
+    cursor: pointer;
+  }
+  .settings-card select:focus {
+    outline: none;
+    border-color: #2ABFBF;
+    box-shadow: 0 0 0 3px rgba(42,191,191,0.1);
+  }
+  .btn-danger {
+    background: #fef2f2;
+    color: #ef4444;
+    border: 1px solid #fecaca;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  .btn-danger:hover { background: #fee2e2; }
+  .settings-version {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    margin-top: 24px;
+  }
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    margin-bottom: 24px;
+  }
+  .btn-back:hover {
+    background: rgba(42,191,191,0.08);
+    border-color: #2ABFBF;
+    color: #1A8A8A;
+  }
+
+  /* Transitions */
+  .screen { animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<!-- ==================== SCREEN 1: WELCOME ==================== -->
+<div id="welcomeScreen" class="screen active welcome">
+  <div class="welcome-content">
+    <img src="logo.png" alt="Mental Hub Tbilisi" class="welcome-logo">
+    <div class="welcome-badge">Professional Development Tool</div>
+    <h1>CBT Therapist Competency Assessment & Learning</h1>
+    <p class="tagline">Discover your strengths, identify your gaps, and get a personalized learning path to master Cognitive Behavioral Therapy</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="icon">&#x1F9E0;</div>
+        <h3>34 Expert Questions</h3>
+        <p>Theory, clinical cases, scenarios — all auto-scored</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">&#x1F4CA;</div>
+        <h3>8-Area Competency Map</h3>
+        <p>Radar chart showing exactly where you stand</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">&#x1F5FA;&#xFE0F;</div>
+        <h3>Personalized Learning Path</h3>
+        <p>Lessons tailored to YOUR specific gaps</p>
+      </div>
+    </div>
+
+    <button class="btn-start" onclick="startAssessment()">Begin Assessment</button>
+    <p class="time-info">&#x23F1; Approximately 25 minutes &bull; 34 questions including clinical cases &bull; No preparation needed</p>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 2: ASSESSMENT ==================== -->
+<div id="assessmentScreen" class="screen assessment">
+  <div class="assessment-header">
+    <div class="progress-wrap">
+      <span class="progress-text" id="progressLabel">Page 1 / 7</span>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <span class="progress-pct" id="progressPct">0%</span>
+    </div>
+  </div>
+
+  <div class="assessment-body">
+
+    <!-- PAGE 1: Core Cognitive Model (Q1-5) -->
+    <div class="page active" id="page1">
+      <div class="section-label">Section A — Core Cognitive Model</div>
+
+      <div class="q-card" id="qcard1">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">Beck's cognitive triad in depression describes negative views about:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q1')"><input type="radio" name="q1" value="a"><span>Past, present, and future</span></label>
+          <label onclick="selectAnswer(this, 'q1')"><input type="radio" name="q1" value="b"><span>Self, world, and future</span></label>
+          <label onclick="selectAnswer(this, 'q1')"><input type="radio" name="q1" value="c"><span>Thoughts, emotions, and behaviors</span></label>
+          <label onclick="selectAnswer(this, 'q1')"><input type="radio" name="q1" value="d"><span>Childhood, relationships, and career</span></label>
+        </div>
+        <div class="q-feedback" id="fb1"></div>
+      </div>
+
+      <div class="q-card" id="qcard2">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">An "automatic thought" is best described as:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q2')"><input type="radio" name="q2" value="a"><span>A deeply held, unconditional belief about self or the world</span></label>
+          <label onclick="selectAnswer(this, 'q2')"><input type="radio" name="q2" value="b"><span>A reflexive, situation-specific thought that pops up without effort</span></label>
+          <label onclick="selectAnswer(this, 'q2')"><input type="radio" name="q2" value="c"><span>A consciously chosen interpretation of a situation</span></label>
+          <label onclick="selectAnswer(this, 'q2')"><input type="radio" name="q2" value="d"><span>An emotion triggered by an activating event</span></label>
+        </div>
+        <div class="q-feedback" id="fb2"></div>
+      </div>
+
+      <div class="q-card" id="qcard3">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">A client says: "I always mess everything up — nothing I do ever works." This is an example of:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q3')"><input type="radio" name="q3" value="a"><span>Emotional reasoning</span></label>
+          <label onclick="selectAnswer(this, 'q3')"><input type="radio" name="q3" value="b"><span>Overgeneralization</span></label>
+          <label onclick="selectAnswer(this, 'q3')"><input type="radio" name="q3" value="c"><span>Personalization</span></label>
+          <label onclick="selectAnswer(this, 'q3')"><input type="radio" name="q3" value="d"><span>Magnification</span></label>
+        </div>
+        <div class="q-feedback" id="fb3"></div>
+      </div>
+
+      <div class="q-card" id="qcard4">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">"If I show vulnerability, people will see me as weak" is best classified as:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q4')"><input type="radio" name="q4" value="a"><span>An automatic thought</span></label>
+          <label onclick="selectAnswer(this, 'q4')"><input type="radio" name="q4" value="b"><span>An intermediate belief (conditional assumption)</span></label>
+          <label onclick="selectAnswer(this, 'q4')"><input type="radio" name="q4" value="c"><span>A core belief</span></label>
+          <label onclick="selectAnswer(this, 'q4')"><input type="radio" name="q4" value="d"><span>A compensatory strategy</span></label>
+        </div>
+        <div class="q-feedback" id="fb4"></div>
+      </div>
+
+      <div class="q-card" id="qcard5">
+        <div class="q-num">Question 5</div>
+        <div class="q-text">In Beck's Cognitive Conceptualization Diagram, which element comes FIRST developmentally?</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q5')"><input type="radio" name="q5" value="a"><span>Core beliefs</span></label>
+          <label onclick="selectAnswer(this, 'q5')"><input type="radio" name="q5" value="b"><span>Relevant childhood/early experiences</span></label>
+          <label onclick="selectAnswer(this, 'q5')"><input type="radio" name="q5" value="c"><span>Automatic thoughts</span></label>
+          <label onclick="selectAnswer(this, 'q5')"><input type="radio" name="q5" value="d"><span>Compensatory strategies</span></label>
+        </div>
+        <div class="q-feedback" id="fb5"></div>
+      </div>
+
+      <div class="page-nav">
+        <button class="btn-nav btn-prev" disabled>&#x2190; Previous</button>
+        <button class="btn-nav btn-next" onclick="nextPage()">Next &#x2192;</button>
+      </div>
+    </div>
+
+    <!-- PAGE 2: Thought Records & Case Conceptualization (Q6-10) -->
+    <div class="page" id="page2">
+      <div class="section-label">Section B — Thought Records & Case Conceptualization</div>
+
+      <div class="q-card" id="qcard6">
+        <div class="q-num">Question 6</div>
+        <div class="q-text">In a 7-column thought record, Column 4 ("Evidence For the thought") should contain:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q6')"><input type="radio" name="q6" value="a"><span>Reasons why the thought feels true to the client</span></label>
+          <label onclick="selectAnswer(this, 'q6')"><input type="radio" name="q6" value="b"><span>Observable, factual evidence that supports the automatic thought</span></label>
+          <label onclick="selectAnswer(this, 'q6')"><input type="radio" name="q6" value="c"><span>Other people's opinions that confirm the thought</span></label>
+          <label onclick="selectAnswer(this, 'q6')"><input type="radio" name="q6" value="d"><span>Emotions that feel consistent with the thought</span></label>
+        </div>
+        <div class="q-feedback" id="fb6"></div>
+      </div>
+
+      <div class="q-card" id="qcard7">
+        <div class="q-num">Question 7</div>
+        <div class="q-text">A client writes "I felt like nobody cared about me" in the Emotions column of their thought record. This is:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q7')"><input type="radio" name="q7" value="a"><span>A correctly identified emotion</span></label>
+          <label onclick="selectAnswer(this, 'q7')"><input type="radio" name="q7" value="b"><span>Actually an automatic thought disguised with "I felt like..."</span></label>
+          <label onclick="selectAnswer(this, 'q7')"><input type="radio" name="q7" value="c"><span>A core belief</span></label>
+          <label onclick="selectAnswer(this, 'q7')"><input type="radio" name="q7" value="d"><span>An intermediate belief</span></label>
+        </div>
+        <div class="q-feedback" id="fb7"></div>
+      </div>
+
+      <div class="q-card" id="qcard8">
+        <div class="q-num">Question 8</div>
+        <div class="q-text">After completing a thought record, a client's anxiety drops from 85% to 50%. The balanced thought is believed at 65%. This means:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q8')"><input type="radio" name="q8" value="a"><span>The thought record failed — anxiety should reach 0%</span></label>
+          <label onclick="selectAnswer(this, 'q8')"><input type="radio" name="q8" value="b"><span>Successful restructuring — the goal is meaningful reduction, not elimination</span></label>
+          <label onclick="selectAnswer(this, 'q8')"><input type="radio" name="q8" value="c"><span>The therapist should challenge the remaining 50% anxiety</span></label>
+          <label onclick="selectAnswer(this, 'q8')"><input type="radio" name="q8" value="d"><span>A different technique is needed because the reduction wasn't large enough</span></label>
+        </div>
+        <div class="q-feedback" id="fb8"></div>
+      </div>
+
+      <div class="q-card" id="qcard9">
+        <div class="q-num">Question 9</div>
+        <div class="q-text">What is the primary purpose of a CBT case conceptualization?</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q9')"><input type="radio" name="q9" value="a"><span>To assign a DSM diagnosis</span></label>
+          <label onclick="selectAnswer(this, 'q9')"><input type="radio" name="q9" value="b"><span>To map the cognitive architecture — how early experiences lead to beliefs that drive current symptoms</span></label>
+          <label onclick="selectAnswer(this, 'q9')"><input type="radio" name="q9" value="c"><span>To complete insurance paperwork</span></label>
+          <label onclick="selectAnswer(this, 'q9')"><input type="radio" name="q9" value="d"><span>To list the client's presenting complaints and risk factors</span></label>
+        </div>
+        <div class="q-feedback" id="fb9"></div>
+      </div>
+
+      <div class="q-card" id="qcard10">
+        <div class="q-num">Question 10</div>
+        <div class="q-text">The "downward arrow" technique is used to:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q10')"><input type="radio" name="q10" value="a"><span>Track mood changes session to session</span></label>
+          <label onclick="selectAnswer(this, 'q10')"><input type="radio" name="q10" value="b"><span>Move from automatic thoughts to deeper core beliefs by asking "What does that mean about you?"</span></label>
+          <label onclick="selectAnswer(this, 'q10')"><input type="radio" name="q10" value="c"><span>Create a hierarchy of feared situations</span></label>
+          <label onclick="selectAnswer(this, 'q10')"><input type="radio" name="q10" value="d"><span>Reduce session-by-session distress ratings</span></label>
+        </div>
+        <div class="q-feedback" id="fb10"></div>
+      </div>
+
+      <div class="page-nav">
+        <button class="btn-nav btn-prev" onclick="prevPage()">&#x2190; Previous</button>
+        <button class="btn-nav btn-next" onclick="nextPage()">Next &#x2192;</button>
+      </div>
+    </div>
+
+    <!-- PAGE 3: Session Structure & Socratic Questioning (Q11-15) -->
+    <div class="page" id="page3">
+      <div class="section-label">Section C — Session Structure & Socratic Questioning</div>
+
+      <div class="q-card" id="qcard11">
+        <div class="q-num">Question 11</div>
+        <div class="q-text">In Judith Beck's CBT session structure, what comes IMMEDIATELY after the mood check?</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q11')"><input type="radio" name="q11" value="a"><span>Homework review</span></label>
+          <label onclick="selectAnswer(this, 'q11')"><input type="radio" name="q11" value="b"><span>Bridge from the previous session</span></label>
+          <label onclick="selectAnswer(this, 'q11')"><input type="radio" name="q11" value="c"><span>Beginning the main intervention</span></label>
+          <label onclick="selectAnswer(this, 'q11')"><input type="radio" name="q11" value="d"><span>Psychoeducation about CBT</span></label>
+        </div>
+        <div class="q-feedback" id="fb11"></div>
+      </div>
+
+      <div class="q-card" id="qcard12">
+        <div class="q-num">Question 12</div>
+        <div class="q-text">The "capsule summary" at the end of a CBT session should ideally be delivered by:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q12')"><input type="radio" name="q12" value="a"><span>The therapist, to ensure accuracy</span></label>
+          <label onclick="selectAnswer(this, 'q12')"><input type="radio" name="q12" value="b"><span>The client, to verify their understanding of what was covered</span></label>
+          <label onclick="selectAnswer(this, 'q12')"><input type="radio" name="q12" value="c"><span>Either party — it doesn't matter</span></label>
+          <label onclick="selectAnswer(this, 'q12')"><input type="radio" name="q12" value="d"><span>It's optional and not part of standard CBT</span></label>
+        </div>
+        <div class="q-feedback" id="fb12"></div>
+      </div>
+
+      <div class="q-card" id="qcard13">
+        <div class="q-num">Question 13</div>
+        <div class="q-text">A client says: "I didn't do the homework this week." The best CBT-aligned response is:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q13')"><input type="radio" name="q13" value="a"><span>"That's okay — let's just move on to today's agenda"</span></label>
+          <label onclick="selectAnswer(this, 'q13')"><input type="radio" name="q13" value="b"><span>"Homework is critical. You need to prioritize it."</span></label>
+          <label onclick="selectAnswer(this, 'q13')"><input type="radio" name="q13" value="c"><span>"Let's explore what got in the way — what were the barriers?"</span></label>
+          <label onclick="selectAnswer(this, 'q13')"><input type="radio" name="q13" value="d"><span>"I'll assign something easier next time"</span></label>
+        </div>
+        <div class="q-feedback" id="fb13"></div>
+      </div>
+
+      <div class="q-card" id="qcard14">
+        <div class="q-num">Question 14</div>
+        <div class="q-text">A client says: "My friend cancelled lunch — she obviously doesn't want to see me." The BEST Socratic response is:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q14')"><input type="radio" name="q14" value="a"><span>"I'm sure she still likes you — don't worry about it"</span></label>
+          <label onclick="selectAnswer(this, 'q14')"><input type="radio" name="q14" value="b"><span>"That's called mind reading — it's a cognitive distortion"</span></label>
+          <label onclick="selectAnswer(this, 'q14')"><input type="radio" name="q14" value="c"><span>"What evidence do you have that she cancelled because she doesn't want to see you? Are there other possible reasons?"</span></label>
+          <label onclick="selectAnswer(this, 'q14')"><input type="radio" name="q14" value="d"><span>"How does that make you feel?"</span></label>
+        </div>
+        <div class="q-feedback" id="fb14"></div>
+      </div>
+
+      <div class="q-card" id="qcard15">
+        <div class="q-num">Question 15</div>
+        <div class="q-text">What distinguishes Socratic questioning from psychoeducation?</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q15')"><input type="radio" name="q15" value="a"><span>Socratic questioning is faster and more efficient</span></label>
+          <label onclick="selectAnswer(this, 'q15')"><input type="radio" name="q15" value="b"><span>Socratic questioning guides the client to discover insights themselves through questions; psychoeducation directly teaches</span></label>
+          <label onclick="selectAnswer(this, 'q15')"><input type="radio" name="q15" value="c"><span>Psychoeducation is more effective for severe cases</span></label>
+          <label onclick="selectAnswer(this, 'q15')"><input type="radio" name="q15" value="d"><span>There is no meaningful difference</span></label>
+        </div>
+        <div class="q-feedback" id="fb15"></div>
+      </div>
+
+      <div class="page-nav">
+        <button class="btn-nav btn-prev" onclick="prevPage()">&#x2190; Previous</button>
+        <button class="btn-nav btn-next" onclick="nextPage()">Next &#x2192;</button>
+      </div>
+    </div>
+
+    <!-- PAGE 4: Disorder-Specific Models (Q16-20) -->
+    <div class="page" id="page4">
+      <div class="section-label">Section D — Disorder-Specific CBT Models</div>
+
+      <div class="q-card" id="qcard16">
+        <div class="q-num">Question 16</div>
+        <div class="q-text">In Clark's (1986) cognitive model of panic disorder, the PRIMARY maintaining mechanism is:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q16')"><input type="radio" name="q16" value="a"><span>Avoidance of public places (agoraphobia)</span></label>
+          <label onclick="selectAnswer(this, 'q16')"><input type="radio" name="q16" value="b"><span>Catastrophic misinterpretation of bodily sensations</span></label>
+          <label onclick="selectAnswer(this, 'q16')"><input type="radio" name="q16" value="c"><span>Chronic hyperventilation</span></label>
+          <label onclick="selectAnswer(this, 'q16')"><input type="radio" name="q16" value="d"><span>Genetic predisposition to anxiety</span></label>
+        </div>
+        <div class="q-feedback" id="fb16"></div>
+      </div>
+
+      <div class="q-card" id="qcard17">
+        <div class="q-num">Question 17</div>
+        <div class="q-text">In Clark & Wells' model of social anxiety, self-focused attention maintains anxiety because:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q17')"><input type="radio" name="q17" value="a"><span>It helps the person monitor their social performance accurately</span></label>
+          <label onclick="selectAnswer(this, 'q17')"><input type="radio" name="q17" value="b"><span>It increases awareness of anxiety symptoms, making the person appear more awkward, confirming their fears</span></label>
+          <label onclick="selectAnswer(this, 'q17')"><input type="radio" name="q17" value="c"><span>It distracts from the conversation, causing real social errors</span></label>
+          <label onclick="selectAnswer(this, 'q17')"><input type="radio" name="q17" value="d"><span>It reduces cognitive resources needed for basic functioning</span></label>
+        </div>
+        <div class="q-feedback" id="fb17"></div>
+      </div>
+
+      <div class="q-card" id="qcard18">
+        <div class="q-num">Question 18</div>
+        <div class="q-text">According to Dugas' model, the core cognitive vulnerability in Generalized Anxiety Disorder is:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q18')"><input type="radio" name="q18" value="a"><span>Perfectionism</span></label>
+          <label onclick="selectAnswer(this, 'q18')"><input type="radio" name="q18" value="b"><span>Intolerance of uncertainty</span></label>
+          <label onclick="selectAnswer(this, 'q18')"><input type="radio" name="q18" value="c"><span>High trait neuroticism</span></label>
+          <label onclick="selectAnswer(this, 'q18')"><input type="radio" name="q18" value="d"><span>Low self-esteem</span></label>
+        </div>
+        <div class="q-feedback" id="fb18"></div>
+      </div>
+
+      <div class="q-card" id="qcard19">
+        <div class="q-num">Question 19</div>
+        <div class="q-case">A client with panic disorder says: "When my heart races, I'm certain I'm about to have a heart attack. Last week I went to the ER but they said everything was fine."</div>
+        <div class="q-text">The FIRST CBT treatment target should be:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q19')"><input type="radio" name="q19" value="a"><span>Teach relaxation techniques to lower heart rate</span></label>
+          <label onclick="selectAnswer(this, 'q19')"><input type="radio" name="q19" value="b"><span>Cognitive restructuring of the catastrophic misinterpretation ("heart racing = heart attack")</span></label>
+          <label onclick="selectAnswer(this, 'q19')"><input type="radio" name="q19" value="c"><span>Exposure to places where panic has occurred</span></label>
+          <label onclick="selectAnswer(this, 'q19')"><input type="radio" name="q19" value="d"><span>Prescribe anti-anxiety medication</span></label>
+        </div>
+        <div class="q-feedback" id="fb19"></div>
+      </div>
+
+      <div class="q-card" id="qcard20">
+        <div class="q-num">Question 20</div>
+        <div class="q-text">Which of the following is NOT a maintaining mechanism in Clark & Wells' social anxiety model?</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q20')"><input type="radio" name="q20" value="a"><span>Safety behaviors (e.g., avoiding eye contact, rehearsing sentences)</span></label>
+          <label onclick="selectAnswer(this, 'q20')"><input type="radio" name="q20" value="b"><span>Post-event rumination (replaying and analyzing interactions)</span></label>
+          <label onclick="selectAnswer(this, 'q20')"><input type="radio" name="q20" value="c"><span>Positive self-affirmations</span></label>
+          <label onclick="selectAnswer(this, 'q20')"><input type="radio" name="q20" value="d"><span>Self-focused attention (monitoring own anxiety symptoms)</span></label>
+        </div>
+        <div class="q-feedback" id="fb20"></div>
+      </div>
+
+      <div class="page-nav">
+        <button class="btn-nav btn-prev" onclick="prevPage()">&#x2190; Previous</button>
+        <button class="btn-nav btn-next" onclick="nextPage()">Next &#x2192;</button>
+      </div>
+    </div>
+
+    <!-- PAGE 5: BA vs BE vs Exposure (Q21-25) -->
+    <div class="page" id="page5">
+      <div class="section-label">Section E — Behavioral Techniques</div>
+
+      <div class="q-card" id="qcard21">
+        <div class="q-num">Question 21</div>
+        <div class="q-text">Behavioral Activation is PRIMARILY designed for:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q21')"><input type="radio" name="q21" value="a"><span>Phobias and specific fears</span></label>
+          <label onclick="selectAnswer(this, 'q21')"><input type="radio" name="q21" value="b"><span>Depression and withdrawal</span></label>
+          <label onclick="selectAnswer(this, 'q21')"><input type="radio" name="q21" value="c"><span>Obsessive-Compulsive Disorder</span></label>
+          <label onclick="selectAnswer(this, 'q21')"><input type="radio" name="q21" value="d"><span>Panic Disorder</span></label>
+        </div>
+        <div class="q-feedback" id="fb21"></div>
+      </div>
+
+      <div class="q-card" id="qcard22">
+        <div class="q-num">Question 22</div>
+        <div class="q-text">What makes a Behavioral Experiment DIFFERENT from simple exposure?</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q22')"><input type="radio" name="q22" value="a"><span>Nothing — they are the same technique with different names</span></label>
+          <label onclick="selectAnswer(this, 'q22')"><input type="radio" name="q22" value="b"><span>A behavioral experiment tests a specific prediction, with belief ratings before and after</span></label>
+          <label onclick="selectAnswer(this, 'q22')"><input type="radio" name="q22" value="c"><span>Behavioral experiments are only used for depression</span></label>
+          <label onclick="selectAnswer(this, 'q22')"><input type="radio" name="q22" value="d"><span>Exposure is always therapist-led; experiments are always client-led</span></label>
+        </div>
+        <div class="q-feedback" id="fb22"></div>
+      </div>
+
+      <div class="q-card" id="qcard23">
+        <div class="q-num">Question 23</div>
+        <div class="q-case">A client believes: "If I disagree with my boss, I'll be fired immediately." You design an intervention where she mildly disagrees on one small issue and observes the outcome.</div>
+        <div class="q-text">This intervention is:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q23')"><input type="radio" name="q23" value="a"><span>Behavioral Activation</span></label>
+          <label onclick="selectAnswer(this, 'q23')"><input type="radio" name="q23" value="b"><span>A Behavioral Experiment</span></label>
+          <label onclick="selectAnswer(this, 'q23')"><input type="radio" name="q23" value="c"><span>Graded Exposure</span></label>
+          <label onclick="selectAnswer(this, 'q23')"><input type="radio" name="q23" value="d"><span>Flooding</span></label>
+        </div>
+        <div class="q-feedback" id="fb23"></div>
+      </div>
+
+      <div class="q-card" id="qcard24">
+        <div class="q-num">Question 24</div>
+        <div class="q-case">A depressed client has stopped exercising, seeing friends, and cooking — activities they used to enjoy. They say: "I just don't have the energy or motivation."</div>
+        <div class="q-text">The most appropriate first-line CBT technique is:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q24')"><input type="radio" name="q24" value="a"><span>Cognitive restructuring of the thought "I have no energy"</span></label>
+          <label onclick="selectAnswer(this, 'q24')"><input type="radio" name="q24" value="b"><span>Behavioral Activation — schedule small activities and rate mastery/pleasure</span></label>
+          <label onclick="selectAnswer(this, 'q24')"><input type="radio" name="q24" value="c"><span>Graded exposure to feared situations</span></label>
+          <label onclick="selectAnswer(this, 'q24')"><input type="radio" name="q24" value="d"><span>Imagery rescripting of childhood memories</span></label>
+        </div>
+        <div class="q-feedback" id="fb24"></div>
+      </div>
+
+      <div class="q-card" id="qcard25">
+        <div class="q-num">Question 25</div>
+        <div class="q-text">A graded exposure hierarchy for a phobia should be organized by:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q25')"><input type="radio" name="q25" value="a"><span>Alphabetical order of feared situations</span></label>
+          <label onclick="selectAnswer(this, 'q25')"><input type="radio" name="q25" value="b"><span>Subjective Units of Distress (SUDS) — from least to most anxiety-provoking</span></label>
+          <label onclick="selectAnswer(this, 'q25')"><input type="radio" name="q25" value="c"><span>Chronological order of when fears developed</span></label>
+          <label onclick="selectAnswer(this, 'q25')"><input type="radio" name="q25" value="d"><span>Random order to prevent habituation to the hierarchy itself</span></label>
+        </div>
+        <div class="q-feedback" id="fb25"></div>
+      </div>
+
+      <div class="page-nav">
+        <button class="btn-nav btn-prev" onclick="prevPage()">&#x2190; Previous</button>
+        <button class="btn-nav btn-next" onclick="nextPage()">Next &#x2192;</button>
+      </div>
+    </div>
+
+    <!-- PAGE 6: Experiential Techniques & CBT Language (Q26-30) -->
+    <div class="page" id="page6">
+      <div class="section-label">Section F — Experiential Techniques & CBT Precision</div>
+
+      <div class="q-card" id="qcard26">
+        <div class="q-num">Question 26</div>
+        <div class="q-text">A client says: "I KNOW logically that I'm not worthless, but I still FEEL worthless." This indicates:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q26')"><input type="radio" name="q26" value="a"><span>The client is being resistant and not engaging with therapy</span></label>
+          <label onclick="selectAnswer(this, 'q26')"><input type="radio" name="q26" value="b"><span>Intellectual insight has been achieved but emotional belief hasn't changed yet</span></label>
+          <label onclick="selectAnswer(this, 'q26')"><input type="radio" name="q26" value="c"><span>CBT has failed and a different modality (e.g., psychodynamic) is needed</span></label>
+          <label onclick="selectAnswer(this, 'q26')"><input type="radio" name="q26" value="d"><span>The client needs medication, not therapy</span></label>
+        </div>
+        <div class="q-feedback" id="fb26"></div>
+      </div>
+
+      <div class="q-card" id="qcard27">
+        <div class="q-num">Question 27</div>
+        <div class="q-text">When cognitive restructuring (thought records) achieves intellectual but not emotional change, the MOST effective next technique is:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q27')"><input type="radio" name="q27" value="a"><span>Repeat the thought record with even more evidence</span></label>
+          <label onclick="selectAnswer(this, 'q27')"><input type="radio" name="q27" value="b"><span>Behavioral experiments — direct experience disconfirming the belief</span></label>
+          <label onclick="selectAnswer(this, 'q27')"><input type="radio" name="q27" value="c"><span>Terminate CBT and refer for EMDR</span></label>
+          <label onclick="selectAnswer(this, 'q27')"><input type="radio" name="q27" value="d"><span>Increase session frequency to twice per week</span></label>
+        </div>
+        <div class="q-feedback" id="fb27"></div>
+      </div>
+
+      <div class="q-card" id="qcard28">
+        <div class="q-num">Question 28</div>
+        <div class="q-text">Imagery rescripting involves:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q28')"><input type="radio" name="q28" value="a"><span>Teaching the client to imagine relaxing scenes when anxious</span></label>
+          <label onclick="selectAnswer(this, 'q28')"><input type="radio" name="q28" value="b"><span>Revisiting a distressing memory and introducing the adult self to intervene, comfort, or protect the younger self</span></label>
+          <label onclick="selectAnswer(this, 'q28')"><input type="radio" name="q28" value="c"><span>Replacing negative images with positive ones through repetition</span></label>
+          <label onclick="selectAnswer(this, 'q28')"><input type="radio" name="q28" value="d"><span>Guided meditation focused on body scanning</span></label>
+        </div>
+        <div class="q-feedback" id="fb28"></div>
+      </div>
+
+      <div class="q-card" id="qcard29">
+        <div class="q-num">Question 29</div>
+        <div class="q-case">A therapist writes in their case notes: "Worked on emotion regulation skills, did some grounding, and encouraged the client to think more positively about the situation."</div>
+        <div class="q-text">From a CBT perspective, this language is problematic because:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q29')"><input type="radio" name="q29" value="a"><span>The notes are too short</span></label>
+          <label onclick="selectAnswer(this, 'q29')"><input type="radio" name="q29" value="b"><span>"Emotion regulation" is DBT language, "grounding" isn't a core CBT technique, and "think positively" isn't cognitive restructuring</span></label>
+          <label onclick="selectAnswer(this, 'q29')"><input type="radio" name="q29" value="c"><span>The therapist should have included homework assigned</span></label>
+          <label onclick="selectAnswer(this, 'q29')"><input type="radio" name="q29" value="d"><span>Nothing — these are all standard CBT terms</span></label>
+        </div>
+        <div class="q-feedback" id="fb29"></div>
+      </div>
+
+      <div class="q-card" id="qcard30">
+        <div class="q-num">Question 30</div>
+        <div class="q-text">Which of the following is a CBT-specific technique (not borrowed from another modality)?</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q30')"><input type="radio" name="q30" value="a"><span>Distress tolerance (TIPP skills)</span></label>
+          <label onclick="selectAnswer(this, 'q30')"><input type="radio" name="q30" value="b"><span>The downward arrow technique</span></label>
+          <label onclick="selectAnswer(this, 'q30')"><input type="radio" name="q30" value="c"><span>Opposite action</span></label>
+          <label onclick="selectAnswer(this, 'q30')"><input type="radio" name="q30" value="d"><span>Radical acceptance</span></label>
+        </div>
+        <div class="q-feedback" id="fb30"></div>
+      </div>
+
+      <div class="page-nav">
+        <button class="btn-nav btn-prev" onclick="prevPage()">&#x2190; Previous</button>
+        <button class="btn-nav btn-next" onclick="nextPage()">Next &#x2192;</button>
+      </div>
+    </div>
+
+    <!-- PAGE 7: Clinical Case Vignettes (Q31-Q34) -->
+    <div class="page" id="page7">
+      <div class="section-label">Section G — Clinical Case Vignettes</div>
+
+      <!-- CASE 1 -->
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:24px 28px; margin-bottom:24px;">
+        <div style="font-size:0.75rem; font-weight:700; color:#1A8A8A; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Case Study 1 — Nino</div>
+        <p style="font-size:0.95rem; color:#334155; line-height:1.8;">
+          <strong>Nino, 31, teacher.</strong> Presents with low mood for 3 months after being passed over for a promotion at work. She reports: "I'm not good enough for anything." She has stopped attending her weekly book club, stays in bed most weekends, and has declined several friend invitations. In session she says:
+        </p>
+        <p style="font-size:0.95rem; color:#475569; font-style:italic; margin-top:10px; padding:12px 16px; background:white; border-radius:8px; border-left:3px solid #2ABFBF;">
+          "My colleague got the promotion because she's smarter than me. I'll never advance in my career. Even my friends probably find me boring — that's why I haven't heard from some of them lately. What's the point of going out when nobody really wants me there?"
+        </p>
+      </div>
+
+      <div class="q-card" id="qcard31">
+        <div class="q-num">Question 31 — Based on Case 1</div>
+        <div class="q-text">Based on Nino's presentation, what is the most likely core belief?</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q31')"><input type="radio" name="q31" value="a"><span>"Others are untrustworthy and will always betray me"</span></label>
+          <label onclick="selectAnswer(this, 'q31')"><input type="radio" name="q31" value="b"><span>"I am inadequate / not good enough"</span></label>
+          <label onclick="selectAnswer(this, 'q31')"><input type="radio" name="q31" value="c"><span>"The world is fundamentally unfair"</span></label>
+          <label onclick="selectAnswer(this, 'q31')"><input type="radio" name="q31" value="d"><span>"I must always succeed to be worthwhile"</span></label>
+        </div>
+        <div class="q-feedback" id="fb31"></div>
+      </div>
+
+      <div class="q-card" id="qcard32">
+        <div class="q-num">Question 32 — Based on Case 1</div>
+        <div class="q-text">The therapist responds: "It sounds like you're having a really hard time. I'm sure your friends don't find you boring — you're a wonderful person." This response is best described as:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q32')"><input type="radio" name="q32" value="a"><span>Excellent Socratic questioning that guides discovery</span></label>
+          <label onclick="selectAnswer(this, 'q32')"><input type="radio" name="q32" value="b"><span>Appropriate validation and therapeutic encouragement</span></label>
+          <label onclick="selectAnswer(this, 'q32')"><input type="radio" name="q32" value="c"><span>Reassurance that temporarily soothes but doesn't help the client examine her thinking</span></label>
+          <label onclick="selectAnswer(this, 'q32')"><input type="radio" name="q32" value="d"><span>A cognitive restructuring intervention targeting her core belief</span></label>
+        </div>
+        <div class="q-feedback" id="fb32"></div>
+      </div>
+
+      <!-- CASE 2 -->
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:24px 28px; margin:32px 0 24px;">
+        <div style="font-size:0.75rem; font-weight:700; color:#1A8A8A; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Case Study 2 — Giorgi</div>
+        <p style="font-size:0.95rem; color:#334155; line-height:1.8;">
+          <strong>Giorgi, 28, software developer.</strong> Reports intense anxiety before team presentations. His thoughts: "My voice will shake, everyone will notice I'm nervous, they'll think I'm incompetent." During presentations he grips the podium tightly, avoids eye contact, and monitors his own heartbeat. After each meeting he spends hours replaying what he said, analyzing every pause and stumble. Last month he called in sick on a day he was scheduled to present.
+        </p>
+      </div>
+
+      <div class="q-card" id="qcard33">
+        <div class="q-num">Question 33 — Based on Case 2</div>
+        <div class="q-text">According to Clark & Wells' social anxiety model, Giorgi monitoring his own heartbeat during presentations is an example of:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q33')"><input type="radio" name="q33" value="a"><span>Behavioral activation</span></label>
+          <label onclick="selectAnswer(this, 'q33')"><input type="radio" name="q33" value="b"><span>A safety behavior and self-focused attention</span></label>
+          <label onclick="selectAnswer(this, 'q33')"><input type="radio" name="q33" value="c"><span>Graded exposure</span></label>
+          <label onclick="selectAnswer(this, 'q33')"><input type="radio" name="q33" value="d"><span>Cognitive restructuring</span></label>
+        </div>
+        <div class="q-feedback" id="fb33"></div>
+      </div>
+
+      <div class="q-card" id="qcard34">
+        <div class="q-num">Question 34 — Based on Case 2</div>
+        <div class="q-text">The most effective CBT intervention to begin with for Giorgi would be:</div>
+        <div class="q-options">
+          <label onclick="selectAnswer(this, 'q34')"><input type="radio" name="q34" value="a"><span>Teaching deep breathing and progressive muscle relaxation before presentations</span></label>
+          <label onclick="selectAnswer(this, 'q34')"><input type="radio" name="q34" value="b"><span>A behavioral experiment: present WITHOUT monitoring heartbeat or gripping the podium, then compare his prediction to the actual outcome</span></label>
+          <label onclick="selectAnswer(this, 'q34')"><input type="radio" name="q34" value="c"><span>Behavioral activation — scheduling more social activities outside of work</span></label>
+          <label onclick="selectAnswer(this, 'q34')"><input type="radio" name="q34" value="d"><span>Exploring childhood origins of the anxiety through free association</span></label>
+        </div>
+        <div class="q-feedback" id="fb34"></div>
+      </div>
+
+      <div class="page-nav">
+        <button class="btn-nav btn-prev" onclick="prevPage()">&#x2190; Previous</button>
+        <button class="btn-nav btn-submit" onclick="submitAssessment()">Submit Assessment</button>
+      </div>
+      <div class="unanswered-warning" id="unansweredWarning">
+        You have unanswered questions. Please answer all questions before submitting.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== SCREEN 3: DASHBOARD ==================== -->
+<div id="dashboardScreen" class="screen dashboard">
+  <div class="app-header">
+    <div class="app-header-left">
+      <img src="logo.png" alt="Mental Hub" class="app-header-logo">
+      <span class="app-header-title">Mental Hub</span>
+    </div>
+    <div class="app-header-nav">
+      <button onclick="switchTab('results')">&#x1F4CA; Results</button>
+      <button onclick="switchTab('lessons')">&#x1F4DA; Lessons</button>
+      <button onclick="switchTab('toolkit')">&#x1F6E0;&#xFE0F; Toolkit</button>
+      <button onclick="showSettings()">&#x2699;&#xFE0F; Settings</button>
+    </div>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('results')">&#x1F4CA; My Results</button>
+    <button class="tab-btn" onclick="switchTab('lessons')">&#x1F4DA; Lessons</button>
+    <button class="tab-btn" onclick="switchTab('toolkit')">&#x1F6E0;&#xFE0F; Toolkit</button>
+  </div>
+
+  <!-- ===== TAB 1: MY RESULTS ===== -->
+  <div class="tab-content active" id="tabResults">
+    <div class="dashboard-body">
+      <div class="results-header">
+        <h1>Your CBT Competency Report</h1>
+        <p class="subtitle">Detailed analysis of your performance across 8 competency areas</p>
+        <div class="score-hero">
+          <div class="score-circle-wrap">
+            <canvas id="overallDonut" width="180" height="180"></canvas>
+            <div class="score-center">
+              <div class="number" id="overallPct">—</div>
+              <div class="label">Overall</div>
+            </div>
+          </div>
+          <div class="score-meta">
+            <div class="level" id="levelTitle">—</div>
+            <p class="level-desc" id="levelDesc">—</p>
+            <div class="tier-bar">
+              <div class="seg" id="seg1" style="background: #ef4444;"></div>
+              <div class="seg" id="seg2" style="background: #f97316;"></div>
+              <div class="seg" id="seg3" style="background: #fbbf24;"></div>
+              <div class="seg" id="seg4" style="background: #4ade80;"></div>
+              <div class="seg" id="seg5" style="background: #2ABFBF;"></div>
+            </div>
+            <div class="tier-labels">
+              <span>Novice</span>
+              <span>Beginner</span>
+              <span>Developing</span>
+              <span>Proficient</span>
+              <span>Expert</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Area Score Cards -->
+      <div class="area-scores" id="areaScoreCards"></div>
+
+      <!-- Charts -->
+      <div class="chart-row">
+        <div class="chart-box">
+          <h3>Performance by Area</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>Competency Radar</h3>
+          <canvas id="radarChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Strengths & Weaknesses -->
+      <div class="card" id="swCard">
+        <h2>Key Findings</h2>
+        <div class="sw-grid">
+          <div class="sw-box strengths">
+            <h3 style="color: #2ABFBF;">Strengths</h3>
+            <ul id="strengthsList"></ul>
+          </div>
+          <div class="sw-box weaknesses">
+            <h3 style="color: #f87171;">Areas to Develop</h3>
+            <ul id="weaknessesList"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="card" style="text-align:center; background: linear-gradient(135deg, #f0fdfd, #e6fafa); border: 2px solid #2ABFBF;">
+        <h2 style="font-size:1.4rem; margin-bottom:8px;">🎯 Ready to Improve?</h2>
+        <p style="color:#64748b; margin-bottom:20px; font-size:0.95rem;">Start with your weakest areas below, or browse all 18 lessons in the Lessons tab.</p>
+        <button onclick="switchTab('lessons')" style="background: linear-gradient(135deg, #2ABFBF, #1A8A8A); color:white; border:none; padding:14px 40px; font-size:1rem; font-weight:700; border-radius:12px; cursor:pointer; font-family:'Inter',sans-serif; box-shadow: 0 4px 16px rgba(42,191,191,0.3); transition: all 0.2s;">📚 Go to All Lessons</button>
+      </div>
+
+      <!-- Personalized Learning Path -->
+      <div class="card">
+        <h2>🗺️ Your Personalized Learning Path</h2>
+        <p style="color: #64748b; margin-bottom: 20px; font-size: 0.9rem;">Lessons ordered by priority — start with your weakest areas. Click any lesson to open it. <span style="color:#ef4444; font-weight:600;">Red = needs work</span>. <span style="color:#2ABFBF; font-weight:600;">Green = already strong</span>.</p>
+        <div id="learningPath"></div>
+      </div>
+
+      <!-- Question Review & Actions -->
+      <div class="card">
+        <h2>Detailed Question Review</h2>
+        <p style="color: #94a3b8; margin-bottom: 16px; font-size: 0.9rem;">Click "Review All Answers" to see each question with correct answers and explanations.</p>
+        <button class="btn-review" onclick="toggleReview()">Review All Answers</button>
+        <button class="btn-copy" onclick="copyResults()">Copy Results</button>
+        <button class="btn-retake" onclick="retakeAssessment()">Retake Assessment</button>
+        <div id="questionReview" style="display:none; margin-top: 24px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 2: LESSONS ===== -->
+  <div class="tab-content" id="tabLessons">
+    <div class="dashboard-body">
+      <div class="lessons-overview">
+        <h3>Learning Progress</h3>
+        <div class="overall-progress-bar">
+          <div class="overall-progress-fill" id="overallLessonProgress" style="width: 0%"></div>
+        </div>
+        <p class="progress-label" id="lessonProgressLabel">0 of 18 lessons completed</p>
+      </div>
+      <div id="lessonsList"></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 3: TOOLKIT ===== -->
+  <div class="tab-content" id="tabToolkit">
+    <div class="dashboard-body">
+      <div class="toolkit-content">
+        <h2 style="font-size:1.5rem; font-weight:800; color:#1e293b; margin-bottom:8px;">Printable CBT Toolkit</h2>
+        <p style="color:#64748b; margin-bottom:24px;">Ready-to-print handouts for your clinical practice</p>
+        <div onclick="openToolkit()" class="toolkit-card" style="cursor:pointer;">
+          <div class="toolkit-icon">&#x1F5A8;&#xFE0F;</div>
+          <h3>Open CBT Toolkit</h3>
+          <p>12 handouts: Emotion Wheel, Thought Records, SUDS Thermometer, Safety Plan, and more — all printable</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 4: LESSON VIEWER ==================== -->
+<div id="lessonViewerScreen" class="screen">
+  <div class="lesson-viewer-header">
+    <div class="lv-left">
+      <img src="logo.png" alt="Mental Hub" style="height:28px; width:auto;">
+      <span class="lv-title" id="lessonViewerTitle">Lesson</span>
+    </div>
+    <div class="lesson-viewer-nav">
+      <button class="btn-lesson-nav" id="btnPrevLesson" onclick="navigateLesson(-1)">← Previous</button>
+      <button class="btn-lesson-nav" id="btnNextLesson" onclick="navigateLesson(1)">Next →</button>
+      <button class="btn-back-lesson" onclick="closeLessonViewer()">← Back to Dashboard</button>
+    </div>
+  </div>
+  <div class="lesson-iframe-wrap">
+    <iframe id="lessonFrame" src="" title="Lesson Content"></iframe>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 5: SETTINGS ==================== -->
+<div id="settingsScreen" class="screen">
+  <div class="app-header">
+    <div class="app-header-left">
+      <img src="logo.png" alt="Mental Hub" class="app-header-logo">
+      <span class="app-header-title">Mental Hub</span>
+    </div>
+    <div class="app-header-nav">
+      <button onclick="goToDashboard()">&#x2190; Dashboard</button>
+    </div>
+  </div>
+
+  <div class="settings-body">
+    <button class="btn-back" onclick="goToDashboard()">&#x2190; Back to Dashboard</button>
+
+    <div class="settings-card">
+      <h3>&#x1F524; Font Size</h3>
+      <label for="fontSizeSelect">Choose your preferred text size:</label>
+      <select id="fontSizeSelect" onchange="changeFontSize(this.value)">
+        <option value="small">Small</option>
+        <option value="medium" selected>Medium</option>
+        <option value="large">Large</option>
+      </select>
+    </div>
+
+    <div class="settings-card">
+      <h3>&#x1F5D1;&#xFE0F; Clear Progress Data</h3>
+      <p style="color: #64748b; font-size: 0.88rem; margin-bottom: 16px;">This will remove your assessment results and all lesson progress. This action cannot be undone.</p>
+      <button class="btn-danger" onclick="clearAllData()">Clear All Progress Data</button>
+    </div>
+
+    <div class="settings-card">
+      <h3>&#x2139;&#xFE0F; About</h3>
+      <p style="color: #64748b; font-size: 0.88rem; margin-bottom: 8px;"><strong>CBT Therapist Competency Assessment & Learning</strong></p>
+      <p style="color: #94a3b8; font-size: 0.82rem;">A professional development tool by Mental Hub Tbilisi.</p>
+    </div>
+
+    <div class="settings-version">Version 2.0.0</div>
+  </div>
+</div>
+
+<script>
+// ==================== DATA ====================
+const ANSWERS = {
+  q1:'b', q2:'b', q3:'b', q4:'b', q5:'b',
+  q6:'b', q7:'b', q8:'b', q9:'b', q10:'b',
+  q11:'b', q12:'b', q13:'c', q14:'c', q15:'b',
+  q16:'b', q17:'b', q18:'b', q19:'b', q20:'c',
+  q21:'b', q22:'b', q23:'b', q24:'b', q25:'b',
+  q26:'b', q27:'b', q28:'b', q29:'b', q30:'b',
+  q31:'b', q32:'c', q33:'b', q34:'b'
+};
+
+const AREA_MAP = {
+  q1:'theory', q2:'theory', q3:'theory', q4:'concept', q5:'concept',
+  q6:'thought-records', q7:'thought-records', q8:'thought-records', q9:'concept', q10:'concept',
+  q11:'session', q12:'session', q13:'session', q14:'socratic', q15:'socratic',
+  q16:'disorders', q17:'disorders', q18:'disorders', q19:'disorders', q20:'disorders',
+  q21:'techniques', q22:'techniques', q23:'techniques', q24:'techniques', q25:'techniques',
+  q26:'experiential', q27:'experiential', q28:'experiential', q29:'language', q30:'language',
+  q31:'concept', q32:'socratic', q33:'disorders', q34:'techniques'
+};
+
+const AREAS = {
+  'theory':       { name: 'Core Cognitive Model', icon: '\u{1F9E0}', questions: 0, correct: 0 },
+  'thought-records': { name: 'Thought Records', icon: '\u{1F4DD}', questions: 0, correct: 0 },
+  'concept':      { name: 'Case Conceptualization', icon: '\u{1F4CB}', questions: 0, correct: 0 },
+  'session':      { name: 'Session Structure', icon: '\u{1F3D7}\uFE0F', questions: 0, correct: 0 },
+  'socratic':     { name: 'Socratic Questioning', icon: '\u{1F4AC}', questions: 0, correct: 0 },
+  'disorders':    { name: 'Disorder-Specific Models', icon: '\u{1F52C}', questions: 0, correct: 0 },
+  'techniques':   { name: 'BA / BE / Exposure', icon: '\u{1F527}', questions: 0, correct: 0 },
+  'experiential': { name: 'Head-Heart Bridge', icon: '\u{2764}\uFE0F', questions: 0, correct: 0 },
+  'language':     { name: 'CBT Language Precision', icon: '\u{1F5E3}\uFE0F', questions: 0, correct: 0 }
+};
+
+const FEEDBACK = {
+  q1: { correct: "The cognitive triad = Self, World, Future. Beck's foundational concept for understanding depression.", wrong: "The cognitive triad refers to negative views about the SELF ('I'm worthless'), the WORLD ('everything is unfair'), and the FUTURE ('nothing will improve')." },
+  q2: { correct: "Automatic thoughts are quick, reflexive cognitions that occur in specific situations \u2014 they're 'surface level' compared to deeper beliefs.", wrong: "Automatic thoughts are situation-specific, reflexive thoughts \u2014 not chosen consciously and not deep beliefs. They 'pop up' automatically." },
+  q3: { correct: "'Always' and 'nothing ever' are classic overgeneralization markers \u2014 taking one instance and applying it to everything.", wrong: "The key words 'always' and 'nothing ever' signal overgeneralization \u2014 drawing broad conclusions from limited evidence." },
+  q4: { correct: "This is an IF-THEN conditional assumption \u2014 the hallmark of intermediate beliefs sitting between core beliefs and automatic thoughts.", wrong: "'If X, then Y' conditional statements are intermediate beliefs (assumptions/rules), NOT core beliefs (which are unconditional: 'I am weak') or automatic thoughts (which are situation-specific)." },
+  q5: { correct: "Early experiences shape core beliefs, which generate intermediate beliefs and compensatory strategies, leading to automatic thoughts in specific situations.", wrong: "In Beck's model, childhood/early experiences come FIRST \u2014 they shape core beliefs, which then generate everything else in the cognitive architecture." },
+  q6: { correct: "Evidence must be factual and observable \u2014 not feelings, not interpretations, not opinions. 'My boss didn't say hello' is evidence. 'She seemed cold' is interpretation.", wrong: "Column 4 should contain FACTS, not feelings or interpretations. 'She walked past without speaking' is evidence. 'It felt like she was ignoring me' is not." },
+  q7: { correct: "'I felt like nobody cared' is actually the thought 'nobody cares about me' disguised with 'I felt like...' The emotions would be: sad, lonely, hurt.", wrong: "'I felt like...' is one of the most common thought-emotion confusions. The actual thought is 'nobody cares about me.' Real emotions are single words: sad, anxious, angry, hurt." },
+  q8: { correct: "A 35-point drop (85\u219250%) is excellent! The goal is meaningful reduction and a more balanced perspective \u2014 not zero distress.", wrong: "CBT doesn't aim for 0% distress \u2014 that's unrealistic. A significant reduction (here 35 points) with a balanced perspective indicates successful restructuring." },
+  q9: { correct: "The CBT conceptualization maps the cognitive architecture: how experiences \u2192 beliefs \u2192 current symptoms. It's your treatment GPS.", wrong: "A CBT case conceptualization is NOT just a diagnostic intake. It maps the cognitive architecture: early experiences \u2192 core beliefs \u2192 intermediate beliefs \u2192 compensatory strategies \u2192 current triggers/thoughts/emotions/behaviors." },
+  q10: { correct: "The downward arrow asks 'What does that mean about you?' repeatedly, drilling from surface thoughts down to core beliefs.", wrong: "The downward arrow starts with an automatic thought and asks 'If that were true, what would it mean about you?' \u2014 moving from surface to the deepest core belief level." },
+  q11: { correct: "The bridge ('What's happened since last session? Any reactions?') connects sessions and catches important between-session events.", wrong: "After the mood check, the BRIDGE comes next: 'What's happened since we last met? Any reactions to last session?' Then comes agenda setting." },
+  q12: { correct: "Having the CLIENT summarize checks their understanding. If they can't summarize it, they didn't absorb it.", wrong: "The capsule summary should be delivered by the CLIENT \u2014 it checks whether they understood and retained the session's key points." },
+  q13: { correct: "Collaboratively exploring barriers is therapeutic in itself \u2014 it often reveals automatic thoughts ('I couldn't do it' \u2192 'What did you tell yourself?').", wrong: "Neither dismissing ('that's okay') nor lecturing ('you must do it') is effective. Exploring barriers collaboratively often reveals therapeutic material." },
+  q14: { correct: "This response uses guided discovery \u2014 asking for evidence and alternative explanations rather than reassuring or labeling.", wrong: "A: is reassurance (temporarily soothing but not CBT). B: is psychoeducation (telling, not guiding). D: is too open-ended. C: is Socratic \u2014 guides the client to examine their evidence." },
+  q15: { correct: "Socratic questioning = guided discovery. The therapist asks; the client discovers. Psychoeducation = the therapist tells/teaches directly.", wrong: "The key distinction: Socratic questioning helps clients discover insights through their OWN reasoning. Psychoeducation directly teaches information. Both are useful but serve different purposes." },
+  q16: { correct: "Clark's model: the panic cycle is maintained by MISINTERPRETING normal bodily sensations as catastrophic (heart racing = 'heart attack'). Avoidance is secondary.", wrong: "The PRIMARY mechanism is catastrophic misinterpretation of bodily sensations \u2014 NOT avoidance. 'My heart is racing \u2192 I must be having a heart attack' \u2192 more anxiety \u2192 more sensations \u2192 panic." },
+  q17: { correct: "Self-focused attention creates a vicious cycle: monitoring symptoms \u2192 more aware of symptoms \u2192 appear more awkward \u2192 confirms fears.", wrong: "Self-focused attention means monitoring YOUR OWN symptoms instead of engaging externally. This increases symptom awareness, makes the person appear less natural, and confirms their social fears." },
+  q18: { correct: "Dugas showed that people with GAD cannot tolerate uncertainty \u2014 they worry to try to prepare for every possible outcome.", wrong: "Intolerance of uncertainty (IU) is the core vulnerability in Dugas' GAD model. People with GAD worry because they cannot tolerate 'not knowing' what will happen." },
+  q19: { correct: "The catastrophic misinterpretation ('heart racing = heart attack') is the core maintaining factor \u2014 target it first with cognitive restructuring and behavioral experiments.", wrong: "In Clark's model, the MISINTERPRETATION drives the panic cycle. Target it directly: restructure the catastrophic thought, then test it with behavioral experiments (e.g., induced exercise to show heart racing is safe)." },
+  q20: { correct: "Positive self-affirmations are NOT part of Clark & Wells' model. The three maintaining mechanisms are: self-focused attention, safety behaviors, and post-event rumination.", wrong: "The three maintaining mechanisms in Clark & Wells' social anxiety model are: (1) self-focused attention, (2) safety behaviors, (3) post-event rumination. Positive affirmations are not part of this model." },
+  q21: { correct: "BA specifically targets the depression withdrawal cycle: withdrawal \u2192 less positive reinforcement \u2192 more depression \u2192 more withdrawal.", wrong: "Behavioral Activation is specifically designed for depression. It breaks the withdrawal cycle by scheduling activities (mastery + pleasure) even before motivation returns." },
+  q22: { correct: "The key difference: behavioral experiments test SPECIFIC PREDICTIONS with before/after belief ratings. Exposure primarily aims for habituation/anxiety reduction.", wrong: "A behavioral experiment includes: (1) specific prediction, (2) belief rating before, (3) experiment, (4) actual outcome, (5) belief rating after. Simple exposure doesn't require prediction testing." },
+  q23: { correct: "This tests a specific prediction ('disagree \u2192 fired') with a planned experiment \u2014 the hallmark of a behavioral experiment.", wrong: "Testing the specific prediction 'If I disagree, I'll be fired' by disagreeing and observing the outcome = behavioral experiment. BA would be scheduling activities; exposure would be gradual facing of fears." },
+  q24: { correct: "BA is the first-line approach for depression-driven withdrawal. Schedule small activities, rate mastery/pleasure, build momentum.", wrong: "For depression with withdrawal, Behavioral Activation is first-line: schedule enjoyable activities, don't wait for motivation. Rate mastery and pleasure to track progress." },
+  q25: { correct: "SUDS (0-100) ratings organize the hierarchy from least to most distressing, allowing gradual progression.", wrong: "A graded exposure hierarchy is organized by Subjective Units of Distress (SUDS), progressing from least anxiety-provoking situations to most anxiety-provoking." },
+  q26: { correct: "This is the 'head-heart lag' \u2014 intellectual understanding without emotional change. It signals the need for experiential techniques.", wrong: "When clients 'know' but still 'feel' \u2014 this indicates intellectual insight without emotional belief change. It's NOT resistance or failure \u2014 it's a signal to switch to experiential techniques." },
+  q27: { correct: "Behavioral experiments bridge the head-heart gap because EXPERIENCING disconfirming evidence is more powerful than talking about it.", wrong: "When thought records achieve intellectual but not emotional change, behavioral experiments are most effective \u2014 direct experience updates emotional beliefs in ways verbal restructuring cannot." },
+  q28: { correct: "Imagery rescripting accesses emotional memories by re-entering the scene and having the adult self intervene to change the emotional meaning.", wrong: "Imagery rescripting: (1) identify the distressing memory/image, (2) briefly relive it, (3) introduce the adult self into the scene, (4) the adult self protects/comforts the younger self, changing the emotional meaning." },
+  q29: { correct: "'Emotion regulation' is DBT terminology, 'grounding' isn't a core CBT technique, and 'think positively' is NOT cognitive restructuring (which involves examining evidence, not just being positive).", wrong: "In CBT: 'emotion regulation' \u2192 'cognitive restructuring'; 'grounding' \u2192 'behavioral experiments/attention training'; 'think positively' \u2192 'develop a balanced alternative thought based on evidence.'" },
+  q30: { correct: "The downward arrow is a CBT-specific technique. TIPP and distress tolerance are DBT; opposite action is DBT; radical acceptance is DBT/ACT.", wrong: "The downward arrow technique is specifically CBT (Beck/Burns). Distress tolerance/TIPP = DBT. Opposite action = DBT. Radical acceptance = DBT/ACT." },
+  q31: { correct: "Nino's statements ('I'm not good enough,' 'nobody wants me there') consistently point to a core belief of inadequacy/defectiveness. This is unconditional and global \u2014 the hallmark of a core belief.", wrong: "The core belief here is 'I am inadequate / not good enough.' Her statements \u2014 being passed over means she's not good enough, friends find her boring, no point going out \u2014 all stem from this central theme of personal inadequacy." },
+  q32: { correct: "While well-intentioned, this is pure reassurance. It makes the client feel better momentarily but doesn't teach her to examine her own evidence. A CBT response would use Socratic questioning: 'What evidence do you have that your friends find you boring?'", wrong: "This response is reassurance, NOT Socratic questioning or cognitive restructuring. Telling a client 'I'm sure your friends don't find you boring' provides the therapist's opinion rather than guiding the client to examine her own evidence. It soothes temporarily but doesn't build CBT skills." },
+  q33: { correct: "Monitoring his heartbeat is both self-focused attention (directing attention inward instead of engaging with the audience) AND a safety behavior (checking for danger). Both are key maintaining mechanisms in Clark & Wells' model.", wrong: "In Clark & Wells' social anxiety model, monitoring one's own bodily symptoms (heartbeat, voice shaking) IS self-focused attention \u2014 a core maintaining mechanism. It also functions as a safety behavior. Together they increase anxiety and make the person appear less natural." },
+  q34: { correct: "A behavioral experiment that drops safety behaviors (monitoring heartbeat, gripping podium) and tests his prediction ('everyone will notice I'm nervous') is the most targeted CBT intervention for social anxiety. It provides direct experiential disconfirmation.", wrong: "For social anxiety (Clark & Wells model), the most effective CBT intervention is a behavioral experiment that drops safety behaviors. Giorgi presents WITHOUT monitoring his heartbeat or gripping the podium, then compares his prediction ('everyone will notice') with what actually happened. Relaxation is not a primary CBT intervention for social anxiety." }
+};
+
+const LESSONS = [
+  { id: 'theory', num: 1, title: 'The Cognitive Model \u2014 Beck\'s Foundation', desc: 'What CBT is, the ABC model, how thoughts create emotions', file: 'Lesson 01 \u2014 The Cognitive Model.html' },
+  { id: 'theory', num: 2, title: 'Cognitive Distortions \u2014 Complete Guide', desc: 'All 15 distortions with examples and identification practice', file: 'Lesson 02 \u2014 Cognitive Distortions.html' },
+  { id: 'thought-records', num: 3, title: 'The 7-Column Thought Record', desc: 'Master CBT\'s fundamental tool for challenging automatic thoughts', file: 'Lesson 03 \u2014 The 7-Column Thought Record.html' },
+  { id: 'concept', num: 4, title: 'Core Beliefs & Intermediate Beliefs', desc: 'Downward arrow technique, belief levels, and schema work', file: 'Lesson 04 \u2014 Core Beliefs and Intermediate Beliefs.html' },
+  { id: 'concept', num: 5, title: 'CBT Case Conceptualization', desc: 'Beck\'s Cognitive Conceptualization Diagram \u2014 map the full cognitive architecture', file: 'Lesson 05 \u2014 CBT Case Conceptualization.html' },
+  { id: 'session', num: 6, title: 'CBT Session Structure', desc: 'Judith Beck\'s complete 8-component session framework', file: 'Lesson 06 \u2014 CBT Session Structure.html' },
+  { id: 'socratic', num: 7, title: 'Socratic Questioning in Practice', desc: 'From knowing the definition to doing it in live clinical moments', file: 'Lesson 07 \u2014 Socratic Questioning in Practice.html' },
+  { id: 'techniques', num: 8, title: 'Behavioral Activation for Depression', desc: 'Activity scheduling, mastery/pleasure ratings, breaking the withdrawal cycle', file: 'Lesson 08 \u2014 Behavioral Activation for Depression.html' },
+  { id: 'techniques', num: 9, title: 'Behavioral Experiments', desc: 'The gold standard of CBT \u2014 test predictions through real-world experience', file: 'Lesson 09 \u2014 Behavioral Experiments.html' },
+  { id: 'techniques', num: 10, title: 'Graded Exposure & Anxiety Hierarchies', desc: 'SUDS scale, building hierarchies, exposure protocols, ERP for OCD', file: 'Lesson 10 \u2014 Graded Exposure and Anxiety Hierarchies.html' },
+  { id: 'disorders', num: 11, title: 'Disorder-Specific CBT Models', desc: 'Clark\'s Panic, Social Anxiety (Clark & Wells), and GAD (Dugas)', file: 'Lesson 11 \u2014 Disorder-Specific CBT Models.html' },
+  { id: 'disorders', num: 12, title: 'CBT for Depression \u2014 Full Protocol', desc: 'Session-by-session treatment guide for depression (12-20 sessions)', file: 'Lesson 12 \u2014 CBT for Depression Full Protocol.html' },
+  { id: 'disorders', num: 13, title: 'CBT for Anxiety \u2014 Full Protocol', desc: 'Treatment protocols for GAD, Panic, Social Anxiety, and Phobias', file: 'Lesson 13 \u2014 CBT for Anxiety Full Protocol.html' },
+  { id: 'experiential', num: 14, title: 'Bridging Head & Heart', desc: 'When intellectual insight isn\'t enough \u2014 experiential techniques', file: 'Lesson 14 \u2014 Bridging Head and Heart.html' },
+  { id: 'session', num: 15, title: 'Homework Design & Troubleshooting', desc: 'Designing effective homework and handling non-compliance', file: 'Lesson 15 \u2014 Homework Design and Troubleshooting.html' },
+  { id: 'session', num: 16, title: 'Measuring Outcomes', desc: 'PHQ-9, GAD-7, BDI-II \u2014 tracking progress with standardized tools', file: 'Lesson 16 \u2014 Measuring Outcomes.html' },
+  { id: 'experiential', num: 17, title: 'Relapse Prevention & Termination', desc: 'Ending therapy well, therapy blueprints, and booster sessions', file: 'Lesson 17 \u2014 Relapse Prevention and Termination.html' },
+  { id: 'language', num: 18, title: 'Speaking CBT', desc: 'Sharpen your CBT-specific language \u2014 stop mixing modalities', file: 'Lesson 18 \u2014 Speaking CBT.html' }
+];
+
+// ==================== STATE ====================
+let currentPage = 1;
+const totalPages = 7;
+let userAnswers = {};
+let chartInstances = {};
+
+// ==================== NAVIGATION ====================
+function startAssessment() {
+  document.getElementById('welcomeScreen').classList.remove('active');
+  document.getElementById('assessmentScreen').classList.add('active');
+  setTimeout(function() { window.scrollTo(0, 0); }, 50);
+}
+
+function goToDashboard() {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('dashboardScreen').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showSettings() {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('settingsScreen').classList.add('active');
+  // Load saved font size
+  var savedSize = localStorage.getItem('cbt_font_size') || 'medium';
+  document.getElementById('fontSizeSelect').value = savedSize;
+  window.scrollTo(0, 0);
+}
+
+// Check on load if there are saved results
+function checkSavedState() {
+  // Apply saved font size
+  var savedSize = localStorage.getItem('cbt_font_size') || 'medium';
+  applyFontSize(savedSize);
+
+  var savedResults = localStorage.getItem('cbt_assessment_results');
+  if (savedResults) {
+    var data = JSON.parse(savedResults);
+    // Restore AREAS
+    for (var k in data.areas) {
+      if (AREAS[k]) {
+        AREAS[k].questions = data.areas[k].questions;
+        AREAS[k].correct = data.areas[k].correct;
+      }
+    }
+    userAnswers = data.userAnswers || {};
+
+    // Show dashboard with lessons tab as default for returning visitors
+    document.getElementById('welcomeScreen').classList.remove('active');
+    document.getElementById('dashboardScreen').classList.add('active');
+    showResultsInDashboard(data.totalCorrect, data.totalQ);
+    renderLessonsTab();
+    switchTab('lessons');
+  }
+}
+
+function selectAnswer(label, qName) {
+  var card = label.closest('.q-card');
+  card.classList.add('answered');
+  card.querySelectorAll('label').forEach(function(l) { l.classList.remove('selected-answer'); });
+  label.classList.add('selected-answer');
+  var val = label.querySelector('input').value;
+  userAnswers[qName] = val;
+  updateProgress();
+}
+
+function updateProgress() {
+  var answered = Object.keys(userAnswers).length;
+  var pct = Math.round((answered / Object.keys(ANSWERS).length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressLabel').textContent = 'Page ' + currentPage + ' / ' + totalPages;
+}
+
+function nextPage() {
+  if (currentPage >= totalPages) return;
+  document.getElementById('page' + currentPage).classList.remove('active');
+  currentPage++;
+  document.getElementById('page' + currentPage).classList.add('active');
+  updateProgress();
+  setTimeout(function() { window.scrollTo(0, 0); }, 50);
+}
+
+function prevPage() {
+  if (currentPage <= 1) return;
+  document.getElementById('page' + currentPage).classList.remove('active');
+  currentPage--;
+  document.getElementById('page' + currentPage).classList.add('active');
+  updateProgress();
+  setTimeout(function() { window.scrollTo(0, 0); }, 50);
+}
+
+// ==================== TAB SWITCHING ====================
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+
+  if (tabName === 'results') {
+    document.getElementById('tabResults').classList.add('active');
+    document.querySelectorAll('.tab-btn')[0].classList.add('active');
+  } else if (tabName === 'lessons') {
+    document.getElementById('tabLessons').classList.add('active');
+    document.querySelectorAll('.tab-btn')[1].classList.add('active');
+    renderLessonsTab();
+  } else if (tabName === 'toolkit') {
+    document.getElementById('tabToolkit').classList.add('active');
+    document.querySelectorAll('.tab-btn')[2].classList.add('active');
+  }
+}
+
+// ==================== SCORING ====================
+function submitAssessment() {
+  var answered = Object.keys(userAnswers).length;
+  var totalQ = Object.keys(ANSWERS).length;
+  if (answered < totalQ) {
+    document.getElementById('unansweredWarning').style.display = 'block';
+    document.getElementById('unansweredWarning').textContent = 'You answered ' + answered + '/' + totalQ + ' questions. Please answer all questions before submitting.';
+    return;
+  }
+
+  // Reset area counts
+  for (var a in AREAS) { AREAS[a].questions = 0; AREAS[a].correct = 0; }
+
+  // Score
+  var totalCorrect = 0;
+  for (var q in ANSWERS) {
+    var area = AREA_MAP[q];
+    AREAS[area].questions++;
+    if (userAnswers[q] === ANSWERS[q]) {
+      AREAS[area].correct++;
+      totalCorrect++;
+    }
+  }
+
+  // Build area percentages for save
+  var areaPcts = {};
+  var areaCorrect = {};
+  var areaQuestions = {};
+  for (var k in AREAS) {
+    areaCorrect[k] = AREAS[k].correct;
+    areaQuestions[k] = AREAS[k].questions;
+    areaPcts[k] = AREAS[k].questions > 0 ? Math.round((AREAS[k].correct / AREAS[k].questions) * 100) : 0;
+  }
+
+  // Save to localStorage
+  var saveData = {
+    totalCorrect: totalCorrect,
+    totalQ: totalQ,
+    areaPcts: areaPcts,
+    areaCorrect: areaCorrect,
+    areaQuestions: areaQuestions,
+    areas: {},
+    userAnswers: userAnswers,
+    timestamp: new Date().toISOString()
+  };
+  for (var k2 in AREAS) {
+    saveData.areas[k2] = { questions: AREAS[k2].questions, correct: AREAS[k2].correct };
+  }
+  localStorage.setItem('cbt_assessment_results', JSON.stringify(saveData));
+
+  // Go to dashboard
+  document.getElementById('assessmentScreen').classList.remove('active');
+  document.getElementById('dashboardScreen').classList.add('active');
+  window.scrollTo(0, 0);
+
+  switchTab('results');
+  showResultsInDashboard(totalCorrect, totalQ);
+  renderLessonsTab();
+  setTimeout(function() { window.scrollTo(0, 0); }, 100);
+}
+
+function showResultsInDashboard(totalCorrect, totalQ) {
+  var pct = Math.round((totalCorrect / totalQ) * 100);
+
+  // Overall score
+  var scoreColor = pct >= 85 ? '#2ABFBF' : pct >= 70 ? '#4ade80' : pct >= 55 ? '#fbbf24' : pct >= 40 ? '#f97316' : '#ef4444';
+  document.getElementById('overallPct').textContent = pct + '%';
+  document.getElementById('overallPct').style.color = scoreColor;
+
+  // Level
+  var level, desc;
+  if (pct >= 90) { level = 'Expert Practitioner'; desc = 'Outstanding CBT mastery across all areas. You demonstrate deep understanding of both theory and clinical application.'; }
+  else if (pct >= 75) { level = 'Proficient Practitioner'; desc = 'Strong CBT foundation with solid clinical skills. A few areas could use refinement.'; }
+  else if (pct >= 60) { level = 'Developing Practitioner'; desc = 'Good theoretical base but notable gaps in specific areas. Targeted study will elevate your practice significantly.'; }
+  else if (pct >= 40) { level = 'Beginner Practitioner'; desc = 'Foundational knowledge present but significant gaps across multiple areas require systematic study.'; }
+  else { level = 'Novice'; desc = 'CBT knowledge needs comprehensive development. Start with the fundamentals and work through all lessons systematically.'; }
+
+  document.getElementById('levelTitle').textContent = level;
+  document.getElementById('levelTitle').style.color = scoreColor;
+  document.getElementById('levelDesc').textContent = desc;
+
+  // Tier bar highlight
+  var tierIdx = pct >= 90 ? 5 : pct >= 75 ? 4 : pct >= 60 ? 3 : pct >= 40 ? 2 : 1;
+  for (var i = 1; i <= 5; i++) {
+    var seg = document.getElementById('seg' + i);
+    seg.style.boxShadow = '';
+    seg.style.border = '';
+    if (i === tierIdx) {
+      seg.style.boxShadow = '0 0 12px ' + scoreColor;
+      seg.style.border = '1px solid ' + scoreColor;
+    }
+  }
+
+  // Area scores — compute first before any charts
+  var areaKeys = Object.keys(AREAS);
+  var areaNames = areaKeys.map(function(k) { return AREAS[k].name; });
+  var areaPcts = areaKeys.map(function(k) { return AREAS[k].questions > 0 ? Math.round((AREAS[k].correct / AREAS[k].questions) * 100) : 0; });
+
+  // Area score cards
+  var cardsHtml = '';
+  areaKeys.forEach(function(k, i) {
+    var p = areaPcts[i];
+    var c = p >= 75 ? '#2ABFBF' : p >= 50 ? '#fbbf24' : '#ef4444';
+    cardsHtml += '<div class="area-card">' +
+      '<div class="area-icon">' + AREAS[k].icon + '</div>' +
+      '<div class="area-name">' + AREAS[k].name + '</div>' +
+      '<div class="area-pct" style="color:' + c + '">' + p + '%</div>' +
+      '<div class="area-raw">' + AREAS[k].correct + ' / ' + AREAS[k].questions + '</div>' +
+    '</div>';
+  });
+  document.getElementById('areaScoreCards').innerHTML = cardsHtml;
+
+  // Charts — wrapped in try-catch so UI still works if Chart.js fails
+  try {
+    // Destroy existing charts
+    for (var key in chartInstances) {
+      if (chartInstances[key]) chartInstances[key].destroy();
+    }
+
+    // Overall donut
+    chartInstances.donut = new Chart(document.getElementById('overallDonut'), {
+      type: 'doughnut',
+      data: {
+        datasets: [{ data: [pct, 100 - pct], backgroundColor: [scoreColor, '#e2e8f0'], borderWidth: 0, cutout: '78%' }]
+      },
+      options: { responsive: false, plugins: { legend: { display: false }, tooltip: { enabled: false } } }
+    });
+
+    // Bar chart
+    chartInstances.bar = new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: areaNames.map(function(n) { return n.length > 15 ? n.substring(0, 14) + '...' : n; }),
+        datasets: [{ data: areaPcts, backgroundColor: areaPcts.map(function(p) { return p >= 75 ? '#2ABFBF' : p >= 50 ? '#fbbf24' : '#ef4444'; }), borderRadius: 8, borderSkipped: false }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, max: 100, ticks: { color: '#64748b', callback: function(v) { return v + '%'; } }, grid: { color: '#f1f5f9' } },
+          x: { ticks: { color: '#475569', font: { size: 10 }, maxRotation: 45 }, grid: { display: false } }
+        }
+      }
+    });
+
+    // Radar chart
+    chartInstances.radar = new Chart(document.getElementById('radarChart'), {
+      type: 'radar',
+      data: {
+        labels: areaNames,
+        datasets: [
+          { label: 'Your Score', data: areaPcts, backgroundColor: 'rgba(42,191,191,0.15)', borderColor: '#2ABFBF', borderWidth: 2, pointBackgroundColor: '#2ABFBF', pointRadius: 4 },
+          { label: 'Proficient (75%)', data: Array(areaKeys.length).fill(75), backgroundColor: 'rgba(34,197,94,0.05)', borderColor: 'rgba(34,197,94,0.3)', borderWidth: 1.5, borderDash: [5,5], pointRadius: 0 }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: '#475569', font: { size: 11 } } } },
+        scales: { r: { beginAtZero: true, max: 100, ticks: { display: false }, grid: { color: '#e2e8f0' }, pointLabels: { color: '#475569', font: { size: 9 } }, angleLines: { color: '#e2e8f0' } } }
+      }
+    });
+  } catch(e) {
+    console.error('Chart rendering error:', e);
+  }
+
+  // Strengths & Weaknesses
+  var sorted = areaKeys.map(function(k, i) { return { key: k, pct: areaPcts[i] }; }).sort(function(a, b) { return b.pct - a.pct; });
+  var strengths = sorted.filter(function(s) { return s.pct >= 75; });
+  var weaknesses = sorted.filter(function(s) { return s.pct < 75; });
+
+  document.getElementById('strengthsList').innerHTML = strengths.length > 0
+    ? strengths.map(function(s) { return '<li>\u2705 ' + AREAS[s.key].name + ' (' + s.pct + '%)</li>'; }).join('')
+    : '<li>Keep studying \u2014 you\'ll build strengths soon!</li>';
+
+  document.getElementById('weaknessesList').innerHTML = weaknesses.length > 0
+    ? weaknesses.map(function(s) { return '<li>\u26A0\uFE0F ' + AREAS[s.key].name + ' (' + s.pct + '%)</li>'; }).join('')
+    : '<li>No significant gaps \u2014 excellent!</li>';
+
+  // Personalized Learning Path — sorted by weakness score (weakest first)
+  var lessonScores = LESSONS.map(function(l) {
+    var area = AREAS[l.id];
+    var p = area.questions > 0 ? Math.round((area.correct / area.questions) * 100) : 0;
+    return { num: l.num, title: l.title, desc: l.desc, file: l.file, pct: p, idx: LESSONS.indexOf(l) };
+  }).sort(function(a, b) { return a.pct - b.pct; });
+
+  var pathHtml = '';
+  lessonScores.forEach(function(l) {
+    var isWeak = l.pct < 75;
+    pathHtml += '<div onclick="openLesson(' + l.idx + ')" class="lesson-card ' + (isWeak ? 'recommended' : 'optional') + '" style="cursor:pointer;">' +
+      '<div class="lesson-num">' + l.num + '</div>' +
+      '<div class="lesson-info">' +
+        '<h4>' + l.title + '</h4>' +
+        '<p>' + l.desc + '</p>' +
+        '<p style="margin-top:4px; font-size:0.78rem; color:' + (isWeak ? '#ef4444' : '#2ABFBF') + '; font-weight:600;">' +
+          (isWeak ? '🔴 STUDY THIS LESSON — Click to open' : '🟢 Strong here — click to review (optional)') +
+        '</p>' +
+      '</div>' +
+      '<div class="lesson-score" style="color:' + (isWeak ? '#ef4444' : '#2ABFBF') + '; font-size:1.2rem; font-weight:800; min-width:50px; text-align:right;">' + l.pct + '%</div>' +
+    '</div>';
+  });
+  document.getElementById('learningPath').innerHTML = pathHtml;
+
+  // Build question review
+  buildQuestionReview();
+}
+
+// ==================== LESSONS TAB ====================
+function renderLessonsTab() {
+  // Get weak areas from assessment
+  var weakAreas = new Set();
+  var savedResults = localStorage.getItem('cbt_assessment_results');
+  if (savedResults) {
+    var data = JSON.parse(savedResults);
+    for (var k in data.areas) {
+      var a = data.areas[k];
+      if (a.questions > 0 && Math.round((a.correct / a.questions) * 100) < 75) {
+        weakAreas.add(k);
+      }
+    }
+  }
+
+  // Count completed lessons
+  var completedCount = 0;
+  LESSONS.forEach(function(l, i) {
+    var passed = localStorage.getItem('lesson_' + (i + 1) + '_passed');
+    if (passed === 'true') completedCount++;
+  });
+
+  // Update overall progress
+  var progressPct = Math.round((completedCount / 18) * 100);
+  document.getElementById('overallLessonProgress').style.width = progressPct + '%';
+  document.getElementById('lessonProgressLabel').textContent = completedCount + ' of 18 lessons completed';
+
+  // Build lesson cards in sequential order 1-18
+  var html = '';
+  LESSONS.forEach(function(l, i) {
+    var lessonNum = i + 1;
+    var passed = localStorage.getItem('lesson_' + lessonNum + '_passed');
+    var score = localStorage.getItem('lesson_' + lessonNum + '_score');
+    var isCompleted = passed === 'true';
+    var isFailed = passed === 'false';
+    var isRecommended = weakAreas.has(l.id) && !isCompleted;
+
+    var statusText = '';
+    var statusBadgeClass = 'status-not-started';
+    var cardClass = '';
+    var progressWidth = '0';
+
+    if (isCompleted) {
+      statusText = '\u2705 Passed';
+      if (score) statusText += ' (' + score + ')';
+      statusBadgeClass = 'status-completed';
+      cardClass = 'completed';
+      progressWidth = '100';
+    } else if (isFailed) {
+      statusText = '\u274C Not Passed';
+      if (score) statusText += ' (' + score + ') — Click to retry';
+      statusBadgeClass = 'status-failed';
+      progressWidth = '50';
+    } else if (score) {
+      statusText = '\u23F3 In Progress';
+      statusBadgeClass = 'status-in-progress';
+      progressWidth = '50';
+    } else {
+      statusText = '\u23F3 Not Started';
+      statusBadgeClass = 'status-not-started';
+    }
+
+    if (isRecommended) {
+      cardClass = 'recommended-lesson';
+    }
+
+    html += '<div onclick="openLesson(' + (i) + ')" class="lesson-card ' + cardClass + '" style="cursor:pointer;">' +
+      '<div class="lesson-num">' + lessonNum + '</div>' +
+      '<div class="lesson-info">' +
+        '<h4>' + l.title + (isRecommended ? '<span class="badge-recommended">RECOMMENDED</span>' : '') + '</h4>' +
+        '<p>' + l.desc + '</p>' +
+      '</div>' +
+      '<div class="lesson-meta">' +
+        '<div class="lesson-status ' + statusBadgeClass + '">' + statusText + '</div>' +
+        '<div class="lesson-progress-mini"><div class="fill" style="width:' + progressWidth + '%;' + (isFailed ? 'background:#ef4444;' : '') + '"></div></div>' +
+      '</div>' +
+    '</div>';
+  });
+
+  document.getElementById('lessonsList').innerHTML = html;
+}
+
+// ==================== QUESTION REVIEW ====================
+function buildQuestionReview() {
+  var html = '';
+  var totalQ = Object.keys(ANSWERS).length;
+  for (var i = 1; i <= totalQ; i++) {
+    var q = 'q' + i;
+    var isCorrect = userAnswers[q] === ANSWERS[q];
+    var card = document.getElementById('qcard' + i);
+    var qText = card.querySelector('.q-text').textContent;
+    var fb = FEEDBACK[q];
+
+    html += '<div style="padding:14px 0; border-bottom:1px solid #f1f5f9;">' +
+      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">' +
+        '<span style="font-weight:700; color:#1A8A8A; font-size:0.82rem;">Q' + i + '</span>' +
+        '<span style="font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:20px; ' +
+          (isCorrect ? 'background:#dcfce7; color:#166534;' : 'background:#fef2f2; color:#991b1b;') + '">' +
+          (isCorrect ? '\u2713 CORRECT' : '\u2717 INCORRECT') +
+        '</span>' +
+      '</div>' +
+      '<div style="font-size:0.9rem; color:#334155; margin-bottom:8px;">' + qText + '</div>' +
+      '<div style="font-size:0.85rem; padding:10px 14px; border-radius:8px; ' + (isCorrect
+        ? 'background:#f0fdf4; border:1px solid #bbf7d0; color:#166534;'
+        : 'background:#fef2f2; border:1px solid #fecaca; color:#991b1b;') + '">' +
+        (isCorrect ? fb.correct : fb.wrong) +
+      '</div>' +
+    '</div>';
+  }
+  document.getElementById('questionReview').innerHTML = html;
+}
+
+function toggleReview() {
+  var el = document.getElementById('questionReview');
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function copyResults() {
+  var pct = document.getElementById('overallPct').textContent;
+  var level = document.getElementById('levelTitle').textContent;
+  var text = 'CBT Competency Assessment Results\nOverall: ' + pct + ' \u2014 ' + level + '\n\n';
+
+  for (var k in AREAS) {
+    var a = AREAS[k];
+    var p = a.questions > 0 ? Math.round((a.correct / a.questions) * 100) : 0;
+    text += a.icon + ' ' + a.name + ': ' + p + '% (' + a.correct + '/' + a.questions + ')\n';
+  }
+
+  var weakAreas = Object.keys(AREAS).filter(function(k) {
+    var a = AREAS[k];
+    return a.questions > 0 && Math.round((a.correct / a.questions) * 100) < 75;
+  });
+
+  if (weakAreas.length > 0) {
+    text += '\nRecommended Focus Areas:\n';
+    weakAreas.forEach(function(k) {
+      text += '\u{1F534} ' + AREAS[k].name + '\n';
+    });
+  }
+
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.querySelector('.btn-copy');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy Results'; }, 2000);
+  });
+}
+
+function retakeAssessment() {
+  userAnswers = {};
+  currentPage = 1;
+
+  // Reset all UI
+  document.querySelectorAll('.q-card').forEach(function(c) { c.classList.remove('answered', 'correct', 'incorrect'); });
+  document.querySelectorAll('.q-options label').forEach(function(l) { l.classList.remove('selected-answer', 'correct-answer', 'wrong-answer'); });
+  document.querySelectorAll('input[type="radio"]').forEach(function(r) { r.checked = false; });
+  document.querySelectorAll('.q-feedback').forEach(function(f) { f.classList.remove('show'); });
+
+  // Reset pages
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('page1').classList.add('active');
+
+  // Clear saved results
+  localStorage.removeItem('cbt_assessment_results');
+
+  // Switch screens
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('assessmentScreen').classList.add('active');
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+// ==================== SETTINGS ====================
+function changeFontSize(size) {
+  localStorage.setItem('cbt_font_size', size);
+  applyFontSize(size);
+}
+
+function applyFontSize(size) {
+  document.body.classList.remove('font-small', 'font-medium', 'font-large');
+  document.body.classList.add('font-' + size);
+}
+
+function clearAllData() {
+  if (confirm('Are you sure you want to clear all progress data? This cannot be undone.')) {
+    // Clear assessment results
+    localStorage.removeItem('cbt_assessment_results');
+    // Clear all lesson progress
+    for (var i = 1; i <= 18; i++) {
+      localStorage.removeItem('lesson_' + i + '_passed');
+      localStorage.removeItem('lesson_' + i + '_score');
+    }
+    // Clear font size
+    localStorage.removeItem('cbt_font_size');
+    applyFontSize('medium');
+    document.getElementById('fontSizeSelect').value = 'medium';
+
+    alert('All progress data has been cleared.');
+
+    // Go to welcome screen
+    document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+    document.getElementById('welcomeScreen').classList.add('active');
+    window.scrollTo(0, 0);
+  }
+}
+
+// ==================== LESSON VIEWER ====================
+var currentLessonIndex = -1;
+
+function openLesson(index) {
+  currentLessonIndex = index;
+  var lesson = LESSONS[index];
+  document.getElementById('lessonViewerTitle').textContent = 'Lesson ' + lesson.num + ' — ' + lesson.title;
+  document.getElementById('lessonFrame').src = lesson.file;
+
+  // Update prev/next buttons
+  document.getElementById('btnPrevLesson').disabled = (index <= 0);
+  document.getElementById('btnNextLesson').disabled = (index >= LESSONS.length - 1);
+
+  // Show lesson viewer screen
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('lessonViewerScreen').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function navigateLesson(direction) {
+  var newIndex = currentLessonIndex + direction;
+  if (newIndex >= 0 && newIndex < LESSONS.length) {
+    openLesson(newIndex);
+  }
+}
+
+function closeLessonViewer() {
+  document.getElementById('lessonFrame').src = '';
+  // Restore prev/next buttons (hidden when viewing toolkit)
+  document.getElementById('btnPrevLesson').style.display = '';
+  document.getElementById('btnNextLesson').style.display = '';
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('dashboardScreen').classList.add('active');
+  // Refresh lesson progress when returning
+  renderLessonsTab();
+  window.scrollTo(0, 0);
+}
+
+function openToolkit() {
+  document.getElementById('lessonViewerTitle').textContent = 'Printable CBT Toolkit';
+  document.getElementById('lessonFrame').src = 'Printable CBT Toolkit.html';
+  document.getElementById('btnPrevLesson').style.display = 'none';
+  document.getElementById('btnNextLesson').style.display = 'none';
+  currentLessonIndex = -1;
+
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('lessonViewerScreen').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function openLessonByFile(filename) {
+  for (var i = 0; i < LESSONS.length; i++) {
+    if (LESSONS[i].file === filename) {
+      openLesson(i);
+      return;
+    }
+  }
+  // Fallback: load directly in iframe
+  document.getElementById('lessonFrame').src = filename;
+}
+
+// Listen for lesson progress updates from iframe
+window.addEventListener('message', function(event) {
+  // Lesson files can post messages to update progress
+  if (event.data && event.data.type === 'lessonProgress') {
+    renderLessonsTab();
+  }
+});
+
+// ==================== INIT ====================
+window.addEventListener('DOMContentLoaded', checkSavedState);
+</script>
+</body>
+</html>
