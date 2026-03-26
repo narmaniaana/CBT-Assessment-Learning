@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1 — The 7-Column Thought Record | CBT Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #1f2233;
+    --border: #2a2d3a;
+    --text: #e4e4e7;
+    --text-muted: #9ca3af;
+    --accent-blue: #60a5fa;
+    --accent-purple: #a78bfa;
+    --accent-green: #34d399;
+    --accent-orange: #fb923c;
+    --accent-pink: #f472b6;
+    --accent-red: #f87171;
+    --accent-yellow: #fbbf24;
+    --accent-cyan: #22d3ee;
+    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --gradient-6: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+    --gradient-7: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(180deg, rgba(102,126,234,0.15) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--gradient-1);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero .subtitle {
+    font-size: 1.1em;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 48px 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(96,165,250,0.3);
+  }
+  .card h3 {
+    font-size: 1.15em;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  /* Objectives */
+  .objectives {
+    background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1));
+    border: 1px solid rgba(102,126,234,0.3);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 32px;
+  }
+  .objectives h3 {
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+    font-size: 1.2em;
+  }
+  .objectives ul { list-style: none; }
+  .objectives li {
+    padding: 8px 0;
+    padding-left: 28px;
+    position: relative;
+    color: var(--text);
+  }
+  .objectives li::before {
+    content: '🎯';
+    position: absolute;
+    left: 0;
+  }
+
+  /* Column cards */
+  .column-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    border-left: 4px solid;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .column-card:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .column-card .col-number {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .column-card h4 {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .column-card .prompt {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-size: 0.95em;
+  }
+  .column-card p, .column-card ul { font-size: 0.95em; }
+  .column-card ul { padding-left: 20px; margin-top: 8px; }
+  .column-card li { margin-bottom: 4px; }
+
+  .col-1 { border-left-color: #60a5fa; }
+  .col-1 .col-number { color: #60a5fa; }
+  .col-2 { border-left-color: #a78bfa; }
+  .col-2 .col-number { color: #a78bfa; }
+  .col-3 { border-left-color: #f472b6; }
+  .col-3 .col-number { color: #f472b6; }
+  .col-4 { border-left-color: #34d399; }
+  .col-4 .col-number { color: #34d399; }
+  .col-5 { border-left-color: #fb923c; }
+  .col-5 .col-number { color: #fb923c; }
+  .col-6 { border-left-color: #22d3ee; }
+  .col-6 .col-number { color: #22d3ee; }
+  .col-7 { border-left-color: #fbbf24; }
+  .col-7 .col-number { color: #fbbf24; }
+
+  /* Example table */
+  .example-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 0.9em;
+  }
+  .example-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .example-table td {
+    padding: 14px 16px;
+    border-top: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .example-table tr:hover td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .table-lela th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+  .table-lela td:first-child { color: var(--accent-purple); font-weight: 600; width: 160px; }
+
+  .table-dato th { background: linear-gradient(135deg, #f093fb, #f5576c); color: white; }
+  .table-dato td:first-child { color: var(--accent-pink); font-weight: 600; width: 160px; }
+
+  /* Alert/Warning boxes */
+  .alert {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 0.95em;
+  }
+  .alert-warning {
+    background: rgba(251,146,60,0.1);
+    border: 1px solid rgba(251,146,60,0.3);
+  }
+  .alert-warning .alert-title { color: var(--accent-orange); }
+  .alert-success {
+    background: rgba(52,211,153,0.1);
+    border: 1px solid rgba(52,211,153,0.3);
+  }
+  .alert-success .alert-title { color: var(--accent-green); }
+  .alert-info {
+    background: rgba(96,165,250,0.1);
+    border: 1px solid rgba(96,165,250,0.3);
+  }
+  .alert-info .alert-title { color: var(--accent-blue); }
+  .alert-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 1em;
+  }
+
+  /* Mistake cards */
+  .mistake-card {
+    background: var(--card);
+    border: 1px solid rgba(248,113,113,0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .mistake-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .mistake-card h4 {
+    color: var(--accent-red);
+    font-size: 1em;
+    margin-bottom: 6px;
+  }
+  .mistake-card p { font-size: 0.92em; color: var(--text-muted); }
+  .mistake-card .correct {
+    color: var(--accent-green);
+    font-weight: 500;
+    margin-top: 6px;
+    font-size: 0.92em;
+  }
+
+  /* Script box */
+  .script-box {
+    background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(96,165,250,0.08));
+    border: 1px solid rgba(167,139,250,0.25);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    font-size: 0.95em;
+  }
+  .script-box .speaker {
+    font-weight: 700;
+    color: var(--accent-purple);
+    margin-bottom: 4px;
+  }
+  .script-box .line {
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 2px solid rgba(167,139,250,0.3);
+  }
+  .script-box .line:last-child { margin-bottom: 0; }
+
+  /* Comparison */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .comparison-card {
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border);
+  }
+  .comparison-card.simplified {
+    background: rgba(96,165,250,0.08);
+    border-color: rgba(96,165,250,0.25);
+  }
+  .comparison-card.full {
+    background: rgba(167,139,250,0.08);
+    border-color: rgba(167,139,250,0.25);
+  }
+  .comparison-card h4 {
+    margin-bottom: 10px;
+    font-size: 1em;
+  }
+  .comparison-card ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9em;
+  }
+  .comparison-card li {
+    padding: 4px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+  .comparison-card li::before {
+    content: '•';
+    position: absolute;
+    left: 4px;
+    color: var(--text-muted);
+  }
+
+  /* Tips */
+  .tip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .tip-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    transition: transform 0.2s;
+  }
+  .tip-item:hover { transform: scale(1.02); }
+  .tip-item .tip-icon { font-size: 24px; margin-bottom: 8px; }
+  .tip-item h5 { font-size: 0.95em; margin-bottom: 6px; color: var(--accent-cyan); }
+  .tip-item p { font-size: 0.85em; color: var(--text-muted); }
+
+  /* Mini Test */
+  .test-section {
+    background: linear-gradient(135deg, rgba(244,114,182,0.08), rgba(251,191,36,0.08));
+    border: 1px solid rgba(244,114,182,0.25);
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 48px;
+  }
+  .test-section h2 {
+    color: var(--accent-pink);
+    margin-bottom: 8px;
+  }
+  .test-section .test-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-size: 0.95em;
+  }
+
+  .question {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 18px;
+  }
+  .question .q-number {
+    color: var(--accent-pink);
+    font-weight: 700;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .question .q-text {
+    font-weight: 600;
+    margin-bottom: 14px;
+    font-size: 1.02em;
+  }
+  .question .items-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 24px;
+    margin-bottom: 16px;
+  }
+  .question .items-list li {
+    padding: 4px 0;
+    font-size: 0.93em;
+  }
+  .question .items-list li span {
+    color: var(--text-muted);
+    margin-right: 6px;
+  }
+
+  .reveal-btn {
+    background: linear-gradient(135deg, rgba(244,114,182,0.2), rgba(251,191,36,0.2));
+    border: 1px solid rgba(244,114,182,0.3);
+    color: var(--accent-pink);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .reveal-btn:hover {
+    background: linear-gradient(135deg, rgba(244,114,182,0.3), rgba(251,191,36,0.3));
+    transform: translateY(-1px);
+  }
+
+  .answer {
+    display: none;
+    background: rgba(52,211,153,0.08);
+    border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 10px;
+    padding: 18px;
+    margin-top: 14px;
+    font-size: 0.93em;
+    line-height: 1.7;
+  }
+  .answer.visible { display: block; animation: fadeIn 0.3s ease; }
+  .answer strong { color: var(--accent-green); }
+  .answer .answer-label {
+    color: var(--accent-green);
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border: 1px solid rgba(52,211,153,0.3);
+    border-radius: 16px;
+    padding: 28px;
+    margin-top: 40px;
+  }
+  .checklist h3 {
+    color: var(--accent-green);
+    margin-bottom: 18px;
+    font-size: 1.2em;
+  }
+  .checklist label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 0.95em;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: color 0.2s;
+  }
+  .checklist label:last-child { border-bottom: none; }
+  .checklist input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--accent-green);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .checklist label:has(input:checked) {
+    color: var(--accent-green);
+    text-decoration: line-through;
+    text-decoration-color: rgba(52,211,153,0.4);
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .hero h1 { font-size: 1.7em; }
+    .comparison, .tip-grid { grid-template-columns: 1fr; }
+    .question .items-list { grid-template-columns: 1fr; }
+    .container { padding: 24px 16px 60px; }
+  }
+
+  /* Smooth scrolling */
+  html { scroll-behavior: smooth; }
+
+  /* Selection */
+  ::selection {
+    background: rgba(102,126,234,0.3);
+    color: white;
+  }
+
+  /* Expandable sections */
+  .expandable-header {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .expandable-header:hover {
+    background: var(--card-hover);
+    border-color: rgba(96,165,250,0.3);
+  }
+  .expandable-header h4 { font-size: 1em; }
+  .expandable-header .arrow {
+    transition: transform 0.3s;
+    color: var(--text-muted);
+    font-size: 0.9em;
+  }
+  .expandable-header.open .arrow { transform: rotate(180deg); }
+  .expandable-content {
+    display: none;
+    padding: 0 24px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    margin-top: -12px;
+    margin-bottom: 8px;
+    font-size: 0.93em;
+    line-height: 1.8;
+  }
+  .expandable-content.open { display: block; animation: fadeIn 0.3s ease; }
+
+  p { margin-bottom: 12px; }
+  strong { color: var(--accent-blue); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Lesson 1 of 2</div>
+  <h1>The 7-Column Thought Record</h1>
+  <p class="subtitle">The single most important tool in CBT. Master this, and you've mastered the engine of cognitive change.</p>
+  <div class="hero-meta">
+    <span>&#128214; ~30 min study time</span>
+    <span>&#128640; Priority: CRITICAL</span>
+    <span>&#127919; 2 full worked examples</span>
+    <span>&#128221; 6-question mini-test</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- LEARNING OBJECTIVES -->
+  <div class="objectives">
+    <h3>&#127919; Learning Objectives</h3>
+    <ul>
+      <li>Name and explain all 7 columns of a thought record</li>
+      <li>Correctly distinguish emotions from automatic thoughts</li>
+      <li>Complete a full 7-column thought record using client data</li>
+      <li>Identify and correct common therapist mistakes in thought records</li>
+      <li>Know when to use a simplified 3-column vs. a full 7-column version</li>
+      <li>Introduce thought records to a client using a clear, collaborative script</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1: WHAT IS A THOUGHT RECORD -->
+  <div class="section-header">
+    <div class="section-icon" style="background: var(--gradient-1);">&#128218;</div>
+    <h2>What Is a Thought Record?</h2>
+  </div>
+
+  <div class="card">
+    <h3>The #1 Tool in CBT</h3>
+    <p>A thought record is a structured worksheet that helps clients <strong>catch, examine, and restructure</strong> their automatic thoughts. It is the backbone of cognitive therapy, developed by Aaron Beck in the 1960s and refined by Judith Beck, Christine Padesky, and others.</p>
+    <p>Why is it the #1 tool? Because it operationalizes the <strong>cognitive model</strong> itself: the idea that it's not events that disturb us, but our <em>interpretation</em> of events. A thought record makes this visible on paper.</p>
+
+    <div class="alert alert-info" style="margin-top: 16px;">
+      <div class="alert-title">&#128161; Think of it this way:</div>
+      <p style="margin:0;">If CBT were surgery, the thought record is the scalpel. You can know every theory about anatomy, but if you can't use the scalpel, you can't operate. <strong>No thought record skill = no CBT.</strong></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>What It Achieves</h3>
+    <p>A completed thought record helps the client:</p>
+    <ul style="padding-left: 20px; margin-top: 8px;">
+      <li><strong>Slow down</strong> the automatic thought-emotion-behavior chain</li>
+      <li><strong>Externalize</strong> internal cognitive processes ("seeing thoughts on paper")</li>
+      <li><strong>Evaluate</strong> the accuracy and helpfulness of their thoughts</li>
+      <li><strong>Generate</strong> more balanced, realistic alternatives</li>
+      <li><strong>Track change</strong> over time (emotional intensity before vs. after)</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 2: THE 7 COLUMNS -->
+  <div class="section-header">
+    <div class="section-icon" style="background: var(--gradient-3);">&#128203;</div>
+    <h2>The 7 Columns — In Detail</h2>
+  </div>
+
+  <div class="column-card col-1">
+    <div class="col-number">Column 1</div>
+    <h4>&#128205; Situation</h4>
+    <div class="prompt">Ask: "What happened? When was it? Where were you? Who was involved?"</div>
+    <p>Describe the specific event or trigger. Be concrete and factual — as if a camera were recording the scene. This is NOT an interpretation, it's what actually occurred.</p>
+    <ul>
+      <li><strong>Good:</strong> "Monday 3pm, my boss walked past me in the hallway without saying hello."</li>
+      <li><strong>Bad:</strong> "My boss was rude to me." (This is an interpretation, not a factual description.)</li>
+    </ul>
+  </div>
+
+  <div class="column-card col-2">
+    <div class="col-number">Column 2</div>
+    <h4>&#128173; Automatic Thought(s)</h4>
+    <div class="prompt">Ask: "What went through your mind at that moment? What were you thinking?"</div>
+    <p>Capture the thought in the client's own words. These are rapid, involuntary cognitions — they flash through the mind. <strong>Rate belief: 0-100%</strong> (how much they believe it right now).</p>
+    <ul>
+      <li>Capture the <em>hottest</em> thought — the one linked most strongly to the emotion</li>
+      <li>Often starts with "I...", "They...", "This means..."</li>
+      <li>Can be an image or memory, not just words</li>
+    </ul>
+    <div class="alert alert-warning" style="margin-top:12px;">
+      <div class="alert-title">&#9888;&#65039; Critical Distinction</div>
+      <p style="margin:0;">"I feel like she hates me" is <strong>NOT an emotion</strong> — it's a thought disguised with "I feel like." The emotion would be <em>sadness</em>, <em>anxiety</em>, or <em>hurt</em>.</p>
+    </div>
+  </div>
+
+  <div class="column-card col-3">
+    <div class="col-number">Column 3</div>
+    <h4>&#128148; Emotions</h4>
+    <div class="prompt">Ask: "What did you feel? Name the emotion(s) and rate each 0-100%."</div>
+    <p>Emotions are <strong>single words</strong>: sad, anxious, angry, ashamed, guilty, hurt, frustrated, hopeless, scared. Rate each for intensity from 0% (barely present) to 100% (the most you've ever felt it).</p>
+    <ul>
+      <li><strong>Emotions:</strong> sad, anxious, angry, ashamed, embarrassed, hopeless, hurt</li>
+      <li><strong>NOT emotions:</strong> "I feel abandoned" (thought), "I feel like a failure" (thought), "I feel that no one cares" (thought)</li>
+    </ul>
+  </div>
+
+  <div class="column-card col-4">
+    <div class="col-number">Column 4</div>
+    <h4>&#9989; Evidence FOR the Thought</h4>
+    <div class="prompt">Ask: "What facts support this thought? What evidence do you have that it's true?"</div>
+    <p>Only <strong>observable facts</strong> belong here — things a video camera could record. Feelings, assumptions, and past unrelated events do NOT count.</p>
+    <ul>
+      <li><strong>Fact:</strong> "She walked past without making eye contact."</li>
+      <li><strong>Not a fact:</strong> "She obviously doesn't like me." (This is another automatic thought!)</li>
+    </ul>
+  </div>
+
+  <div class="column-card col-5">
+    <div class="col-number">Column 5</div>
+    <h4>&#10060; Evidence AGAINST the Thought</h4>
+    <div class="prompt">Ask: "What facts contradict this thought? What's a different explanation?"</div>
+    <p>This is where cognitive restructuring begins. Actively search for facts that don't fit the original thought. Use guided discovery (Socratic questioning).</p>
+    <ul>
+      <li>"Has there been a time when the opposite was true?"</li>
+      <li>"What would you tell a friend who had this thought?"</li>
+      <li>"Are there other possible explanations?"</li>
+    </ul>
+  </div>
+
+  <div class="column-card col-6">
+    <div class="col-number">Column 6</div>
+    <h4>&#9878;&#65039; Alternative / Balanced Thought</h4>
+    <div class="prompt">Ask: "Based on all the evidence, what's a more balanced way to see this?"</div>
+    <p>Not positive thinking — <strong>realistic thinking</strong>. The balanced thought integrates evidence from both sides. <strong>Rate belief 0-100%.</strong></p>
+    <ul>
+      <li>Should feel genuinely believable, not hollow</li>
+      <li>Often uses "and" or "even though" structure: "Even though she didn't say hello, it could be she was preoccupied. One interaction doesn't define our whole relationship."</li>
+    </ul>
+  </div>
+
+  <div class="column-card col-7">
+    <div class="col-number">Column 7</div>
+    <h4>&#127775; Outcome</h4>
+    <div class="prompt">Ask: "Re-rate your emotions now. What do you plan to do?"</div>
+    <p>This column serves TWO purposes:</p>
+    <ul>
+      <li><strong>Re-rate the emotions</strong> from Column 3. Even a drop from 80% to 60% is clinically significant.</li>
+      <li><strong>Re-rate belief</strong> in the original automatic thought (Column 2).</li>
+      <li><strong>Plan a behavior</strong> — what will the client do differently? This connects cognition to action.</li>
+    </ul>
+    <div class="alert alert-success" style="margin-top: 12px;">
+      <div class="alert-title">&#128161; Why this column matters</div>
+      <p style="margin:0;">Without the outcome, the thought record is an intellectual exercise. The outcome shows the client that <strong>changing how they think actually changes how they feel</strong>. This is the engine of CBT.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: WORKED EXAMPLE 1 — LELA -->
+  <div class="section-header">
+    <div class="section-icon" style="background: var(--gradient-1);">&#128105;</div>
+    <h2>Worked Example 1 — Lela, 29</h2>
+  </div>
+
+  <div class="card">
+    <h3>&#128203; Client Background</h3>
+    <p><strong>Lela</strong>, 29 years old, works in marketing. She has been experiencing anxiety at work, especially around her boss. She tends to interpret ambiguous social cues as negative.</p>
+    <p><strong>Triggering event:</strong> Her boss, Nino, walked past her in the hallway without saying hello. Lela immediately thought: <em>"She must be planning to fire me."</em></p>
+  </div>
+
+  <table class="example-table table-lela">
+    <thead>
+      <tr><th colspan="2">&#128221; Lela's Full 7-Column Thought Record</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1. Situation</td>
+        <td>Monday, 2:30 PM. Walking in the office hallway. My boss Nino passed me going the other direction. She did not make eye contact or say hello. She was looking at her phone.</td>
+      </tr>
+      <tr>
+        <td>2. Automatic Thought</td>
+        <td>"She's ignoring me on purpose — she must be planning to fire me."<br><strong>Belief: 85%</strong></td>
+      </tr>
+      <tr>
+        <td>3. Emotions</td>
+        <td>Anxiety — <strong>90%</strong><br>Fear — <strong>75%</strong><br>Sadness — <strong>50%</strong></td>
+      </tr>
+      <tr>
+        <td>4. Evidence FOR</td>
+        <td>
+          &#8226; She walked past without saying hello<br>
+          &#8226; She didn't make eye contact<br>
+          &#8226; Last week she gave critical feedback on my report<br>
+          &#8226; She seemed tense in yesterday's meeting
+        </td>
+      </tr>
+      <tr>
+        <td>5. Evidence AGAINST</td>
+        <td>
+          &#8226; She was looking at her phone — she may not have seen me<br>
+          &#8226; She complimented my client pitch 3 days ago<br>
+          &#8226; She has given critical feedback to everyone on the team, not just me<br>
+          &#8226; She has never mentioned any performance issues in our 1-on-1s<br>
+          &#8226; She recently approved my request for the advanced training budget<br>
+          &#8226; Many people don't greet others in hallways when distracted
+        </td>
+      </tr>
+      <tr>
+        <td>6. Balanced Thought</td>
+        <td>"It's possible she simply didn't see me because she was on her phone. One missed greeting doesn't mean I'm being fired — she has actually given me positive feedback recently. I don't have real evidence that my job is in danger."<br><strong>Belief: 70%</strong></td>
+      </tr>
+      <tr>
+        <td>7. Outcome</td>
+        <td>
+          <strong>Re-rated emotions:</strong><br>
+          Anxiety — <strong>45%</strong> (was 90%)<br>
+          Fear — <strong>30%</strong> (was 75%)<br>
+          Sadness — <strong>20%</strong> (was 50%)<br><br>
+          <strong>Re-rated belief in original thought:</strong> 30% (was 85%)<br><br>
+          <strong>Action plan:</strong> Tomorrow I will greet Nino first and see how she responds. If I'm still worried by Friday, I'll ask for a brief check-in to discuss how things are going.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4: WORKED EXAMPLE 2 — DATO -->
+  <div class="section-header">
+    <div class="section-icon" style="background: var(--gradient-2);">&#128104;</div>
+    <h2>Worked Example 2 — Dato, 35</h2>
+  </div>
+
+  <div class="card">
+    <h3>&#128203; Client Background</h3>
+    <p><strong>Dato</strong>, 35, is a software engineer. He has social anxiety and a strong fear of being evaluated negatively. He recently froze during a team presentation.</p>
+    <p><strong>Triggering event:</strong> During a quarterly review presentation, he lost his train of thought for about 10 seconds. He thought: <em>"Everyone thinks I'm incompetent."</em></p>
+  </div>
+
+  <table class="example-table table-dato">
+    <thead>
+      <tr><th colspan="2">&#128221; Dato's Full 7-Column Thought Record</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1. Situation</td>
+        <td>Thursday, 10:15 AM. Conference room with 12 colleagues. I was presenting quarterly metrics. On slide 5, I lost my place and went silent for about 10 seconds. I could feel my face getting hot.</td>
+      </tr>
+      <tr>
+        <td>2. Automatic Thought</td>
+        <td>"I froze — everyone saw it. They all think I'm incompetent. I'll never be taken seriously here again."<br><strong>Belief: 95%</strong></td>
+      </tr>
+      <tr>
+        <td>3. Emotions</td>
+        <td>Shame — <strong>90%</strong><br>Anxiety — <strong>85%</strong><br>Embarrassment — <strong>80%</strong><br>Hopelessness — <strong>40%</strong></td>
+      </tr>
+      <tr>
+        <td>4. Evidence FOR</td>
+        <td>
+          &#8226; I did freeze for about 10 seconds — this is factual<br>
+          &#8226; I felt my face turn red<br>
+          &#8226; My colleague Sandro glanced at his phone during the pause<br>
+          &#8226; I stumbled over my words when I resumed
+        </td>
+      </tr>
+      <tr>
+        <td>5. Evidence AGAINST</td>
+        <td>
+          &#8226; After the presentation, two colleagues said I did a good job<br>
+          &#8226; My manager sent a follow-up email saying "Great summary, thanks"<br>
+          &#8226; 10 seconds is much shorter than it felt — most people may not have noticed<br>
+          &#8226; Sandro always checks his phone during meetings — it's a habit, not a reaction to me<br>
+          &#8226; I've seen senior colleagues lose their place in presentations too and no one judged them<br>
+          &#8226; I successfully completed the other 14 slides without any issue<br>
+          &#8226; My performance reviews have consistently been "meets or exceeds expectations"
+        </td>
+      </tr>
+      <tr>
+        <td>6. Balanced Thought</td>
+        <td>"I did pause for 10 seconds, but that's a normal thing that happens in presentations. Two colleagues and my manager gave positive feedback afterward, which doesn't align with 'everyone thinks I'm incompetent.' One brief pause in an otherwise complete presentation doesn't erase my track record."<br><strong>Belief: 65%</strong></td>
+      </tr>
+      <tr>
+        <td>7. Outcome</td>
+        <td>
+          <strong>Re-rated emotions:</strong><br>
+          Shame — <strong>40%</strong> (was 90%)<br>
+          Anxiety — <strong>45%</strong> (was 85%)<br>
+          Embarrassment — <strong>35%</strong> (was 80%)<br>
+          Hopelessness — <strong>10%</strong> (was 40%)<br><br>
+          <strong>Re-rated belief in original thought:</strong> 25% (was 95%)<br><br>
+          <strong>Action plan:</strong> I will prepare cue cards for my next presentation so I have a safety net. I'll also ask my manager directly for feedback in our 1-on-1 rather than guessing what people think.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 5: COMMON MISTAKES -->
+  <div class="section-header">
+    <div class="section-icon" style="background: var(--gradient-5);">&#9888;&#65039;</div>
+    <h2>Common Therapist Mistakes</h2>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-icon">&#128308;</div>
+    <div>
+      <h4>Mistake 1: Confusing Thoughts and Emotions</h4>
+      <p>Client says "I feel worthless" and the therapist writes it in the Emotions column. But "worthless" in this context is a <em>cognition</em> ("I am worthless") wearing an emotion mask.</p>
+      <p class="correct">&#9989; Correct: Emotion = sad, ashamed. Thought = "I am worthless."</p>
+    </div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-icon">&#128308;</div>
+    <div>
+      <h4>Mistake 2: Accepting "I feel like..." as an Emotion</h4>
+      <p>"I feel like nobody cares about me." This is NOT an emotion — it's a thought disguised by the phrase "I feel like." The test: can you replace "I feel like" with "I think"? If yes, it's a thought.</p>
+      <p class="correct">&#9989; Correct: Thought = "Nobody cares about me." Emotion = lonely, sad, hurt.</p>
+    </div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-icon">&#128308;</div>
+    <div>
+      <h4>Mistake 3: Evidence Columns Filled with More Thoughts</h4>
+      <p>Client writes in "Evidence For": "Because she obviously hates me." This is another automatic thought, not evidence! Evidence must be observable facts.</p>
+      <p class="correct">&#9989; Correct evidence: "She did not greet me in the hallway" — this is what a camera would record.</p>
+    </div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-icon">&#128308;</div>
+    <div>
+      <h4>Mistake 4: Skipping the Outcome Column</h4>
+      <p>Many therapists stop after Column 6. But the Outcome column is where the client sees that <em>the process actually works</em>. Without it, there's no emotional feedback loop — no motivation to continue.</p>
+      <p class="correct">&#9989; Always re-rate emotions AND plan a concrete behavioral step.</p>
+    </div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-icon">&#128308;</div>
+    <div>
+      <h4>Mistake 5: Not Rating Beliefs and Emotions Numerically</h4>
+      <p>Without numbers, you can't track change. "I feel anxious" → "I still feel anxious" gives you nothing. But "Anxiety: 85%" → "Anxiety: 45%" shows clear progress and reinforces the method.</p>
+      <p class="correct">&#9989; Always use 0-100% ratings for emotions AND belief in the automatic thought.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 6: INTRODUCING TO CLIENTS -->
+  <div class="section-header">
+    <div class="section-icon" style="background: var(--gradient-6);">&#127908;</div>
+    <h2>How to Introduce Thought Records to Clients</h2>
+  </div>
+
+  <div class="card">
+    <h3>&#128172; Therapist Script — First Introduction</h3>
+    <div class="script-box">
+      <div class="line">
+        <div class="speaker">Therapist:</div>
+        <p>"I'd like to show you one of the most powerful tools in CBT. It's called a thought record. You know how sometimes a situation happens and you suddenly feel terrible — and it happens so fast you don't even understand why?"</p>
+      </div>
+      <div class="line">
+        <div class="speaker">Client:</div>
+        <p>"Yeah, that happens all the time."</p>
+      </div>
+      <div class="line">
+        <div class="speaker">Therapist:</div>
+        <p>"Right. What's happening is that between the event and the feeling, there's a thought — an automatic interpretation your mind makes. Usually it happens so fast you don't notice it. A thought record slows that process way down so we can actually look at the thought, test it like a scientist would, and see if it holds up."</p>
+      </div>
+      <div class="line">
+        <div class="speaker">Therapist:</div>
+        <p>"We're not trying to think positively — we're trying to think <em>accurately</em>. Sometimes your automatic thought will turn out to be correct. But often, our minds jump to the worst conclusion, and that's what creates unnecessary suffering. Want to try one together using something that happened to you this week?"</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-success">
+    <div class="alert-title">&#128161; Pro Tips for Introduction</div>
+    <ul style="padding-left: 20px;">
+      <li>Always do the <strong>first thought record together in session</strong> — never send them home with a blank form on day one</li>
+      <li>Use the client's <strong>own recent experience</strong> — not hypothetical examples</li>
+      <li>Normalize difficulty: "Most people find this hard at first — that's completely normal"</li>
+      <li>Start with a <strong>moderately distressing</strong> event (50-70% intensity), not their worst trauma</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 7: MAKING IT A HABIT -->
+  <div class="section-header">
+    <div class="section-icon" style="background: var(--gradient-4);">&#128170;</div>
+    <h2>Making Thought Records a Habit</h2>
+  </div>
+
+  <div class="tip-grid">
+    <div class="tip-item">
+      <div class="tip-icon">&#128197;</div>
+      <h5>Set a Daily Cue</h5>
+      <p>Link thought records to an existing habit: "Every evening after dinner, I review one moment that triggered strong emotion."</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">&#128241;</div>
+      <h5>Use Quick Capture</h5>
+      <p>During the day, clients can jot just the situation and emotion on their phone. They complete the full record later.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">&#127919;</div>
+      <h5>Start with 2 Per Week</h5>
+      <p>Don't assign daily records at first. Two good ones per week is more sustainable and builds confidence.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">&#128200;</div>
+      <h5>Review Together in Session</h5>
+      <p>Always review homework records at the start of the next session. If you don't review them, clients stop doing them.</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">&#10024;</div>
+      <h5>Celebrate Drops</h5>
+      <p>When emotion ratings drop even slightly (85% → 65%), highlight this: "You just changed your emotional state by examining your thoughts."</p>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon">&#128178;</div>
+      <h5>Use the "Court Case" Metaphor</h5>
+      <p>"You're the lawyer for both sides. Column 4 = prosecution. Column 5 = defense. Column 6 = the jury's balanced verdict."</p>
+    </div>
+  </div>
+
+  <!-- SECTION 8: 3-COLUMN VS 7-COLUMN -->
+  <div class="section-header">
+    <div class="section-icon" style="background: var(--gradient-3);">&#9878;&#65039;</div>
+    <h2>3-Column vs. 7-Column: When to Use Which</h2>
+  </div>
+
+  <div class="comparison">
+    <div class="comparison-card simplified">
+      <h4 style="color: var(--accent-blue);">&#128221; 3-Column (Simplified)</h4>
+      <p style="font-size:0.9em; color:var(--text-muted); margin-bottom:12px;">Situation → Automatic Thought → Emotion</p>
+      <ul>
+        <li>First 1-2 sessions — client is learning the model</li>
+        <li>Clients who feel overwhelmed by paperwork</li>
+        <li>Quick "in-the-moment" capture between sessions</li>
+        <li>Psychoeducation phase — building awareness</li>
+        <li>Clients with low literacy or cognitive impairment</li>
+        <li>When goal is monitoring, not yet restructuring</li>
+      </ul>
+    </div>
+    <div class="comparison-card full">
+      <h4 style="color: var(--accent-purple);">&#128214; 7-Column (Full)</h4>
+      <p style="font-size:0.9em; color:var(--text-muted); margin-bottom:12px;">All 7 columns including evidence and outcome</p>
+      <ul>
+        <li>Client understands the CBT model (usually session 3+)</li>
+        <li>Active restructuring phase of treatment</li>
+        <li>Client is motivated and homework-compliant</li>
+        <li>Working on deeply held beliefs that need thorough examination</li>
+        <li>Depression or anxiety with strong cognitive distortions</li>
+        <li>Client can tolerate the complexity</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <div class="alert-title">&#128260; Progressive Approach</div>
+    <p>Many CBT therapists use a <strong>progressive approach</strong>: start with 3 columns for awareness, move to 5 columns (add evidence for/against), then to the full 7 (add balanced thought + outcome). This scaffolding prevents overwhelm and builds skill incrementally.</p>
+  </div>
+
+  <!-- MINI TEST -->
+  <div class="test-section">
+    <h2>&#128221; Mini-Test: Check Your Understanding</h2>
+    <p class="test-subtitle">Answer each question, then click to reveal the answer. Be honest with yourself!</p>
+
+    <!-- Q1 -->
+    <div class="question">
+      <div class="q-number">Question 1 of 6</div>
+      <div class="q-text">A client says: "My friend cancelled our dinner plans. I thought 'She doesn't value our friendship.' I felt rejected and sad (70%)." Assign each piece to the correct column.</div>
+      <button class="reveal-btn" onclick="toggleAnswer('a1')">&#128275; Reveal Answer</button>
+      <div class="answer" id="a1">
+        <div class="answer-label">Answer</div>
+        <p><strong>Column 1 (Situation):</strong> "My friend cancelled our dinner plans."</p>
+        <p><strong>Column 2 (Automatic Thought):</strong> "She doesn't value our friendship." — This is the interpretation.</p>
+        <p><strong>Column 3 (Emotions):</strong> Rejected (70%), Sad (70%). Note: "rejected" can be debated — some CBT purists consider it a thought ("I am being rejected"). You could accept it as an emotion or probe further: "And when you felt rejected, what emotion was that? Sadness? Hurt?"</p>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question">
+      <div class="q-number">Question 2 of 6</div>
+      <div class="q-text">Emotion or Thought? Classify each item below:</div>
+      <ol class="items-list">
+        <li><span>1.</span> Anxious</li>
+        <li><span>2.</span> "I'm going to fail"</li>
+        <li><span>3.</span> Guilty</li>
+        <li><span>4.</span> "Nobody understands me"</li>
+        <li><span>5.</span> Ashamed</li>
+        <li><span>6.</span> "I feel like a burden"</li>
+        <li><span>7.</span> Frustrated</li>
+        <li><span>8.</span> "Things will never get better"</li>
+        <li><span>9.</span> Hopeless</li>
+        <li><span>10.</span> "I feel like I don't belong"</li>
+      </ol>
+      <button class="reveal-btn" onclick="toggleAnswer('a2')">&#128275; Reveal Answer</button>
+      <div class="answer" id="a2">
+        <div class="answer-label">Answer</div>
+        <p><strong>Emotions:</strong> 1. Anxious &#9989; | 3. Guilty &#9989; | 5. Ashamed &#9989; | 7. Frustrated &#9989; | 9. Hopeless &#9989;</p>
+        <p><strong>Thoughts:</strong> 2. "I'm going to fail" &#128173; | 4. "Nobody understands me" &#128173; | 6. "I feel like a burden" &#128173; (the "I feel like" trick!) | 8. "Things will never get better" &#128173; | 10. "I feel like I don't belong" &#128173; (another "I feel like" thought!)</p>
+        <p><strong>Key rule:</strong> If you can replace "I feel" with "I think" and it still makes sense, it's a thought. "I think like a burden" doesn't work grammatically, but the underlying cognition is "I am a burden" — clearly a thought, not an emotion.</p>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question">
+      <div class="q-number">Question 3 of 6</div>
+      <div class="q-text">A therapist filled in the "Evidence FOR" column like this for a client who thinks "My partner doesn't love me anymore." Find the errors:</div>
+      <div style="background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.2); border-radius:8px; padding:16px; margin:12px 0; font-size:0.93em;">
+        <p>Evidence For:<br>
+        1. He probably thinks about leaving me<br>
+        2. He didn't say "I love you" when he left for work this morning<br>
+        3. I can just feel that something is wrong<br>
+        4. He spent all of Saturday watching football instead of talking to me<br>
+        5. He's probably talking to someone else</p>
+      </div>
+      <button class="reveal-btn" onclick="toggleAnswer('a3')">&#128275; Reveal Answer</button>
+      <div class="answer" id="a3">
+        <div class="answer-label">Answer</div>
+        <p><strong>#1 "He probably thinks about leaving me"</strong> — &#10060; This is <em>mind-reading</em>, another automatic thought, NOT evidence. You have no factual basis for what he's thinking.</p>
+        <p><strong>#2 "He didn't say 'I love you' this morning"</strong> — &#9989; This is a valid observable fact. A camera could record this.</p>
+        <p><strong>#3 "I can just feel that something is wrong"</strong> — &#10060; This is an emotion/intuition, NOT evidence. Feelings are not facts.</p>
+        <p><strong>#4 "He spent Saturday watching football"</strong> — &#9989; This is an observable fact, though it could have many interpretations.</p>
+        <p><strong>#5 "He's probably talking to someone else"</strong> — &#10060; This is a speculation/assumption, NOT evidence. No observable fact supports it here.</p>
+        <p><strong>Score: Only 2 out of 5 are actual evidence.</strong> Items 1, 3, and 5 are thoughts and feelings dressed up as evidence — this is the most common error.</p>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question">
+      <div class="q-number">Question 4 of 6</div>
+      <div class="q-text">A client's automatic thought is: "I'll never succeed at anything" (belief: 80%). After examining evidence, their balanced thought is: "Everything will be great and I'll succeed at everything!" (belief: 20%). What's wrong with this balanced thought?</div>
+      <button class="reveal-btn" onclick="toggleAnswer('a4')">&#128275; Reveal Answer</button>
+      <div class="answer" id="a4">
+        <div class="answer-label">Answer</div>
+        <p><strong>Two major problems:</strong></p>
+        <p><strong>1. It's the opposite extreme, not a balanced thought.</strong> They swung from "I'll never succeed" to "I'll succeed at everything." A balanced thought should be realistic and nuanced, e.g., "I've struggled with some things, but I've also succeeded in others. Not succeeding at one thing doesn't mean I'll never succeed at anything."</p>
+        <p><strong>2. The low belief rating (20%) proves it doesn't work.</strong> If the client only believes the balanced thought 20%, it will have zero therapeutic effect. A good balanced thought should feel genuinely believable (ideally 60%+). The fact that it feels hollow means it's "positive thinking," not cognitive restructuring.</p>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question">
+      <div class="q-number">Question 5 of 6</div>
+      <div class="q-text">You have a new client with depression. It's session 1. They are feeling overwhelmed and have never heard of CBT before. Would you assign a 7-column thought record for homework? Why or why not?</div>
+      <button class="reveal-btn" onclick="toggleAnswer('a5')">&#128275; Reveal Answer</button>
+      <div class="answer" id="a5">
+        <div class="answer-label">Answer</div>
+        <p><strong>No.</strong> A 7-column record in session 1 would likely overwhelm a new, depressed client. Better approach:</p>
+        <p>&#8226; Session 1: Psychoeducation about the CBT model. Possibly assign <strong>mood monitoring</strong> only.<br>
+        &#8226; Session 2: Introduce the <strong>3-column thought record</strong> (Situation, Thought, Emotion). Do one together in session first.<br>
+        &#8226; Session 3+: When they're comfortable identifying thoughts and emotions, introduce the full 7-column version — again, doing the first one collaboratively in session.</p>
+        <p>Key principle: <strong>Scaffold</strong>. Build skills incrementally. Homework non-compliance in depressed clients is already high — don't raise the bar before they can clear it.</p>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question">
+      <div class="q-number">Question 6 of 6</div>
+      <div class="q-text">Client: Maia, 40. Situation: She burned dinner. Automatic thought: "I can't do anything right" (belief: 90%). Emotions: Frustration 60%, Shame 75%. Write what should go in Columns 4, 5, and 6.</div>
+      <button class="reveal-btn" onclick="toggleAnswer('a6')">&#128275; Reveal Answer</button>
+      <div class="answer" id="a6">
+        <div class="answer-label">Answer</div>
+        <p><strong>Column 4 — Evidence FOR "I can't do anything right":</strong></p>
+        <p>&#8226; I did burn tonight's dinner (observable fact)<br>
+        &#8226; I also forgot to pay the electric bill last week (observable fact)<br>
+        (Note: only facts — not "I'm always messing up" which is a thought)</p>
+
+        <p><strong>Column 5 — Evidence AGAINST:</strong></p>
+        <p>&#8226; I cook dinner 5 nights a week and this is the first time I've burned it in months<br>
+        &#8226; I successfully completed a big project at work last month<br>
+        &#8226; I managed the kids' school registration without any problems<br>
+        &#8226; "Can't do anything right" is an absolute — one burned meal doesn't mean I can't do <em>anything</em> right<br>
+        &#8226; Burning dinner is a single event, not a pattern of total incompetence</p>
+
+        <p><strong>Column 6 — Balanced Thought:</strong></p>
+        <p>"I burned dinner tonight and that's frustrating, but this is one mistake — not proof that I can't do anything right. I manage a lot of things well every day. One bad meal doesn't define my competence." <strong>Belief: 70%</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="checklist">
+    <h3>&#9989; Lesson Complete — Self-Tracking Checklist</h3>
+    <label><input type="checkbox"> I can name all 7 columns of a thought record from memory</label>
+    <label><input type="checkbox"> I can correctly distinguish thoughts from emotions</label>
+    <label><input type="checkbox"> I understand what counts as "evidence" (facts, not feelings)</label>
+    <label><input type="checkbox"> I can walk through Lela's full worked example</label>
+    <label><input type="checkbox"> I can walk through Dato's full worked example</label>
+    <label><input type="checkbox"> I know the 5 common mistakes therapists make</label>
+    <label><input type="checkbox"> I can introduce a thought record to a client using the script</label>
+    <label><input type="checkbox"> I know when to use 3-column vs. 7-column versions</label>
+    <label><input type="checkbox"> I completed the mini-test and scored at least 5/6</label>
+    <label><input type="checkbox"> I feel ready to use thought records in my practice</label>
+  </div>
+
+  <!-- FINAL SCORED EXAM -->
+  <style>
+    .exam-section { background: linear-gradient(135deg, #1a1d2e, #16213e); border-radius: 16px; border: 1px solid rgba(99,102,241,0.3); padding: 32px; margin-top: 40px; }
+    .exam-q { padding: 16px; margin: 12px 0; background: rgba(255,255,255,0.03); border-radius: 10px; }
+    .exam-q label { display: block; padding: 8px 12px; margin: 4px 0; border-radius: 6px; cursor: pointer; font-size: 0.92rem; }
+    .exam-q label:hover { background: rgba(99,102,241,0.1); }
+    .exam-result { padding: 24px; border-radius: 12px; margin-top: 20px; text-align: center; font-size: 1.1rem; font-weight: 700; }
+    .result-pass { background: rgba(34,197,94,0.15); border: 2px solid #4ade80; color: #4ade80; }
+    .result-almost { background: rgba(251,191,36,0.15); border: 2px solid #fbbf24; color: #fbbf24; }
+    .result-fail { background: rgba(239,68,68,0.15); border: 2px solid #f87171; color: #f87171; }
+    .submit-exam-btn { display: block; margin: 20px auto; padding: 14px 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .submit-exam-btn:hover { transform: scale(1.03); }
+    .copy-btn { display: block; margin: 12px auto; padding: 10px 30px; background: rgba(255,255,255,0.1); color: #818cf8; border: 1px solid #818cf8; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .copy-btn:hover { background: rgba(99,102,241,0.15); }
+    .exam-q.correct { border-left: 3px solid #4ade80; }
+    .exam-q.wrong { border-left: 3px solid #f87171; }
+    .exam-q .correct-note { color: #4ade80; font-size: 0.85rem; margin-top: 8px; font-weight: 600; }
+    .exam-q .wrong-note { color: #f87171; font-size: 0.85rem; margin-top: 8px; font-weight: 600; }
+  </style>
+
+  <div class="exam-section" id="lesson1-exam">
+    <h2 style="text-align:center; color:#a5b4fc; margin-bottom: 8px;">&#127891; FINAL EXAM &mdash; Are You Ready to Proceed?</h2>
+    <p style="text-align:center; color:#94a3b8; font-size:0.9rem; margin-bottom: 24px;">Score &#8805;85% to pass. Choose the BEST answer for each question.</p>
+
+    <div class="exam-q" id="eq1">
+      <p><strong>Q1:</strong> What goes in Column 4 of a thought record?</p>
+      <label><input type="radio" name="eq1" value="a"> a) Your emotions and their intensity</label>
+      <label><input type="radio" name="eq1" value="b"> b) A more balanced way of thinking</label>
+      <label><input type="radio" name="eq1" value="c"> c) Observable facts that SUPPORT the automatic thought</label>
+      <label><input type="radio" name="eq1" value="d"> d) How you plan to behave differently</label>
+    </div>
+
+    <div class="exam-q" id="eq2">
+      <p><strong>Q2:</strong> A client writes &ldquo;I feel like nobody likes me&rdquo; &mdash; which column does this belong in?</p>
+      <label><input type="radio" name="eq2" value="a"> a) Column 3 (Emotions)</label>
+      <label><input type="radio" name="eq2" value="b"> b) Column 2 (Automatic Thoughts)</label>
+      <label><input type="radio" name="eq2" value="c"> c) Column 4 (Evidence For)</label>
+      <label><input type="radio" name="eq2" value="d"> d) Column 1 (Situation)</label>
+    </div>
+
+    <div class="exam-q" id="eq3">
+      <p><strong>Q3:</strong> Which of these is VALID evidence for Column 5 (Evidence Against)?</p>
+      <label><input type="radio" name="eq3" value="a"> a) &ldquo;Maybe I&rsquo;m overreacting&rdquo;</label>
+      <label><input type="radio" name="eq3" value="b"> b) &ldquo;My friend texted me yesterday to check on me&rdquo;</label>
+      <label><input type="radio" name="eq3" value="c"> c) &ldquo;I should try to be more positive&rdquo;</label>
+      <label><input type="radio" name="eq3" value="d"> d) &ldquo;Other people have it worse&rdquo;</label>
+    </div>
+
+    <div class="exam-q" id="eq4">
+      <p><strong>Q4:</strong> After completing a thought record, the client&rsquo;s emotion drops from 80% to 75%. What does this suggest?</p>
+      <label><input type="radio" name="eq4" value="a"> a) The thought record failed completely</label>
+      <label><input type="radio" name="eq4" value="b"> b) The balanced thought may be too intellectual / not genuinely believed</label>
+      <label><input type="radio" name="eq4" value="c"> c) The client is resistant to therapy</label>
+      <label><input type="radio" name="eq4" value="d"> d) You should stop using thought records with this client</label>
+    </div>
+
+    <div class="exam-q" id="eq5">
+      <p><strong>Q5:</strong> When should you introduce the FULL 7-column thought record?</p>
+      <label><input type="radio" name="eq5" value="a"> a) In the very first session</label>
+      <label><input type="radio" name="eq5" value="b"> b) Only after the client is comfortable with the 3-column version</label>
+      <label><input type="radio" name="eq5" value="c"> c) Only when the client is in crisis</label>
+      <label><input type="radio" name="eq5" value="d"> d) After 10+ sessions of rapport building</label>
+    </div>
+
+    <div class="exam-q" id="eq6">
+      <p><strong>Q6:</strong> Which is an EMOTION (not a thought)?</p>
+      <label><input type="radio" name="eq6" value="a"> a) &ldquo;I feel like I&rsquo;m going to fail&rdquo;</label>
+      <label><input type="radio" name="eq6" value="b"> b) &ldquo;Shame&rdquo;</label>
+      <label><input type="radio" name="eq6" value="c"> c) &ldquo;I feel that nobody understands me&rdquo;</label>
+      <label><input type="radio" name="eq6" value="d"> d) &ldquo;I feel like giving up&rdquo;</label>
+    </div>
+
+    <div class="exam-q" id="eq7">
+      <p><strong>Q7:</strong> A balanced thought should be:</p>
+      <label><input type="radio" name="eq7" value="a"> a) The exact opposite of the automatic thought</label>
+      <label><input type="radio" name="eq7" value="b"> b) Always positive and optimistic</label>
+      <label><input type="radio" name="eq7" value="c"> c) Realistic, nuanced, and genuinely believable (60%+ belief)</label>
+      <label><input type="radio" name="eq7" value="d"> d) Whatever makes the client feel better immediately</label>
+    </div>
+
+    <div class="exam-q" id="eq8">
+      <p><strong>Q8:</strong> What is the MAIN purpose of rating emotions 0&ndash;100% in a thought record?</p>
+      <label><input type="radio" name="eq8" value="a"> a) To make the exercise feel more scientific</label>
+      <label><input type="radio" name="eq8" value="b"> b) To track change &mdash; so you can see if the process actually shifted the emotion</label>
+      <label><input type="radio" name="eq8" value="c"> c) To rank which emotions are most important</label>
+      <label><input type="radio" name="eq8" value="d"> d) To help the therapist write a better case note</label>
+    </div>
+
+    <button class="submit-exam-btn" onclick="gradeExam1()">Submit Exam</button>
+    <div id="exam1-result"></div>
+  </div>
+
+</div>
+
+<script>
+const exam1Key = {eq1:'c', eq2:'b', eq3:'b', eq4:'b', eq5:'b', eq6:'b', eq7:'c', eq8:'b'};
+const exam1Explanations = {
+  eq1: 'Column 4 = Evidence FOR the automatic thought (observable facts that support it).',
+  eq2: '"I feel like nobody likes me" starts with "I feel like" but it\'s a thought disguised as a feeling — it belongs in Column 2 (Automatic Thoughts).',
+  eq3: '"My friend texted me yesterday" is an observable fact — valid evidence against the thought.',
+  eq4: 'A minimal drop (80% → 75%) suggests the balanced thought may be too intellectual and not genuinely believed by the client.',
+  eq5: 'Start with the simpler 3-column version; introduce the full 7-column only after the client is comfortable.',
+  eq6: '"Shame" is a single-word emotion. The others are thoughts disguised with "I feel like/that."',
+  eq7: 'A balanced thought must be realistic, nuanced, and genuinely believable (60%+ belief rating) — not just positive.',
+  eq8: 'Rating emotions before and after lets you track whether the thought record actually shifted the emotion.'
+};
+
+function gradeExam1() {
+  let score = 0;
+  const total = 8;
+  for (let i = 1; i <= total; i++) {
+    const qId = 'eq' + i;
+    const qDiv = document.getElementById(qId);
+    const selected = document.querySelector('input[name="' + qId + '"]:checked');
+    // Clear previous
+    qDiv.classList.remove('correct', 'wrong');
+    const oldNote = qDiv.querySelector('.correct-note, .wrong-note');
+    if (oldNote) oldNote.remove();
+
+    if (selected && selected.value === exam1Key[qId]) {
+      score++;
+      qDiv.classList.add('correct');
+      const note = document.createElement('div');
+      note.className = 'correct-note';
+      note.textContent = '✅ Correct! ' + exam1Explanations[qId];
+      qDiv.appendChild(note);
+    } else {
+      qDiv.classList.add('wrong');
+      const note = document.createElement('div');
+      note.className = 'wrong-note';
+      note.textContent = '❌ Incorrect. ' + exam1Explanations[qId] + ' (Correct answer: ' + exam1Key[qId].toUpperCase() + ')';
+      qDiv.appendChild(note);
+    }
+  }
+
+  const pct = Math.round((score / total) * 100);
+  const resultDiv = document.getElementById('exam1-result');
+  let cls, msg;
+  if (score >= 7) {
+    cls = 'result-pass';
+    msg = '✅ MASTERY ACHIEVED — You can proceed to the next lesson!';
+  } else if (score >= 5) {
+    cls = 'result-almost';
+    msg = '⚠️ ALMOST THERE — Review the topics you missed, then retake.';
+  } else {
+    cls = 'result-fail';
+    msg = '🔄 NOT YET — Please re-study this lesson before moving on.';
+  }
+
+  const statusLabel = score >= 7 ? 'PASSED ✅' : (score >= 5 ? 'REVIEW ⚠️' : 'RETRY 🔄');
+  resultDiv.innerHTML = '<div class="exam-result ' + cls + '">' + msg + '<br><span style="font-size:1.3rem;">' + score + ' / ' + total + ' (' + pct + '%)</span></div>' +
+    '<button class="copy-btn" onclick="copyResult1()">📋 Copy Results</button>';
+
+  window._exam1Summary = 'Lesson 1 (7-Column Thought Record): ' + score + '/' + total + ' (' + pct + '%) — ' + statusLabel;
+}
+
+function copyResult1() {
+  navigator.clipboard.writeText(window._exam1Summary).then(function() {
+    const btn = document.querySelector('#exam1-result .copy-btn');
+    btn.textContent = '✅ Copied!';
+    setTimeout(function() { btn.textContent = '📋 Copy Results'; }, 2000);
+  });
+}
+function toggleAnswer(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('visible');
+  const btn = el.previousElementSibling;
+  if (el.classList.contains('visible')) {
+    btn.innerHTML = '&#128274; Hide Answer';
+  } else {
+    btn.innerHTML = '&#128275; Reveal Answer';
+  }
+}
+</script>
+
+</body>
+</html>

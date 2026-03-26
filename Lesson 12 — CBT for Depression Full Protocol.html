@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 12 — CBT for Depression Full Protocol</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.7;
+    font-size: 16px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .lesson-header {
+    text-align: center;
+    padding: 60px 32px;
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #ede9fe 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(99,102,241,0.15);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .lesson-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(99,102,241,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .lesson-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 18px;
+    border-radius: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .lesson-header h1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1e293b, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .lesson-header .subtitle {
+    font-size: 1.15em;
+    color: #475569;
+    font-weight: 400;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+  .meta-bar {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #64748b;
+  }
+  .meta-bar span { display: flex; align-items: center; gap: 6px; }
+
+  /* Cards */
+  .card {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+  .card h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #1e293b;
+  }
+  .card h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: #6366f1;
+  }
+  .card h4 {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 16px 0 8px;
+    color: #7c3aed;
+  }
+  .card p, .card li {
+    color: #334155;
+    margin-bottom: 8px;
+  }
+  .card ul, .card ol {
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+
+  /* Highlight boxes */
+  .highlight-box {
+    background: #eef2ff;
+    border-left: 4px solid #6366f1;
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .highlight-box.warning {
+    background: #fef3c7;
+    border-left-color: #f59e0b;
+  }
+  .highlight-box.success {
+    background: #ecfdf5;
+    border-left-color: #10b981;
+  }
+  .highlight-box.rose {
+    background: #fff1f2;
+    border-left-color: #f43f5e;
+  }
+  .highlight-box p {
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+  .highlight-box strong {
+    color: #1e293b;
+  }
+
+  /* Script blocks */
+  .script-block {
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    border: 1px solid #e2e8f0;
+    font-size: 0.95em;
+  }
+  .script-block .speaker {
+    font-weight: 700;
+    color: #6366f1;
+  }
+  .script-block .speaker.client {
+    color: #7c3aed;
+  }
+  .script-block p {
+    margin-bottom: 10px;
+  }
+
+  /* Details / Summary (interactive reveals) */
+  details {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+  summary {
+    padding: 16px 20px;
+    font-weight: 600;
+    color: #6366f1;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s;
+  }
+  summary:hover { background: #eef2ff; }
+  summary::before {
+    content: '▶';
+    font-size: 12px;
+    transition: transform 0.2s;
+    color: #6366f1;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-content {
+    padding: 4px 20px 20px;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.95em;
+  }
+  th {
+    background: #6366f1;
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+  }
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  /* PHQ Progress bar */
+  .phq-track {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+  }
+  .phq-bar {
+    flex: 1;
+    height: 28px;
+    background: #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+  .phq-fill {
+    height: 100%;
+    border-radius: 14px;
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .phq-label {
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 80px;
+    color: #475569;
+  }
+
+  /* Exam Styles */
+  .exam-card {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+  .exam-card h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1e293b;
+  }
+  .question-block {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .question-block.correct {
+    border-color: #10b981;
+    background: #ecfdf5;
+  }
+  .question-block.incorrect {
+    border-color: #f43f5e;
+    background: #fff1f2;
+  }
+  .question-block h4 {
+    font-size: 1em;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 14px;
+  }
+  .question-block label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+    color: #334155;
+    font-size: 0.95em;
+  }
+  .question-block label:hover { background: #eef2ff; }
+  .question-block input[type="radio"] {
+    margin-top: 3px;
+    accent-color: #6366f1;
+  }
+  .feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    display: none;
+  }
+  .feedback.correct-fb {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #10b981;
+  }
+  .feedback.incorrect-fb {
+    background: #fff1f2;
+    color: #9f1239;
+    border: 1px solid #f43f5e;
+  }
+  .result-box {
+    text-align: center;
+    padding: 32px;
+    border-radius: 16px;
+    margin: 24px 0;
+    display: none;
+  }
+  .result-box h3 { font-size: 1.5em; margin-bottom: 8px; }
+  .result-box .score-number { font-size: 3em; font-weight: 800; margin: 12px 0; }
+  .result-box.green { background: #ecfdf5; color: #065f46; border: 2px solid #10b981; }
+  .result-box.yellow { background: #fef3c7; color: #92400e; border: 2px solid #f59e0b; }
+  .result-box.red { background: #fff1f2; color: #9f1239; border: 2px solid #f43f5e; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
+  .btn-secondary {
+    background: #f1f5f9;
+    color: #6366f1;
+    border: 1px solid #e2e8f0;
+  }
+  .btn-secondary:hover { background: #eef2ff; }
+
+  /* Phase indicator */
+  .phase-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .phase-badge.p1 { background: #dbeafe; color: #1e40af; }
+  .phase-badge.p2 { background: #ede9fe; color: #5b21b6; }
+  .phase-badge.p3 { background: #fce7f3; color: #9d174d; }
+  .phase-badge.p4 { background: #ecfdf5; color: #065f46; }
+
+  @media (max-width: 640px) {
+    .lesson-header h1 { font-size: 1.6em; }
+    .card, .exam-card { padding: 20px; }
+    .meta-bar { flex-direction: column; align-items: center; gap: 8px; }
+    table { font-size: 0.85em; }
+    th, td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="lesson-header">
+    <div class="lesson-number">Lesson 12</div>
+    <h1>CBT for Depression</h1>
+    <div class="subtitle">Session-by-Session Full Protocol Guide — From Assessment to Relapse Prevention</div>
+    <div class="meta-bar">
+      <span>&#128214; ~30 min read</span>
+      <span>&#127891; 7 sections + exam</span>
+      <span>&#128196; 12-20 session protocol</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="card">
+    <h2>&#127793; 1. Overview of CBT for Depression</h2>
+
+    <h3>Beck's Cognitive Model</h3>
+    <p>Aaron Beck's cognitive model of depression rests on a central insight: depression is maintained not merely by sad mood, but by systematic distortions in how the person thinks about three domains — the <strong>negative cognitive triad</strong>:</p>
+
+    <div class="highlight-box">
+      <p><strong>The Negative Cognitive Triad</strong></p>
+      <ul style="margin-top:8px">
+        <li><strong>Self:</strong> "I am worthless / defective / a failure"</li>
+        <li><strong>World:</strong> "Nothing ever works out / people don't care / the world is unfair"</li>
+        <li><strong>Future:</strong> "Things will never get better / it's hopeless / why bother trying"</li>
+      </ul>
+    </div>
+
+    <p>These beliefs operate at multiple levels:</p>
+    <ul>
+      <li><strong>Core beliefs</strong> (deep, absolute schemas formed early in life)</li>
+      <li><strong>Intermediate beliefs</strong> (rules, attitudes, assumptions — e.g., "If I'm not perfect, I'm a failure")</li>
+      <li><strong>Automatic thoughts</strong> (quick, situation-specific — e.g., "I'm going to mess this up")</li>
+    </ul>
+
+    <h3>Evidence Base</h3>
+    <table>
+      <tr>
+        <th>Severity</th>
+        <th>Best Evidence</th>
+      </tr>
+      <tr>
+        <td>Mild depression</td>
+        <td>CBT alone is highly effective (comparable to medication)</td>
+      </tr>
+      <tr>
+        <td>Moderate depression</td>
+        <td>CBT alone or combined with medication; both work well</td>
+      </tr>
+      <tr>
+        <td>Severe depression</td>
+        <td>Combined CBT + medication is superior to either alone</td>
+      </tr>
+      <tr>
+        <td>Recurrent depression</td>
+        <td>CBT has better relapse prevention than medication alone (approx. 50% lower relapse rates)</td>
+      </tr>
+    </table>
+
+    <h3>Key Treatment Targets</h3>
+    <ol>
+      <li><strong>Behavioral withdrawal</strong> — reduced activity, loss of pleasure, social isolation</li>
+      <li><strong>Negative automatic thoughts</strong> — distorted interpretations of events</li>
+      <li><strong>Intermediate beliefs</strong> — rigid rules and dysfunctional assumptions</li>
+      <li><strong>Core beliefs</strong> — schemas of worthlessness, helplessness, unlovability</li>
+    </ol>
+
+    <h3>Typical Course</h3>
+    <p>Standard protocol: <strong>12-20 sessions</strong>, typically weekly, with the final sessions spaced out. Treatment progresses from behavioral strategies (early) to deeper cognitive work (middle-late), ending with relapse prevention.</p>
+  </div>
+
+  <!-- SECTION 2: PHASE 1 -->
+  <div class="card">
+    <h2>&#128203; 2. Phase 1: Assessment & Engagement <span class="phase-badge p1">Sessions 1-3</span></h2>
+
+    <h3>Session 1 — Building the Foundation</h3>
+    <p>Goals: Build rapport, assess symptoms, provide psychoeducation, socialize to the CBT model, set initial goals.</p>
+
+    <div class="highlight-box">
+      <p><strong>Key Assessments:</strong></p>
+      <ul style="margin-top:8px">
+        <li><strong>PHQ-9</strong> — Quick 9-item self-report; scores: 5 mild, 10 moderate, 15 moderately severe, 20+ severe</li>
+        <li><strong>BDI-II</strong> — More detailed 21-item measure; useful for tracking week-to-week change</li>
+        <li><strong>Item 9</strong> on either scale screens for suicidal ideation — always review this item with the client</li>
+      </ul>
+    </div>
+
+    <p><strong>Socializing to the CBT Model:</strong> Use the client's own example. Pick a recent situation where they felt low and walk through it:</p>
+
+    <details>
+      <summary>Session 1 Script — Socializing to the CBT Model</summary>
+      <div class="detail-content">
+        <div class="script-block">
+          <p><span class="speaker">Therapist:</span> "You mentioned that on Monday morning you felt really low. Can you tell me more about what was happening?"</p>
+          <p><span class="speaker client">Client:</span> "I woke up and just thought, what's the point of getting up. I stayed in bed until noon."</p>
+          <p><span class="speaker">Therapist:</span> "So the thought was 'what's the point of getting up.' And when you had that thought, what did you feel emotionally?"</p>
+          <p><span class="speaker client">Client:</span> "Hopeless. Tired. Just... heavy."</p>
+          <p><span class="speaker">Therapist:</span> "And what did you do?"</p>
+          <p><span class="speaker client">Client:</span> "Stayed in bed. Didn't shower. Cancelled meeting with a friend."</p>
+          <p><span class="speaker">Therapist:</span> "So here we can see how it all connects — the thought 'what's the point' led to feeling hopeless, which led to staying in bed and cancelling plans. And what happened to your mood after staying in bed all morning?"</p>
+          <p><span class="speaker client">Client:</span> "It got worse, actually."</p>
+          <p><span class="speaker">Therapist:</span> "Exactly. This is a really important observation. The thing we did to cope — staying in bed — actually made the depression stronger. This is what we call a <strong>vicious cycle</strong>, and it's exactly what we're going to work on breaking together."</p>
+        </div>
+      </div>
+    </details>
+
+    <h3>Session 2 — Activity Monitoring</h3>
+    <p>Goals: Begin activity monitoring, introduce the mood-activity connection, start behavioral activation.</p>
+
+    <ul>
+      <li>Introduce an <strong>activity log</strong> — hourly or by time blocks, tracking what they did + mood rating (0-10)</li>
+      <li>Explain the rationale: "We want to discover which activities lift your mood and which drag it down"</li>
+      <li>Often clients are surprised to discover patterns they hadn't noticed</li>
+    </ul>
+
+    <details>
+      <summary>Session 2 Script — Introducing Activity Monitoring</summary>
+      <div class="detail-content">
+        <div class="script-block">
+          <p><span class="speaker">Therapist:</span> "This week I'd like us to try something. It's a simple log — you just note what you're doing at different times of day, and rate your mood from 0 to 10. You don't need to change anything — just notice."</p>
+          <p><span class="speaker client">Client:</span> "I feel like my mood is just bad all the time though."</p>
+          <p><span class="speaker">Therapist:</span> "That's what depression tells us — that it's all the same flat gray. But usually when people track carefully, they find small differences. Maybe a 2 at one point and a 4 at another. Those differences are really important — they show us where we can start building."</p>
+        </div>
+      </div>
+    </details>
+
+    <h3>Session 3 — Activation Begins</h3>
+    <p>Goals: Review activity monitoring, begin activity scheduling, start building case conceptualization.</p>
+
+    <ul>
+      <li>Review the activity log together — identify patterns: which activities = higher mood? lower mood?</li>
+      <li>Introduce <strong>mastery (M) and pleasure (P) ratings</strong> alongside mood</li>
+      <li><strong>Mastery activities:</strong> things that give a sense of accomplishment (even small — taking a shower, making a meal)</li>
+      <li><strong>Pleasure activities:</strong> things that bring even small enjoyment</li>
+      <li>Schedule 2-3 activities for the coming week — start very small</li>
+    </ul>
+
+    <div class="highlight-box warning">
+      <p><strong>Clinical Tip:</strong> For severely depressed clients, "take a shower" or "walk to the mailbox" can be a meaningful mastery activity. Meet the client where they are, not where you think they should be.</p>
+    </div>
+
+    <details>
+      <summary>Session 3 Script — Beginning Activity Scheduling</summary>
+      <div class="detail-content">
+        <div class="script-block">
+          <p><span class="speaker">Therapist:</span> "Looking at your log, I notice that on Wednesday when you went for a short walk, your mood was a 4 — that was actually the highest rating all week. What do you make of that?"</p>
+          <p><span class="speaker client">Client:</span> "I guess... I don't know, it was only 4."</p>
+          <p><span class="speaker">Therapist:</span> "When most of the week is 1s and 2s, a 4 is actually significant. It tells us something. What if we planned a couple of short walks this week — not because you 'should,' but as an experiment to see if it helps?"</p>
+          <p><span class="speaker client">Client:</span> "I can try... but what if I don't feel like it?"</p>
+          <p><span class="speaker">Therapist:</span> "That's exactly what depression does — it takes away the motivation first. So we use a different approach: we <strong>act first and let the motivation follow</strong>. You don't wait to feel like doing it. You schedule it and do it, and then see how you feel after."</p>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 3: PHASE 2 -->
+  <div class="card">
+    <h2>&#128736; 3. Phase 2: Skill Building <span class="phase-badge p2">Sessions 4-8</span></h2>
+
+    <h3>Introducing Thought Records</h3>
+    <p>The thought record is the workhorse of CBT for depression. Start simple and build up:</p>
+
+    <table>
+      <tr>
+        <th>Stage</th>
+        <th>Columns</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td>First (Sessions 4-5)</td>
+        <td>3-column: Situation → Thought → Emotion</td>
+        <td>Learn to catch automatic thoughts</td>
+      </tr>
+      <tr>
+        <td>Then (Sessions 5-6)</td>
+        <td>5-column: Add Evidence For + Evidence Against</td>
+        <td>Begin evaluating thoughts</td>
+      </tr>
+      <tr>
+        <td>Full (Sessions 6-8)</td>
+        <td>7-column: Add Balanced Thought + Re-rate Emotion</td>
+        <td>Full cognitive restructuring</td>
+      </tr>
+    </table>
+
+    <h3>Identifying Cognitive Distortions</h3>
+    <p>Teach clients to recognize patterns in their thinking:</p>
+    <ul>
+      <li><strong>All-or-nothing thinking:</strong> "If I can't do it perfectly, I'm a total failure"</li>
+      <li><strong>Mental filter:</strong> Focusing only on the one negative comment, ignoring ten positives</li>
+      <li><strong>Fortune telling:</strong> "This will definitely go badly"</li>
+      <li><strong>Mind reading:</strong> "They think I'm boring"</li>
+      <li><strong>Overgeneralization:</strong> "This always happens to me"</li>
+      <li><strong>Disqualifying the positive:</strong> "That doesn't count because..."</li>
+      <li><strong>Emotional reasoning:</strong> "I feel like a failure, so I must be one"</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Framing Tip:</strong> Never tell a client their thinking is "wrong" or "distorted." Instead: "Let's look at this thought and see how accurate it really is — like a scientist examining the evidence."</p>
+    </div>
+
+    <h3>Socratic Questioning</h3>
+    <p>Key questions for challenging negative automatic thoughts:</p>
+    <ol>
+      <li>"What is the evidence that this thought is true? What is the evidence against it?"</li>
+      <li>"Is there an alternative explanation?"</li>
+      <li>"What would you say to a friend who had this thought?"</li>
+      <li>"What's the worst that could happen? The best? The most realistic?"</li>
+      <li>"What's the effect of believing this thought? What would be the effect of changing it?"</li>
+    </ol>
+
+    <h3>Behavioral Experiments</h3>
+    <p>Move beyond just talking about thoughts — test them in real life:</p>
+
+    <details>
+      <summary>Example: Testing the thought "Nobody wants to hear from me"</summary>
+      <div class="detail-content">
+        <div class="highlight-box">
+          <p><strong>Prediction:</strong> "If I text my old friend, they will ignore me or respond coldly."</p>
+          <p><strong>Experiment:</strong> Text one friend this week and observe what happens.</p>
+          <p><strong>Outcome:</strong> Friend replied within an hour, seemed happy to hear from them, suggested meeting for coffee.</p>
+          <p><strong>Learning:</strong> My prediction was based on depression, not reality. Some people actually do want to hear from me.</p>
+        </div>
+      </div>
+    </details>
+
+    <h3>Identifying Intermediate Beliefs</h3>
+    <p>As therapy progresses, begin noticing the rules and assumptions underneath the automatic thoughts:</p>
+    <ul>
+      <li><strong>Rules:</strong> "I must always put others first"</li>
+      <li><strong>Attitudes:</strong> "Asking for help is a sign of weakness"</li>
+      <li><strong>Assumptions:</strong> "If I show my true self, people will reject me"</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4: PHASE 3 -->
+  <div class="card">
+    <h2>&#128161; 4. Phase 3: Core Belief Work <span class="phase-badge p3">Sessions 9-14</span></h2>
+
+    <h3>The Downward Arrow Technique</h3>
+    <p>Used to uncover core beliefs by following the meaning of automatic thoughts down to their root:</p>
+
+    <div class="script-block">
+      <p><span class="speaker">Therapist:</span> "You said 'I failed that test.' And if that were true — what would that mean about you?"</p>
+      <p><span class="speaker client">Client:</span> "That I'm not smart enough."</p>
+      <p><span class="speaker">Therapist:</span> "And if you're not smart enough — what does that mean?"</p>
+      <p><span class="speaker client">Client:</span> "That I'll never succeed at anything."</p>
+      <p><span class="speaker">Therapist:</span> "And if you never succeed at anything — what does that mean about you as a person?"</p>
+      <p><span class="speaker client">Client:</span> "That I'm... worthless."</p>
+      <p><span class="speaker">Therapist:</span> "So we've arrived at a core belief: <strong>'I am worthless.'</strong> This is the deep belief that all those surface thoughts connect to. This is what we need to work on."</p>
+    </div>
+
+    <h3>Core Belief Log</h3>
+    <p>Once a core belief is identified, the client tracks evidence over multiple situations across days and weeks:</p>
+
+    <table>
+      <tr>
+        <th>Situation</th>
+        <th>Evidence "I am worthless"</th>
+        <th>Evidence against "I am worthless"</th>
+      </tr>
+      <tr>
+        <td>Coworker asked me for help</td>
+        <td>—</td>
+        <td>They value my opinion enough to ask</td>
+      </tr>
+      <tr>
+        <td>Made a mistake at work</td>
+        <td>Felt incompetent (but is a feeling evidence?)</td>
+        <td>Boss said it was minor and easily fixed</td>
+      </tr>
+      <tr>
+        <td>Friend cancelled dinner</td>
+        <td>Thought "they don't want to see me"</td>
+        <td>They rescheduled for next week — they wanted to see me</td>
+      </tr>
+    </table>
+
+    <h3>The Continuum Technique</h3>
+    <p>Core beliefs are often all-or-nothing. The continuum helps introduce shades of gray:</p>
+    <div class="highlight-box">
+      <p>Instead of "worthless" vs "valuable," create a 0-100 scale. Ask the client to place themselves and others on the continuum. This breaks the dichotomous thinking.</p>
+      <p style="margin-top:12px"><strong>Key question:</strong> "On a scale of 0-100, where 0 is completely worthless and 100 is the most valuable person alive — where would you put yourself? Where would you put [someone they respect]? What makes that person a 70 and not a 100?"</p>
+    </div>
+
+    <h3>Historical Review</h3>
+    <p>Trace the origins of the core belief through developmental history:</p>
+    <ul>
+      <li>When did you first start believing "I am worthless"?</li>
+      <li>What experiences seemed to confirm this belief?</li>
+      <li>Were there experiences that contradicted it — that you perhaps discounted?</li>
+      <li>Could there be an alternative explanation for those early experiences?</li>
+    </ul>
+
+    <h3>Developing Alternative Core Beliefs</h3>
+    <p>Don't just weaken the old belief — build a new one:</p>
+    <ul>
+      <li><strong>Old belief:</strong> "I am worthless"</li>
+      <li><strong>New belief:</strong> "I have value, even though I'm not perfect"</li>
+      <li>Track evidence for the new belief daily</li>
+      <li>Use behavioral experiments to generate new evidence</li>
+    </ul>
+
+    <h3>Behavioral Experiments Targeting Core Beliefs</h3>
+    <details>
+      <summary>Example: Testing "I am unlovable"</summary>
+      <div class="detail-content">
+        <div class="highlight-box">
+          <p><strong>Old belief:</strong> "I am fundamentally unlovable. If people really knew me, they'd leave."</p>
+          <p><strong>Experiment:</strong> Share one genuine vulnerability with a trusted friend.</p>
+          <p><strong>Prediction:</strong> "They'll pull away or be uncomfortable."</p>
+          <p><strong>Outcome:</strong> Friend thanked them for being honest, shared their own struggle, relationship deepened.</p>
+          <p><strong>New learning:</strong> "When I'm genuine, some people actually come closer — not further away."</p>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 5: PHASE 4 -->
+  <div class="card">
+    <h2>&#127942; 5. Phase 4: Consolidation & Relapse Prevention <span class="phase-badge p4">Sessions 15-20</span></h2>
+
+    <h3>Review Progress</h3>
+    <p>Compare assessment scores from Session 1 to the current session. Show the client visual evidence of their progress:</p>
+
+    <div class="highlight-box success">
+      <p><strong>Example PHQ-9 Trajectory (Nino's case — see Section 7):</strong></p>
+    </div>
+
+    <div style="margin: 16px 0">
+      <div class="phq-track">
+        <span class="phq-label">Session 1</span>
+        <div class="phq-bar"><div class="phq-fill" style="width:67%;background:linear-gradient(90deg,#f43f5e,#e11d48)">18</div></div>
+      </div>
+      <div class="phq-track">
+        <span class="phq-label">Session 4</span>
+        <div class="phq-bar"><div class="phq-fill" style="width:56%;background:linear-gradient(90deg,#f59e0b,#d97706)">15</div></div>
+      </div>
+      <div class="phq-track">
+        <span class="phq-label">Session 8</span>
+        <div class="phq-bar"><div class="phq-fill" style="width:44%;background:linear-gradient(90deg,#f59e0b,#d97706)">12</div></div>
+      </div>
+      <div class="phq-track">
+        <span class="phq-label">Session 12</span>
+        <div class="phq-bar"><div class="phq-fill" style="width:30%;background:linear-gradient(90deg,#10b981,#059669)">8</div></div>
+      </div>
+      <div class="phq-track">
+        <span class="phq-label">Session 16</span>
+        <div class="phq-bar"><div class="phq-fill" style="width:19%;background:linear-gradient(90deg,#10b981,#059669)">5</div></div>
+      </div>
+    </div>
+
+    <h3>Creating the Relapse Prevention Plan</h3>
+    <ol>
+      <li><strong>Identify early warning signs</strong> — What are the first signs that depression might be returning?
+        <ul>
+          <li>Sleep changes (sleeping more, waking early)</li>
+          <li>Social withdrawal (cancelling plans, not returning calls)</li>
+          <li>Return of old automatic thoughts ("What's the point?")</li>
+          <li>Reduced activity or pleasure</li>
+        </ul>
+      </li>
+      <li><strong>Create an action plan</strong> — What to do at first sign of warning:
+        <ul>
+          <li>Resume activity scheduling immediately</li>
+          <li>Fill out a thought record</li>
+          <li>Contact a support person</li>
+          <li>Call the therapist for a booster session if needed</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>The Therapy Blueprint</h3>
+    <p>A document the client creates summarizing their entire therapy journey:</p>
+
+    <div class="highlight-box">
+      <p><strong>Blueprint Sections:</strong></p>
+      <ol style="margin-top:8px">
+        <li><strong>What I came in with:</strong> My depression, main symptoms, PHQ-9 score</li>
+        <li><strong>What I learned about how depression works:</strong> The cognitive model, my vicious cycles</li>
+        <li><strong>My core beliefs and how we changed them:</strong> Old belief → New belief</li>
+        <li><strong>Skills that work for me:</strong> Activity scheduling, thought records, behavioral experiments</li>
+        <li><strong>My early warning signs:</strong> List specific personal indicators</li>
+        <li><strong>My action plan:</strong> Steps to take if depression starts returning</li>
+        <li><strong>People I can reach out to:</strong> Names and contacts</li>
+      </ol>
+    </div>
+
+    <h3>Spacing Out Sessions</h3>
+    <table>
+      <tr>
+        <th>Phase</th>
+        <th>Frequency</th>
+        <th>Purpose</th>
+      </tr>
+      <tr>
+        <td>Sessions 1-14</td>
+        <td>Weekly</td>
+        <td>Active treatment</td>
+      </tr>
+      <tr>
+        <td>Sessions 15-17</td>
+        <td>Every 2 weeks</td>
+        <td>Testing independence</td>
+      </tr>
+      <tr>
+        <td>Sessions 18-20</td>
+        <td>Monthly</td>
+        <td>Consolidation</td>
+      </tr>
+      <tr>
+        <td>Boosters</td>
+        <td>As needed (3, 6, 12 months)</td>
+        <td>Maintenance</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- SECTION 6: COMMON CHALLENGES -->
+  <div class="card">
+    <h2>&#9888;&#65039; 6. Common Challenges in Treating Depression</h2>
+
+    <h3>Client Too Depressed to Do Homework</h3>
+    <div class="highlight-box warning">
+      <p><strong>Solution:</strong> Simplify radically. If a thought record is too much, start with: "Just text me one word for your mood each evening." Any tiny action breaks the inertia. Homework should be at the level where success is almost guaranteed.</p>
+    </div>
+
+    <h3>Chronic / Recurrent Depression</h3>
+    <ul>
+      <li>Standard CBT may need extension beyond 20 sessions</li>
+      <li>Consider <strong>Schema Therapy</strong> for longstanding patterns rooted in early experiences</li>
+      <li>Consider <strong>MBCT (Mindfulness-Based Cognitive Therapy)</strong> for relapse prevention in recurrent depression (3+ episodes)</li>
+      <li>Medication consultation should be considered if not already in place</li>
+    </ul>
+
+    <h3>Suicidal Ideation</h3>
+    <div class="highlight-box rose">
+      <p><strong>This is not a reason to stop CBT.</strong> It is a reason to add specific interventions:</p>
+      <ul style="margin-top:8px">
+        <li><strong>Safety planning</strong> (Stanley & Brown model): Warning signs → Coping strategies → People to contact → Professionals to call → Making the environment safe</li>
+        <li>Increase session frequency temporarily</li>
+        <li>Address hopelessness directly — it's the strongest predictor of suicide, more than depression severity</li>
+        <li>Use problem-solving for any real-world crises</li>
+        <li>Coordinate with prescriber for medication adjustment</li>
+      </ul>
+    </div>
+
+    <h3>Comorbid Anxiety</h3>
+    <ul>
+      <li>Depression + anxiety is the rule, not the exception (up to 60% comorbidity)</li>
+      <li><strong>Treat simultaneously</strong> with an integrated approach</li>
+      <li>Behavioral activation helps both (activity reduces rumination and worry)</li>
+      <li>Cognitive restructuring applies to both depressive and anxious thoughts</li>
+      <li>If avoidance is prominent, add exposure components</li>
+    </ul>
+
+    <details>
+      <summary>Decision Guide: When standard CBT for depression isn't enough</summary>
+      <div class="detail-content">
+        <table>
+          <tr>
+            <th>Situation</th>
+            <th>Consider Adding</th>
+          </tr>
+          <tr>
+            <td>No improvement by Session 6</td>
+            <td>Review case conceptualization, consider medication, check therapeutic alliance</td>
+          </tr>
+          <tr>
+            <td>Deep early-life schemas</td>
+            <td>Schema Therapy techniques (limited reparenting, imagery rescripting)</td>
+          </tr>
+          <tr>
+            <td>3+ episodes of recurrence</td>
+            <td>MBCT after acute treatment</td>
+          </tr>
+          <tr>
+            <td>Persistent rumination</td>
+            <td>Rumination-focused CBT, metacognitive therapy</td>
+          </tr>
+          <tr>
+            <td>Interpersonal problems maintaining depression</td>
+            <td>Interpersonal techniques, CBASP for chronic depression</td>
+          </tr>
+        </table>
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 7: CASE EXAMPLE -->
+  <div class="card">
+    <h2>&#128100; 7. Case Example: Nino's Full Treatment Arc</h2>
+
+    <div class="highlight-box">
+      <p><strong>Nino, 34, software engineer.</strong> Referred by GP after 4 months of low mood, poor sleep, loss of interest. PHQ-9 = 18 (moderately severe). No prior therapy. Currently on no medication.</p>
+      <p style="margin-top:8px"><strong>Presenting complaints:</strong> Fatigue, social withdrawal, difficulty concentrating at work, feelings of worthlessness, insomnia (early morning awakening).</p>
+    </div>
+
+    <h3>Session 1 — Assessment & Engagement</h3>
+    <p>Built rapport. Administered PHQ-9 (score = 18). Socialized to CBT model using Nino's example of avoiding a team meeting ("I thought I had nothing useful to say → felt worthless → skipped the meeting → felt guilty"). Set goal: "Be able to function at work and enjoy time with friends again." Assigned activity monitoring.</p>
+
+    <h3>Session 4 — First Thought Record</h3>
+    <p>PHQ-9 = 15. Behavioral activation showing small gains. Introduced 3-column thought record. Key automatic thought identified: "If I speak up at work, people will realize I'm incompetent."</p>
+
+    <details>
+      <summary>Nino's First 3-Column Thought Record</summary>
+      <div class="detail-content">
+        <table>
+          <tr>
+            <th>Situation</th>
+            <th>Automatic Thought</th>
+            <th>Emotion</th>
+          </tr>
+          <tr>
+            <td>Team meeting, boss asked for opinions</td>
+            <td>"I have nothing smart to say. They'll think I'm incompetent."</td>
+            <td>Anxiety 8/10, Shame 7/10</td>
+          </tr>
+          <tr>
+            <td>Friend texted asking to hang out</td>
+            <td>"I'll just bring the mood down. They're being polite."</td>
+            <td>Sadness 7/10, Guilt 6/10</td>
+          </tr>
+          <tr>
+            <td>Saturday morning, nothing planned</td>
+            <td>"What's the point of doing anything?"</td>
+            <td>Hopelessness 8/10, Emptiness 7/10</td>
+          </tr>
+        </table>
+      </div>
+    </details>
+
+    <h3>Session 8 — Behavioral Experiment Success</h3>
+    <p>PHQ-9 = 12. Major breakthrough: Nino tested the prediction "If I share an idea at the meeting, people will think it's stupid." He spoke up — his manager said "great point" and added it to the project plan. This was a powerful disconfirmation of his negative prediction.</p>
+
+    <h3>Session 12 — Core Belief Work</h3>
+    <p>PHQ-9 = 8. Using downward arrow, identified core belief: "I am not good enough." Began core belief log. Historical review revealed this belief originated from a very critical father who rarely expressed approval. Started developing alternative belief: "I am competent and capable, even when I make mistakes."</p>
+
+    <h3>Session 16 — Relapse Prevention</h3>
+    <p>PHQ-9 = 5 (mild, subclinical). Created therapy blueprint together. Nino identified his early warning signs: skipping the gym, declining social invitations, and the return of "what's the point" thoughts. Created action plan. Spaced sessions to monthly.</p>
+
+    <div class="highlight-box success">
+      <p><strong>Outcome:</strong> Nino completed 18 sessions over 6 months. PHQ-9 dropped from 18 to 4 at final session. At 6-month follow-up booster: PHQ-9 = 3. He reported using thought records independently about once a week and had maintained his activity schedule. No relapse.</p>
+    </div>
+  </div>
+
+  <!-- EXAM -->
+  <div class="exam-card" id="exam-section">
+    <h2>&#128221; Final Scored Exam</h2>
+    <p style="color:#64748b; margin-bottom: 24px;">8 multiple-choice questions covering the CBT for Depression protocol. Score: 7-8 Excellent, 5-6 Good, 0-4 Needs Review.</p>
+
+    <form id="examForm">
+      <!-- Q1 -->
+      <div class="question-block" id="q1block">
+        <h4>1. What are the three components of Beck's negative cognitive triad in depression?</h4>
+        <label><input type="radio" name="q1" value="a"> Thoughts, feelings, behaviors</label>
+        <label><input type="radio" name="q1" value="b"> Self, world, future</label>
+        <label><input type="radio" name="q1" value="c"> Past, present, future</label>
+        <label><input type="radio" name="q1" value="d"> Mind, body, relationships</label>
+        <div class="feedback correct-fb" id="q1correct">Correct! The negative cognitive triad = negative views of the self ("I am worthless"), the world ("nothing works out"), and the future ("things will never improve").</div>
+        <div class="feedback incorrect-fb" id="q1incorrect">The answer is <strong>B</strong>. The negative cognitive triad = negative views of the self, the world, and the future — not the general CBT model components (thoughts, feelings, behaviors).</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-block" id="q2block">
+        <h4>2. In the first session for depression, which of the following should you NOT typically do?</h4>
+        <label><input type="radio" name="q2" value="a"> Administer PHQ-9 or BDI-II</label>
+        <label><input type="radio" name="q2" value="b"> Socialize the client to the CBT model using their own example</label>
+        <label><input type="radio" name="q2" value="c"> Teach the full 7-column thought record</label>
+        <label><input type="radio" name="q2" value="d"> Build rapport and set initial goals</label>
+        <div class="feedback correct-fb" id="q2correct">Correct! The full 7-column thought record is introduced gradually (Sessions 6-8). Session 1 focuses on assessment, psychoeducation, rapport, and goal-setting.</div>
+        <div class="feedback incorrect-fb" id="q2incorrect">The answer is <strong>C</strong>. The 7-column thought record is far too advanced for Session 1. It's introduced gradually over Sessions 4-8. Session 1 is about assessment, rapport, and socialization to the model.</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-block" id="q3block">
+        <h4>3. What does the behavioral activation principle "act first, let motivation follow" mean?</h4>
+        <label><input type="radio" name="q3" value="a"> Clients should force themselves through painful activities regardless of how they feel</label>
+        <label><input type="radio" name="q3" value="b"> In depression, waiting for motivation leads to inaction; scheduling and doing activities can generate motivation after the fact</label>
+        <label><input type="radio" name="q3" value="c"> Therapists should always act before the client is ready</label>
+        <label><input type="radio" name="q3" value="d"> Medication should be started before therapy begins</label>
+        <div class="feedback correct-fb" id="q3correct">Correct! Depression removes motivation, so the standard sequence (motivation → action) doesn't work. Behavioral activation reverses it: action → motivation/mood improvement.</div>
+        <div class="feedback incorrect-fb" id="q3incorrect">The answer is <strong>B</strong>. Depression breaks the normal motivation → action sequence. Behavioral activation reverses it: schedule the activity, do it, and then often the mood and motivation improve afterward.</div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-block" id="q4block">
+        <h4>4. What is the purpose of the downward arrow technique?</h4>
+        <label><input type="radio" name="q4" value="a"> To help clients relax by progressively lowering arousal</label>
+        <label><input type="radio" name="q4" value="b"> To uncover core beliefs by repeatedly asking "what does that mean about you?"</label>
+        <label><input type="radio" name="q4" value="c"> To create a graded exposure hierarchy for feared situations</label>
+        <label><input type="radio" name="q4" value="d"> To track mood scores declining over treatment</label>
+        <div class="feedback correct-fb" id="q4correct">Correct! The downward arrow follows the chain of meaning from an automatic thought down to the underlying core belief ("If that's true, what does it mean about you?").</div>
+        <div class="feedback incorrect-fb" id="q4incorrect">The answer is <strong>B</strong>. The downward arrow technique traces meaning from surface automatic thoughts down to core beliefs by repeatedly asking "And if that were true, what would that mean about you?"</div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-block" id="q5block">
+        <h4>5. A client with moderate depression isn't doing any homework because they feel "too tired." What is the best initial response?</h4>
+        <label><input type="radio" name="q5" value="a"> Explain that homework is essential and they need to try harder</label>
+        <label><input type="radio" name="q5" value="b"> Discontinue homework assignments until their mood improves</label>
+        <label><input type="radio" name="q5" value="c"> Simplify the homework dramatically — even "text me one word for your mood" counts</label>
+        <label><input type="radio" name="q5" value="d"> Switch to a different therapy modality</label>
+        <div class="feedback correct-fb" id="q5correct">Correct! The key principle: simplify until success is almost guaranteed. Any small action breaks inertia and can be built upon. "Try harder" is the opposite of therapeutic.</div>
+        <div class="feedback incorrect-fb" id="q5incorrect">The answer is <strong>C</strong>. When clients are too depressed for standard homework, simplify radically. Even a tiny task (texting one mood word) creates momentum. Telling them to "try harder" reinforces their belief that they're failing.</div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-block" id="q6block">
+        <h4>6. For severe depression, what does the evidence suggest is the most effective approach?</h4>
+        <label><input type="radio" name="q6" value="a"> CBT alone</label>
+        <label><input type="radio" name="q6" value="b"> Medication alone</label>
+        <label><input type="radio" name="q6" value="c"> Combined CBT and medication</label>
+        <label><input type="radio" name="q6" value="d"> Neither — severe depression requires hospitalization first</label>
+        <div class="feedback correct-fb" id="q6correct">Correct! For severe depression, the combined approach (CBT + medication) is superior to either treatment alone.</div>
+        <div class="feedback incorrect-fb" id="q6incorrect">The answer is <strong>C</strong>. Research consistently shows that for severe depression, combined treatment (CBT + medication) outperforms either modality alone.</div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="question-block" id="q7block">
+        <h4>7. When creating a therapy blueprint for relapse prevention, which element is MOST important?</h4>
+        <label><input type="radio" name="q7" value="a"> A list of all cognitive distortions</label>
+        <label><input type="radio" name="q7" value="b"> The client's personal early warning signs and specific action plan</label>
+        <label><input type="radio" name="q7" value="c"> A summary of every session's content</label>
+        <label><input type="radio" name="q7" value="d"> The therapist's case conceptualization notes</label>
+        <div class="feedback correct-fb" id="q7correct">Correct! The most critical element is personalized: the client's own early warning signs paired with a specific action plan. This makes relapse prevention practical and actionable.</div>
+        <div class="feedback incorrect-fb" id="q7incorrect">The answer is <strong>B</strong>. A therapy blueprint must be personalized and actionable. The client's specific early warning signs + their concrete action plan are what actually prevent relapse. Generic lists of distortions or session summaries are far less useful.</div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="question-block" id="q8block">
+        <h4>8. At what point in treatment should you begin spacing out sessions (from weekly to biweekly)?</h4>
+        <label><input type="radio" name="q8" value="a"> After Session 2, to save the client money</label>
+        <label><input type="radio" name="q8" value="b"> Never — all sessions should be weekly until termination</label>
+        <label><input type="radio" name="q8" value="c"> After the consolidation phase, when core belief work is largely complete and the client is improving</label>
+        <label><input type="radio" name="q8" value="d"> Only if the client requests it</label>
+        <div class="feedback correct-fb" id="q8correct">Correct! Sessions are spaced during Phase 4 (Consolidation & Relapse Prevention), typically around Sessions 15+, as a way to test the client's ability to maintain gains independently.</div>
+        <div class="feedback incorrect-fb" id="q8incorrect">The answer is <strong>C</strong>. Spacing begins during the consolidation phase (around Session 15+), after core belief work is done and the client is clearly improving. It serves as a test of independence before termination.</div>
+      </div>
+
+      <div style="text-align:center; margin-top:32px">
+        <button type="button" class="btn btn-primary" onclick="gradeExam()">Submit & Grade Exam</button>
+      </div>
+    </form>
+
+    <div class="result-box" id="resultBox">
+      <h3 id="resultTitle"></h3>
+      <div class="score-number" id="scoreDisplay"></div>
+      <p id="resultMsg"></p>
+      <div style="margin-top:20px">
+        <button type="button" class="btn btn-secondary" onclick="copyResults()">&#128203; Copy Results</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const answers = {q1:'b', q2:'c', q3:'b', q4:'b', q5:'c', q6:'c', q7:'b', q8:'c'};
+
+function gradeExam() {
+  let score = 0;
+  let details = [];
+
+  for (let i = 1; i <= 8; i++) {
+    const key = 'q' + i;
+    const selected = document.querySelector(`input[name="${key}"]:checked`);
+    const block = document.getElementById(key + 'block');
+    const correctFb = document.getElementById(key + 'correct');
+    const incorrectFb = document.getElementById(key + 'incorrect');
+
+    // Reset
+    block.classList.remove('correct', 'incorrect');
+    correctFb.style.display = 'none';
+    incorrectFb.style.display = 'none';
+
+    if (selected && selected.value === answers[key]) {
+      score++;
+      block.classList.add('correct');
+      correctFb.style.display = 'block';
+      details.push(`Q${i}: ✓ Correct`);
+    } else {
+      block.classList.add('incorrect');
+      incorrectFb.style.display = 'block';
+      details.push(`Q${i}: ✗ Incorrect (answered: ${selected ? selected.value.toUpperCase() : 'none'}, correct: ${answers[key].toUpperCase()})`);
+    }
+  }
+
+  const resultBox = document.getElementById('resultBox');
+  const resultTitle = document.getElementById('resultTitle');
+  const scoreDisplay = document.getElementById('scoreDisplay');
+  const resultMsg = document.getElementById('resultMsg');
+
+  resultBox.classList.remove('green', 'yellow', 'red');
+  resultBox.style.display = 'block';
+  scoreDisplay.textContent = score + ' / 8';
+
+  if (score >= 7) {
+    resultBox.classList.add('green');
+    resultTitle.textContent = 'Excellent!';
+    resultMsg.textContent = 'You have a strong command of the CBT for Depression protocol.';
+  } else if (score >= 5) {
+    resultBox.classList.add('yellow');
+    resultTitle.textContent = 'Good Progress';
+    resultMsg.textContent = 'Review the sections for the questions you missed to strengthen your understanding.';
+  } else {
+    resultBox.classList.add('red');
+    resultTitle.textContent = 'Needs Review';
+    resultMsg.textContent = 'Re-read the lesson carefully and try again. Focus on the treatment phases and key techniques.';
+  }
+
+  resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Store for copy
+  window._examResults = {score, details, title: resultTitle.textContent};
+}
+
+function copyResults() {
+  if (!window._examResults) return;
+  const r = window._examResults;
+  const text = `Lesson 12 — CBT for Depression Full Protocol\nExam Result: ${r.title} (${r.score}/8)\n\n${r.details.join('\n')}`;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target.closest('button');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '&#10003; Copied!';
+    setTimeout(() => btn.innerHTML = orig, 2000);
+  });
+}
+</script>
+</body>
+</html>

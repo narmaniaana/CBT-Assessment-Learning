@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 4 — Socratic Questioning in Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0f1117;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    padding: 40px 20px 80px;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Header */
+  .lesson-header {
+    text-align: center;
+    padding: 50px 30px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 50%, #1a1a2e 100%);
+    border-radius: 16px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .lesson-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 70% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .lesson-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .lesson-header h1 {
+    font-size: 2.3em;
+    font-weight: 800;
+    background: linear-gradient(135deg, #e2e8f0, #d8b4fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  .lesson-header .subtitle {
+    color: #94a3b8;
+    font-size: 1.05em;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Score Alert */
+  .score-alert {
+    background: linear-gradient(135deg, #7c2d12, #9a3412);
+    border: 1px solid #ea580c;
+    border-radius: 16px;
+    padding: 24px 30px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .score-alert .icon { font-size: 2em; flex-shrink: 0; }
+  .score-alert h3 { color: #fb923c; margin-bottom: 6px; font-size: 1.05em; }
+  .score-alert p { color: #fed7aa; font-size: 0.92em; }
+
+  /* Cards */
+  .card {
+    background: #1a1b2e;
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: border-color 0.3s;
+  }
+  .card:hover { border-color: rgba(168,85,247,0.25); }
+
+  .card-blue   { border-left: 4px solid #3b82f6; }
+  .card-green  { border-left: 4px solid #10b981; }
+  .card-purple { border-left: 4px solid #8b5cf6; }
+  .card-amber  { border-left: 4px solid #f59e0b; }
+  .card-red    { border-left: 4px solid #ef4444; }
+  .card-cyan   { border-left: 4px solid #06b6d4; }
+  .card-pink   { border-left: 4px solid #ec4899; }
+  .card-emerald { border-left: 4px solid #059669; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .label-blue   { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .label-green  { background: rgba(16,185,129,0.15); color: #34d399; }
+  .label-purple { background: rgba(139,92,246,0.15); color: #a78bfa; }
+  .label-amber  { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .label-red    { background: rgba(239,68,68,0.15);  color: #f87171; }
+  .label-cyan   { background: rgba(6,182,212,0.15);  color: #22d3ee; }
+  .label-pink   { background: rgba(236,72,153,0.15); color: #f472b6; }
+  .label-emerald { background: rgba(5,150,105,0.15); color: #34d399; }
+
+  h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: #f1f5f9;
+  }
+  h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #e2e8f0;
+  }
+  h4 { font-size: 1em; font-weight: 600; margin-bottom: 8px; color: #cbd5e1; }
+
+  p { margin-bottom: 14px; color: #cbd5e1; }
+  strong { color: #e2e8f0; }
+  em { color: #d8b4fe; font-style: italic; }
+
+  ul, ol { margin: 12px 0 16px 24px; color: #cbd5e1; }
+  li { margin-bottom: 8px; }
+  li::marker { color: #a855f7; }
+
+  /* Objectives */
+  .objectives-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .objective-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(168,85,247,0.06);
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(168,85,247,0.12);
+  }
+  .objective-item .num {
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Dialogue styling */
+  .dialogue {
+    background: #12131f;
+    border-radius: 14px;
+    padding: 24px;
+    margin: 18px 0;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .dialogue-title {
+    font-size: 0.85em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .d-line {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .d-line:last-child { margin-bottom: 0; }
+  .d-speaker {
+    font-weight: 700;
+    font-size: 0.8em;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    min-width: 70px;
+    padding-top: 3px;
+    flex-shrink: 0;
+  }
+  .d-client .d-speaker { color: #94a3b8; }
+  .d-therapist .d-speaker { color: #a78bfa; }
+  .d-text {
+    font-size: 0.95em;
+    line-height: 1.7;
+  }
+  .d-client .d-text { color: #94a3b8; font-style: italic; }
+  .d-therapist .d-text { color: #e0d5f5; }
+  .d-note {
+    background: rgba(168,85,247,0.08);
+    border-left: 3px solid #7c3aed;
+    padding: 8px 14px;
+    margin: 10px 0 14px 82px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.82em;
+    color: #c4b5fd;
+  }
+
+  /* Wrong/Right comparison */
+  .comparison-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 18px 0;
+  }
+  .comparison-wrong {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .comparison-right {
+    background: rgba(16,185,129,0.06);
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .comparison-wrong h4 { color: #f87171; margin-bottom: 10px; }
+  .comparison-right h4 { color: #34d399; margin-bottom: 10px; }
+  .comparison-wrong p, .comparison-wrong li { color: #fca5a5; font-size: 0.9em; }
+  .comparison-right p, .comparison-right li { color: #a7f3d0; font-size: 0.9em; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 0.92em;
+  }
+  thead th {
+    background: rgba(168,85,247,0.15);
+    color: #d8b4fe;
+    font-weight: 700;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid rgba(168,85,247,0.3);
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+  }
+  thead th:first-child { border-radius: 10px 0 0 0; }
+  thead th:last-child { border-radius: 0 10px 0 0; }
+  tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: #cbd5e1;
+    vertical-align: top;
+  }
+  tbody tr:hover { background: rgba(168,85,247,0.04); }
+  tbody tr:last-child td:first-child { border-radius: 0 0 0 10px; }
+  tbody tr:last-child td:last-child { border-radius: 0 0 10px 0; }
+
+  /* Details / Summary */
+  details {
+    background: #151728;
+    border: 1px solid rgba(168,85,247,0.15);
+    border-radius: 12px;
+    margin: 14px 0;
+    overflow: hidden;
+  }
+  summary {
+    padding: 16px 22px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #d8b4fe;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  summary:hover { background: rgba(168,85,247,0.08); }
+  summary::marker, summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: '▶';
+    font-size: 11px;
+    transition: transform 0.2s;
+    color: #a855f7;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .answer {
+    padding: 0 22px 18px 22px;
+    color: #cbd5e1;
+    border-top: 1px solid rgba(168,85,247,0.1);
+    margin-top: 0;
+    padding-top: 16px;
+  }
+  details .answer p { margin-bottom: 8px; }
+
+  /* Quiz */
+  .quiz-question {
+    background: #151728;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(168,85,247,0.12);
+  }
+  .quiz-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-right: 10px;
+  }
+  .quiz-text { display: inline; font-weight: 600; color: #e2e8f0; }
+  .quiz-options { margin: 14px 0 14px 42px; }
+  .quiz-options label {
+    display: block;
+    padding: 8px 0;
+    color: #94a3b8;
+    cursor: default;
+  }
+
+  /* Highlight boxes */
+  .highlight {
+    background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(139,92,246,0.08));
+    border: 1px solid rgba(168,85,247,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 18px 0;
+  }
+  .highlight.warn {
+    background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(234,88,12,0.08));
+    border-color: rgba(245,158,11,0.25);
+  }
+  .highlight.danger {
+    background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(220,38,38,0.08));
+    border-color: rgba(239,68,68,0.2);
+  }
+  .highlight.success {
+    background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.08));
+    border-color: rgba(16,185,129,0.2);
+  }
+
+  /* Stage cards */
+  .stage-card {
+    background: #12131f;
+    border-radius: 12px;
+    padding: 22px;
+    margin: 14px 0;
+    border-left: 4px solid;
+    position: relative;
+  }
+  .stage-number {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .stage-1 { border-color: #3b82f6; }
+  .stage-1 .stage-number { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+  .stage-2 { border-color: #10b981; }
+  .stage-2 .stage-number { background: linear-gradient(135deg, #10b981, #059669); }
+  .stage-3 { border-color: #f59e0b; }
+  .stage-3 .stage-number { background: linear-gradient(135deg, #f59e0b, #d97706); }
+  .stage-4 { border-color: #a855f7; }
+  .stage-4 .stage-number { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+
+  /* Mistake items */
+  .mistake-item {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.12);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .mistake-item h4 { color: #f87171; }
+  .mistake-item p { color: #fca5a5; font-size: 0.92em; margin-bottom: 0; }
+
+  /* Question type cards */
+  .q-type {
+    background: #12131f;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 22px;
+    margin: 14px 0;
+  }
+  .q-type h4 {
+    font-size: 1em;
+    margin-bottom: 12px;
+  }
+  .q-example {
+    background: rgba(168,85,247,0.06);
+    border-left: 2px solid #7c3aed;
+    padding: 10px 16px;
+    margin: 8px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #c4b5fd;
+    font-size: 0.92em;
+  }
+
+  /* Completion box */
+  .lesson-complete {
+    text-align: center;
+    padding: 40px 30px;
+    background: linear-gradient(135deg, #064e3b, #065f46);
+    border: 1px solid #10b981;
+    border-radius: 16px;
+    margin-top: 40px;
+  }
+  .lesson-complete h2 { color: #6ee7b7; }
+  .lesson-complete p { color: #a7f3d0; }
+
+  @media (max-width: 640px) {
+    .lesson-header h1 { font-size: 1.6em; }
+    .card { padding: 22px; }
+    .comparison-split { grid-template-columns: 1fr; }
+    .dialogue { padding: 16px; }
+    .d-speaker { min-width: 55px; font-size: 0.72em; }
+    .d-note { margin-left: 67px; }
+    table { font-size: 0.82em; }
+    thead th, tbody td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="lesson-header">
+    <div class="lesson-number">Lesson 4 of 12</div>
+    <h1>Socratic Questioning in Practice</h1>
+    <p class="subtitle">Stop explaining. Start asking. Learn the art of guided discovery that helps clients change their own minds.</p>
+  </div>
+
+  <!-- SCORE ALERT -->
+  <div class="score-alert">
+    <div class="icon">🔍</div>
+    <div>
+      <h3>Your Practice Score: 35%</h3>
+      <p>Here's the interesting part: you correctly defined Socratic questioning on the knowledge test (A6). You <em>know</em> what it is. But when given clinical scenarios, your responses defaulted to <strong>reassurance and psychoeducation</strong>. This is extremely common — and it's exactly what this lesson addresses. The gap between knowing <em>about</em> Socratic questioning and actually <em>doing</em> it is the single biggest skill challenge in CBT training.</p>
+    </div>
+  </div>
+
+  <!-- LEARNING OBJECTIVES -->
+  <div class="card card-purple">
+    <span class="section-label label-purple">Learning Objectives</span>
+    <h2>🎯 By the End of This Lesson, You Will:</h2>
+    <div class="objectives-grid">
+      <div class="objective-item">
+        <div class="num">1</div>
+        <div>Understand <em>why</em> therapists default to psychoeducation even when they know better</div>
+      </div>
+      <div class="objective-item">
+        <div class="num">2</div>
+        <div>Apply Padesky's 4-stage model of Socratic questioning</div>
+      </div>
+      <div class="objective-item">
+        <div class="num">3</div>
+        <div>Use 6 different types of Socratic questions fluently</div>
+      </div>
+      <div class="objective-item">
+        <div class="num">4</div>
+        <div>Distinguish Socratic questioning from reassurance, psychoeducation, and leading questions</div>
+      </div>
+      <div class="objective-item">
+        <div class="num">5</div>
+        <div>Generate Socratic responses to common clinical presentations</div>
+      </div>
+      <div class="objective-item">
+        <div class="num">6</div>
+        <div>Identify and correct the 5 most common Socratic questioning mistakes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE PARADOX -->
+  <div class="card card-amber">
+    <span class="section-label label-amber">The Core Problem</span>
+    <h2>🧩 The Paradox: Why You Know It But Don't Do It</h2>
+    <p>You scored correctly on the definition. You can explain what Socratic questioning is. But when a client says something distressing, your instinct is to <strong>help, explain, comfort, or teach</strong>. This is not a knowledge problem — it's a <em>reflex</em> problem.</p>
+
+    <h3>Four reasons therapists default to non-Socratic responses:</h3>
+
+    <div class="highlight warn">
+      <h4>1. 🏃 The Rescue Impulse</h4>
+      <p>When a client says "Nobody cares about me," your gut screams: <em>That's not true! I need to show them evidence that people care!</em> The desire to relieve suffering is immediate and powerful. Asking questions feels slow and indirect by comparison.</p>
+    </div>
+
+    <div class="highlight warn">
+      <h4>2. 😰 Fear of Silence</h4>
+      <p>Socratic questions require the client to <em>think</em>. There will be pauses. Silence feels uncomfortable. The therapist fills it with explanations or the answer to their own question. <strong>Key insight:</strong> Silence after a good question is the sound of cognitive change happening.</p>
+    </div>
+
+    <div class="highlight warn">
+      <h4>3. 🎓 The Expert Trap</h4>
+      <p>Therapists are trained as experts. You spent years learning about cognitive distortions. It feels natural — even efficient — to just <em>tell</em> the client what you see. But information given is far less powerful than information discovered. The client who figures out their own distortion owns that insight forever.</p>
+    </div>
+
+    <div class="highlight warn">
+      <h4>4. ⏱️ Perceived Slowness</h4>
+      <p>"We only have 50 minutes — I don't have time to ask 8 questions when I could just explain it." This is an illusion. Psychoeducation without Socratic grounding rarely sticks. You'll "explain" the same concept 5 sessions in a row. Guided discovery takes longer once but transfers permanently.</p>
+    </div>
+
+    <div class="highlight">
+      <strong>🔑 The fundamental principle:</strong> Insights the client arrives at through their own reasoning are more durable, more believed, and more behavior-changing than insights delivered by the therapist. This is not just philosophy — it's empirically supported (Padesky, 1993; Kazantzis et al., 2018).
+    </div>
+  </div>
+
+  <!-- PADESKY'S 4 STAGES -->
+  <div class="card card-cyan">
+    <span class="section-label label-cyan">Framework</span>
+    <h2>🔄 Padesky's 4 Stages of Socratic Questioning (1993)</h2>
+    <p>Christine Padesky described Socratic questioning not as random question-asking, but as a structured <strong>4-stage process</strong>. Each stage builds on the previous one.</p>
+
+    <div class="stage-card stage-1">
+      <div class="stage-number">1</div>
+      <h3>Stage 1: Ask Informational Questions</h3>
+      <p><strong>Goal:</strong> Gather concrete data about the thought, situation, and emotions. You're not challenging anything yet — you're understanding.</p>
+      <p><em>Examples:</em></p>
+      <ul>
+        <li>"When you think 'Nobody cares about me,' what situation triggered that?"</li>
+        <li>"How strongly do you believe that on a 0–100 scale?"</li>
+        <li>"What emotion comes with that thought? How intense is it?"</li>
+        <li>"Has something specific happened that led to this thought?"</li>
+      </ul>
+    </div>
+
+    <div class="stage-card stage-2">
+      <div class="stage-number">2</div>
+      <h3>Stage 2: Listen and Accurately Reflect</h3>
+      <p><strong>Goal:</strong> Show the client you've heard them. Summarize their experience precisely before moving forward. This builds trust and ensures you're working with <em>their</em> reality, not your assumption.</p>
+      <p><em>Examples:</em></p>
+      <ul>
+        <li>"So your sister didn't call on your birthday, and that triggered the thought that nobody cares. The feeling was sadness — about an 80 out of 100."</li>
+        <li>"Let me make sure I've got this right — you're saying that whenever you reach out to friends, it feels like you're always the one initiating."</li>
+      </ul>
+    </div>
+
+    <div class="stage-card stage-3">
+      <div class="stage-number">3</div>
+      <h3>Stage 3: Synthesize — Identify Patterns and Contradictions</h3>
+      <p><strong>Goal:</strong> Link pieces of information the client has given you. Notice when their own data contradicts their conclusion. Don't point it out — set up the next question.</p>
+      <p><em>Internal therapist thinking:</em> "The client says nobody cares, but earlier she mentioned her coworker checked in on her. Interesting. Let me ask about that."</p>
+    </div>
+
+    <div class="stage-card stage-4">
+      <div class="stage-number">4</div>
+      <h3>Stage 4: Ask Analytical / Synthesizing Questions</h3>
+      <p><strong>Goal:</strong> Help the client see what you see — using <em>their own</em> data. This is where the insight happens.</p>
+      <p><em>Examples:</em></p>
+      <ul>
+        <li>"You mentioned your sister didn't call, and that's the evidence for 'nobody cares.' But you also mentioned your coworker Maria checked in on you twice last week. How do you make sense of both of those together?"</li>
+        <li>"Given everything you've told me — that some people have reached out and some haven't — what's a more complete picture than 'nobody cares'?"</li>
+      </ul>
+    </div>
+
+    <div class="highlight success">
+      <strong>✅ The sequence matters:</strong> Informational → Reflective → Synthesizing → Analytical. If you jump to Stage 4 without gathering data first, the client feels ambushed. If you stop at Stage 1, you're just interviewing, not guiding discovery.
+    </div>
+  </div>
+
+  <!-- TYPES OF SOCRATIC QUESTIONS -->
+  <div class="card card-blue">
+    <span class="section-label label-blue">Toolkit</span>
+    <h2>🛠️ Six Types of Socratic Questions</h2>
+    <p>Each type serves a different purpose. A skilled CBT therapist draws from all six depending on the situation.</p>
+
+    <div class="q-type">
+      <h4 style="color: #60a5fa;">1. 🔍 Evidence Examination</h4>
+      <p>Help the client evaluate whether their thought is supported by facts.</p>
+      <div class="q-example">"What's the evidence that nobody cares about you?"</div>
+      <div class="q-example">"Is there any evidence — even small — that contradicts that thought?"</div>
+      <div class="q-example">"If a jury were evaluating this thought, what evidence would they want to see?"</div>
+    </div>
+
+    <div class="q-type">
+      <h4 style="color: #34d399;">2. 🔀 Alternative Explanations</h4>
+      <p>Expand the client's tunnel vision to consider other interpretations.</p>
+      <div class="q-example">"Is there another way to explain why your sister didn't call?"</div>
+      <div class="q-example">"If this happened to someone else, what other explanations might you think of?"</div>
+      <div class="q-example">"What are all the possible reasons someone might not return a text right away?"</div>
+    </div>
+
+    <div class="q-type">
+      <h4 style="color: #fbbf24;">3. 📉 Decatastrophizing</h4>
+      <p>Reduce the perceived horror of the feared outcome by exploring coping capacity.</p>
+      <div class="q-example">"If the worst did happen — if you did fail the exam — what would you actually do next?"</div>
+      <div class="q-example">"Have you faced something this difficult before? How did you get through it?"</div>
+      <div class="q-example">"Six months from now, looking back on this, how important will it feel?"</div>
+    </div>
+
+    <div class="q-type">
+      <h4 style="color: #f472b6;">4. 👥 Perspective Shift</h4>
+      <p>Use the client's own compassion and logic — applied to someone else — to bypass self-criticism.</p>
+      <div class="q-example">"If your best friend came to you and said 'Nobody cares about me,' what would you say to them?"</div>
+      <div class="q-example">"What would you think if you saw a colleague make the same mistake?"</div>
+      <div class="q-example">"How would your wisest self view this situation?"</div>
+    </div>
+
+    <div class="q-type">
+      <h4 style="color: #22d3ee;">5. ⚖️ Examining Utility</h4>
+      <p>Not whether the thought is true, but whether it's <em>helpful</em>.</p>
+      <div class="q-example">"How does believing 'I always fail' affect how you approach new tasks?"</div>
+      <div class="q-example">"What's the cost of holding onto this belief? What's the benefit?"</div>
+      <div class="q-example">"If you could let go of this thought, what might change in how you act?"</div>
+    </div>
+
+    <div class="q-type">
+      <h4 style="color: #a78bfa;">6. 📜 Historical Testing</h4>
+      <p>Use the client's own history to test predictions and beliefs.</p>
+      <div class="q-example">"You've had the thought 'Something terrible will happen' many times before. Looking back, how often did something terrible actually happen?"</div>
+      <div class="q-example">"The last time you gave a presentation, what did you predict would happen vs. what actually happened?"</div>
+      <div class="q-example">"You've been through similar situations — what does your track record suggest?"</div>
+    </div>
+  </div>
+
+  <!-- DIALOGUE 1: DEPRESSION -->
+  <div class="card card-pink">
+    <span class="section-label label-pink">Clinical Dialogue 1</span>
+    <h2>💬 Depression: "Nobody cares about me."</h2>
+
+    <h3>First, the WRONG Way:</h3>
+    <div class="comparison-split">
+      <div class="comparison-wrong">
+        <h4>❌ Reassurance Approach</h4>
+        <p><strong>Client:</strong> "Nobody cares about me."</p>
+        <p><strong>Therapist:</strong> "That's not true! I'm sure your family loves you. And I care about you."</p>
+        <p style="margin-bottom:0;"><em>Problem: Dismisses the client's experience. The client thinks "You're paid to say that." No lasting cognitive change.</em></p>
+      </div>
+      <div class="comparison-wrong">
+        <h4>❌ Psychoeducation Approach</h4>
+        <p><strong>Client:</strong> "Nobody cares about me."</p>
+        <p><strong>Therapist:</strong> "That's a cognitive distortion called overgeneralization. When we're depressed, we tend to see things in all-or-nothing terms..."</p>
+        <p style="margin-bottom:0;"><em>Problem: Intellectualizes the pain. Correct information, wrong moment. Client doesn't feel heard.</em></p>
+      </div>
+    </div>
+
+    <h3>Now, the RIGHT Way — Full Socratic Dialogue:</h3>
+    <div class="dialogue">
+      <div class="dialogue-title" style="color: #f472b6;">Guided Discovery — Depression</div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"Nobody cares about me. I feel completely alone."</div>
+      </div>
+      <div class="d-note">Stage 1: Gather information. Don't challenge yet.</div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"That sounds really painful. When you say 'nobody,' can you help me understand — what happened recently that brought this thought on?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"My birthday was Saturday. My sister didn't even call. My two closest friends just sent a quick text. Nobody made any effort."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"So your sister didn't call, and your friends sent texts but it didn't feel like enough. How strongly do you believe the thought 'nobody cares' right now, on a 0 to 100 scale?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"About 85."</div>
+      </div>
+      <div class="d-note">Stage 2: Reflect accurately before going deeper.</div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"Okay, so this feels very real and very strong — 85 out of 100. Your birthday passed and the people closest to you didn't show up the way you needed. I can see why that would hurt. Let me ask you something — apart from the birthday, have there been any times in the last month when someone showed they were thinking about you?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"... I mean, Maria at work asked me to lunch last week. And my neighbor brought over some food when I was sick."</div>
+      </div>
+      <div class="d-note">Stage 3: Synthesize — the client's own data contains a contradiction.</div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"So Maria invited you to lunch, and your neighbor brought food when you were sick. How does that fit with the idea that nobody cares?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"... I guess those are examples of people caring. But it still feels like the people who SHOULD care the most don't."</div>
+      </div>
+      <div class="d-note">Stage 4: Analytical question — help the client form a new conclusion.</div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"That's an important distinction. So it sounds like the more accurate thought might not be 'nobody cares' but something more specific. What would be a more precise way to put it?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"I guess... 'My sister and close friends didn't show up the way I wanted on my birthday, and that really hurt.'"</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"How does that thought feel compared to 'nobody cares about me'? Where would you rate the belief now?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"... maybe 45. It still hurts, but it doesn't feel as total."</div>
+      </div>
+    </div>
+
+    <div class="highlight success">
+      <strong>✅ What happened:</strong> The belief dropped from 85 → 45. The client discovered the shift herself. The therapist never said "That's not true" or labeled the distortion. The client arrived at a more balanced thought through her own reasoning — which means she's far more likely to believe it and apply it again.
+    </div>
+  </div>
+
+  <!-- DIALOGUE 2: SOCIAL ANXIETY -->
+  <div class="card card-cyan">
+    <span class="section-label label-cyan">Clinical Dialogue 2</span>
+    <h2>💬 Social Anxiety: "Everyone noticed I was blushing."</h2>
+
+    <div class="dialogue">
+      <div class="dialogue-title" style="color: #22d3ee;">Guided Discovery — Social Anxiety</div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"I had to present at the team meeting yesterday. My face turned bright red. Everyone noticed — they must think I'm so weird and incompetent."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"That sounds like a really uncomfortable experience. Let me make sure I understand — you're saying two things: that everyone noticed the blushing, and that they interpreted it as weird or incompetent. Let's start with the first one. What makes you so sure everyone noticed?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"I mean... I could feel my face burning. It must have been so obvious."</div>
+      </div>
+      <div class="d-note">Key move: separate internal experience from external reality.</div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"So the evidence is that you felt hot. That makes total sense — you definitely felt it. But I'm curious: did anyone actually look at you strangely, comment on it, or react in a way you noticed?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"No... actually, nobody said anything. My manager said 'good summary' afterwards."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"Interesting. So no one commented on your appearance, and your manager gave positive feedback on the content. Now let me ask — when you're in a meeting and someone else is presenting, how closely do you pay attention to the color of their face?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">[pauses] "... I don't, really. I'm mostly paying attention to what they're saying."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"So when you're in the audience, you focus on content, not faces. Is it possible that your colleagues were doing the same thing?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"I guess that's possible. I just always assume they're watching me the way I watch myself."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"That's a really insightful observation. You're noticing something important — that you might be assuming others are as focused on you as you are on yourself. In CBT we sometimes call this the 'spotlight effect.' Even if someone did notice a slight blush, let's look at the second part: would they necessarily think 'weird and incompetent'? What else might someone think if they noticed someone blushing during a presentation?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"I guess... they might think I'm nervous? Or they might not think anything at all. Or even think 'oh, presenting is hard.'"</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"Right. So we have: nobody commented, your manager said 'good summary,' and there are many possible interpretations besides 'weird and incompetent.' Given all of that, where are you now with the original thought?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"It feels less convincing. Maybe they were just listening to the content. I was so in my own head."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIALOGUE 3: GAD -->
+  <div class="card card-amber">
+    <span class="section-label label-amber">Clinical Dialogue 3</span>
+    <h2>💬 GAD: "If I don't check everything twice, something terrible will happen."</h2>
+
+    <div class="dialogue">
+      <div class="dialogue-title" style="color: #fbbf24;">Guided Discovery — Generalized Anxiety</div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"I spent 45 minutes this morning checking that all the doors were locked and the stove was off. If I don't check everything twice, something terrible will happen."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"That's taking a big chunk of your morning. When you say 'something terrible' — can you be specific about what you imagine happening?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"Like... someone could break in. Or the house could burn down."</div>
+      </div>
+      <div class="d-note">Decatastrophizing: make the feared outcome specific and then evaluate probability.</div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"Okay. Let's take the stove first. How many times in your life have you used the stove?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"Thousands of times, I guess."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"And out of those thousands of times, how many times have you actually left it on and something caught fire?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"... Never. I mean, I've left it on once or twice by accident, but nothing happened."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"So out of thousands of uses, it was left on once or twice, and even then nothing terrible happened. What does that tell you about the probability of a fire?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"It's very low, I know that logically..."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"Right, your own track record shows it's extremely low. Now here's what I'm curious about — you said 'I know that logically.' So the logical part of your brain knows the probability is near zero. But the checking continues for 45 minutes. What's the checking actually doing for you? After the first check, does the anxiety go down?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"For about 30 seconds. Then I think, 'But did I really check properly?' and I have to check again."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"So the relief lasts 30 seconds, but it costs you 45 minutes every morning, plus all the stress. If the checking only works for 30 seconds, is it actually solving the problem, or is it feeding it?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"... I never thought of it like that. It's feeding it. The more I check, the more I feel like I need to check."</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"That's a really important insight. If the checking is actually maintaining the anxiety rather than solving it, what do you think would happen if you checked once and then left?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"I'd be anxious. But... I guess the anxiety would eventually come down on its own?"</div>
+      </div>
+
+      <div class="d-line d-therapist">
+        <div class="d-speaker">Therapist:</div>
+        <div class="d-text">"What do you think? Based on your experience, does anxiety stay at peak intensity forever, or does it eventually come down?"</div>
+      </div>
+
+      <div class="d-line d-client">
+        <div class="d-speaker">Client:</div>
+        <div class="d-text">"It comes down. It always does, eventually."</div>
+      </div>
+    </div>
+
+    <div class="highlight success">
+      <strong>✅ What happened:</strong> Through questioning, the client discovered three things on their own: (1) the actual probability is near zero based on their own history, (2) checking feeds the anxiety rather than resolving it, and (3) anxiety naturally decreases even without the safety behavior. The therapist never said any of these things directly.
+    </div>
+  </div>
+
+  <!-- COMMON MISTAKES -->
+  <div class="card card-red">
+    <span class="section-label label-red">Watch Out</span>
+    <h2>🚨 Five Common Socratic Questioning Mistakes</h2>
+
+    <div class="mistake-item">
+      <h4>❌ Mistake 1: "Socratic Lecturing"</h4>
+      <p><strong>What it looks like:</strong> "Don't you think that's maybe an overreaction? Wouldn't you agree that your friend probably just forgot?" These are <em>leading questions</em> disguised as Socratic ones. There's only one acceptable answer. The client feels cornered, not guided. <strong>Fix:</strong> Ask genuinely open questions where multiple answers are possible.</p>
+    </div>
+
+    <div class="mistake-item">
+      <h4>❌ Mistake 2: Machine-Gun Questioning</h4>
+      <p><strong>What it looks like:</strong> "What's the evidence? And what else? Any other evidence? What about your mother — doesn't she care? And your colleagues?" Question after question with no space. It feels like an interrogation, not a conversation. <strong>Fix:</strong> Ask one question. Wait. Reflect what you hear. <em>Then</em> ask the next question.</p>
+    </div>
+
+    <div class="mistake-item">
+      <h4>❌ Mistake 3: Abandoning the Question When the Client Gets Uncomfortable</h4>
+      <p><strong>What it looks like:</strong> Client starts to tear up or says "I don't know." Therapist immediately pivots: "Okay, that's fine, let's talk about something else." The discomfort was actually the edge of discovery. <strong>Fix:</strong> Gently stay with it: "Take your time. What's coming up for you right now?"</p>
+    </div>
+
+    <div class="mistake-item">
+      <h4>❌ Mistake 4: Giving the Answer When the Client Pauses</h4>
+      <p><strong>What it looks like:</strong> Therapist asks "What evidence is there against that thought?" Client pauses for 3 seconds. Therapist says "Well, what about your friend who called you last week?" The therapist just did the client's cognitive work for them. <strong>Fix:</strong> Wait at least <strong>10 full seconds</strong>. Count silently. The pause is where thinking happens.</p>
+    </div>
+
+    <div class="mistake-item">
+      <h4>❌ Mistake 5: Asking Socratic Questions Without Warmth</h4>
+      <p><strong>What it looks like:</strong> Technically correct questions delivered in a cold, clinical tone. "What's the evidence? Is there another explanation? What's the probability?" without empathy, validation, or connection. The client feels like a logic puzzle, not a human being. <strong>Fix:</strong> Validate first, question second. Always acknowledge the emotion before exploring the thought.</p>
+    </div>
+  </div>
+
+  <!-- CLASSIFICATION TABLE -->
+  <div class="card card-purple">
+    <span class="section-label label-purple">Reference</span>
+    <h2>📊 Socratic vs. Reassurance vs. Psychoeducation</h2>
+    <p>Use this table to check whether your responses are truly Socratic:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:25%;">Client Says</th>
+          <th style="color:#f87171;">Reassurance ❌</th>
+          <th style="color:#fbbf24;">Psychoeducation ⚠️</th>
+          <th style="color:#34d399;">Socratic ✅</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><em>"I'm going to fail the exam."</em></td>
+          <td>"You'll be fine! You've studied so hard."</td>
+          <td>"Predicting failure is called 'fortune telling' — a type of cognitive distortion."</td>
+          <td>"What evidence do you have that you'll fail? And what evidence suggests you might do okay?"</td>
+        </tr>
+        <tr>
+          <td><em>"My boss hates me."</em></td>
+          <td>"I'm sure that's not true — you're a great employee!"</td>
+          <td>"You might be mind-reading — assuming you know what someone else thinks."</td>
+          <td>"What has your boss said or done that makes you think that? Has there been anything that doesn't fit with 'hates me'?"</td>
+        </tr>
+        <tr>
+          <td><em>"I can't handle this."</em></td>
+          <td>"Yes you can! You're stronger than you think."</td>
+          <td>"That's catastrophizing — overestimating how bad it will be."</td>
+          <td>"What specifically feels unmanageable right now? And have you faced something this hard before — what happened?"</td>
+        </tr>
+        <tr>
+          <td><em>"Everything always goes wrong for me."</em></td>
+          <td>"That's not true — think about all the good things in your life."</td>
+          <td>"'Always' and 'everything' are overgeneralizations."</td>
+          <td>"Can you think of a recent time when something went the way you hoped — even something small?"</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight">
+      <strong>🔑 Note:</strong> Psychoeducation has its place in CBT — but it works best <em>after</em> guided discovery, not instead of it. Once the client has discovered a pattern, <em>then</em> you can name it: "What you just noticed — that you're using one instance to define everything — in CBT we call that overgeneralization."
+    </div>
+  </div>
+
+  <!-- PRACTICE EXERCISES -->
+  <div class="card card-green">
+    <span class="section-label label-green">Practice</span>
+    <h2>✍️ Practice Exercises: Write Your Socratic Response</h2>
+    <p>For each client statement below, write your Socratic response before revealing the model answer. Aim for a response that is: (1) validating, (2) genuinely curious, and (3) designed to help the client discover something — NOT to educate or reassure them.</p>
+
+    <h3>Statement 1:</h3>
+    <p style="background: rgba(255,255,255,0.04); padding: 16px; border-radius: 10px; font-style: italic; color: #94a3b8;">"My partner didn't text me back for 3 hours. They must be losing interest in me."</p>
+    <details>
+      <summary>🔓 Reveal Model Socratic Response</summary>
+      <div class="answer">
+        <p><strong>Model response:</strong> "That sounds like those 3 hours were really anxiety-provoking. Help me understand — when you didn't hear back, what was the very first thought that came to mind? ... And what are all the possible reasons someone might not text back for 3 hours? ... Of those reasons, which ones have actually happened with your partner before?"</p>
+        <p><em>This gathers data (Stage 1), then generates alternatives (Type 2), then uses historical evidence (Type 6).</em></p>
+      </div>
+    </details>
+
+    <h3>Statement 2:</h3>
+    <p style="background: rgba(255,255,255,0.04); padding: 16px; border-radius: 10px; font-style: italic; color: #94a3b8;">"I had a panic attack at the grocery store. I can never go back there again."</p>
+    <details>
+      <summary>🔓 Reveal Model Socratic Response</summary>
+      <div class="answer">
+        <p><strong>Model response:</strong> "That must have been terrifying. When you say 'never go back,' what's the worst that you're imagining would happen if you did? ... And during the panic attack — it obviously felt horrible — but were you actually in danger? What happened after the panic peaked? ... Given that you survived it, what does that tell you about your ability to handle it if it happened again?"</p>
+        <p><em>This uses decatastrophizing (Type 3) and historical testing (Type 6). It helps the client evaluate the actual danger vs. the perceived danger.</em></p>
+      </div>
+    </details>
+
+    <h3>Statement 3:</h3>
+    <p style="background: rgba(255,255,255,0.04); padding: 16px; border-radius: 10px; font-style: italic; color: #94a3b8;">"I made a typo in the report I sent to the CEO. My career is over."</p>
+    <details>
+      <summary>🔓 Reveal Model Socratic Response</summary>
+      <div class="answer">
+        <p><strong>Model response:</strong> "I can see you're really anxious about this. Let me ask — how many reports have gone to the CEO over the years from your team? ... Have you ever noticed a typo in someone else's report? What did you think of that person? ... And what would need to be true for a single typo to actually end a career? How realistic is that?"</p>
+        <p><em>This combines evidence examination (Type 1) with perspective shift (Type 4) and decatastrophizing (Type 3).</em></p>
+      </div>
+    </details>
+
+    <h3>Statement 4:</h3>
+    <p style="background: rgba(255,255,255,0.04); padding: 16px; border-radius: 10px; font-style: italic; color: #94a3b8;">"I shouldn't feel anxious — there's nothing to be anxious about. Something must be really wrong with me."</p>
+    <details>
+      <summary>🔓 Reveal Model Socratic Response</summary>
+      <div class="answer">
+        <p><strong>Model response:</strong> "So you're having anxiety <em>about</em> having anxiety — that's a second layer. Let me ask: where did you learn the rule that you 'shouldn't' feel anxious? ... Do you apply that rule to other people — if a friend told you they felt anxious for no clear reason, would you think something was really wrong with them? ... And what does 'something is really wrong with me' actually mean — what are you afraid it means?"</p>
+        <p><em>This uses perspective shift (Type 4) and examines the utility/origin of a belief (Type 5).</em></p>
+      </div>
+    </details>
+
+    <h3>Statement 5:</h3>
+    <p style="background: rgba(255,255,255,0.04); padding: 16px; border-radius: 10px; font-style: italic; color: #94a3b8;">"I tried meditation once and it didn't work. Nothing works for me. I'm untreatable."</p>
+    <details>
+      <summary>🔓 Reveal Model Socratic Response</summary>
+      <div class="answer">
+        <p><strong>Model response:</strong> "I hear a lot of hopelessness in that. Let's slow down and look at it. When you say 'nothing works,' are you defining 'works' as instant complete relief? ... What other things have you tried, and what happened with each of them — was there any partial effect, even briefly? ... And 'untreatable' — that's a very strong conclusion from one meditation attempt. If a doctor tried one medication and it didn't work, would you conclude the patient was untreatable, or that they hadn't found the right approach yet?"</p>
+        <p><em>This uses evidence examination (Type 1), redefines the standard for "working," and uses perspective shift (Type 4).</em></p>
+      </div>
+    </details>
+  </div>
+
+  <!-- MINI-TEST -->
+  <div class="card card-purple">
+    <span class="section-label label-purple">Mini-Test</span>
+    <h2>🧪 Test Your Knowledge (6 Questions)</h2>
+
+    <!-- Q1 -->
+    <div class="quiz-question">
+      <span class="quiz-number">1</span>
+      <span class="quiz-text">A client says: "My coworkers were laughing in the break room — they were definitely laughing at me." Which is the BEST Socratic response?</span>
+      <div class="quiz-options">
+        <label>A) "I'm sure they weren't laughing at you — people laugh about all kinds of things."</label>
+        <label>B) "You're mind-reading — assuming you know what others are thinking without evidence."</label>
+        <label>C) "What makes you so certain they were laughing at you specifically? Is there any other explanation for what they might have been laughing about?"</label>
+        <label>D) "How did that make you feel? Let's explore those emotions."</label>
+      </div>
+      <details>
+        <summary>🔓 Reveal Answer</summary>
+        <div class="answer">
+          <p><strong>C</strong> — This is genuine Socratic questioning. It asks the client to examine the evidence (Type 1) and consider alternatives (Type 2).</p>
+          <p><strong>A</strong> = Reassurance (dismisses the client's perception)</p>
+          <p><strong>B</strong> = Psychoeducation (labels the distortion without guided discovery)</p>
+          <p><strong>D</strong> = Emotion exploration (valid in some contexts, but doesn't address the cognition — more characteristic of process-experiential therapy)</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-question">
+      <span class="quiz-number">2</span>
+      <span class="quiz-text">Classify each response as Socratic (S), Psychoeducation (P), or Reassurance (R):</span>
+      <div class="quiz-options">
+        <label>a) "You're catastrophizing — imagining the worst-case scenario."</label>
+        <label>b) "What would actually happen if your fear came true? Could you survive it?"</label>
+        <label>c) "Don't worry, it'll all work out in the end."</label>
+        <label>d) "What would you tell your best friend if they were in this situation?"</label>
+        <label>e) "In CBT, we call that an all-or-nothing thinking pattern."</label>
+      </div>
+      <details>
+        <summary>🔓 Reveal Answer</summary>
+        <div class="answer">
+          <p><strong>a) P</strong> — Psychoeducation. Labels the distortion directly.</p>
+          <p><strong>b) S</strong> — Socratic. Decatastrophizing question (Type 3).</p>
+          <p><strong>c) R</strong> — Reassurance. No exploration, just comfort.</p>
+          <p><strong>d) S</strong> — Socratic. Perspective shift question (Type 4).</p>
+          <p><strong>e) P</strong> — Psychoeducation. Teaching terminology without discovery.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-question">
+      <span class="quiz-number">3</span>
+      <span class="quiz-text">What are the 4 stages of Padesky's Socratic questioning model, in order?</span>
+      <details>
+        <summary>🔓 Reveal Answer</summary>
+        <div class="answer">
+          <ol>
+            <li><strong>Ask informational questions</strong> — Gather data about the thought/situation</li>
+            <li><strong>Listen and accurately reflect</strong> — Summarize back what the client said</li>
+            <li><strong>Synthesize</strong> — Identify patterns, contradictions, or missing pieces in the client's own data</li>
+            <li><strong>Ask analytical/synthesizing questions</strong> — Help the client draw new conclusions from their own information</li>
+          </ol>
+          <p><em>Remember: Gather → Reflect → Notice → Guide</em></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-question">
+      <span class="quiz-number">4</span>
+      <span class="quiz-text">A therapist asks: "Don't you think you're overreacting a little bit?" Is this Socratic questioning? Why or why not?</span>
+      <details>
+        <summary>🔓 Reveal Answer</summary>
+        <div class="answer">
+          <p><strong>No, this is NOT Socratic questioning.</strong> This is a <strong>leading question</strong> (also called "Socratic lecturing"). There is only one acceptable answer: "Yes, I'm overreacting."</p>
+          <p>A genuine Socratic question would be open-ended: <em>"How proportionate does your reaction feel to what actually happened? On one hand, what makes your reaction make sense? On the other hand, is there any part of it that might be bigger than the situation warrants?"</em></p>
+          <p>The difference: a true Socratic question allows the client to arrive at any conclusion — including "No, I'm NOT overreacting."</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-question">
+      <span class="quiz-number">5</span>
+      <span class="quiz-text">A client says: "If I apply for the promotion and don't get it, I'll be humiliated." Write a 3-question Socratic sequence to address this thought.</span>
+      <details>
+        <summary>🔓 Reveal Model Sequence</summary>
+        <div class="answer">
+          <p><strong>Question 1 (Evidence / Informational):</strong> "What specifically about not getting the promotion would be humiliating? Who would know, and what do you imagine they'd think?"</p>
+          <p><strong>Question 2 (Historical Testing):</strong> "Have you ever applied for something and not gotten it before? What actually happened — were people's reactions what you expected?"</p>
+          <p><strong>Question 3 (Decatastrophizing + Utility):</strong> "Let's say you apply and don't get it — what's the worst realistic outcome vs. the best? And what happens if you don't apply at all — what's the cost of avoiding it?"</p>
+          <p><em>This sequence gathers data about the belief, tests it against history, and then explores both scenarios — getting the client to weigh avoidance costs against feared outcomes.</em></p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-question">
+      <span class="quiz-number">6</span>
+      <span class="quiz-text">Why do therapists who theoretically understand Socratic questioning often default to psychoeducation or reassurance in practice? Name at least 3 reasons.</span>
+      <details>
+        <summary>🔓 Reveal Answer</summary>
+        <div class="answer">
+          <p>Any 3 of these:</p>
+          <ol>
+            <li><strong>The rescue impulse</strong> — The desire to immediately relieve suffering overrides the slower process of guided discovery</li>
+            <li><strong>Fear of silence</strong> — Socratic questions create pauses; therapists fill them prematurely with answers</li>
+            <li><strong>The expert trap</strong> — Training as a knowledge expert makes explaining feel more natural than asking</li>
+            <li><strong>Perceived inefficiency</strong> — Questioning feels slower than just telling (though it leads to more durable change)</li>
+            <li><strong>Discomfort with not knowing</strong> — Socratic questions require genuine curiosity; it's uncomfortable to ask without knowing where the conversation will go</li>
+            <li><strong>Lack of practice</strong> — Knowledge alone doesn't change behavior; questioning is a skill that requires deliberate rehearsal</li>
+          </ol>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- LESSON COMPLETE -->
+  <div class="lesson-complete">
+    <h2>✅ Lesson Complete — Self-Check</h2>
+    <p style="font-size:1.1em; margin-bottom: 20px;">Before moving on, confirm you can do the following:</p>
+    <div style="text-align: left; display: inline-block;">
+      <p>☐ I can explain why therapists default to reassurance/psychoeducation</p>
+      <p>☐ I can name and apply all 4 stages of Padesky's model</p>
+      <p>☐ I can use at least 4 of the 6 Socratic question types</p>
+      <p>☐ I can distinguish Socratic questions from leading questions</p>
+      <p>☐ I can generate a Socratic response to a client statement without defaulting to explaining</p>
+      <p>☐ I understand the role of silence after asking a question</p>
+      <p>☐ I can identify the 5 common mistakes in my own practice</p>
+    </div>
+    <p style="margin-top: 24px; font-size: 0.9em; color: #6ee7b7;">If you checked all boxes, you're ready for Lesson 5. Practice these questions with a colleague this week — knowing is not the same as doing.</p>
+  </div>
+
+</div>
+
+<!-- FINAL SCORED EXAM -->
+<style>
+.exam-section { background: linear-gradient(135deg, #1a1d2e, #16213e); border-radius: 16px; border: 1px solid rgba(99,102,241,0.3); padding: 32px; margin-top: 40px; }
+.exam-q { padding: 16px; margin: 12px 0; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 3px solid #6366f1; }
+.exam-q.correct { border-left-color: #4ade80; background: rgba(34,197,94,0.05); }
+.exam-q.wrong { border-left-color: #f87171; background: rgba(239,68,68,0.05); }
+.exam-q label { display: block; padding: 8px 12px; margin: 4px 0; border-radius: 6px; cursor: pointer; font-size: 0.92rem; color: #cbd5e1; }
+.exam-q label:hover { background: rgba(99,102,241,0.1); }
+.exam-q .q-title { font-weight: 600; color: #e2e8f0; margin-bottom: 10px; }
+.exam-result { padding: 24px; border-radius: 12px; margin-top: 20px; text-align: center; }
+.result-pass { background: rgba(34,197,94,0.15); border: 2px solid #4ade80; color: #4ade80; }
+.result-almost { background: rgba(251,191,36,0.15); border: 2px solid #fbbf24; color: #fbbf24; }
+.result-fail { background: rgba(239,68,68,0.15); border: 2px solid #f87171; color: #f87171; }
+.submit-exam-btn { display: block; margin: 20px auto; padding: 14px 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+.submit-exam-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(99,102,241,0.4); }
+.copy-btn { display: block; margin: 12px auto; padding: 10px 30px; background: rgba(255,255,255,0.1); color: #818cf8; border: 1px solid #818cf8; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+.exam-correction { font-size: 0.85rem; color: #94a3b8; margin-top: 8px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px; }
+</style>
+
+<div class="exam-section" id="exam-section-4">
+  <h2 style="text-align:center; color:#e2e8f0; margin-bottom:8px;">&#127891; FINAL EXAM &mdash; Are You Ready to Proceed?</h2>
+  <p style="text-align:center; color:#94a3b8; margin-bottom:24px;">Answer all 8 questions, then submit to see your score.</p>
+
+  <form id="examForm4" onsubmit="return false;">
+
+    <div class="exam-q" id="e4q1">
+      <div class="q-title">Q1: A client says "Everyone thinks I'm stupid." The BEST Socratic response is:</div>
+      <label><input type="radio" name="e4q1" value="a"> a) "That's not true &mdash; I think you're smart!"</label>
+      <label><input type="radio" name="e4q1" value="b"> b) "That's an example of mind reading, a cognitive distortion"</label>
+      <label><input type="radio" name="e4q1" value="c"> c) "When you say 'everyone' &mdash; who specifically are you thinking of? And what gives you the impression they think that?"</label>
+      <label><input type="radio" name="e4q1" value="d"> d) "Try to focus on the positive things about yourself"</label>
+    </div>
+
+    <div class="exam-q" id="e4q2">
+      <div class="q-title">Q2: What is Padesky's FIRST stage of Socratic questioning?</div>
+      <label><input type="radio" name="e4q2" value="a"> a) Challenge the thought directly</label>
+      <label><input type="radio" name="e4q2" value="b"> b) Ask informational questions to gather specific data about the thought</label>
+      <label><input type="radio" name="e4q2" value="c"> c) Provide psychoeducation about distortions</label>
+      <label><input type="radio" name="e4q2" value="d"> d) Ask the client to generate alternatives</label>
+    </div>
+
+    <div class="exam-q" id="e4q3">
+      <div class="q-title">Q3: Which of these is Socratic questioning, NOT reassurance?</div>
+      <label><input type="radio" name="e4q3" value="a"> a) "I'm sure it will work out fine"</label>
+      <label><input type="radio" name="e4q3" value="b"> b) "Many people feel that way &mdash; you're not alone"</label>
+      <label><input type="radio" name="e4q3" value="c"> c) "What actually happened the last time you predicted this outcome?"</label>
+      <label><input type="radio" name="e4q3" value="d"> d) "You're much more capable than you think"</label>
+    </div>
+
+    <div class="exam-q" id="e4q4">
+      <div class="q-title">Q4: "Socratic lecturing" means:</div>
+      <label><input type="radio" name="e4q4" value="a"> a) Using long, complex questions</label>
+      <label><input type="radio" name="e4q4" value="b"> b) Asking leading questions where only one "correct" answer is acceptable &mdash; disguised telling</label>
+      <label><input type="radio" name="e4q4" value="c"> c) Using too many questions in a row</label>
+      <label><input type="radio" name="e4q4" value="d"> d) Teaching through storytelling</label>
+    </div>
+
+    <div class="exam-q" id="e4q5">
+      <div class="q-title">Q5: A client pauses for 15 seconds after your Socratic question. You should:</div>
+      <label><input type="radio" name="e4q5" value="a"> a) Rephrase the question immediately</label>
+      <label><input type="radio" name="e4q5" value="b"> b) Answer the question yourself to reduce discomfort</label>
+      <label><input type="radio" name="e4q5" value="c"> c) Wait &mdash; silence means the client is processing, which is exactly what you want</label>
+      <label><input type="radio" name="e4q5" value="d"> d) Move on to a different topic</label>
+    </div>
+
+    <div class="exam-q" id="e4q6">
+      <div class="q-title">Q6: Client: "If I fail this exam, my life is over." The BEST decatastrophizing question is:</div>
+      <label><input type="radio" name="e4q6" value="a"> a) "Don't worry, you'll pass"</label>
+      <label><input type="radio" name="e4q6" value="b"> b) "Let's say you did fail &mdash; what would happen next? And then what? Could you survive that?"</label>
+      <label><input type="radio" name="e4q6" value="c"> c) "That's catastrophizing &mdash; your life wouldn't really be over"</label>
+      <label><input type="radio" name="e4q6" value="d"> d) "What percentage chance do you think you have of passing?"</label>
+    </div>
+
+    <div class="exam-q" id="e4q7">
+      <div class="q-title">Q7: The purpose of Socratic questioning is:</div>
+      <label><input type="radio" name="e4q7" value="a"> a) To prove to the client their thinking is wrong</label>
+      <label><input type="radio" name="e4q7" value="b"> b) To guide the client to discover and evaluate their own thinking</label>
+      <label><input type="radio" name="e4q7" value="c"> c) To gather information for the therapist's case notes</label>
+      <label><input type="radio" name="e4q7" value="d"> d) To build rapport through showing interest</label>
+    </div>
+
+    <div class="exam-q" id="e4q8">
+      <div class="q-title">Q8: After a Socratic dialogue, who should ideally arrive at the new perspective?</div>
+      <label><input type="radio" name="e4q8" value="a"> a) The therapist states the conclusion</label>
+      <label><input type="radio" name="e4q8" value="b"> b) The client discovers it themselves &mdash; that's what "guided discovery" means</label>
+      <label><input type="radio" name="e4q8" value="c"> c) Both arrive at it equally</label>
+      <label><input type="radio" name="e4q8" value="d"> d) It doesn't matter who states it</label>
+    </div>
+
+    <button type="button" class="submit-exam-btn" onclick="gradeExam4()">Submit Exam</button>
+  </form>
+
+  <div id="examResult4"></div>
+</div>
+
+<script>
+function gradeExam4() {
+  const answers = {e4q1:'c',e4q2:'b',e4q3:'c',e4q4:'b',e4q5:'c',e4q6:'b',e4q7:'b',e4q8:'b'};
+  const explanations = {
+    e4q1: 'Ask specific, curious questions ("who specifically?") rather than reassuring, labeling, or advising.',
+    e4q2: 'Padesky\'s first stage is asking informational questions to gather specific data about the thought.',
+    e4q3: '"What actually happened last time?" is an empirical question that guides discovery, not reassurance.',
+    e4q4: 'Socratic lecturing is asking leading questions where only one "correct" answer is acceptable — disguised telling.',
+    e4q5: 'Silence means the client is processing. Wait — this is exactly what guided discovery looks like.',
+    e4q6: 'Decatastrophizing walks through the feared scenario step by step: "What would happen next? Could you survive that?"',
+    e4q7: 'The purpose is to guide the client to discover and evaluate their own thinking.',
+    e4q8: 'The client should discover the new perspective themselves — that is the meaning of "guided discovery."'
+  };
+  let score = 0;
+  for (let i = 1; i <= 8; i++) {
+    const key = 'e4q' + i;
+    const el = document.getElementById(key);
+    const selected = document.querySelector('input[name="'+key+'"]:checked');
+    const userAns = selected ? selected.value : '';
+    const isCorrect = userAns === answers[key];
+    if (isCorrect) { score++; el.className = 'exam-q correct'; }
+    else { el.className = 'exam-q wrong'; }
+    let existing = el.querySelector('.exam-correction');
+    if (existing) existing.remove();
+    const corr = document.createElement('div');
+    corr.className = 'exam-correction';
+    corr.innerHTML = isCorrect ? '&#10004; Correct!' : '&#10008; Incorrect. Correct answer: <strong>' + answers[key].toUpperCase() + '</strong> &mdash; ' + explanations[key];
+    el.appendChild(corr);
+  }
+  const pct = Math.round((score/8)*100);
+  let cls, msg;
+  if (score >= 7) { cls = 'result-pass'; msg = '&#9989; MASTERY ACHIEVED &mdash; Proceed to next lesson!'; }
+  else if (score >= 5) { cls = 'result-almost'; msg = '&#9888;&#65039; ALMOST THERE &mdash; Review missed topics, then retake.'; }
+  else { cls = 'result-fail'; msg = '&#128260; NOT YET &mdash; Re-study this lesson before moving on.'; }
+  const passed = score >= 7 ? 'PASSED' : 'FAILED';
+  document.getElementById('examResult4').innerHTML =
+    '<div class="exam-result '+cls+'">' +
+    '<h3 style="margin:0 0 8px;">Score: '+score+'/8 ('+pct+'%)</h3>' +
+    '<p style="margin:0; font-size:1.1em;">'+msg+'</p>' +
+    '</div>' +
+    '<button class="copy-btn" onclick="copyResult4('+score+','+pct+',\''+passed+'\')">Copy Results</button>';
+}
+function copyResult4(score, pct, passed) {
+  const text = 'Lesson 4: '+score+'/8 ('+pct+'%) — '+passed;
+  navigator.clipboard.writeText(text).then(function(){
+    event.target.textContent = 'Copied!';
+    setTimeout(function(){ event.target.textContent = 'Copy Results'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
