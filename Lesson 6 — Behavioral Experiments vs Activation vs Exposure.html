@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 6 — Behavioral Experiments vs Activation vs Exposure</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0f1117;
+    color: #e2e8f0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .lesson-header {
+    text-align: center;
+    padding: 60px 32px;
+    background: linear-gradient(135deg, #1a1040 0%, #0f1117 50%, #0d2818 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .lesson-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .lesson-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 18px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .lesson-header h1 {
+    font-size: 2.1rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #86efac, #fbbf24, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  .lesson-header .subtitle {
+    color: #94a3b8;
+    font-size: 1.05rem;
+  }
+  .lesson-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .lesson-meta span {
+    color: #94a3b8;
+    font-size: 0.88rem;
+  }
+
+  /* Cards */
+  .card {
+    background: #1a1d2e;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+  .card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 24px 0 12px;
+  }
+  .card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 16px 0 8px;
+  }
+  .card p, .card li {
+    color: #cbd5e1;
+    line-height: 1.75;
+  }
+  .card ul, .card ol {
+    padding-left: 20px;
+    margin: 8px 0;
+  }
+  .card li { margin-bottom: 6px; }
+
+  /* Color-coded sections for the Big Three */
+  .section-ba { border-left: 4px solid #22c55e; }
+  .section-ba h2, .section-ba h3 { color: #86efac; }
+  .section-be { border-left: 4px solid #f59e0b; }
+  .section-be h2, .section-be h3 { color: #fbbf24; }
+  .section-exp { border-left: 4px solid #f97316; }
+  .section-exp h2, .section-exp h3 { color: #fb923c; }
+
+  /* Objectives card */
+  .objectives {
+    border-left: 4px solid #8b5cf6;
+    background: linear-gradient(135deg, #1a1d2e, #1a1535);
+  }
+  .objectives h2 { color: #a78bfa; }
+  .obj-list { list-style: none; padding: 0; }
+  .obj-list li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+  }
+  .obj-list li::before {
+    content: '🎯';
+    position: absolute;
+    left: 0;
+  }
+
+  /* Alert boxes */
+  .alert {
+    background: linear-gradient(135deg, #2d1215, #1a1d2e);
+    border: 1px solid rgba(244, 63, 94, 0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .alert-title {
+    color: #fb7185;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+  .alert p { color: #fca5a5; font-size: 0.95rem; }
+
+  .insight {
+    background: linear-gradient(135deg, #0d2137, #1a1d2e);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .insight-title {
+    color: #60a5fa;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  /* Big definition blocks */
+  .def-block {
+    border-radius: 16px;
+    padding: 28px;
+    margin: 20px 0;
+  }
+  .def-ba {
+    background: linear-gradient(135deg, #0f2918, #1a1d2e);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+  }
+  .def-be {
+    background: linear-gradient(135deg, #2d1f0a, #1a1d2e);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+  }
+  .def-exp {
+    background: linear-gradient(135deg, #2d1508, #1a1d2e);
+    border: 1px solid rgba(249, 115, 22, 0.25);
+  }
+  .def-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .def-label.ba { color: #22c55e; }
+  .def-label.be { color: #f59e0b; }
+  .def-label.exp { color: #f97316; }
+  .def-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .def-purpose {
+    font-size: 1rem;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin: 12px 0;
+    font-weight: 600;
+  }
+  .def-purpose.ba { background: rgba(34,197,94,0.1); color: #86efac; }
+  .def-purpose.be { background: rgba(245,158,11,0.1); color: #fde68a; }
+  .def-purpose.exp { background: rgba(249,115,22,0.1); color: #fdba74; }
+
+  /* Comparison Table */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 24px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  th {
+    background: #1e2240;
+    color: #c4b5fd;
+    font-weight: 600;
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+    white-space: nowrap;
+  }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: #cbd5e1;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+  .col-ba { border-top: 3px solid #22c55e; }
+  .col-be { border-top: 3px solid #f59e0b; }
+  .col-exp { border-top: 3px solid #f97316; }
+
+  /* Flowchart */
+  .flowchart {
+    background: #12141f;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 32px 20px;
+    margin: 24px 0;
+    text-align: center;
+  }
+  .flow-step {
+    display: inline-block;
+    border-radius: 12px;
+    padding: 14px 22px;
+    margin: 8px 4px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #e2e8f0;
+    max-width: 360px;
+  }
+  .flow-question {
+    background: linear-gradient(135deg, #1e2240, #252a45);
+    border: 2px solid rgba(139,92,246,0.3);
+    font-weight: 700;
+    color: #c4b5fd;
+  }
+  .flow-answer-ba {
+    background: linear-gradient(135deg, #0f2918, #1a2e1a);
+    border: 2px solid rgba(34,197,94,0.4);
+    color: #86efac;
+    font-weight: 700;
+  }
+  .flow-answer-be {
+    background: linear-gradient(135deg, #2d1f0a, #2e2a1a);
+    border: 2px solid rgba(245,158,11,0.4);
+    color: #fde68a;
+    font-weight: 700;
+  }
+  .flow-answer-exp {
+    background: linear-gradient(135deg, #2d1508, #2e1e1a);
+    border: 2px solid rgba(249,115,22,0.4);
+    color: #fdba74;
+    font-weight: 700;
+  }
+  .flow-arrow {
+    display: block;
+    color: #64748b;
+    font-size: 1.5rem;
+    margin: 4px auto;
+    width: fit-content;
+  }
+  .flow-label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .flow-branch {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+  }
+
+  /* Worksheet */
+  .worksheet {
+    background: #12141f;
+    border: 2px solid rgba(245, 158, 11, 0.3);
+    border-radius: 16px;
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .ws-title {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fbbf24;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(245,158,11,0.2);
+  }
+  .ws-row {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: flex-start;
+  }
+  .ws-row:last-child { border-bottom: none; }
+  .ws-label {
+    width: 180px;
+    flex-shrink: 0;
+    font-weight: 600;
+    color: #fbbf24;
+    font-size: 0.9rem;
+  }
+  .ws-field {
+    flex: 1;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+
+  /* Case Study */
+  .case-study {
+    background: linear-gradient(135deg, #1a1d2e, #151828);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .case-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .case-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .case-avatar.ba-av { background: linear-gradient(135deg, #22c55e33, #16a34a33); }
+  .case-avatar.be-av { background: linear-gradient(135deg, #f59e0b33, #d9770633); }
+  .case-avatar.exp-av { background: linear-gradient(135deg, #f9731633, #ea580c33); }
+  .case-name { font-weight: 700; font-size: 1.05rem; }
+  .case-detail { color: #94a3b8; font-size: 0.88rem; }
+
+  /* Schedule table for BA */
+  .schedule {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin: 16px 0;
+  }
+  .schedule th {
+    background: #152e18;
+    color: #86efac;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+  .schedule td {
+    padding: 10px 12px;
+    background: #12141f;
+    border: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.85rem;
+  }
+  .schedule .mp {
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+
+  /* Details / Summary */
+  details {
+    background: #12141f;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    margin: 12px 0;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  details[open] {
+    border-color: rgba(139, 92, 246, 0.2);
+  }
+  summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #93c5fd;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: '▶';
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+    color: #64748b;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .answer {
+    padding: 0 20px 20px;
+    color: #a5f3a3;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  details .answer strong { color: #86efac; }
+
+  /* Mini Test */
+  .mini-test {
+    border: 2px solid rgba(251, 191, 36, 0.25);
+    background: linear-gradient(135deg, #1a1d2e, #1f1a10);
+  }
+  .mini-test h2 { color: #fbbf24; }
+  .question {
+    margin: 20px 0;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .question:last-of-type { border-bottom: none; }
+  .q-num {
+    display: inline-block;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #0f1117;
+    font-weight: 700;
+    font-size: 0.8rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    margin-right: 8px;
+  }
+  .q-text {
+    font-weight: 600;
+    color: #e2e8f0;
+    display: inline;
+  }
+
+  /* Lesson Complete */
+  .lesson-complete {
+    text-align: center;
+    padding: 48px 32px;
+    background: linear-gradient(135deg, #0d2818, #1a1040);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 20px;
+    margin-top: 40px;
+  }
+  .lesson-complete .check-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+  }
+  .lesson-complete h2 {
+    color: #86efac;
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+  .lesson-complete p { color: #94a3b8; }
+
+  .checklist { list-style: none; padding: 0; text-align: left; max-width: 540px; margin: 20px auto 0; }
+  .checklist li {
+    padding: 8px 0;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+  }
+  .checklist li::before { content: '☐ '; color: #64748b; }
+
+  /* Highlights */
+  .hl { color: #fbbf24; font-weight: 600; }
+  .hl-green { color: #86efac; font-weight: 600; }
+  .hl-amber { color: #fde68a; font-weight: 600; }
+  .hl-orange { color: #fdba74; font-weight: 600; }
+  .hl-pink { color: #fb7185; font-weight: 600; }
+  .hl-purple { color: #a78bfa; font-weight: 600; }
+
+  /* Practice box */
+  .practice {
+    border-left: 4px solid #8b5cf6;
+    background: linear-gradient(135deg, #1a1d2e, #1a1535);
+  }
+  .practice h2 { color: #a78bfa; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .container { padding: 20px 14px 60px; }
+    .card { padding: 22px 18px; }
+    .lesson-header h1 { font-size: 1.5rem; }
+    .lesson-header { padding: 40px 20px; }
+    .ws-row { flex-direction: column; }
+    .ws-label { width: auto; }
+    th, td { padding: 10px 10px; font-size: 0.82rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="lesson-header">
+    <div class="lesson-badge">Lesson 6 of 10</div>
+    <h1>Behavioral Experiments vs Activation vs Exposure</h1>
+    <p class="subtitle">The three most confused behavioral techniques in CBT — finally clarified</p>
+    <div class="lesson-meta">
+      <span>&#128218; ~30 min study time</span>
+      <span>&#128275; 3 techniques distinguished</span>
+      <span>&#129504; 3 worked cases</span>
+      <span>&#128221; 7-question mini-test</span>
+    </div>
+  </div>
+
+  <!-- LEARNING OBJECTIVES -->
+  <div class="card objectives">
+    <h2>&#127919; Learning Objectives</h2>
+    <ul class="obj-list">
+      <li>Define Behavioral Activation, Behavioral Experiments, and Exposure as <strong>distinct techniques</strong></li>
+      <li>Identify the <strong>specific purpose and mechanism</strong> of each technique</li>
+      <li>Use a <strong>clinical decision flowchart</strong> to select the right technique for a given presentation</li>
+      <li>Explain when and how the techniques <strong>overlap and combine</strong></li>
+      <li>Complete a full <strong>Behavioral Experiment Worksheet</strong></li>
+      <li>Apply each technique to a <strong>worked clinical case</strong></li>
+    </ul>
+  </div>
+
+  <!-- WHY THIS MATTERS -->
+  <div class="alert">
+    <div class="alert-title">&#9888;&#65039; Why This Distinction Matters</div>
+    <p>Confusing these three techniques leads to imprecise treatment planning. If you apply Behavioral Activation to a phobia or Exposure to depression, you miss the active mechanism. Each technique works through a <em>different process</em>, targets a <em>different problem</em>, and asks a <em>different question</em>. Getting this right is one of the marks of a skilled CBT practitioner.</p>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SECTION 1: THE BIG THREE -->
+  <!-- ========================================= -->
+  <div class="card" style="border-left: 4px solid #a78bfa;">
+    <h2 style="color: #c4b5fd;">&#128308;&#128993;&#128994; The Big Three — Clear Definitions</h2>
+    <p>Let's define each technique precisely, then compare them side by side.</p>
+  </div>
+
+  <!-- BEHAVIORAL ACTIVATION -->
+  <div class="card section-ba">
+    <h2>&#128994; Behavioral Activation (BA)</h2>
+
+    <div class="def-block def-ba">
+      <div class="def-label ba">DEFINITION</div>
+      <div class="def-title" style="color: #86efac;">A structured approach to increasing engagement with rewarding and mastery-building activities to break the depression withdrawal cycle.</div>
+      <div class="def-purpose ba">&#127919; Purpose: Break the cycle of withdrawal &#8594; low reward &#8594; worse mood &#8594; more withdrawal</div>
+    </div>
+
+    <h3>The Depression Withdrawal Cycle</h3>
+    <p>Depression creates a vicious cycle: low mood &#8594; reduced activity &#8594; loss of positive reinforcement &#8594; lower mood &#8594; even less activity. Behavioral Activation directly targets this by <span class="hl-green">scheduling activities that restore positive reinforcement</span>, even when motivation is low.</p>
+
+    <div class="insight">
+      <div class="insight-title">&#128161; Critical Point</div>
+      <p style="color: #93c5fd;">BA is <strong>NOT about testing beliefs</strong>. It's about <strong>DOING despite low motivation</strong>. The mechanism is behavioral (increasing reinforcement), not cognitive (challenging thoughts). You don't need the person to believe the activity will help — you just need them to do it and observe the effect.</p>
+    </div>
+
+    <h3>The Mechanism</h3>
+    <p>Increase engagement with activities &#8594; increased positive reinforcement from the environment &#8594; improved mood &#8594; increased motivation &#8594; more engagement. The key insight: <span class="hl-green">action comes BEFORE motivation, not after</span>.</p>
+
+    <h3>Key Tools</h3>
+    <ul>
+      <li><strong>Activity Monitoring:</strong> Track what you do hour by hour and rate mood (0-10) alongside each activity. Identify patterns: what lifts mood? What drops it?</li>
+      <li><strong>Activity Scheduling:</strong> Plan specific activities in advance — don't wait for motivation. Schedule like appointments.</li>
+      <li><strong>Mastery & Pleasure Ratings:</strong> Rate each activity for <em>mastery</em> (sense of accomplishment, 0-10) and <em>pleasure</em> (enjoyment, 0-10). Aim for a mix of both.</li>
+      <li><strong>Graded Task Assignment:</strong> Break overwhelming tasks into tiny steps. "Clean the house" becomes "pick up 5 things from the living room floor."</li>
+    </ul>
+
+    <h3>When to Use</h3>
+    <ul>
+      <li>Depression, especially with withdrawal and inactivity</li>
+      <li>Anhedonia ("I don't enjoy anything anymore")</li>
+      <li>"I don't feel like doing anything"</li>
+      <li>Low motivation, loss of routine</li>
+      <li>Social isolation</li>
+    </ul>
+
+    <h3>Example</h3>
+    <p style="background: #12141f; padding: 16px; border-radius: 10px; margin: 12px 0;">Schedule walking 3x/week, call one friend, cook one meal from scratch. Rate mastery and pleasure for each. Don't wait to "feel like it" — the doing creates the feeling.</p>
+  </div>
+
+  <!-- BEHAVIORAL EXPERIMENTS -->
+  <div class="card section-be">
+    <h2>&#128993; Behavioral Experiments (BE)</h2>
+
+    <div class="def-block def-be">
+      <div class="def-label be">DEFINITION</div>
+      <div class="def-title" style="color: #fde68a;">Planned experiential activities designed to test the validity of a specific belief or prediction.</div>
+      <div class="def-purpose be">&#127919; Purpose: Test whether a specific thought or belief is accurate by collecting real-world evidence</div>
+    </div>
+
+    <h3>The Gold Standard of CBT</h3>
+    <p>Research consistently shows that behavioral experiments produce <span class="hl-amber">greater and more lasting belief change</span> than verbal/cognitive restructuring alone. When a person discovers through their own experience that their prediction was wrong, it's far more powerful than hearing a therapist explain why it's wrong.</p>
+
+    <div class="insight">
+      <div class="insight-title">&#128161; Critical Point</div>
+      <p style="color: #93c5fd;">The defining feature of a BE is the <strong>specific, testable prediction written before the experiment</strong>. Without a prediction, it's not a behavioral experiment — it's just an activity. The power comes from the explicit comparison between what was predicted and what actually happened.</p>
+    </div>
+
+    <h3>The Mechanism</h3>
+    <p>Identify specific belief &#8594; rate belief strength (0-100%) &#8594; make specific prediction &#8594; design experiment to test it &#8594; carry out experiment &#8594; observe outcome &#8594; compare to prediction &#8594; re-rate belief. The evidence comes from <span class="hl-amber">the person's own experience</span>, not the therapist's arguments.</p>
+
+    <h3>Two Types</h3>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;">
+      <div style="background: #1e1a0a; border: 1px solid rgba(245,158,11,0.2); border-radius: 12px; padding: 18px;">
+        <h4 style="color: #fbbf24; margin-top: 0;">&#128269; Discovery Experiments</h4>
+        <p>"Let's find out what happens." Open-ended. Used when you don't know enough yet to make a specific prediction.</p>
+        <p><em>Example: "What happens if I don't check my partner's phone for a day?"</em></p>
+      </div>
+      <div style="background: #1e1a0a; border: 1px solid rgba(245,158,11,0.2); border-radius: 12px; padding: 18px;">
+        <h4 style="color: #fbbf24; margin-top: 0;">&#128300; Hypothesis-Testing</h4>
+        <p>"I predict X will happen. Let's test it." Specific prediction tested against reality.</p>
+        <p><em>Example: "I predict that if I say no, they'll be angry and stop talking to me. Belief: 75%. Let's test it."</em></p>
+      </div>
+    </div>
+
+    <h3>Key Features</h3>
+    <ul>
+      <li><strong>Specific prediction</strong> written <em>before</em> the experiment</li>
+      <li><strong>Belief rated 0-100%</strong> before and after</li>
+      <li><strong>Experiment designed collaboratively</strong> (client + therapist)</li>
+      <li><strong>Outcome compared to prediction</strong> — what <em>actually</em> happened?</li>
+      <li><strong>Learning extracted</strong> — "What does this tell us about the original belief?"</li>
+    </ul>
+
+    <h3>When to Use</h3>
+    <ul>
+      <li><strong>ANY disorder</strong> where a specific belief can be tested</li>
+      <li>Panic: "If my heart races, I'll have a heart attack"</li>
+      <li>Social anxiety: "If I blush, everyone will judge me"</li>
+      <li>Depression: "No one cares about me"</li>
+      <li>GAD: "If I don't check, something bad will happen"</li>
+      <li>OCD: "If I don't wash, I'll get seriously ill"</li>
+    </ul>
+
+    <h3>Example</h3>
+    <p style="background: #12141f; padding: 16px; border-radius: 10px; margin: 12px 0;"><strong>Belief:</strong> "If I say no to my friend's request, they'll abandon me." (Belief: 85%)<br>
+    <strong>Experiment:</strong> Say no to one small request this week. Observe what happens.<br>
+    <strong>Outcome:</strong> Friend said "No worries" and texted the next day about something else.<br>
+    <strong>Re-rated belief:</strong> 30%<br>
+    <strong>Learning:</strong> "Saying no doesn't destroy relationships. People handle it better than I expected."</p>
+  </div>
+
+  <!-- EXPOSURE -->
+  <div class="card section-exp">
+    <h2>&#128308; Exposure (Graded / Prolonged)</h2>
+
+    <div class="def-block def-exp">
+      <div class="def-label exp">DEFINITION</div>
+      <div class="def-title" style="color: #fdba74;">Systematic, graduated approach to feared stimuli to reduce fear and avoidance through habituation or inhibitory learning.</div>
+      <div class="def-purpose exp">&#127919; Purpose: Reduce fear/avoidance by approaching what is feared and learning that anxiety naturally decreases</div>
+    </div>
+
+    <h3>The Mechanism</h3>
+    <p>Approach feared stimulus &#8594; anxiety rises &#8594; stay with the anxiety (don't escape) &#8594; anxiety <strong>naturally decreases</strong> over time &#8594; new learning: "I can tolerate this" and/or "The feared outcome didn't happen."</p>
+
+    <p>Two theoretical explanations:</p>
+    <ul>
+      <li><strong>Habituation:</strong> Repeated exposure leads to decreased anxiety response over time. The fear simply fades with repeated contact.</li>
+      <li><strong>Inhibitory Learning (modern view):</strong> The original fear isn't erased — a new, competing memory is created ("I touched a spider and nothing bad happened"). The new learning inhibits the old fear response.</li>
+    </ul>
+
+    <h3>Key Features</h3>
+    <ul>
+      <li><strong>Hierarchy of feared situations</strong> — ranked from least to most anxiety-provoking</li>
+      <li><strong>SUDS ratings</strong> (Subjective Units of Distress Scale, 0-100) — tracked throughout</li>
+      <li><strong>Graduated approach</strong> — start low on hierarchy, work up</li>
+      <li><strong>Prolonged contact</strong> — stay with the stimulus until anxiety drops (don't escape at peak!)</li>
+      <li><strong>Response prevention</strong> (in OCD) — exposure to trigger without performing the compulsion</li>
+    </ul>
+
+    <h3>When to Use</h3>
+    <ul>
+      <li>Specific phobias (spiders, heights, blood, flying)</li>
+      <li>OCD (exposure + response prevention)</li>
+      <li>PTSD (prolonged exposure to trauma narrative)</li>
+      <li>Some social anxiety (in vivo exposure to social situations)</li>
+      <li>Agoraphobia</li>
+    </ul>
+
+    <h3>Example: Spider Phobia Hierarchy</h3>
+    <div style="background: #12141f; border-radius: 12px; padding: 20px; margin: 16px 0;">
+      <table style="width: 100%; font-size: 0.9rem;">
+        <tr><td style="color: #fdba74; font-weight: 600; width: 80px;">SUDS 20</td><td>Look at cartoon pictures of spiders</td></tr>
+        <tr><td style="color: #fdba74; font-weight: 600;">SUDS 35</td><td>Look at real photographs of spiders</td></tr>
+        <tr><td style="color: #fdba74; font-weight: 600;">SUDS 45</td><td>Watch a video of spiders</td></tr>
+        <tr><td style="color: #fdba74; font-weight: 600;">SUDS 55</td><td>Hold a toy/rubber spider</td></tr>
+        <tr><td style="color: #fdba74; font-weight: 600;">SUDS 65</td><td>Be in a room where a spider is in a jar across the room</td></tr>
+        <tr><td style="color: #fdba74; font-weight: 600;">SUDS 75</td><td>Stand 1 meter from the spider in the jar</td></tr>
+        <tr><td style="color: #fdba74; font-weight: 600;">SUDS 85</td><td>Look at a spider in an open container nearby</td></tr>
+        <tr><td style="color: #fdba74; font-weight: 600;">SUDS 95</td><td>Let a spider walk on your hand</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SECTION 2: COMPARISON TABLE -->
+  <!-- ========================================= -->
+  <div class="card">
+    <h2>&#128202; Side-by-Side Comparison</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th class="col-ba" style="color: #86efac;">&#128994; Behavioral Activation</th>
+            <th class="col-be" style="color: #fde68a;">&#128993; Behavioral Experiments</th>
+            <th class="col-exp" style="color: #fdba74;">&#128308; Exposure</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Purpose</strong></td>
+            <td>Break depression withdrawal cycle</td>
+            <td>Test specific beliefs/predictions</td>
+            <td>Reduce fear and avoidance</td>
+          </tr>
+          <tr>
+            <td><strong>Mechanism</strong></td>
+            <td>Increase positive reinforcement through activity</td>
+            <td>Collect evidence against a belief through direct experience</td>
+            <td>Habituation / inhibitory learning through repeated approach</td>
+          </tr>
+          <tr>
+            <td><strong>Key Question</strong></td>
+            <td><span class="hl-green">"What can I DO to get moving again?"</span></td>
+            <td><span class="hl-amber">"What do I PREDICT will happen, and is that true?"</span></td>
+            <td><span class="hl-orange">"Can I APPROACH this and let my anxiety come down?"</span></td>
+          </tr>
+          <tr>
+            <td><strong>Steps</strong></td>
+            <td>Monitor &#8594; Schedule &#8594; Do &#8594; Rate mastery/pleasure</td>
+            <td>Identify belief &#8594; Predict &#8594; Rate &#8594; Test &#8594; Observe &#8594; Re-rate</td>
+            <td>Build hierarchy &#8594; Start low &#8594; Approach &#8594; Stay &#8594; Anxiety drops &#8594; Move up</td>
+          </tr>
+          <tr>
+            <td><strong>Primary Disorder</strong></td>
+            <td>Depression</td>
+            <td>Any disorder (universal)</td>
+            <td>Phobias, OCD, PTSD</td>
+          </tr>
+          <tr>
+            <td><strong>Requires a Specific Belief?</strong></td>
+            <td><span class="hl-pink">No</span></td>
+            <td><span class="hl-green">Yes — essential</span></td>
+            <td><span class="hl-orange">Optional (enhances it)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Example</strong></td>
+            <td>Schedule a 15-min walk daily and rate pleasure</td>
+            <td>"If I disagree in the meeting, I'll be fired" &#8594; Test it</td>
+            <td>Spider phobia: progress from pictures to holding a spider</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SECTION 3: WHEN THEY OVERLAP -->
+  <!-- ========================================= -->
+  <div class="card">
+    <h2>&#128260; When They Overlap</h2>
+    <p>In practice, these techniques are not always sharply separated. Understanding the overlaps makes you more flexible.</p>
+
+    <div style="display: grid; gap: 16px; margin: 20px 0;">
+      <div style="background: linear-gradient(135deg, #1e1a0a, #0f2918); border: 1px solid rgba(245,158,11,0.15); border-radius: 12px; padding: 20px;">
+        <h4 style="color: #fde68a; margin-top: 0;">&#128993;+&#128308; Exposure CAN BE a Behavioral Experiment</h4>
+        <p>When you add a specific prediction to an exposure task, it becomes a behavioral experiment. "I predict I'll pass out if I go to the top floor" (SUDS 80) &#8594; Go to the top floor &#8594; "Did you pass out?" &#8594; No &#8594; Belief re-rated. <span class="hl-amber">Adding the prediction-testing framework makes exposure more powerful.</span></p>
+      </div>
+      <div style="background: linear-gradient(135deg, #0f2918, #1e1a0a); border: 1px solid rgba(34,197,94,0.15); border-radius: 12px; padding: 20px;">
+        <h4 style="color: #86efac; margin-top: 0;">&#128994;+&#128993; BA CAN BECOME a Behavioral Experiment</h4>
+        <p>A depressed client says "Nothing will make me feel better." You schedule an activity (BA), but you also add: "Let's make this a test. You predict pleasure = 0/10. Let's do the walk and see what you actually rate it." Now it's both BA and a BE. If the walk scores 4/10, the belief "nothing helps" is directly challenged.</p>
+      </div>
+      <div style="background: linear-gradient(135deg, #1e1a0a, #2d1508); border: 1px solid rgba(249,115,22,0.15); border-radius: 12px; padding: 20px;">
+        <h4 style="color: #fdba74; margin-top: 0;">&#128308;+&#128994; Exposure Can Include Activation Elements</h4>
+        <p>If an agoraphobic client avoids going outside (both avoidance and withdrawal), returning to outdoor activities serves both exposure (facing the feared situation) and activation (re-engaging with rewarding activities). The therapist should be clear about which mechanism they're targeting.</p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">&#128161; The Bottom Line</div>
+      <p style="color: #93c5fd;">The techniques can combine, but you should always be <strong>clear about which mechanism you're leveraging</strong>. Ask yourself: "Am I trying to increase activity (BA), test a belief (BE), or reduce fear through approach (Exposure)?" Your answer determines how you frame and process the task with the client.</p>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SECTION 4: CLINICAL DECISION FLOWCHART -->
+  <!-- ========================================= -->
+  <div class="card">
+    <h2>&#128680; Clinical Decision Flowchart</h2>
+    <p>Use this to select the right technique for your client.</p>
+
+    <div class="flowchart">
+      <div class="flow-label">Start Here</div>
+      <div class="flow-step flow-question">&#129300; What is the primary problem?</div>
+
+      <div class="flow-branch">
+        <!-- Branch 1: BA -->
+        <div style="flex: 1; min-width: 200px; text-align: center;">
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-step flow-question" style="font-size: 0.85rem;">Low motivation? Withdrawal?<br>Anhedonia? Inactivity?</div>
+          <div class="flow-arrow" style="color: #22c55e;">&#8595; YES</div>
+          <div class="flow-step flow-answer-ba">&#128994; BEHAVIORAL<br>ACTIVATION</div>
+          <p style="font-size: 0.8rem; color: #86efac; margin-top: 8px;">Schedule activities.<br>Rate mastery & pleasure.</p>
+        </div>
+
+        <!-- Branch 2: BE -->
+        <div style="flex: 1; min-width: 200px; text-align: center;">
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-step flow-question" style="font-size: 0.85rem;">Specific testable belief<br>or prediction?</div>
+          <div class="flow-arrow" style="color: #f59e0b;">&#8595; YES</div>
+          <div class="flow-step flow-answer-be">&#128993; BEHAVIORAL<br>EXPERIMENT</div>
+          <p style="font-size: 0.8rem; color: #fde68a; margin-top: 8px;">Predict. Test. Compare.<br>Re-rate belief.</p>
+        </div>
+
+        <!-- Branch 3: Exposure -->
+        <div style="flex: 1; min-width: 200px; text-align: center;">
+          <div class="flow-arrow">&#8595;</div>
+          <div class="flow-step flow-question" style="font-size: 0.85rem;">Avoidance of feared stimulus?<br>Anxiety/fear response?</div>
+          <div class="flow-arrow" style="color: #f97316;">&#8595; YES</div>
+          <div class="flow-step flow-answer-exp">&#128308; EXPOSURE</div>
+          <p style="font-size: 0.8rem; color: #fdba74; margin-top: 8px;">Build hierarchy. Approach.<br>Stay. Let anxiety drop.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; padding: 16px; background: rgba(139,92,246,0.1); border-radius: 12px; border: 1px solid rgba(139,92,246,0.2);">
+        <p style="color: #c4b5fd; font-weight: 600; font-size: 0.9rem;">&#128260; Can they be combined? OFTEN YES!</p>
+        <p style="color: #94a3b8; font-size: 0.85rem;">Add a prediction to exposure &#8594; it becomes a BE. Test "I won't enjoy anything" with BA &#8594; it becomes a BE. Think flexibly.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SECTION 5: THREE WORKED EXAMPLES -->
+  <!-- ========================================= -->
+  <div class="card" style="border-left: 4px solid #c4b5fd;">
+    <h2 style="color: #c4b5fd;">&#129504; Three Worked Clinical Examples</h2>
+  </div>
+
+  <!-- CASE 1: DEPRESSION - BA -->
+  <div class="case-study">
+    <div class="case-header">
+      <div class="case-avatar ba-av">&#128105;</div>
+      <div>
+        <div class="case-name">Case 1: Ana, 42 — Depression</div>
+        <div class="case-detail">Technique: &#128994; Behavioral Activation</div>
+      </div>
+    </div>
+    <p><strong>Presentation:</strong> Ana was laid off 3 months ago. She now spends most of her day in bed, scrolling her phone. She's stopped cooking, seeing friends, and exercising. "What's the point? I don't feel like doing anything. Nothing makes me happy anymore."</p>
+    <p><strong>Formulation:</strong> Classic depression withdrawal cycle. Reduced activity &#8594; reduced positive reinforcement &#8594; lower mood &#8594; even less activity.</p>
+
+    <h4>&#128736;&#65039; Behavioral Activation Plan</h4>
+    <p><strong>Week 1: Activity Monitoring</strong> — Track what Ana does hour by hour. Rate mood (0-10) alongside each activity. Identify: when does her mood dip most? Are there ANY activities that lift it even slightly?</p>
+    <p><strong>Week 2-3: Graded Activity Scheduling</strong></p>
+
+    <div class="table-wrap">
+      <table class="schedule">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Morning</th>
+            <th>Afternoon</th>
+            <th>Evening</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mon</strong></td>
+            <td>Get dressed before 10am<br><span class="mp">M: ? P: ?</span></td>
+            <td>15-min walk around the block<br><span class="mp">M: ? P: ?</span></td>
+            <td>Cook a simple meal (pasta)<br><span class="mp">M: ? P: ?</span></td>
+          </tr>
+          <tr>
+            <td><strong>Wed</strong></td>
+            <td>Shower + make bed<br><span class="mp">M: ? P: ?</span></td>
+            <td>Call one friend for 10 min<br><span class="mp">M: ? P: ?</span></td>
+            <td>Watch a show she used to enjoy<br><span class="mp">M: ? P: ?</span></td>
+          </tr>
+          <tr>
+            <td><strong>Fri</strong></td>
+            <td>Go to the bakery (buy something nice)<br><span class="mp">M: ? P: ?</span></td>
+            <td>20-min walk in the park<br><span class="mp">M: ? P: ?</span></td>
+            <td>Read 10 pages of a book<br><span class="mp">M: ? P: ?</span></td>
+          </tr>
+          <tr>
+            <td><strong>Sun</strong></td>
+            <td>Morning coffee at a cafe<br><span class="mp">M: ? P: ?</span></td>
+            <td>Tidy one room for 15 min<br><span class="mp">M: ? P: ?</span></td>
+            <td>Plan next week's activities<br><span class="mp">M: ? P: ?</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size: 0.85rem; color: #94a3b8;"><em>M = Mastery (0-10), P = Pleasure (0-10). Rate AFTER completing the activity.</em></p>
+
+    <div class="insight">
+      <div class="insight-title">&#128161; Key Principle</div>
+      <p style="color: #93c5fd;">Notice: we're NOT asking Ana to "test a belief." We're NOT asking her to "face a feared stimulus." We're asking her to <strong>DO things</strong> — regardless of motivation — and track the impact on mood. Action comes before motivation.</p>
+    </div>
+  </div>
+
+  <!-- CASE 2: SOCIAL ANXIETY - BE -->
+  <div class="case-study">
+    <div class="case-header">
+      <div class="case-avatar be-av">&#128104;</div>
+      <div>
+        <div class="case-name">Case 2: Giorgi, 30 — Social Anxiety</div>
+        <div class="case-detail">Technique: &#128993; Behavioral Experiment</div>
+      </div>
+    </div>
+    <p><strong>Presentation:</strong> Giorgi avoids speaking up in team meetings at his architecture firm. He believes: "If I share my ideas without extensive preparation, people will think I'm incompetent and I'll be seen as the weakest member of the team."</p>
+    <p><strong>Formulation:</strong> Specific testable belief about social evaluation. This calls for a behavioral experiment, not just exposure.</p>
+
+    <h4>&#128993; Behavioral Experiment: Full Prediction Sheet</h4>
+    <div class="worksheet">
+      <div class="ws-title">&#128221; Behavioral Experiment Worksheet — Giorgi</div>
+      <div class="ws-row">
+        <div class="ws-label">Thought/Belief to Test</div>
+        <div class="ws-field">"If I share my ideas without extensive preparation, people will think I'm incompetent."</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">Specific Prediction</div>
+        <div class="ws-field">"If I share one spontaneous idea in Tuesday's meeting, at least 2 colleagues will look dismissive or ignore me. My manager will look disappointed."</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">Belief Rating Before</div>
+        <div class="ws-field" style="color: #fbbf24; font-weight: 600;">80%</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">Experiment Design</div>
+        <div class="ws-field">In Tuesday's team meeting, share one design suggestion that I haven't rehearsed beforehand. Observe colleagues' actual facial expressions and responses. Focus externally (not on my own anxiety).</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">Outcome (What Actually Happened)</div>
+        <div class="ws-field" style="color: #86efac;">"I suggested we try a different material for the facade. Two colleagues nodded. The project lead said 'Good point, let's explore that.' Nobody looked dismissive. My manager smiled."</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">Belief Rating After</div>
+        <div class="ws-field" style="color: #86efac; font-weight: 600;">25%</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">What I Learned</div>
+        <div class="ws-field" style="color: #86efac;">"People responded positively to a spontaneous idea. I don't need to rehearse everything to be taken seriously. My fear was much bigger than the reality."</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">&#128161; Why This Is a BE, Not Just Exposure</div>
+      <p style="color: #93c5fd;">If we just asked Giorgi to speak in meetings (exposure), anxiety might reduce through habituation, but the <em>belief</em> might persist ("It only went okay because I got lucky"). By adding the explicit prediction and comparison, we directly target the belief itself. The belief drops from 80% to 25% — that's the power of prediction testing.</p>
+    </div>
+  </div>
+
+  <!-- CASE 3: PHOBIA - EXPOSURE -->
+  <div class="case-study">
+    <div class="case-header">
+      <div class="case-avatar exp-av">&#128105;</div>
+      <div>
+        <div class="case-name">Case 3: Keti, 35 — Elevator Phobia</div>
+        <div class="case-detail">Technique: &#128308; Graded Exposure</div>
+      </div>
+    </div>
+    <p><strong>Presentation:</strong> Keti cannot use elevators. She works on the 8th floor and uses the stairs, arriving sweaty and exhausted. She tried once and had a panic-like response. "I can't breathe in there. The walls close in. I need to get out."</p>
+    <p><strong>Formulation:</strong> Specific phobia with clear avoidance. The fear is of the situation (enclosed space), not a specific belief. Graded exposure is the primary approach.</p>
+
+    <h4>&#128308; Exposure Hierarchy</h4>
+    <div style="background: #12141f; border-radius: 12px; padding: 20px; margin: 16px 0;">
+      <table style="width: 100%; font-size: 0.9rem;">
+        <thead>
+          <tr>
+            <th style="width: 80px;">SUDS</th>
+            <th>Exposure Step</th>
+            <th style="width: 90px;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="color: #fdba74; font-weight: 600;">15</td><td>Look at photos of elevators</td><td style="color: #86efac;">&#9989;</td></tr>
+          <tr><td style="color: #fdba74; font-weight: 600;">25</td><td>Watch videos of people riding elevators</td><td style="color: #86efac;">&#9989;</td></tr>
+          <tr><td style="color: #fdba74; font-weight: 600;">35</td><td>Stand near an elevator and watch doors open/close</td><td style="color: #86efac;">&#9989;</td></tr>
+          <tr><td style="color: #fdba74; font-weight: 600;">45</td><td>Step into the elevator, doors open, step out</td><td style="color: #fbbf24;">In progress</td></tr>
+          <tr><td style="color: #fdba74; font-weight: 600;">55</td><td>Ride 1 floor with therapist</td><td style="color: #94a3b8;">&#8212;</td></tr>
+          <tr><td style="color: #fdba74; font-weight: 600;">65</td><td>Ride 3 floors with therapist</td><td style="color: #94a3b8;">&#8212;</td></tr>
+          <tr><td style="color: #fdba74; font-weight: 600;">75</td><td>Ride 1 floor alone</td><td style="color: #94a3b8;">&#8212;</td></tr>
+          <tr><td style="color: #fdba74; font-weight: 600;">85</td><td>Ride to 8th floor alone</td><td style="color: #94a3b8;">&#8212;</td></tr>
+          <tr><td style="color: #fdba74; font-weight: 600;">90</td><td>Ride to 8th floor alone, daily for 1 week</td><td style="color: #94a3b8;">&#8212;</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Protocol:</strong> At each step, Keti rates SUDS before, during (peak), and after. She stays at each step until SUDS drops by at least 50%. Only then does she move up. No escape at peak anxiety — she waits for it to come down naturally.</p>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- SECTION 6: BE WORKSHEET TEMPLATE -->
+  <!-- ========================================= -->
+  <div class="card section-be">
+    <h2>&#128221; The Behavioral Experiment Worksheet — Template</h2>
+    <p>Use this format for any behavioral experiment with any client.</p>
+
+    <div class="worksheet">
+      <div class="ws-title">&#128221; Behavioral Experiment Record</div>
+      <div class="ws-row">
+        <div class="ws-label">&#9312; Thought/Belief to Test</div>
+        <div class="ws-field" style="color: #64748b; font-style: italic;">Write the specific thought or belief in the client's own words</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">&#9313; Prediction</div>
+        <div class="ws-field" style="color: #64748b; font-style: italic;">What specifically does the client predict will happen? (Must be observable and testable)</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">&#9314; Belief Rating Before</div>
+        <div class="ws-field" style="color: #64748b; font-style: italic;">0-100%: How strongly do they believe this right now?</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">&#9315; Experiment Design</div>
+        <div class="ws-field" style="color: #64748b; font-style: italic;">What will the client do? When? Where? How will you measure the outcome?</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">&#9316; Outcome</div>
+        <div class="ws-field" style="color: #64748b; font-style: italic;">What actually happened? (Facts only, no interpretation)</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">&#9317; Belief Rating After</div>
+        <div class="ws-field" style="color: #64748b; font-style: italic;">0-100%: How strongly do they believe it now?</div>
+      </div>
+      <div class="ws-row">
+        <div class="ws-label">&#9318; What I Learned</div>
+        <div class="ws-field" style="color: #64748b; font-style: italic;">What does this tell us about the original belief? What new perspective emerged?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- PRACTICE EXERCISES -->
+  <!-- ========================================= -->
+  <div class="card practice">
+    <h2>&#9997;&#65039; Practice Exercises</h2>
+
+    <h3>Exercise 1: Quick Sort</h3>
+    <p>For each scenario below, identify the primary technique: BA, BE, or Exposure.</p>
+
+    <p style="background: #12141f; padding: 12px 16px; border-radius: 10px; margin: 10px 0;"><strong>a)</strong> A depressed client hasn't left the house in 2 weeks. You help them schedule 3 outings this week and rate their mood after each.</p>
+    <details>
+      <summary>&#128161; Answer</summary>
+      <div class="answer"><strong>Behavioral Activation.</strong> No specific belief is being tested. The goal is to increase activity and positive reinforcement to break the withdrawal cycle.</div>
+    </details>
+
+    <p style="background: #12141f; padding: 12px 16px; border-radius: 10px; margin: 10px 0;"><strong>b)</strong> A client with OCD repeatedly washes hands after touching door handles. You ask them to touch a door handle and not wash for 30 minutes while tracking their SUDS.</p>
+    <details>
+      <summary>&#128161; Answer</summary>
+      <div class="answer"><strong>Exposure (with Response Prevention).</strong> The client approaches the feared stimulus (contamination) and refrains from the compulsion (washing). Anxiety is expected to rise then naturally decrease.</div>
+    </details>
+
+    <p style="background: #12141f; padding: 12px 16px; border-radius: 10px; margin: 10px 0;"><strong>c)</strong> A socially anxious client believes: "If I stammer, people will lose all respect for me." You ask them to deliberately stammer in a conversation and observe others' reactions.</p>
+    <details>
+      <summary>&#128161; Answer</summary>
+      <div class="answer"><strong>Behavioral Experiment.</strong> There's a specific, testable prediction ("others will lose respect"). The client will compare their prediction to the actual outcome. Even though it involves facing a feared situation (like exposure), the purpose is belief-testing.</div>
+    </details>
+
+    <h3>Exercise 2: Design a Combination</h3>
+    <p style="background: #12141f; padding: 12px 16px; border-radius: 10px; margin: 10px 0;">A depressed client says: "Going for a walk won't help. Nothing makes me feel better." How could you combine BA and BE in a single intervention?</p>
+    <details>
+      <summary>&#128161; Answer</summary>
+      <div class="answer"><strong>Combine BA + BE:</strong><br>
+      <strong>BA component:</strong> Schedule the walk (activation — getting them moving despite low motivation).<br>
+      <strong>BE component:</strong> "You predict your pleasure will be 0/10. Let's test that. Go for the walk and rate your actual pleasure afterward."<br>
+      <strong>Prediction:</strong> "I'll feel 0/10 pleasure." (Belief: 90%)<br>
+      <strong>Outcome:</strong> Rates pleasure at 3/10 — not great, but NOT zero.<br>
+      <strong>Learning:</strong> "The belief that NOTHING helps is too extreme. Even a small improvement means the belief isn't fully accurate."<br>
+      Now it's both activation (increasing activity) AND an experiment (testing "nothing helps").</div>
+    </details>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- MINI-TEST -->
+  <!-- ========================================= -->
+  <div class="card mini-test">
+    <h2>&#128221; Mini-Test: 7 Questions</h2>
+    <p style="color: #94a3b8; margin-bottom: 16px;">Test your understanding. Answer before clicking to reveal.</p>
+
+    <div class="question">
+      <span class="q-num">1</span>
+      <span class="q-text">Label each clinical scenario as BA, BE, or Exposure:</span>
+      <p style="margin: 8px 0 4px; color: #cbd5e1;">(a) Scheduling pleasant activities for a withdrawn client</p>
+      <p style="margin: 4px 0; color: #cbd5e1;">(b) Testing "If I don't double-check the stove, the house will burn down" by leaving without checking</p>
+      <p style="margin: 4px 0; color: #cbd5e1;">(c) Building a fear hierarchy for a client with blood phobia</p>
+      <p style="margin: 4px 0; color: #cbd5e1;">(d) Having a client with depression rate mastery and pleasure for daily tasks</p>
+      <p style="margin: 4px 0; color: #cbd5e1;">(e) Asking a social anxiety client to hold eye contact for 5 seconds to test "they'll think I'm creepy"</p>
+      <details>
+        <summary>Reveal Answer</summary>
+        <div class="answer"><strong>(a) BA</strong> — Increasing activity to restore positive reinforcement<br>
+        <strong>(b) BE</strong> — Testing a specific prediction about what will happen<br>
+        <strong>(c) Exposure</strong> — Graduated approach to a feared stimulus<br>
+        <strong>(d) BA</strong> — Monitoring activity quality to guide scheduling<br>
+        <strong>(e) BE</strong> — There's a specific testable prediction ("they'll think I'm creepy")</div>
+      </details>
+    </div>
+
+    <div class="question">
+      <span class="q-num">2</span>
+      <span class="q-text">Design a full behavioral experiment (all 7 worksheet steps) for a client who believes: "If I don't prepare perfectly for the meeting, I'll be humiliated."</span>
+      <details>
+        <summary>Reveal Answer</summary>
+        <div class="answer"><strong>1. Belief:</strong> "If I don't prepare perfectly for the meeting, I'll be humiliated."<br><br>
+        <strong>2. Prediction:</strong> "If I attend Thursday's meeting with only 10 minutes of preparation instead of my usual 3 hours, at least one person will openly criticize me or I'll freeze and be unable to answer a question."<br><br>
+        <strong>3. Belief before:</strong> 85%<br><br>
+        <strong>4. Experiment:</strong> Prepare for Thursday's meeting for only 10 minutes (read agenda, jot 3 bullet points). Attend as usual. Note: Did anyone criticize me? Did I freeze? Could I contribute?<br><br>
+        <strong>5. Outcome:</strong> "I answered two questions normally. Nobody criticized me. I hesitated once but recovered. One colleague agreed with my point."<br><br>
+        <strong>6. Belief after:</strong> 35%<br><br>
+        <strong>7. What I learned:</strong> "I don't need perfect preparation to participate competently. My 3-hour prep was driven by fear, not necessity. I can function well with reasonable preparation."</div>
+      </details>
+    </div>
+
+    <div class="question">
+      <span class="q-num">3</span>
+      <span class="q-text">What is the KEY difference between exposure and a behavioral experiment?</span>
+      <details>
+        <summary>Reveal Answer</summary>
+        <div class="answer"><strong>Exposure</strong> aims to reduce fear through habituation or inhibitory learning — the person approaches the feared stimulus and stays until anxiety drops. The mechanism is <em>fear reduction through repeated approach</em>.<br><br>
+        <strong>A behavioral experiment</strong> aims to test a specific prediction/belief — the person makes an explicit prediction, carries out an action, and compares the outcome to the prediction. The mechanism is <em>belief change through evidence</em>.<br><br>
+        <strong>Key distinction:</strong> A behavioral experiment REQUIRES a specific, testable prediction written beforehand. Exposure does not (though adding one makes it more powerful). You can do exposure without testing a belief (just approach and stay). You cannot do a behavioral experiment without a prediction to test.</div>
+      </details>
+    </div>
+
+    <div class="question">
+      <span class="q-num">4</span>
+      <span class="q-text">A client with depression says: "Nothing will make me feel better. There's no point in trying." Which technique do you use, and why?</span>
+      <details>
+        <summary>Reveal Answer</summary>
+        <div class="answer"><strong>Primary: Behavioral Activation</strong> — because the problem is withdrawal and inactivity, not a feared stimulus or specific social belief. The goal is to get the client re-engaged with activities despite low motivation.<br><br>
+        <strong>Enhanced with a Behavioral Experiment:</strong> The statement "nothing will make me feel better" IS a testable belief. So you can combine BA + BE: schedule activities (BA) and frame it as a test — "You predict pleasure = 0. Let's test that." When the client rates even 2/10 pleasure, the absolute belief "nothing helps" is disconfirmed.<br><br>
+        <strong>NOT Exposure</strong> — there is no feared stimulus to approach. Depression withdrawal is not the same as phobic avoidance.</div>
+      </details>
+    </div>
+
+    <div class="question">
+      <span class="q-num">5</span>
+      <span class="q-text">Why is it important that action comes BEFORE motivation in Behavioral Activation?</span>
+      <details>
+        <summary>Reveal Answer</summary>
+        <div class="answer">In depression, waiting for motivation means waiting forever — low mood suppresses motivation, creating a self-reinforcing cycle. <strong>BA breaks this cycle by reversing the sequence:</strong> instead of "feel motivated &#8594; do things," it's "do things &#8594; experience positive reinforcement &#8594; gradually feel more motivated."<br><br>
+        If we waited for Ana (our case) to "feel like" going for a walk, she might never go. But if she walks anyway, she might discover it's a 4/10 pleasure — and that small reward starts rebuilding the motivation circuit. <strong>The doing creates the feeling, not the other way around.</strong></div>
+      </details>
+    </div>
+
+    <div class="question">
+      <span class="q-num">6</span>
+      <span class="q-text">A client with dog phobia is working through an exposure hierarchy. You suggest adding a prediction before each step: "What do you think will happen?" How does this enhance the exposure?</span>
+      <details>
+        <summary>Reveal Answer</summary>
+        <div class="answer">Adding predictions transforms pure exposure into a <strong>behavioral experiment within exposure</strong>. Benefits:<br><br>
+        1. <strong>Targets beliefs directly:</strong> Instead of just habituation (anxiety goes down), you also get belief change ("I predicted the dog would bite me — it didn't")<br>
+        2. <strong>Creates explicit disconfirmation:</strong> The mismatch between prediction ("I'll panic and freeze, SUDS 95") and outcome ("SUDS peaked at 60 and I managed") is memorable and therapeutic<br>
+        3. <strong>Prevents "I got lucky" thinking:</strong> When predictions are consistently wrong, it's harder to dismiss each exposure as a fluke<br>
+        4. <strong>Enhances learning:</strong> Research shows that prediction-testing exposure produces stronger and more durable fear reduction than standard exposure alone</div>
+      </details>
+    </div>
+
+    <div class="question">
+      <span class="q-num">7</span>
+      <span class="q-text">A trainee says: "I used behavioral activation with my phobia client — I scheduled them to visit a pet store every day." What's wrong with this formulation?</span>
+      <details>
+        <summary>Reveal Answer</summary>
+        <div class="answer"><strong>This is exposure, not behavioral activation.</strong> The trainee is confusing the techniques.<br><br>
+        <strong>BA</strong> is for depression/withdrawal — increasing rewarding activities to restore positive reinforcement. It targets low mood through increased engagement.<br><br>
+        <strong>What the trainee actually did</strong> was graded exposure — approaching a feared stimulus (the pet store/animals) to reduce phobic avoidance through habituation.<br><br>
+        <strong>Why this matters clinically:</strong> If the trainee thinks they're doing BA, they'll focus on mood improvement ("Did you enjoy the pet store?") rather than anxiety reduction ("Did your SUDS decrease?"). They might also miss building a proper hierarchy, tracking SUDS, ensuring the client stays long enough for anxiety to drop, and preventing escape at peak anxiety. Mislabeling the technique leads to imprecise implementation.</div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ========================================= -->
+  <!-- LESSON COMPLETE -->
+  <!-- ========================================= -->
+  <div class="lesson-complete">
+    <div class="check-icon">&#9989;</div>
+    <h2>Lesson Complete</h2>
+    <p>Self-check: Can you confidently do the following?</p>
+    <ul class="checklist">
+      <li>Define BA, BE, and Exposure as <strong>distinct techniques</strong> with different mechanisms</li>
+      <li>State the <strong>key question</strong> each technique asks</li>
+      <li>Use the <strong>clinical decision flowchart</strong> to select the right technique</li>
+      <li>Explain when and how the techniques <strong>overlap</strong></li>
+      <li>Complete a full <strong>Behavioral Experiment Worksheet</strong> (all 7 fields)</li>
+      <li>Correctly label clinical scenarios as BA, BE, or Exposure</li>
+      <li>Explain why <strong>action comes before motivation</strong> in BA</li>
+      <li>Describe the <strong>key difference</strong> between exposure and a behavioral experiment</li>
+    </ul>
+    <p style="margin-top: 20px; color: #64748b; font-size: 0.88rem;">If you answered "no" to any item, review that section before moving on.</p>
+  </div>
+
+  <!-- ========== FINAL SCORED EXAM ========== -->
+  <style>
+    .exam-section { background: linear-gradient(135deg, #1a1d2e, #16213e); border-radius: 16px; border: 1px solid rgba(99,102,241,0.3); padding: 32px; margin-top: 40px; }
+    .exam-q { padding: 16px; margin: 12px 0; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 3px solid #6366f1; }
+    .exam-q.correct { border-left-color: #4ade80; background: rgba(34,197,94,0.05); }
+    .exam-q.wrong { border-left-color: #f87171; background: rgba(239,68,68,0.05); }
+    .exam-q label { display: block; padding: 8px 12px; margin: 4px 0; border-radius: 6px; cursor: pointer; font-size: 0.92rem; color: #cbd5e1; }
+    .exam-q label:hover { background: rgba(99,102,241,0.1); }
+    .exam-q .q-title { font-weight: 600; color: #e2e8f0; margin-bottom: 10px; }
+    .exam-result { padding: 24px; border-radius: 12px; margin-top: 20px; text-align: center; }
+    .result-pass { background: rgba(34,197,94,0.15); border: 2px solid #4ade80; color: #4ade80; }
+    .result-almost { background: rgba(251,191,36,0.15); border: 2px solid #fbbf24; color: #fbbf24; }
+    .result-fail { background: rgba(239,68,68,0.15); border: 2px solid #f87171; color: #f87171; }
+    .submit-exam-btn { display: block; margin: 20px auto; padding: 14px 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .submit-exam-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(99,102,241,0.4); }
+    .copy-btn { display: block; margin: 12px auto; padding: 10px 30px; background: rgba(255,255,255,0.1); color: #818cf8; border: 1px solid #818cf8; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .exam-correction { font-size: 0.85rem; color: #94a3b8; margin-top: 8px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px; display: none; }
+  </style>
+
+  <div class="exam-section" id="examSection6">
+    <h2 style="text-align:center; color:#e2e8f0; margin-bottom:8px;">&#127891; FINAL EXAM &mdash; Are You Ready to Proceed?</h2>
+    <p style="text-align:center; color:#94a3b8; margin-bottom:24px;">Score ≥85% to pass. Choose the best answer for each question.</p>
+
+    <div class="exam-q" id="eq6_1">
+      <div class="q-title">Q1: A depressed client hasn't left the house in 2 weeks. You schedule daily walks and a coffee meeting. This is:</div>
+      <label><input type="radio" name="examq1" value="a"> a) A behavioral experiment</label>
+      <label><input type="radio" name="examq1" value="b"> b) Behavioral activation</label>
+      <label><input type="radio" name="examq1" value="c"> c) Graded exposure</label>
+      <label><input type="radio" name="examq1" value="d"> d) Cognitive restructuring</label>
+      <div class="exam-correction" id="corr6_1"></div>
+    </div>
+
+    <div class="exam-q" id="eq6_2">
+      <div class="q-title">Q2: A client believes "If I say no, people will abandon me." You ask them to say no to one specific person and observe the result. This is:</div>
+      <label><input type="radio" name="examq2" value="a"> a) Behavioral activation</label>
+      <label><input type="radio" name="examq2" value="b"> b) Graded exposure</label>
+      <label><input type="radio" name="examq2" value="c"> c) A behavioral experiment</label>
+      <label><input type="radio" name="examq2" value="d"> d) Socratic questioning</label>
+      <div class="exam-correction" id="corr6_2"></div>
+    </div>
+
+    <div class="exam-q" id="eq6_3">
+      <div class="q-title">Q3: A client with spider phobia progresses from pictures → toy spiders → real spiders in a jar → holding a spider. This is:</div>
+      <label><input type="radio" name="examq3" value="a"> a) Behavioral activation</label>
+      <label><input type="radio" name="examq3" value="b"> b) A behavioral experiment</label>
+      <label><input type="radio" name="examq3" value="c"> c) Graded exposure</label>
+      <label><input type="radio" name="examq3" value="d"> d) Flooding</label>
+      <div class="exam-correction" id="corr6_3"></div>
+    </div>
+
+    <div class="exam-q" id="eq6_4">
+      <div class="q-title">Q4: What is the KEY feature that makes something a behavioral EXPERIMENT?</div>
+      <label><input type="radio" name="examq4" value="a"> a) It involves gradual steps</label>
+      <label><input type="radio" name="examq4" value="b"> b) It tests a specific prediction, with belief ratings before and after</label>
+      <label><input type="radio" name="examq4" value="c"> c) It increases activity levels</label>
+      <label><input type="radio" name="examq4" value="d"> d) It reduces avoidance</label>
+      <div class="exam-correction" id="corr6_4"></div>
+    </div>
+
+    <div class="exam-q" id="eq6_5">
+      <div class="q-title">Q5: A client says "Nothing will make me feel better." You could use this as a behavioral experiment by:</div>
+      <label><input type="radio" name="examq5" value="a"> a) Telling them that's a cognitive distortion</label>
+      <label><input type="radio" name="examq5" value="b"> b) Having them predict their mood (0-100) before and after 3 scheduled activities, then comparing prediction to reality</label>
+      <label><input type="radio" name="examq5" value="c"> c) Assigning relaxation exercises</label>
+      <label><input type="radio" name="examq5" value="d"> d) Exploring childhood origins of the belief</label>
+      <div class="exam-correction" id="corr6_5"></div>
+    </div>
+
+    <div class="exam-q" id="eq6_6">
+      <div class="q-title">Q6: Behavioral activation is PRIMARILY used for:</div>
+      <label><input type="radio" name="examq6" value="a"> a) Anxiety disorders</label>
+      <label><input type="radio" name="examq6" value="b"> b) OCD</label>
+      <label><input type="radio" name="examq6" value="c"> c) Depression</label>
+      <label><input type="radio" name="examq6" value="d"> d) Social phobia</label>
+      <div class="exam-correction" id="corr6_6"></div>
+    </div>
+
+    <div class="exam-q" id="eq6_7">
+      <div class="q-title">Q7: When does exposure BECOME a behavioral experiment?</div>
+      <label><input type="radio" name="examq7" value="a"> a) It doesn't — they're completely separate</label>
+      <label><input type="radio" name="examq7" value="b"> b) When you add prediction testing — the client predicts what will happen, then compares prediction to actual outcome</label>
+      <label><input type="radio" name="examq7" value="c"> c) When the client rates their anxiety</label>
+      <label><input type="radio" name="examq7" value="d"> d) When it involves homework</label>
+      <div class="exam-correction" id="corr6_7"></div>
+    </div>
+
+    <div class="exam-q" id="eq6_8">
+      <div class="q-title">Q8: A Behavioral Experiment Worksheet should include all of these EXCEPT:</div>
+      <label><input type="radio" name="examq8" value="a"> a) Specific prediction before the experiment</label>
+      <label><input type="radio" name="examq8" value="b"> b) Belief rating (0-100%) before</label>
+      <label><input type="radio" name="examq8" value="c"> c) Detailed childhood history</label>
+      <label><input type="radio" name="examq8" value="d"> d) Actual outcome after the experiment</label>
+      <div class="exam-correction" id="corr6_8"></div>
+    </div>
+
+    <button class="submit-exam-btn" onclick="gradeExam6()">Submit Exam</button>
+    <div id="examResult6"></div>
+  </div>
+
+  <script>
+  function gradeExam6() {
+    const answers = {
+      examq1: 'b', examq2: 'c', examq3: 'c', examq4: 'b',
+      examq5: 'b', examq6: 'c', examq7: 'b', examq8: 'c'
+    };
+    const explanations = {
+      examq1: 'Correct answer: B — Scheduling activities to increase engagement and break the inactivity-depression cycle is behavioral activation.',
+      examq2: 'Correct answer: C — Testing a specific belief ("people will abandon me if I say no") by observing the actual outcome is a behavioral experiment.',
+      examq3: 'Correct answer: C — A step-by-step hierarchy from least to most feared stimulus is graded exposure.',
+      examq4: 'Correct answer: B — The defining feature of a behavioral experiment is testing a specific prediction with belief ratings before and after.',
+      examq5: 'Correct answer: B — Having the client predict mood before activities and compare to actual mood tests the belief empirically.',
+      examq6: 'Correct answer: C — Behavioral activation is primarily designed for depression, targeting the withdrawal-inactivity cycle.',
+      examq7: 'Correct answer: B — Exposure becomes a behavioral experiment when you add explicit prediction testing and outcome comparison.',
+      examq8: 'Correct answer: C — Detailed childhood history is not part of a Behavioral Experiment Worksheet; the worksheet focuses on predictions, outcomes, and belief change.'
+    };
+
+    let score = 0;
+    for (let i = 1; i <= 8; i++) {
+      const qName = 'examq' + i;
+      const selected = document.querySelector('input[name="' + qName + '"]:checked');
+      const qDiv = document.getElementById('eq6_' + i);
+      const corrDiv = document.getElementById('corr6_' + i);
+      const userAnswer = selected ? selected.value : '';
+
+      if (userAnswer === answers[qName]) {
+        score++;
+        qDiv.classList.add('correct');
+        qDiv.classList.remove('wrong');
+        corrDiv.innerHTML = '&#10004; Correct!';
+      } else {
+        qDiv.classList.add('wrong');
+        qDiv.classList.remove('correct');
+        corrDiv.innerHTML = '&#10008; ' + explanations[qName];
+      }
+      corrDiv.style.display = 'block';
+    }
+
+    const pct = Math.round((score / 8) * 100);
+    const resultDiv = document.getElementById('examResult6');
+    let cls, msg;
+
+    if (score >= 7) {
+      cls = 'result-pass';
+      msg = '&#9989; MASTERY ACHIEVED &mdash; Proceed to next lesson!';
+    } else if (score >= 5) {
+      cls = 'result-almost';
+      msg = '&#9888;&#65039; ALMOST THERE &mdash; Review missed topics, then retake.';
+    } else {
+      cls = 'result-fail';
+      msg = '&#128260; NOT YET &mdash; Re-study this lesson before moving on.';
+    }
+
+    const passed = score >= 7 ? 'PASSED' : 'FAILED';
+    resultDiv.innerHTML = '<div class="exam-result ' + cls + '">' +
+      '<h3 style="margin:0 0 8px 0;">' + score + '/8 (' + pct + '%)</h3>' +
+      '<p style="margin:0;">' + msg + '</p></div>' +
+      '<button class="copy-btn" onclick="copyResult6(' + score + ',' + pct + ',\'' + passed + '\')">Copy Results</button>';
+  }
+
+  function copyResult6(score, pct, passed) {
+    const text = 'Lesson 6: ' + score + '/8 (' + pct + '%) — ' + passed;
+    navigator.clipboard.writeText(text).then(function() {
+      const btn = document.querySelector('#examResult6 .copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy Results'; }, 2000);
+    });
+  }
+  </script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 8 — Speaking CBT</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    line-height: 1.7;
+    font-size: 16px;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .lesson-header {
+    text-align: center;
+    padding: 60px 32px;
+    background: linear-gradient(135deg, #1a1d2e 0%, #1e2140 50%, #1a1d2e 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .lesson-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(251,146,60,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .lesson-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #fb923c, #f97316);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 18px;
+    border-radius: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .lesson-header h1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    background: linear-gradient(135deg, #e2e8f0, #fb923c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .lesson-header .subtitle {
+    font-size: 1.15em;
+    color: #94a3b8;
+    font-weight: 400;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+  .meta-bar {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #64748b;
+  }
+  .meta-bar span { display: flex; align-items: center; gap: 6px; }
+
+  /* Cards */
+  .card {
+    background: #1a1d2e;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+  .card h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .card h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: #a5b4fc;
+  }
+  .card h4 {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 16px 0 8px;
+    color: #c4b5fd;
+  }
+  .card p, .card li {
+    color: #cbd5e1;
+    margin-bottom: 8px;
+  }
+  .card ul, .card ol {
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+
+  /* Section accents */
+  .section-objectives { border-left: 4px solid #818cf8; }
+  .section-why { border-left: 4px solid #f87171; }
+  .section-table { border-left: 4px solid #34d399; }
+  .section-mistakes { border-left: 4px solid #fbbf24; }
+  .section-glossary { border-left: 4px solid #38bdf8; }
+  .section-practice { border-left: 4px solid #a78bfa; }
+  .section-waves { border-left: 4px solid #f472b6; }
+  .section-test { border-left: 4px solid #fb923c; }
+  .section-complete { border-left: 4px solid #4ade80; }
+
+  /* Highlight boxes */
+  .highlight-box {
+    background: rgba(129,140,248,0.08);
+    border: 1px solid rgba(129,140,248,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .highlight-box.warning {
+    background: rgba(251,191,36,0.08);
+    border-color: rgba(251,191,36,0.2);
+  }
+  .highlight-box.insight {
+    background: rgba(52,211,153,0.08);
+    border-color: rgba(52,211,153,0.2);
+  }
+  .highlight-box.danger {
+    background: rgba(248,113,113,0.08);
+    border-color: rgba(248,113,113,0.2);
+  }
+
+  /* Tables */
+  .big-table-wrapper {
+    overflow-x: auto;
+    margin: 16px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+    min-width: 700px;
+  }
+  th {
+    background: rgba(129,140,248,0.15);
+    color: #a5b4fc;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 14px;
+    position: sticky;
+    top: 0;
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: #cbd5e1;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  tr:last-child td { border-bottom: none; }
+  .col-cbt { color: #34d399; font-weight: 500; }
+  .col-dbt { color: #38bdf8; font-weight: 500; }
+  .col-wrong { color: #f87171; font-weight: 500; }
+  td em { color: #64748b; }
+
+  /* Mistake cards */
+  .mistake-card {
+    background: rgba(251,191,36,0.04);
+    border: 1px solid rgba(251,191,36,0.12);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .mistake-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1a1d2e;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 13px;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .mistake-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #fbbf24;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+  }
+  .wrong-way {
+    background: rgba(248,113,113,0.08);
+    border-left: 3px solid #f87171;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  .wrong-way::before { content: '❌ '; }
+  .right-way {
+    background: rgba(52,211,153,0.08);
+    border-left: 3px solid #34d399;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  .right-way::before { content: '✅ '; }
+
+  /* Glossary */
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .glossary-item {
+    background: rgba(56,189,248,0.04);
+    border: 1px solid rgba(56,189,248,0.1);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .glossary-term {
+    font-weight: 700;
+    color: #38bdf8;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .glossary-def {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+
+  /* Translation exercise */
+  .translation-box {
+    background: rgba(167,139,250,0.05);
+    border: 1px solid rgba(167,139,250,0.12);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 12px 0;
+  }
+  .general-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #f87171;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .cbt-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #34d399;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  /* Details/Summary */
+  details {
+    margin: 12px 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  summary {
+    cursor: pointer;
+    padding: 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    color: #818cf8;
+    font-weight: 600;
+    font-size: 15px;
+    list-style: none;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  summary:hover { background: rgba(255,255,255,0.06); }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: '▸ '; }
+  details[open] > summary::before { content: '▾ '; }
+  details .answer {
+    padding: 16px;
+    background: rgba(99,102,241,0.05);
+    border-radius: 0 0 8px 8px;
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Third wave table */
+  .wave-table th { background: rgba(244,114,182,0.12); color: #f472b6; }
+
+  /* Question numbers */
+  .q-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #fb923c, #f97316);
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 13px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Complete section */
+  .complete-section {
+    text-align: center;
+    padding: 40px 32px;
+    background: linear-gradient(135deg, rgba(74,222,128,0.06), rgba(52,211,153,0.04));
+    border-radius: 20px;
+    border: 1px solid rgba(74,222,128,0.15);
+  }
+  .complete-section h2 { justify-content: center; color: #4ade80; }
+  .checklist {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 540px;
+    margin: 20px auto;
+  }
+  .checklist li {
+    padding: 8px 0;
+    font-size: 15px;
+    color: #94a3b8;
+  }
+  .checklist li::before {
+    content: '☐ ';
+    color: #4ade80;
+    font-size: 18px;
+  }
+
+  /* Transcript */
+  .transcript-line {
+    padding: 8px 14px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  .transcript-good {
+    background: rgba(52,211,153,0.08);
+    border-left: 3px solid #34d399;
+  }
+  .transcript-bad {
+    background: rgba(248,113,113,0.06);
+    border-left: 3px solid #f87171;
+  }
+
+  @media (max-width: 640px) {
+    .lesson-header h1 { font-size: 1.7em; }
+    .card { padding: 24px 20px; }
+    .glossary-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="lesson-header">
+    <div class="lesson-number">Lesson 8</div>
+    <h1>Speaking CBT</h1>
+    <p class="subtitle">Mastering the precise language of Cognitive Behavioral Therapy — and knowing exactly how it differs from DBT, general therapy, and common imprecisions</p>
+    <div class="meta-bar">
+      <span>🕐 ~30 min study</span>
+      <span>🗣️ Language & Precision</span>
+      <span>🎯 Essential Foundation</span>
+    </div>
+  </div>
+
+  <!-- LEARNING OBJECTIVES -->
+  <div class="card section-objectives">
+    <h2>🎯 Learning Objectives</h2>
+    <p>By the end of this lesson, you will be able to:</p>
+    <ol>
+      <li><strong>Distinguish</strong> CBT terminology from DBT terminology and vague general therapy language</li>
+      <li><strong>Identify and correct</strong> the 10 most common language mistakes CBT therapists make</li>
+      <li><strong>Define</strong> 20 core CBT techniques using precise, correct terminology</li>
+      <li><strong>"Translate"</strong> general therapy language into proper CBT language</li>
+      <li><strong>Explain</strong> how CBT relates to third-wave approaches (ACT, Schema Therapy, CFT, MBCT)</li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1: WHY LANGUAGE PRECISION MATTERS -->
+  <div class="card section-why">
+    <h2>🔥 Why Language Precision Matters</h2>
+
+    <h3>It's Not Pedantry — It's Clinical Accuracy</h3>
+    <p>You might think: "Does it really matter if I say 'reframing' instead of 'cognitive restructuring'?" <strong>Yes. Here's why:</strong></p>
+
+    <ul>
+      <li><strong>In supervision and certification exams,</strong> using incorrect terminology flags you as not fully trained in CBT. Supervisors notice immediately when a therapist uses DBT or general language in a CBT context.</li>
+      <li><strong>More importantly:</strong> using the wrong technique name often means <strong>using the wrong technique.</strong> "Emotion regulation" (DBT) and "cognitive restructuring" (CBT) sound similar but involve completely different methods and goals.</li>
+      <li><strong>In case presentations,</strong> imprecise language makes it impossible for colleagues to understand what you actually did in session.</li>
+      <li><strong>For your own clinical thinking,</strong> precise language forces precise thinking. If you can name exactly what you're doing, you know exactly what you're doing.</li>
+    </ul>
+
+    <div class="highlight-box danger">
+      <strong>⚠️ The Real Danger:</strong> "Emotion regulation" (DBT) ≠ "Cognitive restructuring" (CBT). DBT emotion regulation teaches skills for tolerating and modulating intense emotions (TIPP, opposite action, distress tolerance). CBT identifies and challenges the <em>cognitions</em> that drive the emotional response. Same problem, completely different approach. If you say one but mean the other, you may actually <em>do</em> the wrong thing.
+    </div>
+  </div>
+
+  <!-- SECTION 2: THE BIG COMPARISON TABLE -->
+  <div class="card section-table">
+    <h2>📊 The Big Comparison: CBT vs. DBT vs. General Therapy</h2>
+    <p>Study this table carefully. It maps the same clinical concept across three different language systems.</p>
+
+    <div class="big-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Concept</th>
+            <th>🟢 CBT Term</th>
+            <th>🔵 DBT Term</th>
+            <th>🔴 General / Wrong Term</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Changing thoughts</strong></td>
+            <td class="col-cbt">Cognitive restructuring</td>
+            <td class="col-dbt">—</td>
+            <td class="col-wrong">"Reframing" <em>(too vague)</em></td>
+          </tr>
+          <tr>
+            <td><strong>Managing emotions</strong></td>
+            <td class="col-cbt">Identifying & challenging cognitions that drive emotions</td>
+            <td class="col-dbt">Emotion regulation skills (distress tolerance, TIPP)</td>
+            <td class="col-wrong">"Coping skills" <em>(vague)</em></td>
+          </tr>
+          <tr>
+            <td><strong>Testing beliefs</strong></td>
+            <td class="col-cbt">Behavioral experiments</td>
+            <td class="col-dbt">—</td>
+            <td class="col-wrong">"Homework" <em>(too vague)</em></td>
+          </tr>
+          <tr>
+            <td><strong>Facing fears</strong></td>
+            <td class="col-cbt">Graded exposure / behavioral experiments</td>
+            <td class="col-dbt">—</td>
+            <td class="col-wrong">"Pushing yourself"</td>
+          </tr>
+          <tr>
+            <td><strong>Activity scheduling</strong></td>
+            <td class="col-cbt">Behavioral activation</td>
+            <td class="col-dbt">—</td>
+            <td class="col-wrong">"Getting out more"</td>
+          </tr>
+          <tr>
+            <td><strong>Core tool</strong></td>
+            <td class="col-cbt">Thought record</td>
+            <td class="col-dbt">Diary card</td>
+            <td class="col-wrong">"Journaling"</td>
+          </tr>
+          <tr>
+            <td><strong>Finding deeper beliefs</strong></td>
+            <td class="col-cbt">Downward arrow technique</td>
+            <td class="col-dbt">—</td>
+            <td class="col-wrong">"Exploring"</td>
+          </tr>
+          <tr>
+            <td><strong>Therapist's questioning style</strong></td>
+            <td class="col-cbt">Socratic questioning / guided discovery</td>
+            <td class="col-dbt">—</td>
+            <td class="col-wrong">"Asking questions"</td>
+          </tr>
+          <tr>
+            <td><strong>Session format</strong></td>
+            <td class="col-cbt">Structured, agenda-based, collaborative</td>
+            <td class="col-dbt">Skills training format</td>
+            <td class="col-wrong">"Free-flowing conversation"</td>
+          </tr>
+          <tr>
+            <td><strong>Between-session tasks</strong></td>
+            <td class="col-cbt">Homework (CBT-specific assignments)</td>
+            <td class="col-dbt">Homework (diary cards, skills practice)</td>
+            <td class="col-wrong">"Things to try this week"</td>
+          </tr>
+          <tr>
+            <td><strong>Understanding the client</strong></td>
+            <td class="col-cbt">Cognitive case conceptualization</td>
+            <td class="col-dbt">Biosocial model + behavioral chain analysis</td>
+            <td class="col-wrong">"Assessment"</td>
+          </tr>
+          <tr>
+            <td><strong>Dealing with unhelpful thoughts</strong></td>
+            <td class="col-cbt">Thought challenging, cognitive restructuring</td>
+            <td class="col-dbt">Mindfulness (observing without judgment)</td>
+            <td class="col-wrong">"Positive thinking"</td>
+          </tr>
+          <tr>
+            <td><strong>When client avoids</strong></td>
+            <td class="col-cbt">Exposure hierarchy, behavioral experiments</td>
+            <td class="col-dbt">Opposite action</td>
+            <td class="col-wrong">"Encouragement"</td>
+          </tr>
+          <tr>
+            <td><strong>Measuring progress</strong></td>
+            <td class="col-cbt">Standardized measures (PHQ-9, GAD-7, BDI)</td>
+            <td class="col-dbt">Diary card tracking</td>
+            <td class="col-wrong">"How are you feeling?"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight-box insight">
+      <strong>💡 Key Takeaway:</strong> Notice the pattern — CBT terms are <em>specific and technique-focused</em>. General therapy language is vague. If you catch yourself using words like "explore," "coping skills," "reframe," or "process," stop and ask: "What is the actual CBT technique I mean?"
+    </div>
+  </div>
+
+  <!-- SECTION 3: 10 COMMON LANGUAGE MISTAKES -->
+  <div class="card section-mistakes">
+    <h2>⚠️ 10 Common Language Mistakes CBT Therapists Make</h2>
+    <p>Each one explained with the wrong way and the CBT-correct way.</p>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">1</span> Saying "emotion regulation" when you mean "cognitive restructuring"</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">These are fundamentally different approaches. CBT changes the <em>thoughts</em> that generate the emotion. DBT teaches skills to <em>tolerate and modulate</em> the emotion itself.</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "We'll work on your emotion regulation skills for the anxiety."</div>
+    <div class="right-way"><strong>CBT:</strong> "We'll identify and challenge the automatic thoughts that are driving your anxiety."</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">2</span> Saying "grounding techniques" when you mean "behavioral experiments for anxiety"</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">Grounding (5-4-3-2-1, body scans) manages in-the-moment distress. Behavioral experiments test and change the beliefs causing the anxiety.</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "Let's try some grounding techniques to help with your social anxiety."</div>
+    <div class="right-way"><strong>CBT:</strong> "Let's design a behavioral experiment to test your prediction that people will judge you negatively."</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">3</span> Saying "coping skills" when you should specify the actual CBT technique</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">"Coping skills" is an umbrella term that says nothing about what you're actually doing.</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "We'll build your coping skills for depression."</div>
+    <div class="right-way"><strong>CBT:</strong> "We'll use behavioral activation to increase rewarding activities, and cognitive restructuring to address the negative automatic thoughts maintaining your depression."</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">4</span> Saying "reframing" instead of "developing an alternative/balanced thought"</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">"Reframing" implies the therapist provides a new frame. CBT is collaborative: the client examines evidence and develops their own balanced perspective.</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "Let me help you reframe that situation."</div>
+    <div class="right-way"><strong>CBT:</strong> "Let's examine the evidence for and against this thought and see if we can develop a more balanced alternative."</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">5</span> Saying "explore your feelings" instead of identifying the cognitions</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">"Exploring feelings" is process-experiential / humanistic language. CBT targets the automatic thoughts <em>driving</em> the feelings.</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "Let's explore what you're feeling about that."</div>
+    <div class="right-way"><strong>CBT:</strong> "What was going through your mind when you started feeling that way? Let's identify the automatic thoughts."</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">6</span> Saying "behavioral activation" when you mean "exposure" or "behavioral experiment"</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">Behavioral activation is specifically for depression (scheduling rewarding activities). Exposure and behavioral experiments are for anxiety (facing feared situations to test predictions).</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "Let's use behavioral activation for your social anxiety — getting you out to more events."</div>
+    <div class="right-way"><strong>CBT:</strong> "Let's build a graded exposure hierarchy for your social anxiety, starting with lower-anxiety situations and working up."</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">7</span> Saying "mindfulness" when you mean "self-monitoring" or "metacognitive awareness"</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">In CBT, the goal of noticing thoughts is to <em>identify and evaluate</em> them, not to observe them non-judgmentally (which is the mindfulness/DBT approach).</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "Practice mindfulness with your thoughts this week."</div>
+    <div class="right-way"><strong>CBT:</strong> "Practice self-monitoring this week — when you notice a mood shift, write down the automatic thought that preceded it."</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">8</span> Calling homework "things to practice" without specific prediction/measurement</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">CBT homework is specific, measurable, and tied to the session's cognitive conceptualization.</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "This week, try to be more positive and notice good things."</div>
+    <div class="right-way"><strong>CBT:</strong> "This week, complete three thought records when you notice your mood dropping. Record the situation, automatic thought, emotion, evidence for/against, and balanced thought."</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">9</span> Saying "trauma processing" when you mean "cognitive restructuring of trauma-related appraisals"</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">"Trauma processing" is vague and could mean EMDR, prolonged exposure, narrative therapy, or anything. In CBT for PTSD, the focus is on the specific appraisals.</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "We need to process your trauma."</div>
+    <div class="right-way"><strong>CBT:</strong> "We need to identify and restructure the trauma-related appraisals that are maintaining your PTSD — specifically the beliefs about self-blame and the world being entirely dangerous."</div>
+  </div>
+
+  <div class="mistake-card">
+    <div class="mistake-title"><span class="mistake-number">10</span> Saying "building self-esteem" instead of "modifying the core belief about self"</div>
+    <p style="color:#94a3b8; font-size:14px; margin-bottom:8px;">"Building self-esteem" is vague and doesn't specify a mechanism. CBT targets the specific negative core belief (e.g., "I'm inadequate") and works to modify it through evidence evaluation and behavioral experiments.</p>
+    <div class="wrong-way"><strong>Wrong:</strong> "We're going to work on building your self-esteem."</div>
+    <div class="right-way"><strong>CBT:</strong> "We're going to identify your core belief about yourself — which seems to be 'I'm inadequate' — and work to modify it by examining the evidence and running behavioral experiments."</div>
+  </div>
+
+  <!-- SECTION 4: CBT TECHNIQUE GLOSSARY -->
+  <div class="card section-glossary">
+    <h2>📖 CBT Technique Glossary — 20 Key Techniques</h2>
+    <p>Quick-reference definitions. Know these cold.</p>
+
+    <div class="glossary-grid">
+      <div class="glossary-item">
+        <div class="glossary-term">1. Thought Record</div>
+        <div class="glossary-def">Structured form for capturing situations, automatic thoughts, emotions, evidence for/against, and balanced alternative thoughts. The core CBT tool.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">2. Downward Arrow</div>
+        <div class="glossary-def">Technique for uncovering deeper beliefs by repeatedly asking "If that were true, what would that mean about you?" until reaching the core belief.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">3. Behavioral Experiment</div>
+        <div class="glossary-def">Planned experiential activity to test the validity of a specific belief or prediction. Client makes a prediction, tests it, and compares outcome to prediction.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">4. Graded Exposure</div>
+        <div class="glossary-def">Systematic, hierarchical confrontation with feared stimuli, progressing from lower to higher anxiety-provoking situations.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">5. Cognitive Restructuring</div>
+        <div class="glossary-def">The process of identifying, evaluating, and modifying distorted automatic thoughts and beliefs through evidence examination and alternative perspective development.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">6. Socratic Questioning</div>
+        <div class="glossary-def">Guided questioning style where the therapist asks questions to help clients discover answers themselves, rather than telling them directly.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">7. Guided Discovery</div>
+        <div class="glossary-def">Collaborative exploration process using Socratic questions and behavioral experiments to help clients arrive at new understanding. Broader than Socratic questioning alone.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">8. Activity Scheduling</div>
+        <div class="glossary-def">Planning specific activities (especially pleasurable and mastery activities) to counteract behavioral withdrawal in depression.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">9. Behavioral Activation</div>
+        <div class="glossary-def">Systematic approach to increasing engagement with rewarding activities to break the depression cycle. Based on the principle that action precedes motivation.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">10. Psychoeducation</div>
+        <div class="glossary-def">Teaching clients about their disorder and the CBT model — how thoughts, feelings, and behaviors interact. Foundational to informed collaboration.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">11. Cognitive Continuum</div>
+        <div class="glossary-def">Visual spectrum used to challenge all-or-nothing beliefs by placing self and others on a dimensional scale rather than in binary categories.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">12. Pie Chart Technique</div>
+        <div class="glossary-def">Visual tool for examining responsibility or causation. Client draws a pie chart assigning percentages to all possible causes, reducing disproportionate self-blame.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">13. Role Play</div>
+        <div class="glossary-def">In-session rehearsal of difficult situations to practice new cognitive and behavioral skills before real-world application.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">14. Imagery Rescripting</div>
+        <div class="glossary-def">Experiential technique modifying distressing mental images (often childhood memories) by introducing the adult self to intervene and provide corrective experience.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">15. Attention Training</div>
+        <div class="glossary-def">Metacognitive technique (Wells) for reducing self-focused attention by training selective attention, attention switching, and divided attention.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">16. Survey Method</div>
+        <div class="glossary-def">Behavioral experiment where client collects data from others to test a belief (e.g., asking friends "Do you ever feel like a fraud?" to test the uniqueness of imposter thoughts).</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">17. Video Feedback</div>
+        <div class="glossary-def">Recording client in a feared social situation and reviewing the footage to compare their self-image prediction with observable reality. Powerful for social anxiety.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">18. Response Prevention</div>
+        <div class="glossary-def">Deliberately preventing safety behaviors or compulsions after exposure to feared stimuli, allowing anxiety to naturally habituate.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">19. Problem-Solving Training</div>
+        <div class="glossary-def">Structured approach: define the problem, brainstorm solutions, evaluate pros/cons, select and implement the best option, review outcome.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">20. Relapse Prevention</div>
+        <div class="glossary-def">End-of-therapy planning: identifying warning signs, high-risk situations, and creating a concrete action plan to maintain gains and respond to setbacks.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: PRACTICE - TRANSLATE INTO CBT LANGUAGE -->
+  <div class="card section-practice">
+    <h2>✏️ Practice: Translate These Into CBT Language</h2>
+    <p>For each statement a therapist might say in general language, "translate" it to proper CBT language. Click to reveal the model answer.</p>
+
+    <div class="translation-box">
+      <div class="general-label">General Language</div>
+      <p><strong>"Try to think more positively about it."</strong></p>
+    </div>
+    <details>
+      <summary>Reveal CBT Translation</summary>
+      <div class="answer">
+        <div class="cbt-label">CBT Language</div>
+        "Let's examine the evidence for and against this thought using a thought record, and see if we can develop a more balanced perspective that accounts for all the evidence — not just the negative."
+      </div>
+    </details>
+
+    <div class="translation-box">
+      <div class="general-label">General Language</div>
+      <p><strong>"You need to learn to cope with your anxiety better."</strong></p>
+    </div>
+    <details>
+      <summary>Reveal CBT Translation</summary>
+      <div class="answer">
+        <div class="cbt-label">CBT Language</div>
+        "We need to identify the catastrophic predictions your mind is making and test them through behavioral experiments. We'll also build a graded exposure hierarchy to systematically reduce your avoidance."
+      </div>
+    </details>
+
+    <div class="translation-box">
+      <div class="general-label">General Language</div>
+      <p><strong>"Let's explore why you feel so bad about yourself."</strong></p>
+    </div>
+    <details>
+      <summary>Reveal CBT Translation</summary>
+      <div class="answer">
+        <div class="cbt-label">CBT Language</div>
+        "Let's use the downward arrow technique to identify the core belief underlying your self-critical automatic thoughts. What was going through your mind? And if that were true, what would it mean about you?"
+      </div>
+    </details>
+
+    <div class="translation-box">
+      <div class="general-label">General Language</div>
+      <p><strong>"Maybe keep a journal about your moods this week."</strong></p>
+    </div>
+    <details>
+      <summary>Reveal CBT Translation</summary>
+      <div class="answer">
+        <div class="cbt-label">CBT Language</div>
+        "For homework, I'd like you to complete a thought record each time you notice a significant mood shift. Capture the situation, the automatic thought, the emotion and its intensity, the evidence for and against the thought, and any alternative balanced thought you can generate."
+      </div>
+    </details>
+
+    <div class="translation-box">
+      <div class="general-label">General Language</div>
+      <p><strong>"You should push yourself to go out even when you don't feel like it."</strong></p>
+    </div>
+    <details>
+      <summary>Reveal CBT Translation</summary>
+      <div class="answer">
+        <div class="cbt-label">CBT Language</div>
+        "Let's use behavioral activation — we'll schedule specific pleasurable and mastery activities for this week. The principle is that action precedes motivation; we don't wait to feel motivated before acting. Rate your predicted enjoyment before and your actual enjoyment after each activity."
+      </div>
+    </details>
+
+    <div class="translation-box">
+      <div class="general-label">General Language</div>
+      <p><strong>"Let's do some work around your self-esteem."</strong></p>
+    </div>
+    <details>
+      <summary>Reveal CBT Translation</summary>
+      <div class="answer">
+        <div class="cbt-label">CBT Language</div>
+        "It sounds like you may have a negative core belief about yourself. Let's identify what that core belief is — perhaps 'I'm not good enough' or 'I'm defective' — and then systematically examine the evidence. We'll use a positive data log to track evidence that contradicts the belief, and design behavioral experiments to test it."
+      </div>
+    </details>
+
+    <div class="translation-box">
+      <div class="general-label">General Language</div>
+      <p><strong>"Try some deep breathing when you feel panicky."</strong></p>
+    </div>
+    <details>
+      <summary>Reveal CBT Translation</summary>
+      <div class="answer">
+        <div class="cbt-label">CBT Language</div>
+        "When you notice panic sensations, let's focus on what your mind is predicting — 'I'm going to faint,' 'I'm having a heart attack.' We'll evaluate the evidence for these catastrophic interpretations and design interoceptive exposure exercises to show you that the sensations themselves are not dangerous."<br><br>
+        <em>Note: In CBT for panic, deep breathing can actually become a safety behavior that maintains the problem. The goal is to change the catastrophic interpretation of bodily sensations, not to suppress them.</em>
+      </div>
+    </details>
+
+    <div class="translation-box">
+      <div class="general-label">General Language</div>
+      <p><strong>"Let's process the trauma you experienced."</strong></p>
+    </div>
+    <details>
+      <summary>Reveal CBT Translation</summary>
+      <div class="answer">
+        <div class="cbt-label">CBT Language</div>
+        "We need to identify and restructure the trauma-related appraisals that are maintaining your PTSD — for example, 'It was my fault,' 'The world is completely dangerous,' or 'I should have been able to prevent it.' We'll examine the evidence for these beliefs and develop a more accurate understanding of what happened and why."
+      </div>
+    </details>
+  </div>
+
+  <!-- SECTION 6: THIRD-WAVE APPROACHES -->
+  <div class="card section-waves">
+    <h2>🌊 How CBT Relates to Third-Wave Approaches</h2>
+    <p>These are all part of the broader CBT family, but each has a distinct emphasis. Knowing where each fits helps you be precise about what you're doing.</p>
+
+    <div class="big-table-wrapper">
+      <table class="wave-table">
+        <thead>
+          <tr>
+            <th>Approach</th>
+            <th>Relationship to CBT</th>
+            <th>Key Distinction</th>
+            <th>When to Consider</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CBT</strong><br><em>(Beck, 1960s)</em></td>
+            <td>The foundation</td>
+            <td>Change the <em>content</em> of thoughts</td>
+            <td>Depression, anxiety, PTSD — the default starting point</td>
+          </tr>
+          <tr>
+            <td><strong>ACT</strong><br><em>(Hayes, 1980s)</em></td>
+            <td>Third-wave extension</td>
+            <td>Change the <em>relationship</em> to thoughts (defusion, acceptance) rather than the content</td>
+            <td>When thought challenging increases rumination; chronic pain; values-based work</td>
+          </tr>
+          <tr>
+            <td><strong>Schema Therapy</strong><br><em>(Young, 1990s)</em></td>
+            <td>CBT extension for deeper work</td>
+            <td>Targets early maladaptive schemas using experiential techniques (imagery, chair work, limited reparenting)</td>
+            <td>Personality disorders, chronic/treatment-resistant depression, when standard CBT restructuring isn't reaching core beliefs</td>
+          </tr>
+          <tr>
+            <td><strong>CFT</strong><br><em>(Gilbert, 2000s)</em></td>
+            <td>Third-wave; integrates evolutionary psychology</td>
+            <td>Focuses on developing self-compassion to counteract shame and self-criticism; works with emotion regulation systems (threat, drive, soothing)</td>
+            <td>High shame, severe self-criticism, when clients "know" the rational answer but feel undeserving</td>
+          </tr>
+          <tr>
+            <td><strong>MBCT</strong><br><em>(Segal, Williams, Teasdale, 2000s)</em></td>
+            <td>CBT + mindfulness meditation</td>
+            <td>Teaches mindful awareness of thoughts as "mental events" rather than facts; prevents depressive relapse through decentering</td>
+            <td>Relapse prevention in recurrent depression (3+ episodes); rumination-dominant presentations</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight-box">
+      <strong>💡 The key point:</strong> These are all in the CBT family. If you use an ACT technique, say "I used cognitive defusion" (ACT) — don't call it "cognitive restructuring" (CBT). If you use imagery rescripting, you can frame it as CBT <em>or</em> Schema Therapy, but not as "processing." Precision matters.
+    </div>
+  </div>
+
+  <!-- MINI-TEST -->
+  <div class="card section-test">
+    <h2>📝 Mini-Test</h2>
+    <p>Test your understanding. Try to answer before revealing.</p>
+
+    <p><span class="q-number">1</span><strong>"Translate" these general therapy statements into CBT language:</strong></p>
+    <p><strong>A.</strong> "Let's work on building your confidence."</p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">"Let's identify the specific core belief about yourself that's undermining your confidence — likely something like 'I'm incompetent.' We'll examine the evidence using thought records, use a positive data log to track contradictory evidence, and design behavioral experiments to test the belief in real situations."</div>
+    </details>
+    <p><strong>B.</strong> "Try to use your coping skills when you're stressed."</p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">"When you notice your stress increasing, use self-monitoring to catch the automatic thoughts driving it. Complete a thought record to identify the cognitive distortion, evaluate the evidence, and develop a balanced alternative. If the situation calls for action, use the problem-solving framework we practiced."</div>
+    </details>
+    <p><strong>C.</strong> "Let's do some grounding to help with your anxiety."</p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">"Let's identify what your anxiety is predicting will happen — the catastrophic automatic thought — and design a behavioral experiment to test that prediction. The goal isn't to manage the anxiety in the moment but to change the belief that's generating it."<br><br><em>(Note: If acute distress management is truly needed in-session, that's appropriate — but call it what it is and be clear that it's not the primary CBT intervention.)</em></div>
+    </details>
+
+    <p><span class="q-number">2</span><strong>Multiple choice: Which of these is a CBT technique?</strong></p>
+    <p>A. Free association<br>B. Downward arrow technique<br>C. Empty chair work (pure Gestalt form)<br>D. Unconditional positive regard</p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer"><strong>B. Downward arrow technique.</strong><br><br>
+      A = Psychodynamic/psychoanalytic<br>
+      C = Gestalt therapy (note: chair work <em>adapted into CBT/Schema Therapy</em> is CBT, but the traditional Gestalt empty chair is a different modality)<br>
+      D = Person-centered/humanistic therapy (Rogers)</div>
+    </details>
+
+    <p><span class="q-number">3</span><strong>Identify the CBT-appropriate and "general therapy drift" statements in this session transcript excerpt:</strong></p>
+    <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px 20px; margin: 12px 0;">
+      <div class="transcript-line transcript-good">
+        <strong>T:</strong> "What was going through your mind when your boss gave you that feedback?"
+      </div>
+      <div class="transcript-line transcript-bad">
+        <strong>T:</strong> "How did that make you feel? Let's sit with that feeling for a moment."
+      </div>
+      <div class="transcript-line transcript-good">
+        <strong>T:</strong> "What's the evidence that your boss thinks you're incompetent?"
+      </div>
+      <div class="transcript-line transcript-bad">
+        <strong>T:</strong> "Try to reframe it — maybe he was just having a bad day."
+      </div>
+      <div class="transcript-line transcript-good">
+        <strong>T:</strong> "If it were true that you're incompetent, what would that mean about you? What's the deeper belief?"
+      </div>
+      <div class="transcript-line transcript-bad">
+        <strong>T:</strong> "Let's work on some coping strategies for when you feel criticized."
+      </div>
+    </div>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        <strong style="color:#34d399;">CBT-Appropriate (green lines):</strong><br>
+        1. "What was going through your mind..." — Classic automatic thought identification<br>
+        3. "What's the evidence..." — Cognitive restructuring / evidence examination<br>
+        5. "If it were true... what would that mean..." — Downward arrow technique<br><br>
+        <strong style="color:#f87171;">General Therapy Drift (red lines):</strong><br>
+        2. "Let's sit with that feeling" — Process-experiential/emotion-focused, not CBT. CBT would ask "What thought accompanied that feeling?"<br>
+        4. "Try to reframe it" — Vague, and the therapist is providing the reframe instead of guiding the client. Should be: "Let's look at all the possible explanations for his feedback."<br>
+        6. "Coping strategies" — Vague. Should specify: "Let's restructure the belief about criticism that's causing your distress" or "Let's design a behavioral experiment to test what actually happens when you receive feedback."
+      </div>
+    </details>
+
+    <p><span class="q-number">4</span><strong>Match each technique to its correct definition:</strong></p>
+    <table>
+      <tr><th>Technique</th><th>Definition</th></tr>
+      <tr><td>A. Behavioral activation</td><td>1. Asking "What would that mean?" repeatedly to reach core beliefs</td></tr>
+      <tr><td>B. Survey method</td><td>2. Recording situations, thoughts, emotions, evidence, and balanced thoughts</td></tr>
+      <tr><td>C. Thought record</td><td>3. Collecting data from others to test a belief</td></tr>
+      <tr><td>D. Downward arrow</td><td>4. Scheduling rewarding activities to counteract depression withdrawal</td></tr>
+      <tr><td>E. Response prevention</td><td>5. Visual tool assigning percentages to all causes to reduce self-blame</td></tr>
+      <tr><td>F. Pie chart technique</td><td>6. Preventing safety behaviors after exposure to allow natural habituation</td></tr>
+    </table>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        A → 4 (Behavioral activation = scheduling rewarding activities for depression)<br>
+        B → 3 (Survey method = collecting data from others)<br>
+        C → 2 (Thought record = the structured recording tool)<br>
+        D → 1 (Downward arrow = reaching core beliefs through repeated "what would that mean?")<br>
+        E → 6 (Response prevention = preventing safety behaviors after exposure)<br>
+        F → 5 (Pie chart = visual percentages for attributions)
+      </div>
+    </details>
+
+    <p><span class="q-number">5</span><strong>A therapist says: "Let's work on your emotion regulation skills and do some grounding." What should they say instead in a CBT framework?</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        This statement uses DBT language ("emotion regulation skills") and general therapy language ("grounding"). In a CBT framework, the therapist should first clarify what the clinical goal actually is:<br><br>
+        <strong>If the goal is to reduce anxiety:</strong> "Let's identify the automatic thoughts driving your anxiety and examine the evidence. Then we'll design a behavioral experiment to test your catastrophic prediction."<br><br>
+        <strong>If the goal is to address depression:</strong> "Let's challenge the negative automatic thoughts maintaining your low mood using a thought record, and schedule some specific activities using behavioral activation."<br><br>
+        <strong>If the goal is to manage overwhelming emotions in-session:</strong> You can use a brief stabilization technique, but name it honestly: "Let's pause for a moment to reduce your distress level so we can continue our cognitive work." Then return to the CBT intervention — don't let the stabilization technique become the intervention itself.
+      </div>
+    </details>
+
+    <p><span class="q-number">6</span><strong>What is the difference between "guided discovery" and "Socratic questioning"?</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        <strong>Socratic questioning</strong> is a specific questioning technique — asking strategically sequenced questions to help clients examine their own thinking and arrive at conclusions themselves, rather than being told.<br><br>
+        <strong>Guided discovery</strong> is the broader collaborative process that <em>includes</em> Socratic questioning but also encompasses behavioral experiments, in-session demonstrations, and other methods of helping clients discover new perspectives through experience.<br><br>
+        Think of it this way: Socratic questioning is one tool within guided discovery. Guided discovery is the overall collaborative stance.
+      </div>
+    </details>
+
+    <p><span class="q-number">7</span><strong>A trainee says: "I did cognitive restructuring with my client — I taught them to observe their thoughts without judgment and let them pass." What's wrong with this description?</strong></p>
+    <details>
+      <summary>Reveal Answer</summary>
+      <div class="answer">
+        This is <strong>not</strong> cognitive restructuring. What the trainee describes is <strong>cognitive defusion</strong> (ACT) or <strong>mindful observation</strong> (MBCT/DBT) — relating to thoughts differently without trying to change their content.<br><br>
+        <strong>Cognitive restructuring</strong> involves actively evaluating and modifying the thought's content: examining evidence, identifying distortions, and developing a balanced alternative thought.<br><br>
+        The distinction matters:
+        <ul style="margin-top:8px;">
+          <li><strong>Cognitive restructuring (CBT):</strong> "Is this thought accurate? What's the evidence? What's a more balanced way to think about this?"</li>
+          <li><strong>Cognitive defusion (ACT):</strong> "Notice the thought. It's just a thought, not a fact. Let it be there without engaging with it."</li>
+        </ul>
+        Both are valid approaches, but they are <em>different techniques from different models</em>. Calling defusion "restructuring" is a significant terminology error.
+      </div>
+    </details>
+  </div>
+
+  <!-- LESSON COMPLETE -->
+  <div class="card section-complete">
+    <div class="complete-section">
+      <h2>✅ Lesson Complete</h2>
+      <p style="color: #94a3b8; margin-top: 8px;">Self-check: Can you confidently say yes to each of these?</p>
+      <ul class="checklist">
+        <li>I can distinguish CBT terms from DBT terms and general therapy language</li>
+        <li>I can identify and correct all 10 common language mistakes</li>
+        <li>I can define 20 core CBT techniques from memory</li>
+        <li>I can "translate" vague therapy language into precise CBT language</li>
+        <li>I know where CBT, ACT, Schema Therapy, CFT, and MBCT fit in relation to each other</li>
+        <li>I use the correct term for the correct technique — every time</li>
+      </ul>
+      <p style="color: #64748b; margin-top: 20px; font-size: 14px;">Language precision is a habit. Start correcting yourself this week — in notes, in supervision, in your own thinking.</p>
+    </div>
+  </div>
+
+  <!-- FINAL SCORED EXAM -->
+  <style>
+    .exam-section { background: linear-gradient(135deg, #1a1d2e, #16213e); border-radius: 16px; border: 1px solid rgba(99,102,241,0.3); padding: 32px; margin-top: 40px; }
+    .exam-q { padding: 16px; margin: 12px 0; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 3px solid #6366f1; }
+    .exam-q.correct { border-left-color: #4ade80; background: rgba(34,197,94,0.05); }
+    .exam-q.wrong { border-left-color: #f87171; background: rgba(239,68,68,0.05); }
+    .exam-q label { display: block; padding: 8px 12px; margin: 4px 0; border-radius: 6px; cursor: pointer; font-size: 0.92rem; color: #cbd5e1; }
+    .exam-q label:hover { background: rgba(99,102,241,0.1); }
+    .exam-q .q-title { font-weight: 600; color: #e2e8f0; margin-bottom: 10px; }
+    .exam-result { padding: 24px; border-radius: 12px; margin-top: 20px; text-align: center; }
+    .result-pass { background: rgba(34,197,94,0.15); border: 2px solid #4ade80; color: #4ade80; }
+    .result-almost { background: rgba(251,191,36,0.15); border: 2px solid #fbbf24; color: #fbbf24; }
+    .result-fail { background: rgba(239,68,68,0.15); border: 2px solid #f87171; color: #f87171; }
+    .submit-exam-btn { display: block; margin: 20px auto; padding: 14px 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .submit-exam-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(99,102,241,0.4); }
+    .copy-btn { display: block; margin: 12px auto; padding: 10px 30px; background: rgba(255,255,255,0.1); color: #818cf8; border: 1px solid #818cf8; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .exam-correction { font-size: 0.85rem; color: #94a3b8; margin-top: 8px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 6px; display: none; }
+  </style>
+
+  <div class="exam-section" id="examSection8">
+    <h2 style="text-align:center; color:#e2e8f0; margin-bottom: 8px;">🎓 FINAL EXAM — Are You Ready to Proceed?</h2>
+    <p style="text-align:center; color:#94a3b8; margin-bottom: 24px;">Score ≥85% to pass. All questions based on Lesson 8 content.</p>
+
+    <div class="exam-q" id="eq8_1">
+      <div class="q-title">Q1: A therapist says "Let's work on your emotion regulation skills." In CBT, they should say:</div>
+      <label><input type="radio" name="examq1" value="a"> a) "Let's work on your coping mechanisms"</label>
+      <label><input type="radio" name="examq1" value="b"> b) "Let's identify and challenge the automatic thoughts driving your emotions"</label>
+      <label><input type="radio" name="examq1" value="c"> c) "Let's do some grounding exercises"</label>
+      <label><input type="radio" name="examq1" value="d"> d) "Let's practice mindfulness"</label>
+      <div class="exam-correction" id="corr8_1"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_2">
+      <div class="q-title">Q2: "Behavioral activation" is CORRECTLY used for:</div>
+      <label><input type="radio" name="examq2" value="a"> a) Facing feared situations in social anxiety</label>
+      <label><input type="radio" name="examq2" value="b"> b) Testing whether a specific belief is true</label>
+      <label><input type="radio" name="examq2" value="c"> c) Scheduling pleasurable and mastery activities to break the depression withdrawal cycle</label>
+      <label><input type="radio" name="examq2" value="d"> d) Any kind of behavioral homework</label>
+      <div class="exam-correction" id="corr8_2"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_3">
+      <div class="q-title">Q3: The CBT term for "reframing" is:</div>
+      <label><input type="radio" name="examq3" value="a"> a) Positive thinking</label>
+      <label><input type="radio" name="examq3" value="b"> b) Cognitive restructuring / developing an alternative balanced thought</label>
+      <label><input type="radio" name="examq3" value="c"> c) Mindful acceptance</label>
+      <label><input type="radio" name="examq3" value="d"> d) Emotional processing</label>
+      <div class="exam-correction" id="corr8_3"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_4">
+      <div class="q-title">Q4: Which of these is a CBT technique (not borrowed from another modality)?</div>
+      <label><input type="radio" name="examq4" value="a"> a) Distress tolerance (TIPP skills)</label>
+      <label><input type="radio" name="examq4" value="b"> b) Free association</label>
+      <label><input type="radio" name="examq4" value="c"> c) Behavioral experiment with prediction testing</label>
+      <label><input type="radio" name="examq4" value="d"> d) Unconditional positive regard</label>
+      <div class="exam-correction" id="corr8_4"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_5">
+      <div class="q-title">Q5: "Journaling" in CBT should more precisely be called:</div>
+      <label><input type="radio" name="examq5" value="a"> a) Free writing</label>
+      <label><input type="radio" name="examq5" value="b"> b) Diary card</label>
+      <label><input type="radio" name="examq5" value="c"> c) Thought record (structured, with specific columns and ratings)</label>
+      <label><input type="radio" name="examq5" value="d"> d) Reflective practice</label>
+      <div class="exam-correction" id="corr8_5"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_6">
+      <div class="q-title">Q6: A therapist says "Let's explore your feelings about this." The CBT-correct version is:</div>
+      <label><input type="radio" name="examq6" value="a"> a) "Let's talk about your childhood experiences with this"</label>
+      <label><input type="radio" name="examq6" value="b"> b) "Let's identify the automatic thoughts that are driving this emotion"</label>
+      <label><input type="radio" name="examq6" value="c"> c) "Let's practice acceptance of this feeling"</label>
+      <label><input type="radio" name="examq6" value="d"> d) "Let's analyze your defense mechanisms"</label>
+      <div class="exam-correction" id="corr8_6"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_7">
+      <div class="q-title">Q7: "Opposite action" is a technique from:</div>
+      <label><input type="radio" name="examq7" value="a"> a) CBT</label>
+      <label><input type="radio" name="examq7" value="b"> b) DBT</label>
+      <label><input type="radio" name="examq7" value="c"> c) Psychodynamic therapy</label>
+      <label><input type="radio" name="examq7" value="d"> d) Person-centered therapy</label>
+      <div class="exam-correction" id="corr8_7"></div>
+    </div>
+
+    <div class="exam-q" id="eq8_8">
+      <div class="q-title">Q8: Schema Therapy, ACT, CFT, and MBCT are all:</div>
+      <label><input type="radio" name="examq8" value="a"> a) Completely separate from CBT</label>
+      <label><input type="radio" name="examq8" value="b"> b) Psychodynamic approaches</label>
+      <label><input type="radio" name="examq8" value="c"> c) Third-wave approaches within the broader CBT family</label>
+      <label><input type="radio" name="examq8" value="d"> d) Humanistic therapies</label>
+      <div class="exam-correction" id="corr8_8"></div>
+    </div>
+
+    <button class="submit-exam-btn" onclick="gradeExam8()">Submit Exam</button>
+    <div id="examResult8"></div>
+  </div>
+
+  <script>
+  function gradeExam8() {
+    const answers = {examq1:'b', examq2:'c', examq3:'b', examq4:'c', examq5:'c', examq6:'b', examq7:'b', examq8:'c'};
+    const explanations = {
+      examq1: 'Correct answer: B — In CBT, we identify and challenge automatic thoughts driving emotions, not "regulate emotions" (a DBT term).',
+      examq2: 'Correct answer: C — Behavioral activation specifically means scheduling pleasurable and mastery activities to break the depression withdrawal cycle.',
+      examq3: 'Correct answer: B — The precise CBT term is cognitive restructuring / developing an alternative balanced thought.',
+      examq4: 'Correct answer: C — Behavioral experiments with prediction testing are a core CBT technique. TIPP is DBT, free association is psychodynamic, UPR is person-centered.',
+      examq5: 'Correct answer: C — In CBT, "journaling" is a thought record — structured with specific columns and ratings.',
+      examq6: 'Correct answer: B — CBT targets the automatic thoughts driving the emotion, not the feeling itself.',
+      examq7: 'Correct answer: B — Opposite action is a DBT technique, not CBT.',
+      examq8: 'Correct answer: C — These are all third-wave approaches within the broader CBT family.'
+    };
+    let score = 0;
+    let total = 8;
+    for (let i = 1; i <= total; i++) {
+      const key = 'examq' + i;
+      const selected = document.querySelector('input[name="'+key+'"]:checked');
+      const qDiv = document.getElementById('eq8_' + i);
+      const corrDiv = document.getElementById('corr8_' + i);
+      qDiv.classList.remove('correct','wrong');
+      if (selected && selected.value === answers[key]) {
+        score++;
+        qDiv.classList.add('correct');
+        corrDiv.style.display = 'block';
+        corrDiv.innerHTML = '✅ Correct!';
+      } else {
+        qDiv.classList.add('wrong');
+        corrDiv.style.display = 'block';
+        corrDiv.innerHTML = '❌ ' + explanations[key];
+      }
+    }
+    const pct = Math.round((score/total)*100);
+    const resultDiv = document.getElementById('examResult8');
+    let cls, msg, status;
+    if (score >= 7) { cls='result-pass'; msg='✅ MASTERY ACHIEVED — Proceed to next lesson!'; status='PASSED'; }
+    else if (score >= 5) { cls='result-almost'; msg='⚠️ ALMOST THERE — Review missed topics, then retake.'; status='FAILED'; }
+    else { cls='result-fail'; msg='🔄 NOT YET — Re-study this lesson before moving on.'; status='FAILED'; }
+    resultDiv.innerHTML = '<div class="exam-result '+cls+'"><h3 style="margin:0 0 8px;">'+score+'/'+total+' ('+pct+'%)</h3><p style="margin:0;">'+msg+'</p></div>' +
+      '<button class="copy-btn" onclick="copyResult8('+score+','+pct+',\''+status+'\')">Copy Results</button>';
+  }
+  function copyResult8(score, pct, status) {
+    const text = 'Lesson 8: '+score+'/8 ('+pct+'%) — '+status;
+    navigator.clipboard.writeText(text).then(()=>{
+      const btn = document.querySelector('#examResult8 .copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(()=>{ btn.textContent = 'Copy Results'; }, 2000);
+    });
+  }
+  </script>
+
+</div>
+</body>
+</html>
